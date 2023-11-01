@@ -1,11 +1,11 @@
 package com.sec.gen.next.backend.security.config;
 
-import com.sec.gen.next.backend.security.api.internal.ClaimsUser;
+import com.sec.gen.next.backend.api.internal.ClaimsUser;
 import com.sec.gen.next.backend.security.builder.Builder;
 import com.sec.gen.next.backend.security.builder.SupportedRegistrationSources;
 import com.sec.gen.next.backend.security.builder.UserBuilder;
 import com.sec.gen.next.backend.security.service.AuthenticationService;
-import com.sec.gen.next.backend.service.user.service.UserService;
+import com.sec.gen.next.backend.user.service.UserService;
 import jakarta.servlet.Filter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;

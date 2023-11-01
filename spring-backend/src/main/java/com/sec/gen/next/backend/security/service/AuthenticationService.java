@@ -1,11 +1,11 @@
 package com.sec.gen.next.backend.security.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sec.gen.next.backend.security.api.exception.ServiceException;
-import com.sec.gen.next.backend.security.api.internal.ClaimsUser;
-import com.sec.gen.next.backend.security.api.internal.RegisterSource;
+import com.sec.gen.next.backend.api.exception.ServiceException;
+import com.sec.gen.next.backend.api.internal.ClaimsUser;
+import com.sec.gen.next.backend.api.internal.RegisterSource;
 import com.sec.gen.next.backend.security.builder.Builder;
-import com.sec.gen.next.backend.service.user.service.UserService;
+import com.sec.gen.next.backend.user.service.UserService;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-import static com.sec.gen.next.backend.security.api.exception.Error.NO_SOURCE_HEADER_INFO;
+import static com.sec.gen.next.backend.api.exception.Error.NO_SOURCE_HEADER_INFO;
 import static java.util.Objects.isNull;
 
 @Slf4j
@@ -65,7 +65,7 @@ public class AuthenticationService implements Filter {
         }
     }
 
-    private RegisterSource resolveRegistrationSource(ServletRequest servletRequest) throws ServletException {
+    private RegisterSource resolveRegistrationSource(ServletRequest servletRequest) {
         return Optional.ofNullable(servletRequest)
                 .map(servletRequest1 -> (HttpServletRequest) servletRequest1)
                 .map(rq -> rq.getHeader(REGISTRATION_SOURCE_KEY))
@@ -74,7 +74,7 @@ public class AuthenticationService implements Filter {
                 .orElseThrow(() -> new ServiceException(NO_SOURCE_HEADER_INFO));
     }
 
-    private Object resolvePrincipal() throws ServletException {
+    private Object resolvePrincipal() {
         return Optional.ofNullable(SecurityContextHolder.getContext())
                 .map(SecurityContext::getAuthentication)
                 .map(Authentication::getPrincipal)
