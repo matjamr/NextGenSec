@@ -3,12 +3,16 @@ package com.sec.gen.next.backend.user.service;
 import com.sec.gen.next.backend.api.exception.Error;
 import com.sec.gen.next.backend.api.exception.ServiceException;
 import com.sec.gen.next.backend.api.external.AdditionalInformationUpdateModel;
+import com.sec.gen.next.backend.api.external.UserModel;
 import com.sec.gen.next.backend.api.internal.ClaimsUser;
 import com.sec.gen.next.backend.api.internal.RegisterSource;
 import com.sec.gen.next.backend.api.internal.User;
 import com.sec.gen.next.backend.security.builder.Builder;
+import com.sec.gen.next.backend.user.mapper.UserMapper;
 import com.sec.gen.next.backend.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
 
 
 @RequiredArgsConstructor
@@ -17,11 +21,11 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final Builder<User, User> usertoDbBuilder;
     private final Builder<ClaimsUser, User> claimsToUserBuilder;
-
+    private final UserMapper userMapper;
 
     @Override
-    public void save(User userModel) {
-
+    public User save(UserModel userModel) {
+        return userRepository.save(userMapper.from(userModel));
     }
 
     @Override
@@ -49,6 +53,11 @@ public class UserServiceImpl implements UserService {
     public User verify(ClaimsUser claimsUser) {
         return userRepository.findUserByEmail(claimsUser.getEmail())
                 .orElseThrow(() -> new ServiceException(Error.INVALID_USER_DATA));
+    }
+
+    @Override
+    public List<UserModel> findAll() {
+        return userRepository.findAll().stream().map(userMapper::from).toList();
     }
 
     private void registerUser(ClaimsUser claimsUser) {

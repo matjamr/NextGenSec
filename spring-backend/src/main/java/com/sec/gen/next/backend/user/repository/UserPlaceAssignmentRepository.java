@@ -1,4 +1,4 @@
-package com.sec.gen.next.backend.places.repository;
+package com.sec.gen.next.backend.user.repository;
 
 import com.sec.gen.next.backend.api.internal.UserPlaceAssignment;
 import org.springframework.data.jpa.repository.JpaRepository;

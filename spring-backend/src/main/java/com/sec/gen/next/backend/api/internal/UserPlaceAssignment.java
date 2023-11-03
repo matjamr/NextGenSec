@@ -2,22 +2,26 @@ package com.sec.gen.next.backend.api.internal;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+
+import java.util.List;
 
 @Entity
 @Table(name = "user_place_assignment")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Accessors(chain = true, fluent = true)
+@Accessors(chain = true)
+@Builder(toBuilder = true)
 public class UserPlaceAssignment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @OneToOne
+    @ManyToOne
     private User user;
 
     @Enumerated(value = EnumType.STRING)

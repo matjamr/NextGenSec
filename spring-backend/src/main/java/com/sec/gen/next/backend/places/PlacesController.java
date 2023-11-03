@@ -1,7 +1,7 @@
 package com.sec.gen.next.backend.places;
 
 import com.sec.gen.next.backend.api.external.PlacesModel;
-import com.sec.gen.next.backend.places.builder.common.PlacesRoutingEnum;
+import com.sec.gen.next.backend.places.builder.PlacesRoutingEnum;
 import com.sec.gen.next.backend.common.Dispatcher;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;

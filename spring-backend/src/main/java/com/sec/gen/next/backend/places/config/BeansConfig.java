@@ -3,9 +3,15 @@ package com.sec.gen.next.backend.places.config;
 import com.sec.gen.next.backend.api.exception.RecoverableServiceException;
 import com.sec.gen.next.backend.api.external.AddressModel;
 import com.sec.gen.next.backend.api.external.PlacesModel;
+import com.sec.gen.next.backend.api.external.UserPlaceAssignmentModel;
+import com.sec.gen.next.backend.api.internal.UserPlaceAssignment;
+import com.sec.gen.next.backend.common.address.AddressMapper;
 import com.sec.gen.next.backend.places.PlacesContext;
-import com.sec.gen.next.backend.places.builder.common.PlacesDispatcher;
-import com.sec.gen.next.backend.places.builder.common.PlacesRoutingEnum;
+import com.sec.gen.next.backend.places.builder.PlacesDispatcher;
+import com.sec.gen.next.backend.places.builder.PlacesMapper;
+import com.sec.gen.next.backend.places.builder.PlacesRoutingEnum;
+import com.sec.gen.next.backend.places.builder.add.PlacesToDbBuilder;
+import com.sec.gen.next.backend.places.builder.common.DynamicStatusUpdater;
 import com.sec.gen.next.backend.places.repository.PlacesRepository;
 import com.sec.gen.next.backend.places.validator.PlaceAddressValidator;
 import com.sec.gen.next.backend.places.validator.PlaceExistenceValidator;
@@ -16,6 +22,7 @@ import com.sec.gen.next.backend.common.address.validator.AddressValidator;
 import com.sec.gen.next.backend.common.impl.SingleEntityService;
 import com.sec.gen.next.backend.common.Dispatcher;
 import com.sec.gen.next.backend.common.Validator;
+import com.sec.gen.next.backend.user.mapper.UserPlaceAssignmentMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,7 +34,7 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-import static com.sec.gen.next.backend.places.builder.common.PlacesRoutingEnum.*;
+import static com.sec.gen.next.backend.places.builder.PlacesRoutingEnum.*;
 
 @Configuration
 public class BeansConfig {
@@ -114,8 +121,29 @@ public class BeansConfig {
     }
 
     @Bean("addPlacesFlow")
-    public List<Consumer<PlacesContext>> addPlacesConsumers() {
-        return List.of();
+    public List<Consumer<PlacesContext>> addPlacesConsumers(
+            @Qualifier("placesToDbBuilder") Consumer<PlacesContext> placesToDbBuilder
+    ) {
+        return List.of(
+                placesToDbBuilder
+        );
+    }
+
+    @Bean("dynamicStatusUpdater")
+    public Consumer<PlacesContext> dynamicStatusUpdater() {
+        return new DynamicStatusUpdater();
+    }
+
+    @Bean("placesToDbBuilder")
+    public Consumer<PlacesContext> placesToDbBuilder(
+            PlacesRepository placesRepository,
+            @Qualifier("addressToDbBuilder") Consumer<AddressModel> addressToDbConsumer,
+            @Qualifier("dynamicStatusUpdater") Consumer<PlacesContext> dynamicStatusUpdater,
+            @Qualifier("userPlaceAssignmentToDbBuilder") Function<List<UserPlaceAssignmentModel>, List<UserPlaceAssignment>> userPlaceAssignmentToDbBuilder,
+            PlacesMapper placesMapper,
+            UserPlaceAssignmentMapper userPlaceAssignmentMapper
+    ) {
+        return new PlacesToDbBuilder(placesRepository, userPlaceAssignmentToDbBuilder, dynamicStatusUpdater, placesMapper);
     }
 
     @Bean("placeExistenceValidator")
@@ -124,6 +152,7 @@ public class BeansConfig {
     ) {
         return new PlaceExistenceValidator(placesRepository);
     }
+
     @Bean("placeAddressValidator")
     public Validator<PlacesContext> placeAddressValidator(
             @Qualifier("addressValidator") Validator<AddressModel> addressValidator
@@ -138,8 +167,9 @@ public class BeansConfig {
 
     @Bean("addressToDbBuilder")
     public Consumer<AddressModel> addressToDbBuilder(
-            AddressRepository addressRepository
+            AddressRepository addressRepository,
+            AddressMapper addressMapper
     ) {
-        return new AddressToDbBuilder(addressRepository);
+        return new AddressToDbBuilder(addressRepository, addressMapper);
     }
 }

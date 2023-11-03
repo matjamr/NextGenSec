@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Accessors(chain = true, fluent = true)
+@Accessors(chain = true)
 public class Places {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,10 +28,10 @@ public class Places {
     @Column(unique = true)
     private String placeName;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Address address;
 
-    @OneToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     private List<UserPlaceAssignment> authorizedUsers;
 
     @Enumerated(value = EnumType.STRING)

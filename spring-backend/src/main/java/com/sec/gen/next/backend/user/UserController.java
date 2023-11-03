@@ -1,6 +1,7 @@
 package com.sec.gen.next.backend.user;
 
 import com.sec.gen.next.backend.api.external.AdditionalInformationUpdateModel;
+import com.sec.gen.next.backend.api.external.UserModel;
 import com.sec.gen.next.backend.api.internal.ClaimsUser;
 import com.sec.gen.next.backend.api.internal.User;
 import com.sec.gen.next.backend.user.service.UserService;
@@ -9,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpServerErrorException;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
@@ -33,5 +36,10 @@ public class UserController {
     public User updateData(@RequestBody AdditionalInformationUpdateModel additionalInformationUpdateModel,
                            final ServletRequest servletRequest) {
         return userService.update(additionalInformationUpdateModel);
+    }
+
+    @GetMapping
+    public List<UserModel> findAllUsers() {
+        return userService.findAll();
     }
 }

@@ -19,7 +19,7 @@ public class PlaceAddressValidator implements Validator<PlacesContext> {
     public void validate(PlacesContext context) {
         final AddressModel addressModel = Optional.of(context)
                 .map(PlacesContext::getPlacesModel)
-                .map(PlacesModel::getAddressModel)
+                .map(PlacesModel::getAddress)
                 .orElseThrow(() -> new ServiceException(Error.INVALID_PLACE_DATA));
 
         addressableValidator.validate(addressModel);

@@ -10,11 +10,12 @@ import java.util.function.Consumer;
 public class AddressToDbBuilder implements Consumer<AddressModel> {
 
     private final AddressRepository addressRepository;
+    private final AddressMapper addressMapper;
 
     @Override
     public void accept(AddressModel addressModel) {
-        Address address = AddressMapper.INSTANCE.from(addressModel);
+        Address address = addressMapper.from(addressModel);
         address = addressRepository.save(address);
-        addressModel = AddressMapper.INSTANCE.from(address);
+        addressModel = addressMapper.from(address);
     }
 }

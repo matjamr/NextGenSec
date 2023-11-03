@@ -1,4 +1,4 @@
-package com.sec.gen.next.backend.places.builder.common;
+package com.sec.gen.next.backend.places.builder;
 
 import com.sec.gen.next.backend.api.exception.Error;
 import com.sec.gen.next.backend.api.exception.ServiceException;
