@@ -13,12 +13,12 @@ import java.util.Optional;
 
 
 @RequiredArgsConstructor
-public class PlacesDispatcher implements Dispatcher<PlacesModel, PlacesContext, PlacesRoutingEnum> {
+public class PlacesDispatcher implements Dispatcher<PlacesModel, PlacesContext, RoutingEnum> {
 
-    private final Map<PlacesRoutingEnum, Service<PlacesModel, PlacesContext>> servicesActionMap;
+    private final Map<RoutingEnum, Service<PlacesModel, PlacesContext>> servicesActionMap;
 
     @Override
-    public PlacesModel dispatch(PlacesContext placesContext, PlacesRoutingEnum enumRoute) {
+    public PlacesModel dispatch(PlacesContext placesContext, RoutingEnum enumRoute) {
         return Optional.ofNullable(servicesActionMap.get(enumRoute))
                 .map(service -> {
                     service.validate(placesContext);
