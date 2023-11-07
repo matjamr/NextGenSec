@@ -137,11 +137,9 @@ public class BeansConfig {
     @Bean("placesToDbBuilder")
     public Consumer<PlacesContext> placesToDbBuilder(
             PlacesRepository placesRepository,
-            @Qualifier("addressToDbBuilder") Consumer<AddressModel> addressToDbConsumer,
             @Qualifier("dynamicStatusUpdater") Consumer<PlacesContext> dynamicStatusUpdater,
             @Qualifier("userPlaceAssignmentToDbBuilder") Function<List<UserPlaceAssignmentModel>, List<UserPlaceAssignment>> userPlaceAssignmentToDbBuilder,
-            PlacesMapper placesMapper,
-            UserPlaceAssignmentMapper userPlaceAssignmentMapper
+            PlacesMapper placesMapper
     ) {
         return new PlacesToDbBuilder(placesRepository, userPlaceAssignmentToDbBuilder, dynamicStatusUpdater, placesMapper);
     }
