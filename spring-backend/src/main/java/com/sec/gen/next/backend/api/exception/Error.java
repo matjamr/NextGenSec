@@ -13,7 +13,8 @@ public enum Error implements Serializable {
     INVALID_USER_DATA("Invalid user data, couldnt find one", 2),
     NOT_SUPPORTED_DISPATCHER_METHOD("Not supported dispatcher method", 3),
     INVALID_PLACE_DATA("Invalid place data", 4),
-    INVALID_ADDRESS_DATA("Invalid address data", 4),
+    INVALID_ADDRESS_DATA("Invalid address data", 5),
+    INVALID_IMAGE_DATA("Invalid image data", 6),
     ;
 
     private final String message;
