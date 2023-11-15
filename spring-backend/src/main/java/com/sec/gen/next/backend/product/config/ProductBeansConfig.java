@@ -5,9 +5,15 @@ import com.sec.gen.next.backend.api.external.ProductModel;
 import com.sec.gen.next.backend.common.Dispatcher;
 import com.sec.gen.next.backend.common.Service;
 import com.sec.gen.next.backend.common.impl.SingleEntityService;
+import com.sec.gen.next.backend.image.builder.ImageLoader;
 import com.sec.gen.next.backend.places.builder.RoutingEnum;
 import com.sec.gen.next.backend.product.ProductContext;
+import com.sec.gen.next.backend.product.builder.AdditionalActionProductConsumer;
+import com.sec.gen.next.backend.product.builder.DefaultProductResultBuilder;
 import com.sec.gen.next.backend.product.builder.ProductDispatcher;
+import com.sec.gen.next.backend.product.builder.ProductToDbBuilder;
+import com.sec.gen.next.backend.product.mapper.ProductMapper;
+import com.sec.gen.next.backend.product.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -40,14 +46,40 @@ public class ProductBeansConfig {
 
     @Bean("addProductService")
     public Service<ProductModel, ProductContext> addProductService(
-//            @Qualifier("addProductFlow") List<Consumer<ProductContext>> addProductFlow,
+            @Qualifier("addProductFlow") List<Consumer<ProductContext>> addProductFlow,
             @Qualifier("defaultProductResultBuilder") Function<ProductContext, ProductModel> defaultProductResultBuilder,
             @Qualifier("recoverableProductActionConsumer") BiConsumer<ProductContext, RecoverableServiceException> recoverableActionConsumer
     ) {
         return new SingleEntityService<>(List.of(),
-                List.of(),
+                addProductFlow,
                 defaultProductResultBuilder,
                 recoverableActionConsumer);
+    }
+
+    @Bean("addProductFlow")
+    public List<Consumer<ProductContext>> addProductFlow(
+            @Qualifier("productToDbBuilder") Consumer<ProductContext> productToDbBuilder,
+            @Qualifier("additionalActionProductConsumer") Consumer<ProductContext> additionalActionsConsumer
+    ) {
+        return List.of(
+                productToDbBuilder,
+                additionalActionsConsumer
+        );
+    }
+
+    @Bean("productToDbBuilder")
+    public Consumer<ProductContext> productToDbBuilder(
+            final ProductRepository productRepository,
+            final ProductMapper productMapper
+            ) {
+        return new ProductToDbBuilder(productRepository, productMapper);
+    }
+
+    @Bean("additionalActionProductConsumer")
+    public Consumer<ProductContext> additionalActionProductConsumer(
+            final @Qualifier("imageLoadConsumer") Consumer<ImageLoader> imageLoaderConsumer
+    ) {
+        return new AdditionalActionProductConsumer(imageLoaderConsumer);
     }
 
     @Bean("updateProductService")
@@ -80,7 +112,9 @@ public class ProductBeansConfig {
     }
 
     @Bean("defaultProductResultBuilder")
-    public Function<ProductContext, ProductModel> defaultProductResultBuilder() {
-        return ProductContext::getProductModel;
+    public Function<ProductContext, ProductModel> defaultProductResultBuilder(
+            final ProductMapper productMapper
+    ) {
+        return new DefaultProductResultBuilder(productMapper);
     }
 }

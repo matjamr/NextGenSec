@@ -27,7 +27,7 @@ public class Product {
 
     private Double monthlyPrice;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     private List<Image> images;
 
 }

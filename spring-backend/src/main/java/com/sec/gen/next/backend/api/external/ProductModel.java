@@ -12,5 +12,5 @@ public class ProductModel {
     private String name;
     private String description;
     private Double monthlyPrice;
-    private List<String> imgUrls;
+    private List<Integer> imgUrls;
 }

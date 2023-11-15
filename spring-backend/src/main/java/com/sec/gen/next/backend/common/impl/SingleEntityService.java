@@ -16,13 +16,13 @@ import java.util.function.Function;
 public class SingleEntityService<T, R> implements Service<T, R> {
 
     private final List<Validator<R>> validators;
-    private final List<Consumer<R>> addPlacesFlow;
+    private final List<Consumer<R>> mainFlow;
     private final Function<R, T> resultBuilder;
     private final BiConsumer<R, RecoverableServiceException> recoverableActionConsumer;
 
     @Override
     public T doService(R context) {
-        addPlacesFlow.forEach(func -> func.accept(context));
+        mainFlow.forEach(func -> func.accept(context));
 
         return resultBuilder.apply(context);
     }

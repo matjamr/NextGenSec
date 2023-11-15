@@ -3,6 +3,8 @@ package com.sec.gen.next.backend.image.config;
 
 import com.sec.gen.next.backend.api.external.ImageModel;
 import com.sec.gen.next.backend.api.internal.Image;
+import com.sec.gen.next.backend.image.builder.ImageLoadConsumer;
+import com.sec.gen.next.backend.image.builder.ImageLoader;
 import com.sec.gen.next.backend.image.builder.ImageModelBuilder;
 import com.sec.gen.next.backend.image.repository.ImageRepository;
 import com.sec.gen.next.backend.image.service.ImageService;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 @Configuration
@@ -27,5 +30,12 @@ public class ImageBeansConfig {
     @Bean("imageModelBuilder")
     public Function<Image, ImageModel> imageModelBuilder() {
         return new ImageModelBuilder();
+    }
+
+    @Bean("imageLoadConsumer")
+    public Consumer<ImageLoader> imageLoadConsumer(
+            final ImageRepository imageRepository
+    ) {
+        return new ImageLoadConsumer(imageRepository);
     }
 }
