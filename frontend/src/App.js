@@ -1,20 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {
-    DesktopOutlined,
-    FileOutlined,
-    PieChartOutlined,
-    TeamOutlined,
-    UserOutlined,
-} from '@ant-design/icons';
-import {Breadcrumb, Layout, Menu, Switch, theme} from 'antd';
-import UnloggedNavbar from "./navigation/UnloggedNavbar";
+import UnloggedNavbar from "./navigation/UnloggedNavbar/UnloggedNavbar";
 import {Route, Routes} from "react-router-dom";
 import {ProtectedRoute} from "./navigation/ProtectedRoute";
 import FinishLogin from "./assets/FinishLogin";
-import ActiveOrders from './screens/ActiveOrders/ActiveOrders';
-import Foods from './screens/Foods/Foods';
-
-const {Header, Content, Footer, Sider} = Layout;
+import HomeScreen from "./screens/HomeScreen/HomeScreen";
+import LoginScreen from "./screens/LoginScreen/LoginScreen";
+import ProductsScreen from "./screens/Products/ProductsScreen";
+import AboutUsScreen from "./screens/AboutUs/AboutUsScreen";
 
 const App = () => {
 
@@ -35,31 +27,20 @@ const App = () => {
     return <>
         <UnloggedNavbar>
             <Routes>
-                <Route path="/home" render={(props) => <ProtectedRoute {...props} />}>
-                    <Route path=""  element={<HomePage/>}/>
-                </Route>
+                <Route path="/home" element={<HomeScreen/> } />
+
+                <Route path="/products" element={<ProductsScreen/> } />
+
+                <Route path="/about" element={<AboutUsScreen/> } />
 
                 <Route path="/login" render={(props) => <ProtectedRoute {...props} />}>
-                    <Route path=""  element={<LoginPage/>}/>
+                    <Route path=""  element={<LoginScreen/>}/>
                 </Route>
 
                 <Route path="/finishLogin" element={<FinishLogin/>}/>
             </Routes>
         </UnloggedNavbar>
     </>
-};
-
-const LoginPage = () => (
-   <div>
-       <h1>This is login Page</h1>
-   </div>
-);
-
-
-const HomePage = () => {
-    return <div>
-    <h1>This is the Home Page</h1>
-</div>;
 };
 
 export default App;

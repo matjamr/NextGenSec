@@ -1,6 +1,6 @@
-const Home = () => {
+const HomeScreen = () => {
     return "AA"
 }
 
 
-export default Home;
+export default HomeScreen;
