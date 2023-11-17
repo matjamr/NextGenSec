@@ -1,6 +1,6 @@
 import {useNavigate, useParams, useSearchParams} from "react-router-dom";
-import { useAuth } from "../context/oauth2/AuthProvider";
-import { useLocalStorage } from "../context/oauth2/useLocalStorage";
+import { useAuth } from "./AuthProvider";
+import { useLocalStorage } from "./useLocalStorage";
 import { useEffect } from "react";
 
 const FinishLogin = () => {
@@ -18,10 +18,10 @@ const FinishLogin = () => {
         } else {
             console.log("Access Token not found.");
         }
-        
+
     }, [])
     return <></>
-    
+
 }
 
 export default FinishLogin;

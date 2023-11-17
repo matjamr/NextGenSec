@@ -1,9 +1,5 @@
 import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import HomeScreen from "../../screens/HomeScreen/HomeScreen";
-import ProductsScreen from "../../screens/Products/ProductsScreen";
-import AboutUsScreen from "../../screens/AboutUs/AboutUsScreen";
-import LoginScreen from "../../screens/LoginScreen/LoginScreen";
 import './UnloggedNavbar.css'
 
 function getItem(label, key, navigationUrl) {

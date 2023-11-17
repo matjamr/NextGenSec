@@ -15,6 +15,7 @@ public enum Error implements Serializable {
     INVALID_PLACE_DATA("Invalid place data", 4),
     INVALID_ADDRESS_DATA("Invalid address data", 5),
     INVALID_IMAGE_DATA("Invalid image data", 6),
+    NEWS_ERROR("Error during news processing", 7),
     ;
 
     private final String message;

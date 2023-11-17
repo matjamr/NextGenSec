@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import UnloggedNavbar from "./navigation/UnloggedNavbar/UnloggedNavbar";
 import {Route, Routes} from "react-router-dom";
 import {ProtectedRoute} from "./navigation/ProtectedRoute";
-import FinishLogin from "./assets/FinishLogin";
+import FinishLogin from "./context/oauth2/FinishLogin";
 import HomeScreen from "./screens/HomeScreen/HomeScreen";
 import LoginScreen from "./screens/LoginScreen/LoginScreen";
 import ProductsScreen from "./screens/Products/ProductsScreen";
