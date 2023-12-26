@@ -2,11 +2,9 @@ package com.sec.gen.next.backend.device.config;
 
 import com.sec.gen.next.backend.api.exception.RecoverableServiceException;
 import com.sec.gen.next.backend.api.external.DeviceModel;
-import com.sec.gen.next.backend.api.external.DeviceModel;
-import com.sec.gen.next.backend.api.external.DeviceModel;
 import com.sec.gen.next.backend.common.Dispatcher;
 import com.sec.gen.next.backend.common.Service;
-import com.sec.gen.next.backend.common.impl.SingleEntityService;
+import com.sec.gen.next.backend.common.impl.ServiceImpl;
 import com.sec.gen.next.backend.device.builder.DeviceMapper;
 import com.sec.gen.next.backend.device.builder.DeviceToDbBuilder;
 import com.sec.gen.next.backend.device.repository.DeviceRepository;
@@ -24,7 +22,6 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 import static com.sec.gen.next.backend.places.builder.RoutingEnum.*;
-import static com.sec.gen.next.backend.places.builder.RoutingEnum.DELETE;
 
 @Configuration
 public class DeviceBeansConfig {
@@ -46,7 +43,7 @@ public class DeviceBeansConfig {
             @Qualifier("defaultDeviceResultBuilder") Function<DeviceContext, DeviceModel> defaultDeviceResultBuilder,
             @Qualifier("recoverableDeviceActionConsumer") BiConsumer<DeviceContext, RecoverableServiceException> recoverableActionConsumer
     ) {
-        return new SingleEntityService<>(List.of(),
+        return new ServiceImpl<>(List.of(),
                 addDeviceFlow,
                 defaultDeviceResultBuilder,
                 recoverableActionConsumer);
@@ -74,7 +71,7 @@ public class DeviceBeansConfig {
             @Qualifier("defaultDeviceResultBuilder") Function<DeviceContext, DeviceModel> defaultDeviceResultBuilder,
             @Qualifier("recoverableDeviceActionConsumer") BiConsumer<DeviceContext, RecoverableServiceException> recoverableActionConsumer
     ) {
-        return new SingleEntityService<>(List.of(), List.of(), defaultDeviceResultBuilder, recoverableActionConsumer);
+        return new ServiceImpl<>(List.of(), List.of(), defaultDeviceResultBuilder, recoverableActionConsumer);
     }
 
     @Bean("recoverableDeviceActionConsumer")

@@ -13,7 +13,7 @@ import java.util.function.Function;
 
 @Slf4j
 @RequiredArgsConstructor
-public class SingleEntityService<T, R> implements Service<T, R> {
+public class ServiceImpl<T, R> implements Service<T, R> {
 
     private final List<Validator<R>> validators;
     private final List<Consumer<R>> mainFlow;

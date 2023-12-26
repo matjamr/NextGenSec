@@ -4,14 +4,11 @@ import com.sec.gen.next.backend.api.exception.RecoverableServiceException;
 import com.sec.gen.next.backend.api.external.ProductModel;
 import com.sec.gen.next.backend.common.Dispatcher;
 import com.sec.gen.next.backend.common.Service;
-import com.sec.gen.next.backend.common.impl.SingleEntityService;
+import com.sec.gen.next.backend.common.impl.ServiceImpl;
 import com.sec.gen.next.backend.image.builder.ImageLoader;
 import com.sec.gen.next.backend.places.builder.RoutingEnum;
 import com.sec.gen.next.backend.product.ProductContext;
-import com.sec.gen.next.backend.product.builder.AdditionalActionProductConsumer;
-import com.sec.gen.next.backend.product.builder.DefaultProductResultBuilder;
-import com.sec.gen.next.backend.product.builder.ProductDispatcher;
-import com.sec.gen.next.backend.product.builder.ProductToDbBuilder;
+import com.sec.gen.next.backend.product.builder.*;
 import com.sec.gen.next.backend.product.mapper.ProductMapper;
 import com.sec.gen.next.backend.product.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -30,27 +27,27 @@ import static com.sec.gen.next.backend.places.builder.RoutingEnum.*;
 @Configuration
 public class ProductBeansConfig {
     @Bean("productDispatcher")
-    public Dispatcher<ProductModel, ProductContext, RoutingEnum> productDispatcher(
-            @Qualifier("addProductService") Service<ProductModel, ProductContext> addService,
-            @Qualifier("updateProductService") Service<ProductModel, ProductContext> updateService,
-            @Qualifier("getProductService") Service<ProductModel, ProductContext> getService,
-            @Qualifier("deleteProductService") Service<ProductModel, ProductContext> deleteService
+    public Dispatcher<List<ProductModel>, ProductContext, RoutingEnum> productDispatcher(
+            @Qualifier("addProductService") Service<List<ProductModel>, ProductContext> addService,
+            @Qualifier("updateProductService") Service<List<ProductModel>, ProductContext> updateService,
+            @Qualifier("getProductsService") Service<List<ProductModel>, ProductContext> getProductsService,
+            @Qualifier("deleteProductService") Service<List<ProductModel>, ProductContext> deleteService
     ) {
         return new ProductDispatcher(Map.of(
                 ADD, addService,
                 UPDATE, updateService,
-                GET, getService,
+                LIST_GET, getProductsService,
                 DELETE, deleteService
         ));
     }
 
     @Bean("addProductService")
-    public Service<ProductModel, ProductContext> addProductService(
+    public Service<List<ProductModel>, ProductContext> addProductService(
             @Qualifier("addProductFlow") List<Consumer<ProductContext>> addProductFlow,
-            @Qualifier("defaultProductResultBuilder") Function<ProductContext, ProductModel> defaultProductResultBuilder,
+            @Qualifier("defaultProductsResultBuilder") Function<ProductContext, List<ProductModel>> defaultProductResultBuilder,
             @Qualifier("recoverableProductActionConsumer") BiConsumer<ProductContext, RecoverableServiceException> recoverableActionConsumer
     ) {
-        return new SingleEntityService<>(List.of(),
+        return new ServiceImpl<>(List.of(),
                 addProductFlow,
                 defaultProductResultBuilder,
                 recoverableActionConsumer);
@@ -62,8 +59,8 @@ public class ProductBeansConfig {
             @Qualifier("additionalActionProductConsumer") Consumer<ProductContext> additionalActionsConsumer
     ) {
         return List.of(
-                productToDbBuilder,
-                additionalActionsConsumer
+                additionalActionsConsumer,
+                productToDbBuilder
         );
     }
 
@@ -82,28 +79,45 @@ public class ProductBeansConfig {
         return new AdditionalActionProductConsumer(imageLoaderConsumer);
     }
 
+    @Bean("productReaderConsumer")
+    public Consumer<ProductContext> productReaderConsumer(
+            final ProductRepository productRepository
+    ) {
+        return new ProductReaderConsumer(productRepository);
+    }
+
     @Bean("updateProductService")
-    public Service<ProductModel, ProductContext> updateProductService(
-            @Qualifier("defaultProductResultBuilder") Function<ProductContext, ProductModel> defaultProductResultBuilder,
+    public Service<List<ProductModel>, ProductContext> updateProductService(
+            @Qualifier("defaultProductsResultBuilder") Function<ProductContext, List<ProductModel>> defaultProductResultBuilder,
             @Qualifier("recoverableProductActionConsumer") BiConsumer<ProductContext, RecoverableServiceException> recoverableActionConsumer
     ) {
-        return new SingleEntityService<>(List.of(), List.of(), defaultProductResultBuilder, recoverableActionConsumer);
+        return new ServiceImpl<>(List.of(), List.of(), defaultProductResultBuilder, recoverableActionConsumer);
     }
 
     @Bean("deleteProductService")
-    public Service<ProductModel, ProductContext> deleteProductService(
-            @Qualifier("defaultProductResultBuilder") Function<ProductContext, ProductModel> defaultProductResultBuilder,
+    public Service<List<ProductModel>, ProductContext> deleteProductService(
+            @Qualifier("defaultProductsResultBuilder") Function<ProductContext, List<ProductModel>> defaultProductResultBuilder,
             @Qualifier("recoverableProductActionConsumer") BiConsumer<ProductContext, RecoverableServiceException> recoverableActionConsumer
     ) {
-        return new SingleEntityService<>(List.of(), List.of(), defaultProductResultBuilder, recoverableActionConsumer);
+        return new ServiceImpl<>(List.of(), List.of(), defaultProductResultBuilder, recoverableActionConsumer);
     }
 
-    @Bean("getProductService")
-    public Service<ProductModel, ProductContext> getProductService(
-            @Qualifier("defaultProductResultBuilder") Function<ProductContext, ProductModel> defaultProductResultBuilder,
-            @Qualifier("recoverableProductActionConsumer") BiConsumer<ProductContext, RecoverableServiceException> recoverableActionConsumer
+    @Bean("getProductsService")
+    public Service<List<ProductModel>, ProductContext> getProductsService(
+            @Qualifier("defaultProductsResultBuilder") Function<ProductContext, List<ProductModel>> defaultProductsResultBuilder,
+            @Qualifier("recoverableProductActionConsumer") BiConsumer<ProductContext, RecoverableServiceException> recoverableActionConsumer,
+            @Qualifier("getProductsFlow") List<Consumer<ProductContext>> getProductsFlow
     ) {
-        return new SingleEntityService<>(List.of(), List.of(), defaultProductResultBuilder, recoverableActionConsumer);
+        return new ServiceImpl<>(List.of(), getProductsFlow, defaultProductsResultBuilder, recoverableActionConsumer);
+    }
+
+    @Bean("getProductsFlow")
+    public List<Consumer<ProductContext>> getProductsFlow(
+            @Qualifier("productReaderConsumer") Consumer<ProductContext> productReaderConsumer
+    ) {
+        return List.of(
+                productReaderConsumer
+        );
     }
 
     @Bean("recoverableProductActionConsumer")
@@ -111,8 +125,8 @@ public class ProductBeansConfig {
         return (context, error) -> context.getErrors().add(error.getError());
     }
 
-    @Bean("defaultProductResultBuilder")
-    public Function<ProductContext, ProductModel> defaultProductResultBuilder(
+    @Bean("defaultProductsResultBuilder")
+    public Function<ProductContext, List<ProductModel>> defaultProductResultBuilder(
             final ProductMapper productMapper
     ) {
         return new DefaultProductResultBuilder(productMapper);

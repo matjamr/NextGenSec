@@ -18,10 +18,11 @@ public class ProductContext implements ImageLoader {
     private List<ProductModel> batchProductModel;
     private List<Error> errors;
     private List<Image> images;
+    private List<Product> productList;
 
 
     @Override
     public List<Integer> getImagesId() {
-        return productModel.getImgUrls();
+        return productModel.getImgIds();
     }
 }

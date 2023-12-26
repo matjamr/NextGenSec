@@ -29,7 +29,8 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/api/image/*").permitAll()
+                        .requestMatchers(GET, "/api/product", "/api/product/*").permitAll()
+                        .requestMatchers(GET, "/api/image", "/api/image/*").permitAll()
                         .requestMatchers(GET, "/api/news").permitAll()
                         .anyRequest().fullyAuthenticated()
                 )

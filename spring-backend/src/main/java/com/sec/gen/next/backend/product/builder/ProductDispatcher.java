@@ -9,17 +9,18 @@ import com.sec.gen.next.backend.places.builder.RoutingEnum;
 import com.sec.gen.next.backend.product.ProductContext;
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 
 @RequiredArgsConstructor
-public class ProductDispatcher implements Dispatcher<ProductModel, ProductContext, RoutingEnum> {
+public class ProductDispatcher implements Dispatcher<List<ProductModel>, ProductContext, RoutingEnum> {
 
-    private final Map<RoutingEnum, Service<ProductModel, ProductContext>> servicesActionMap;
+    private final Map<RoutingEnum, Service<List<ProductModel>, ProductContext>> servicesActionMap;
 
     @Override
-    public ProductModel dispatch(ProductContext productContext, RoutingEnum enumRoute) {
+    public List<ProductModel> dispatch(ProductContext productContext, RoutingEnum enumRoute) {
         return Optional.ofNullable(servicesActionMap.get(enumRoute))
                 .map(service -> {
                     service.validate(productContext);

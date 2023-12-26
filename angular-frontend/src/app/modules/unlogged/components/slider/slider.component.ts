@@ -4,7 +4,7 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
 @Component({
   selector: 'app-unlogged-slider',
   templateUrl: './slider.component.html',
-  styleUrls: ['./slider.component.css', '../../../../app.component.css'],
+  styleUrls: ['./slider.component.css'],
   animations: [trigger("fade", [
     state("void", style({ opacity: 0 })),
     transition("void <=> *", [animate("0.5s ease-in-out")])
@@ -21,7 +21,7 @@ export class SliderComponent {
   ];
 
   showNextImage() {
-    if (this.counter < this.slideItems.length -1) {
+    if (this.counter < this.slideItems.length - 1) {
       this.counter += 1;
     } else if(this.counter == this.slideItems.length - 1) {
       this.counter = 0;

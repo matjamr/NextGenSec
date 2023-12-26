@@ -19,7 +19,7 @@ import com.sec.gen.next.backend.common.Service;
 import com.sec.gen.next.backend.common.address.AddressRepository;
 import com.sec.gen.next.backend.common.address.AddressToDbBuilder;
 import com.sec.gen.next.backend.common.address.validator.AddressValidator;
-import com.sec.gen.next.backend.common.impl.SingleEntityService;
+import com.sec.gen.next.backend.common.impl.ServiceImpl;
 import com.sec.gen.next.backend.common.Dispatcher;
 import com.sec.gen.next.backend.common.Validator;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -78,7 +78,7 @@ public class BeansConfig {
             @Qualifier("defaultPlacesResultBuilder") Function<PlacesContext, PlacesModel> defaultPlacesResultBuilder,
             @Qualifier("recoverableActionConsumer") BiConsumer<PlacesContext, RecoverableServiceException> recoverableActionConsumer
     ) {
-        return new SingleEntityService<>(addPlacesValidators,
+        return new ServiceImpl<>(addPlacesValidators,
                 addPlacesFlow,
                 defaultPlacesResultBuilder,
                 recoverableActionConsumer);
@@ -89,7 +89,7 @@ public class BeansConfig {
             @Qualifier("defaultPlacesResultBuilder") Function<PlacesContext, PlacesModel> defaultPlacesResultBuilder,
             @Qualifier("recoverableActionConsumer") BiConsumer<PlacesContext, RecoverableServiceException> recoverableActionConsumer
     ) {
-        return new SingleEntityService<>(List.of(), List.of(), defaultPlacesResultBuilder, recoverableActionConsumer);
+        return new ServiceImpl<>(List.of(), List.of(), defaultPlacesResultBuilder, recoverableActionConsumer);
     }
 
     @Bean("deletePlacesService")
@@ -97,7 +97,7 @@ public class BeansConfig {
             @Qualifier("defaultPlacesResultBuilder") Function<PlacesContext, PlacesModel> defaultPlacesResultBuilder,
             @Qualifier("recoverableActionConsumer") BiConsumer<PlacesContext, RecoverableServiceException> recoverableActionConsumer
     ) {
-        return new SingleEntityService<>(List.of(), List.of(), defaultPlacesResultBuilder, recoverableActionConsumer);
+        return new ServiceImpl<>(List.of(), List.of(), defaultPlacesResultBuilder, recoverableActionConsumer);
     }
 
     @Bean("getPlacesService")
@@ -105,7 +105,7 @@ public class BeansConfig {
             @Qualifier("defaultPlacesResultBuilder") Function<PlacesContext, PlacesModel> defaultPlacesResultBuilder,
             @Qualifier("recoverableActionConsumer") BiConsumer<PlacesContext, RecoverableServiceException> recoverableActionConsumer
     ) {
-        return new SingleEntityService<>(List.of(), List.of(), defaultPlacesResultBuilder, recoverableActionConsumer);
+        return new ServiceImpl<>(List.of(), List.of(), defaultPlacesResultBuilder, recoverableActionConsumer);
     }
 
     @Bean("addPlacesValidators")

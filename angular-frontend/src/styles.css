@@ -1,6 +1,7 @@
 * body {
   padding: 0;
   margin: 0;
+  font-family: Arial, serif;
 }
 
 .container {
@@ -60,4 +61,26 @@
   background-color: #000;
   height: 100%;
   display: block;
+}
+
+.custom-button {
+  padding: 5px;
+  margin: 5px;
+  font-size: 20px;
+  border-radius: 10px;
+  transition: 0.2s;
+}
+
+.custom-button:hover {
+  padding: 5px;
+  margin: 2.5px;
+  font-size: 22px;
+  background-color: #f1f1f1;
+  box-shadow: 1px 1px 1px #cecece;
+  cursor: pointer;
+}
+
+.active-button {
+  color: #3A7734;
+  font-weight: bold;
 }

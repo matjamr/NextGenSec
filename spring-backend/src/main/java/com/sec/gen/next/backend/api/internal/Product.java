@@ -27,7 +27,7 @@ public class Product {
 
     private Double monthlyPrice;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private List<Image> images;
 
 }

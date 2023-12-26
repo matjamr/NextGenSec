@@ -7,6 +7,7 @@ import com.sec.gen.next.backend.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.List;
 import java.util.function.Consumer;
 
 @Slf4j
@@ -23,7 +24,7 @@ public class ProductToDbBuilder implements Consumer<ProductContext> {
         log.info("Saving product: " + product);
         product = productRepository.save(product);
 
-        productContext.setProduct(product);
+        productContext.setProductList(List.of(product));
     }
 
 }

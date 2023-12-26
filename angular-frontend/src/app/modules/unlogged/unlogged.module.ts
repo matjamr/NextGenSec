@@ -7,6 +7,8 @@ import { LoginComponent } from './pages/login/login.component';
 import {RouterModule, Routes} from "@angular/router";
 import { HeaderComponent } from './components/header/header.component';
 import { SliderComponent } from './components/slider/slider.component';
+import {AppModule} from "../../app.module";
+import {CoreModule} from "../../core/core.module";
 
 const routes: Routes = [
   {
@@ -38,7 +40,8 @@ const routes: Routes = [
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    CoreModule,
   ],
   exports: [
     RouterModule,

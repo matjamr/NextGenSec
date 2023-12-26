@@ -6,18 +6,20 @@ import com.sec.gen.next.backend.places.builder.RoutingEnum;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/product")
 public class ProductController {
-    private final Dispatcher<ProductModel, ProductContext, RoutingEnum> productDispatcher;
+    private final Dispatcher<List<ProductModel>, ProductContext, RoutingEnum> productDispatcher;
 
     public ProductController(
-            @Qualifier("productDispatcher") Dispatcher<ProductModel, ProductContext, RoutingEnum> productDispatcher) {
+            @Qualifier("productDispatcher") Dispatcher<List<ProductModel>, ProductContext, RoutingEnum> productDispatcher) {
         this.productDispatcher = productDispatcher;
     }
 
     @PostMapping
-    public ProductModel addProduct(
+    public List<ProductModel> addProduct(
             final @Qualifier("productContext") ProductContext productContext,
             final @RequestBody ProductModel productModel
     ) {
@@ -28,7 +30,7 @@ public class ProductController {
     }
 
     @PutMapping
-    public ProductModel updatePlace(
+    public List<ProductModel> updatePlace(
             final @Qualifier("productContext") ProductContext productContext,
             final @RequestBody ProductModel productModel
     ) {
@@ -39,18 +41,14 @@ public class ProductController {
     }
 
     @GetMapping
-    public ProductModel getPlaces(
-            final @Qualifier("productContext") ProductContext productContext,
-            final @RequestBody ProductModel productModel
+    public List<ProductModel> getProducts(
+            final @Qualifier("productContext") ProductContext productContext
     ) {
-        return productDispatcher.dispatch(productContext.toBuilder()
-                        .productModel(productModel)
-                        .build(),
-                RoutingEnum.GET);
+        return productDispatcher.dispatch(productContext, RoutingEnum.LIST_GET);
     }
 
     @DeleteMapping
-    public ProductModel deletePlaces(
+    public List<ProductModel> deleteProducts(
             final @Qualifier("productContext") ProductContext productContext,
             final @RequestBody ProductModel productModel
     ) {
