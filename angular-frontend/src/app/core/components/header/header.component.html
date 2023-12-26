@@ -1,0 +1,11 @@
+<header>
+  <div *ngIf="isOwnerRoute()">
+  </div>
+  <div *ngIf="isAdminRoute()">
+  </div>
+  <div *ngIf="isUserRoute()">
+  </div>
+  <div *ngIf="isUnloggedRoute()">
+    <app-unlogged-header></app-unlogged-header>
+  </div>
+</header>
