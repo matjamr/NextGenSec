@@ -1,110 +1,105 @@
-import cv2
+#https://miniaimer.com/blog/facial-recognition-with-tensorflow-a-comprehensive-tutorial-on-training-models-with-python-code
+
 import os
+import cv2
 import numpy as np
 
-subjects = ["", "Ramiz Raja", "Elvis Presley"]
+data_dir = 'img_align_celeba'
+labels_file = 'list_attr_celeba.txt'
 
-
-def detect_face(img):
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
-
-    faces = face_cascade.detectMultiScale(gray, scaleFactor=1.2, minNeighbors=5);
-
-    if (len(faces) == 0):
-        return None, None
-
-    (x, y, w, h) = faces[0]
-
-    return gray[y:y + w, x:x + h], faces[0]
-
-
-def prepare_training_data(data_folder_path):
-    dirs = os.listdir(data_folder_path)
-
-    faces = []
+# Read the labels file and extract the names of the images and their labels
+with open(os.path.join(data_dir, labels_file)) as f:
+    lines = f.readlines()
+    lines = lines[2:]  # Ignore the first two lines of the file
+    filenames = []
     labels = []
+    for line in lines:
+        parts = line.strip().split()
+        filename = parts[0]
+        label = int(parts[21])
+        filenames.append(filename)
+        labels.append(label)
 
-    for dir_name in dirs:
+# Load the images and resize them to 224x224 pixels
+images = []
+for filename in filenames:
+    img = cv2.imread(os.path.join(data_dir, filename))
+    img = cv2.resize(img, (224, 224))
+    images.append(img)
 
-        if not dir_name.startswith("s"):
-            continue;
+# Convert the images and labels to numpy arrays
+images = np.array(images)
+labels = np.array(labels)
 
-        label = int(dir_name.replace("s", ""))
+import tensorflow as tf
+from tensorflow.keras.applications import VGG16
 
-        subject_dir_path = data_folder_path + "/" + dir_name
+# Load the VGG16 model
+base_model = VGG16(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
 
-        subject_images_names = os.listdir(subject_dir_path)
+# Freeze the base model layers
+for layer in base_model.layers:
+    layer.trainable = False
 
-        for image_name in subject_images_names:
-            if image_name.startswith("."):
-                continue
+from tensorflow.keras.layers import Flatten, Dense, Dropout
 
-            image_path = subject_dir_path + "/" + image_name
-            image = cv2.imread(image_path)
-            cv2.imshow("Training on image...", image)
-            cv2.waitKey(100)
+# Add layers on top of the base model
+x = base_model.output
+x = Flatten()(x)
+x = Dense(256, activation='relu')(x)
+x = Dropout(0.5)(x)
+predictions = Dense(1, activation='sigmoid')(x)
 
-            face, rect = detect_face(image)
+# Create the final model
+model = tf.keras.models.Model(inputs=base_model.input, outputs=predictions)
 
-            if face is not None:
-                faces.append(face)
-                labels.append(label)
+# Compile the model
+model.compile(loss='binary_crossentropy',
+              optimizer='adam',
+              metrics=['accuracy'])
 
-    cv2.destroyAllWindows()
-    cv2.waitKey(1)
-    cv2.destroyAllWindows()
+# Train the model
+history = model.fit(images, labels, epochs=10, batch_size=32, validation_split=0.2)
 
-    return faces, labels
+import matplotlib.pyplot as plt
 
+# Plot the training and validation accuracy
+plt.plot(history.history['accuracy'])
+plt.plot(history.history['val_accuracy'])
+plt.title('Model accuracy')
+plt.ylabel('Accuracy')
+plt.xlabel('Epoch')
+plt.legend(['Train', 'Validation'], loc='upper left')
+plt.show()
 
-print("Preparing data...")
-faces, labels = prepare_training_data("training-data")
-print("Data prepared")
+# Plot the training and validation loss
+plt.plot(history.history['loss'])
+plt.plot(history.history['val_loss'])
+plt.title('Model loss')
+plt.ylabel('Loss')
+plt.xlabel('Epoch')
+plt.legend(['Train', 'Validation'], loc='upper left')
+plt.show()
 
-print("Total faces: ", len(faces))
-print("Total labels: ", len(labels))
+# Evaluate the model on test images
+test_loss, test_acc = model.evaluate(test_images, test_labels)
+print('Test accuracy:', test_acc)
 
+# Make predictions on new images
+predictions = model.predict(new_images)
 
-def draw_rectangle(img, rect):
-    (x, y, w, h) = rect
-    cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
-
-
-def draw_text(img, text, x, y):
-    cv2.putText(img, text, (x, y), cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
-
-
-# face_recognizer = cv2.face.createEigenFaceRecognizer()
-face_recognizer = cv2.face.LBPHFaceRecognizer_create()
-# face_recognizer = cv2.face.createFisherFaceRecognizer()
-
-face_recognizer.train(faces, np.array(labels))
-
-
-def predict(test_img):
-    img = test_img.copy()
-    face, rect = detect_face(img)
-    label = face_recognizer.predict(face)
-
-    label_text = subjects[label[0]]
-
-    draw_rectangle(img, rect)
-    draw_text(img, label_text, rect[0], rect[1] - 5)
-
-    return img
+# Print the predictions
+for i in range(len(predictions)):
+    if predictions[i] > 0.5:
+        print('Image', i+1, 'contains the target face')
+    else:
+        print('Image', i+1, 'does not contain the target face')
 
 
-print("Predicting images...")
+# Save the trained model
+model.save('facial_recognition_model.h5')
 
-test_img1 = cv2.imread("test-data/test1.jpg")
-test_img2 = cv2.imread("test-data/test2.jpg")
-
-predicted_img1 = predict(test_img1)
-predicted_img2 = predict(test_img2)
-print("Prediction complete")
-
-cv2.imshow(subjects[1], predicted_img1)
-cv2.imshow(subjects[2], predicted_img2)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+# from tensorflow.keras.models import load_model
+#
+# # Load the trained model
+# model = load_model('facial_recognition_model.h5')
