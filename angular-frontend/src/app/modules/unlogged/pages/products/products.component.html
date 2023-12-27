@@ -1,1 +1,15 @@
-<p>products works!</p>
+<div class="products-grid-layout">
+  <div *ngFor="let product of products$ | async;
+       let i = index "
+       class="container products-row {{activeId != -1 ? 'shadowed' : 'normal'}}"
+       (click)="showProductDetails(product.id)"
+  >
+    <h1 class="products-row-title">{{product.name}}</h1>
+    <img class="products-row-image" src='{{"http://localhost:8080/api/image/" + product.imgIds[0]}}' alt="image" />
+    <div class="hover-text">Learn More!</div>
+  </div>
+
+  <div *ngIf="activeId != -1">
+    <app-product-details [onClose]="closeProductDetails"></app-product-details>
+  </div>
+</div>

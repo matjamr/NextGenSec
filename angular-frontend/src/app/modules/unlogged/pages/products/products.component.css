@@ -1,0 +1,37 @@
+.products-grid-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background-color: #80B982;
+}
+
+.products-row {
+  transition: opacity 0.3s ease-in-out;
+}
+
+.products-row:hover {
+  opacity: 50%;
+  cursor: pointer;
+}
+
+.products-row:hover .hover-text {
+  opacity: 1;
+}
+
+.products-row-title {
+  color: white;
+}
+
+.products-row-image {
+  width: 70%;
+  height: 60%;
+  border-radius: 20px;
+}
+
+.hover-text {
+  position: absolute;
+  color: white;
+  font-size: 4em;
+  font-weight: bold;
+  opacity: 0;
+  transition: opacity 0.1s ease-in-out;
+}

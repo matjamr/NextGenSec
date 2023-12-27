@@ -84,3 +84,16 @@
   color: #3A7734;
   font-weight: bold;
 }
+
+.shadowed {
+  opacity: 20%;
+}
+
+.normal {
+  opacity: 100%;
+}
+
+.clickable:hover {
+  cursor: pointer;
+  opacity: 50%;
+}
