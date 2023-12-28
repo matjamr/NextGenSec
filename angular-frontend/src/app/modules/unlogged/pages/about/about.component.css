@@ -1,0 +1,10 @@
+.grid-2-container {
+  justify-content: center;
+  display: grid;
+  grid-template-columns: 30% 30%;
+  grid-template-rows: 30vh 30vh;
+}
+
+.grid-2-container img {
+  height: 30vh;
+}

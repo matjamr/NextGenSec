@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {AuthService} from "../../core/services/auth/auth.service";
 
 
 
@@ -9,4 +10,5 @@ import { CommonModule } from '@angular/common';
     CommonModule
   ]
 })
-export class UserLoggedModule { }
+export class UserLoggedModule {
+}

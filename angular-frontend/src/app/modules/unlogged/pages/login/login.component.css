@@ -1,0 +1,12 @@
+.login-section-grid {
+  display: grid;
+  grid-template-columns: 1fr 0.5fr;
+  height: 86vh; /* ????? */
+
+}
+
+.log-in-section {
+
+}
+
+.register-section {}

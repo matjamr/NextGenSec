@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {AuthService} from "../../../../core/services/auth/auth.service";
 
 @Component({
   selector: 'app-login',
@@ -7,4 +8,14 @@ import { Component } from '@angular/core';
 })
 export class LoginComponent {
 
+  constructor(
+    private authService: AuthService
+  ) {
+  }
+
+  getToken() {
+    this.authService.getToken().subscribe(data => {
+      console.log(data)
+    })
+  }
 }
