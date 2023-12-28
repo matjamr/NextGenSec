@@ -22,3 +22,23 @@
   color: #80B982;
   font-size: 4em;
 }
+
+.images-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.main-image-area img {
+  width: 50%;
+  height: 50vh;
+}
+
+.image-grid-area {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.image-grid-area img {
+  width: 50%;
+  height: 15vh;
+}

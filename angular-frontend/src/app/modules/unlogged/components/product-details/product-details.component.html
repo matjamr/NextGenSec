@@ -2,4 +2,18 @@
   <div class="window-content clickable">
     <span (click)="close()" class="x-button">&#10006;</span>
   </div>
+  <div class="images-container">
+    <div class="main-image-area">
+      <img src="{{'http://localhost:8080/api/image/' + activeProduct.imgIds[0]}}"/>
+    </div>
+    <div class="image-grid-area">
+      <div *ngFor="let item of fakeArray">
+        <img src="{{'http://localhost:8080/api/image/' + activeProduct.imgIds[0]}}"/>
+      </div>
+    </div>
+  </div>
+  <div class="horizontal-line light-theme-bg"></div>
+  <div class="product-details-desc-area">
+      {{activeProduct.description}}
+  </div>
 </div>
