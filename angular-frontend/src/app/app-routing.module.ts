@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {HomeComponent} from "./modules/unlogged/pages/home/home.component";
-import {ProductsComponent} from "./modules/unlogged/pages/products/products.component";
-import {AboutComponent} from "./modules/unlogged/pages/about/about.component";
-import {LoginComponent} from "./modules/unlogged/pages/login/login.component";
+import {hasUserRole} from "./core/guard/UserGuard";
 
 const routes: Routes = [
   {
     path: '',
     loadChildren: () =>  import('./modules/unlogged/unlogged.module').then((m) => m.UnloggedModule)
+  },
+  {
+    path: 'USER/:placeName',
+    loadChildren: () =>  import('./modules/user-logged/user-logged.module').then((m) => m.UserLoggedModule),
+    canActivate: [hasUserRole]
   }
 ];
 

@@ -4,10 +4,5 @@ export interface UserPlaceAssigment {
     id: number,
     email: string
   },
-  assigmentRole: ROLE
-}
-
-export enum ROLE {
-  USER = "USER",
-  ADMiN = "ADMIN"
+  assignmentRole: string
 }

@@ -1,13 +1,23 @@
-import { NgModule } from '@angular/core';
+import {NgModule, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {AuthService} from "../../core/services/auth/auth.service";
+import {RouterModule, Routes} from "@angular/router";
+import {HomeComponent} from "../unlogged/pages/home/home.component";
+import { WelcomeScreenComponent } from './pages/welcome-screen/welcome-screen.component';
 
-
+const routes: Routes = [
+  {
+    path: '',
+    component: WelcomeScreenComponent
+  },
+]
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    WelcomeScreenComponent
+  ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule.forChild(routes)
   ]
 })
 export class UserLoggedModule {

@@ -32,4 +32,7 @@ export class ChooseLevelComponent implements OnInit {
   }
 
 
+  navgiateToPlace(placeName: string, assigmentRole: string) {
+    this.router.navigate(["/" + assigmentRole + "/" + placeName])
+  }
 }
