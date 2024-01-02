@@ -10,6 +10,7 @@ import { SliderComponent } from './components/slider/slider.component';
 import {AppModule} from "../../app.module";
 import {CoreModule} from "../../core/core.module";
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
+import { FinishLoginComponent } from './finish-login/finish-login.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'finishLogin',
+    component: FinishLoginComponent
   }
 ]
 
@@ -38,7 +43,8 @@ const routes: Routes = [
     LoginComponent,
     HeaderComponent,
     SliderComponent,
-    ProductDetailsComponent
+    ProductDetailsComponent,
+    FinishLoginComponent
   ],
     imports: [
         CommonModule,

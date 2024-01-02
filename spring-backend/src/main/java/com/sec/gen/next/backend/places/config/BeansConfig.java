@@ -4,6 +4,7 @@ import com.sec.gen.next.backend.api.exception.RecoverableServiceException;
 import com.sec.gen.next.backend.api.external.AddressModel;
 import com.sec.gen.next.backend.api.external.PlacesModel;
 import com.sec.gen.next.backend.api.external.UserPlaceAssignmentModel;
+import com.sec.gen.next.backend.api.internal.Places;
 import com.sec.gen.next.backend.api.internal.UserPlaceAssignment;
 import com.sec.gen.next.backend.common.address.AddressMapper;
 import com.sec.gen.next.backend.places.PlacesContext;
@@ -12,6 +13,8 @@ import com.sec.gen.next.backend.places.builder.PlacesMapper;
 import com.sec.gen.next.backend.places.builder.RoutingEnum;
 import com.sec.gen.next.backend.places.builder.add.PlacesToDbBuilder;
 import com.sec.gen.next.backend.places.builder.common.DynamicStatusUpdater;
+import com.sec.gen.next.backend.places.builder.get.GetPlacesConsumer;
+import com.sec.gen.next.backend.places.builder.put.*;
 import com.sec.gen.next.backend.places.repository.PlacesRepository;
 import com.sec.gen.next.backend.places.validator.PlaceAddressValidator;
 import com.sec.gen.next.backend.places.validator.PlaceExistenceValidator;
@@ -22,6 +25,9 @@ import com.sec.gen.next.backend.common.address.validator.AddressValidator;
 import com.sec.gen.next.backend.common.impl.ServiceImpl;
 import com.sec.gen.next.backend.common.Dispatcher;
 import com.sec.gen.next.backend.common.Validator;
+import com.sec.gen.next.backend.user.mapper.UserMapper;
+import com.sec.gen.next.backend.user.repository.UserPlaceAssignmentRepository;
+import com.sec.gen.next.backend.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -87,9 +93,10 @@ public class BeansConfig {
     @Bean("updatePlacesService")
     public Service<PlacesModel, PlacesContext> updatePlacesService(
             @Qualifier("defaultPlacesResultBuilder") Function<PlacesContext, PlacesModel> defaultPlacesResultBuilder,
-            @Qualifier("recoverableActionConsumer") BiConsumer<PlacesContext, RecoverableServiceException> recoverableActionConsumer
+            @Qualifier("recoverableActionConsumer") BiConsumer<PlacesContext, RecoverableServiceException> recoverableActionConsumer,
+            @Qualifier("placesUpdater") Consumer<PlacesContext> placesUpdater
     ) {
-        return new ServiceImpl<>(List.of(), List.of(), defaultPlacesResultBuilder, recoverableActionConsumer);
+        return new ServiceImpl<>(List.of(), List.of(placesUpdater), defaultPlacesResultBuilder, recoverableActionConsumer);
     }
 
     @Bean("deletePlacesService")
@@ -103,9 +110,18 @@ public class BeansConfig {
     @Bean("getPlacesService")
     public Service<PlacesModel, PlacesContext> getPlacesService(
             @Qualifier("defaultPlacesResultBuilder") Function<PlacesContext, PlacesModel> defaultPlacesResultBuilder,
-            @Qualifier("recoverableActionConsumer") BiConsumer<PlacesContext, RecoverableServiceException> recoverableActionConsumer
+            @Qualifier("recoverableActionConsumer") BiConsumer<PlacesContext, RecoverableServiceException> recoverableActionConsumer,
+            @Qualifier("getPlacesConsumer") Consumer<PlacesContext> getPlacesConsumer
     ) {
-        return new ServiceImpl<>(List.of(), List.of(), defaultPlacesResultBuilder, recoverableActionConsumer);
+        return new ServiceImpl<>(List.of(), List.of(getPlacesConsumer), defaultPlacesResultBuilder, recoverableActionConsumer);
+    }
+
+    @Bean("getPlacesConsumer")
+    public Consumer<PlacesContext> getPlacesConsumer(
+            final PlacesRepository placesRepository,
+            final PlacesMapper placesMapper
+    ) {
+        return new GetPlacesConsumer(placesRepository, placesMapper);
     }
 
     @Bean("addPlacesValidators")
@@ -141,6 +157,46 @@ public class BeansConfig {
             PlacesMapper placesMapper
     ) {
         return new PlacesToDbBuilder(placesRepository, userPlaceAssignmentToDbBuilder, dynamicStatusUpdater, placesMapper);
+    }
+
+    @Bean("placesUpdater")
+    public Consumer<PlacesContext> placesUpdater(
+            PlacesRepository placesRepository,
+            PlacesMapper placesMapper,
+            @Qualifier("placesDiffBiConsumer") BiConsumer<Places, PlacesModel> placesDiffBiConsumer,
+            @Qualifier("userAssigmentAdd") BiConsumer<Places, PlacesModel> userAssigmentAdd,
+            @Qualifier("userAssigmentDelete") BiConsumer<Places, PlacesModel> userAssigmentDelete,
+            @Qualifier("userAssigmentUpdate") BiConsumer<Places, PlacesModel> userAssigmentUpdate
+    ) {
+        return new PlacesUpdater(placesRepository, placesMapper, List.of(
+                    placesDiffBiConsumer,
+                    userAssigmentAdd,
+                    userAssigmentDelete,
+                    userAssigmentUpdate
+                ));
+    }
+
+    @Bean("placesDiffBiConsumer")
+    public BiConsumer<Places, PlacesModel> placesDiffBiConsumer() {
+        return new PlacesDiffBiConsumer();
+    }
+
+    @Bean("userAssigmentAdd")
+    public BiConsumer<Places, PlacesModel> userAssigmentAdd(
+            final UserRepository userRepository,
+            final UserPlaceAssignmentRepository userPlaceAssignmentRepository
+            ) {
+        return new UserAssigmentAdd(userRepository, userPlaceAssignmentRepository);
+    }
+
+    @Bean("userAssigmentDelete")
+    public BiConsumer<Places, PlacesModel> userAssigmentDelete() {
+        return new UserAssigmentDelete();
+    }
+
+    @Bean("userAssigmentUpdate")
+    public BiConsumer<Places, PlacesModel> userAssigmentUpdate() {
+        return new UserAssigmentUpdate();
     }
 
     @Bean("placeExistenceValidator")

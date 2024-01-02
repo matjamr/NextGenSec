@@ -8,11 +8,13 @@ import jakarta.persistence.Id;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
 @Accessors(chain = true)
 @NoArgsConstructor
 @Data
+@DynamicUpdate
 public class Address {
 
     @Id

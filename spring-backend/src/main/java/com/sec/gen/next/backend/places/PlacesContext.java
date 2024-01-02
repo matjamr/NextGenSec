@@ -14,5 +14,6 @@ public class PlacesContext {
     private Places places;
     private PlacesModel placesModel;
     private List<PlacesModel> batchPlacesModel;
+    private List<Places> batchPlaces;
     private List<Error> errors;
 }

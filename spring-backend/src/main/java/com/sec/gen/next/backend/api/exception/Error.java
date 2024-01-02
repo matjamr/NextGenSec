@@ -16,6 +16,9 @@ public enum Error implements Serializable {
     INVALID_ADDRESS_DATA("Invalid address data", 5),
     INVALID_IMAGE_DATA("Invalid image data", 6),
     NEWS_ERROR("Error during news processing", 7),
+    NO_PLACES_ID("There is no palce with given id", 8),
+    NO_USER_ID("There is no user with given id", 9),
+    UNAUTHORIZED("User is not authorized to enter this page", 10),
     ;
 
     private final String message;

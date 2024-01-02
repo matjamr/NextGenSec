@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+import org.hibernate.annotations.DynamicUpdate;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ import java.util.List;
 @Data
 @Accessors(chain = true)
 @Builder(toBuilder = true)
+@DynamicUpdate
 public class UserPlaceAssignment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

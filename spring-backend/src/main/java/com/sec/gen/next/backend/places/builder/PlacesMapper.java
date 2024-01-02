@@ -8,9 +8,13 @@ import org.mapstruct.CollectionMappingStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
+import java.util.List;
+
 @Mapper(uses = { AddressMapper.class, UserPlaceAssignmentMapper.class},
         collectionMappingStrategy = CollectionMappingStrategy.ADDER_PREFERRED)
 public interface PlacesMapper {
     Places from(PlacesModel placesModel);
+    List<Places> fromModel(List<PlacesModel> placesModel);
     PlacesModel from(Places places);
+    List<PlacesModel> from(List<Places> places);
 }

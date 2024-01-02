@@ -2,6 +2,7 @@ package com.sec.gen.next.backend.user;
 
 import com.sec.gen.next.backend.api.external.AdditionalInformationUpdateModel;
 import com.sec.gen.next.backend.api.external.UserModel;
+import com.sec.gen.next.backend.api.external.UserPlaceModel;
 import com.sec.gen.next.backend.api.internal.ClaimsUser;
 import com.sec.gen.next.backend.api.internal.User;
 import com.sec.gen.next.backend.user.service.UserService;
@@ -26,9 +27,13 @@ public class UserController {
         return userService.verify((ClaimsUser) servletRequest.getAttribute(PRINCIPAL));
     }
 
+    @PostMapping("/verify/place")
+    public User verifyUserWithPlace(ServletRequest servletRequest, @RequestBody UserPlaceModel userPlaceModel) {
+        return userService.verifyPlace((ClaimsUser) servletRequest.getAttribute(PRINCIPAL), userPlaceModel);
+    }
+
     @GetMapping("/{email}")
     public User findByEmail(@PathVariable final String email, final ServletRequest servletRequest) {
-
         return userService.findUserByEmail(email);
     }
 

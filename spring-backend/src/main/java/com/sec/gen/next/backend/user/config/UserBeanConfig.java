@@ -5,6 +5,7 @@ import com.sec.gen.next.backend.api.external.UserPlaceAssignmentModel;
 import com.sec.gen.next.backend.api.internal.ClaimsUser;
 import com.sec.gen.next.backend.api.internal.User;
 import com.sec.gen.next.backend.api.internal.UserPlaceAssignment;
+import com.sec.gen.next.backend.places.repository.PlacesRepository;
 import com.sec.gen.next.backend.security.builder.Builder;
 import com.sec.gen.next.backend.user.builders.ClaimsToUserBuilder;
 import com.sec.gen.next.backend.user.builders.UserPlaceAssignmentToDbBuilder;
@@ -29,11 +30,15 @@ public class UserBeanConfig {
     @Bean
     public UserService userService(
             final UserRepository userRepository,
+            final PlacesRepository placesRepository,
+            final UserPlaceAssignmentRepository userPlaceAssignmentRepository,
             final @Qualifier("usertoDbBuilder") Builder<User, User> usertoDbBuilder,
             final Builder<ClaimsUser, User> claimsToUserBuilder,
             final UserMapper userMapper
             ) {
         return new UserServiceImpl(userRepository,
+                userPlaceAssignmentRepository,
+                placesRepository,
                 usertoDbBuilder,
                 claimsToUserBuilder,
                 userMapper);
