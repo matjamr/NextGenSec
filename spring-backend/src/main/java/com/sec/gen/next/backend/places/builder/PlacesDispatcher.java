@@ -8,17 +8,18 @@ import com.sec.gen.next.backend.common.Service;
 import com.sec.gen.next.backend.common.Dispatcher;
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 
 @RequiredArgsConstructor
-public class PlacesDispatcher implements Dispatcher<PlacesModel, PlacesContext, RoutingEnum> {
+public class PlacesDispatcher implements Dispatcher<List<PlacesModel>, PlacesContext, RoutingEnum> {
 
-    private final Map<RoutingEnum, Service<PlacesModel, PlacesContext>> servicesActionMap;
+    private final Map<RoutingEnum, Service<List<PlacesModel>, PlacesContext>> servicesActionMap;
 
     @Override
-    public PlacesModel dispatch(PlacesContext placesContext, RoutingEnum enumRoute) {
+    public List<PlacesModel> dispatch(PlacesContext placesContext, RoutingEnum enumRoute) {
         return Optional.ofNullable(servicesActionMap.get(enumRoute))
                 .map(service -> {
                     service.validate(placesContext);

@@ -53,11 +53,11 @@ public class BeansConfig {
     }
 
     @Bean("placesDispatcher")
-    public Dispatcher<PlacesModel, PlacesContext, RoutingEnum> placesDispatcher(
-            @Qualifier("addPlacesService") Service<PlacesModel, PlacesContext> addService,
-            @Qualifier("updatePlacesService") Service<PlacesModel, PlacesContext> updateService,
-            @Qualifier("getPlacesService") Service<PlacesModel, PlacesContext> getService,
-            @Qualifier("deletePlacesService") Service<PlacesModel, PlacesContext> deleteService
+    public Dispatcher<List<PlacesModel>, PlacesContext, RoutingEnum> placesDispatcher(
+            @Qualifier("addPlacesService") Service<List<PlacesModel>, PlacesContext> addService,
+            @Qualifier("updatePlacesService") Service<List<PlacesModel>, PlacesContext> updateService,
+            @Qualifier("getPlacesService") Service<List<PlacesModel>, PlacesContext> getService,
+            @Qualifier("deletePlacesService") Service<List<PlacesModel>, PlacesContext> deleteService
     ) {
         return new PlacesDispatcher(Map.of(
                 ADD, addService,
@@ -68,8 +68,8 @@ public class BeansConfig {
     }
 
     @Bean("defaultPlacesResultBuilder")
-    public Function<PlacesContext, PlacesModel> defaultPlacesResultBuilder() {
-        return PlacesContext::getPlacesModel;
+    public Function<PlacesContext, List<PlacesModel>> defaultPlacesResultBuilder() {
+        return PlacesContext::getBatchPlacesModel;
     }
 
     @Bean("recoverableActionConsumer")
@@ -78,10 +78,10 @@ public class BeansConfig {
     }
 
     @Bean("addPlacesService")
-    public Service<PlacesModel, PlacesContext> addPlacesService(
+    public Service<List<PlacesModel>, PlacesContext> addPlacesService(
             @Qualifier("addPlacesValidators") List<Validator<PlacesContext>> addPlacesValidators,
             @Qualifier("addPlacesFlow") List<Consumer<PlacesContext>> addPlacesFlow,
-            @Qualifier("defaultPlacesResultBuilder") Function<PlacesContext, PlacesModel> defaultPlacesResultBuilder,
+            @Qualifier("defaultPlacesResultBuilder") Function<PlacesContext, List<PlacesModel>> defaultPlacesResultBuilder,
             @Qualifier("recoverableActionConsumer") BiConsumer<PlacesContext, RecoverableServiceException> recoverableActionConsumer
     ) {
         return new ServiceImpl<>(addPlacesValidators,
@@ -91,8 +91,8 @@ public class BeansConfig {
     }
 
     @Bean("updatePlacesService")
-    public Service<PlacesModel, PlacesContext> updatePlacesService(
-            @Qualifier("defaultPlacesResultBuilder") Function<PlacesContext, PlacesModel> defaultPlacesResultBuilder,
+    public Service<List<PlacesModel>, PlacesContext> updatePlacesService(
+            @Qualifier("defaultPlacesResultBuilder") Function<PlacesContext, List<PlacesModel>> defaultPlacesResultBuilder,
             @Qualifier("recoverableActionConsumer") BiConsumer<PlacesContext, RecoverableServiceException> recoverableActionConsumer,
             @Qualifier("placesUpdater") Consumer<PlacesContext> placesUpdater
     ) {
@@ -100,16 +100,16 @@ public class BeansConfig {
     }
 
     @Bean("deletePlacesService")
-    public Service<PlacesModel, PlacesContext> deletePlacesService(
-            @Qualifier("defaultPlacesResultBuilder") Function<PlacesContext, PlacesModel> defaultPlacesResultBuilder,
+    public Service<List<PlacesModel>, PlacesContext> deletePlacesService(
+            @Qualifier("defaultPlacesResultBuilder") Function<PlacesContext, List<PlacesModel>> defaultPlacesResultBuilder,
             @Qualifier("recoverableActionConsumer") BiConsumer<PlacesContext, RecoverableServiceException> recoverableActionConsumer
     ) {
         return new ServiceImpl<>(List.of(), List.of(), defaultPlacesResultBuilder, recoverableActionConsumer);
     }
 
     @Bean("getPlacesService")
-    public Service<PlacesModel, PlacesContext> getPlacesService(
-            @Qualifier("defaultPlacesResultBuilder") Function<PlacesContext, PlacesModel> defaultPlacesResultBuilder,
+    public Service<List<PlacesModel>, PlacesContext> getPlacesService(
+            @Qualifier("defaultPlacesResultBuilder") Function<PlacesContext, List<PlacesModel>> defaultPlacesResultBuilder,
             @Qualifier("recoverableActionConsumer") BiConsumer<PlacesContext, RecoverableServiceException> recoverableActionConsumer,
             @Qualifier("getPlacesConsumer") Consumer<PlacesContext> getPlacesConsumer
     ) {

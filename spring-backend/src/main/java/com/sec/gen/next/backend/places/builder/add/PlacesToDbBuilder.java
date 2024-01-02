@@ -28,6 +28,6 @@ public class PlacesToDbBuilder implements Consumer<PlacesContext> {
         Places places = placesMapper.from(placesContext.getPlacesModel());
 
         places = placesRepository.save(places);
-        placesContext.setPlacesModel(placesMapper.from(places));
+        placesContext.setBatchPlacesModel(List.of(placesMapper.from(places)));
     }
 }

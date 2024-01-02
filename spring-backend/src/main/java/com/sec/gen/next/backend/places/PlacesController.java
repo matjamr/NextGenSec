@@ -8,22 +8,23 @@ import jakarta.servlet.ServletRequest;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/places")
 public class PlacesController {
 
-    private final Dispatcher<PlacesModel, PlacesContext, RoutingEnum> placesDispatcher;
+    private final Dispatcher<List<PlacesModel>, PlacesContext, RoutingEnum> placesDispatcher;
     private final static String PRINCIPAL = "PRINCIPAL";
 
     public PlacesController(
-            @Qualifier("placesDispatcher") Dispatcher<PlacesModel, PlacesContext, RoutingEnum> placesDispatcher) {
+            @Qualifier("placesDispatcher") Dispatcher<List<PlacesModel>, PlacesContext, RoutingEnum> placesDispatcher) {
         this.placesDispatcher = placesDispatcher;
     }
 
     @PostMapping
-    public PlacesModel addPlace(
+    public List<PlacesModel> addPlace(
             final @Qualifier("placesContext") PlacesContext placesContext,
             final @RequestBody PlacesModel placesModel
     ) {
@@ -34,7 +35,7 @@ public class PlacesController {
     }
 
     @PutMapping
-    public PlacesModel updatePlace(
+    public List<PlacesModel> updatePlace(
             final @Qualifier("placesContext") PlacesContext placesContext,
             final @RequestBody PlacesModel placesModel
     ) {
@@ -45,7 +46,7 @@ public class PlacesController {
     }
 
     @GetMapping
-    public PlacesModel getPlaces(
+    public List<PlacesModel> getPlaces(
             final @Qualifier("placesContext") PlacesContext placesContext,
             final @RequestHeader(value = "user-scope", defaultValue = "false") Boolean userScope,
             ServletRequest servletRequest
@@ -58,7 +59,7 @@ public class PlacesController {
     }
 
     @DeleteMapping
-    public PlacesModel deletePlaces(
+    public List<PlacesModel> deletePlaces(
             final @Qualifier("placesContext") PlacesContext placesContext,
             final @RequestBody PlacesModel placesModel
     ) {

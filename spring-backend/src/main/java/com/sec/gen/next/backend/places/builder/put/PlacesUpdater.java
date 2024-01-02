@@ -32,6 +32,6 @@ public class PlacesUpdater implements Consumer<PlacesContext> {
 
         updaterList.forEach(updater -> updater.accept(places, placesModel));
         var ret = placesRepository.save(places);
-        placesContext.setPlacesModel(placesMapper.from(ret));
+        placesContext.setBatchPlacesModel(List.of(placesMapper.from(ret)));
     }
 }

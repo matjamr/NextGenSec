@@ -19,9 +19,7 @@ public class GetPlacesConsumer implements Consumer<PlacesContext> {
 
     @Override
     public void accept(PlacesContext placesContext) {
-        placesContext.setPlacesModel(PlacesModel.builder()
-                        .batchRetrieve(getPlaces(placesContext))
-                .build());
+        placesContext.setBatchPlacesModel(getPlaces(placesContext));
     }
 
     private List<PlacesModel> getPlaces(PlacesContext placesContext) {
