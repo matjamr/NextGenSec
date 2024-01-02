@@ -2,6 +2,7 @@ package com.sec.gen.next.backend.places;
 
 import com.sec.gen.next.backend.api.exception.Error;
 import com.sec.gen.next.backend.api.external.PlacesModel;
+import com.sec.gen.next.backend.api.internal.ClaimsUser;
 import com.sec.gen.next.backend.api.internal.Places;
 import lombok.Builder;
 import lombok.Data;
@@ -16,4 +17,6 @@ public class PlacesContext {
     private List<PlacesModel> batchPlacesModel;
     private List<Places> batchPlaces;
     private List<Error> errors;
+    private Boolean userScope = false;
+    private ClaimsUser claimsUser;
 }

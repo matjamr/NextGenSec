@@ -1,16 +1,21 @@
 package com.sec.gen.next.backend.places;
 
 import com.sec.gen.next.backend.api.external.PlacesModel;
+import com.sec.gen.next.backend.api.internal.ClaimsUser;
 import com.sec.gen.next.backend.places.builder.RoutingEnum;
 import com.sec.gen.next.backend.common.Dispatcher;
+import jakarta.servlet.ServletRequest;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/places")
 public class PlacesController {
 
     private final Dispatcher<PlacesModel, PlacesContext, RoutingEnum> placesDispatcher;
+    private final static String PRINCIPAL = "PRINCIPAL";
 
     public PlacesController(
             @Qualifier("placesDispatcher") Dispatcher<PlacesModel, PlacesContext, RoutingEnum> placesDispatcher) {
@@ -42,10 +47,12 @@ public class PlacesController {
     @GetMapping
     public PlacesModel getPlaces(
             final @Qualifier("placesContext") PlacesContext placesContext,
-            final @RequestBody PlacesModel placesModel
+            final @RequestHeader(value = "user-scope", defaultValue = "false") Boolean userScope,
+            ServletRequest servletRequest
     ) {
         return placesDispatcher.dispatch(placesContext.toBuilder()
-                        .placesModel(placesModel)
+                        .userScope(Optional.ofNullable(userScope).orElse(false))
+                        .claimsUser((ClaimsUser) servletRequest.getAttribute(PRINCIPAL))
                         .build(),
                 RoutingEnum.GET);
     }

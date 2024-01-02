@@ -11,6 +11,7 @@ import {AppModule} from "../../app.module";
 import {CoreModule} from "../../core/core.module";
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { FinishLoginComponent } from './finish-login/finish-login.component';
+import { ChooseLevelComponent } from './pages/choose-level/choose-level.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,10 @@ const routes: Routes = [
   {
     path: 'finishLogin',
     component: FinishLoginComponent
+  },
+  {
+    path: 'choose',
+    component: ChooseLevelComponent
   }
 ]
 
@@ -44,7 +49,8 @@ const routes: Routes = [
     HeaderComponent,
     SliderComponent,
     ProductDetailsComponent,
-    FinishLoginComponent
+    FinishLoginComponent,
+    ChooseLevelComponent
   ],
     imports: [
         CommonModule,
