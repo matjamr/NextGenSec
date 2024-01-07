@@ -5,6 +5,7 @@ import com.sec.gen.next.backend.api.external.PlacesModel;
 import com.sec.gen.next.backend.api.external.UserPlaceAssignmentModel;
 import com.sec.gen.next.backend.api.internal.Places;
 import com.sec.gen.next.backend.api.internal.UserPlaceAssignment;
+import com.sec.gen.next.backend.api.internal.VerificationStage;
 import com.sec.gen.next.backend.user.mapper.UserMapper;
 import com.sec.gen.next.backend.user.repository.UserPlaceAssignmentRepository;
 import com.sec.gen.next.backend.user.repository.UserRepository;
@@ -43,6 +44,7 @@ public class UserAssigmentAdd implements BiConsumer<Places, PlacesModel> {
                 .user(userRepository.findUserByEmail(userAdd.user().getEmail())
                         .orElseThrow(() -> new ServiceException(NO_USER_ID)))
                 .assignmentRole(userAdd.assignmentRole())
+                .verificationStage(Optional.ofNullable(userAdd.verificationStage()).orElse(VerificationStage.APPLIED))
                 .build();
     }
 }

@@ -1,0 +1,6 @@
+<app-user-header></app-user-header>
+<div class="container">
+  <div *ngFor="let place of places$ | async">
+    <h1>{{place.placeName}}</h1>
+  </div>
+</div>

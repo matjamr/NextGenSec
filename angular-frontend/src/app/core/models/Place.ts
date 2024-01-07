@@ -1,5 +1,6 @@
 import {Address} from "./Address";
 import {UserPlaceAssigment} from "./UserPlaceAssigment";
+import {Product} from "./Product";
 
 export interface Place {
   id: number,
@@ -7,5 +8,6 @@ export interface Place {
   emailPlace: string,
   address: Address
   batchRetrieve: Place[],
-  authorizedUsers: UserPlaceAssigment[]
+  authorizedUsers: UserPlaceAssigment[],
+  product: Product
 }

@@ -25,6 +25,7 @@ import com.sec.gen.next.backend.common.address.validator.AddressValidator;
 import com.sec.gen.next.backend.common.impl.ServiceImpl;
 import com.sec.gen.next.backend.common.Dispatcher;
 import com.sec.gen.next.backend.common.Validator;
+import com.sec.gen.next.backend.product.repository.ProductRepository;
 import com.sec.gen.next.backend.user.mapper.UserMapper;
 import com.sec.gen.next.backend.user.repository.UserPlaceAssignmentRepository;
 import com.sec.gen.next.backend.user.repository.UserRepository;
@@ -166,13 +167,15 @@ public class BeansConfig {
             @Qualifier("placesDiffBiConsumer") BiConsumer<Places, PlacesModel> placesDiffBiConsumer,
             @Qualifier("userAssigmentAdd") BiConsumer<Places, PlacesModel> userAssigmentAdd,
             @Qualifier("userAssigmentDelete") BiConsumer<Places, PlacesModel> userAssigmentDelete,
-            @Qualifier("userAssigmentUpdate") BiConsumer<Places, PlacesModel> userAssigmentUpdate
+            @Qualifier("userAssigmentUpdate") BiConsumer<Places, PlacesModel> userAssigmentUpdate,
+            @Qualifier("productAddBiConsumer") BiConsumer<Places, PlacesModel> productAddBiConsumer
     ) {
         return new PlacesUpdater(placesRepository, placesMapper, List.of(
                     placesDiffBiConsumer,
                     userAssigmentAdd,
                     userAssigmentDelete,
-                    userAssigmentUpdate
+                    userAssigmentUpdate,
+                    productAddBiConsumer
                 ));
     }
 
@@ -187,6 +190,14 @@ public class BeansConfig {
             final UserPlaceAssignmentRepository userPlaceAssignmentRepository
             ) {
         return new UserAssigmentAdd(userRepository, userPlaceAssignmentRepository);
+    }
+
+    @Bean("productAddBiConsumer")
+    public BiConsumer<Places, PlacesModel> productAddBiConsumer(
+            final ProductRepository productRepository,
+            final UserPlaceAssignmentRepository userPlaceAssignmentRepository
+            ) {
+        return new ProductAddBiConsumer(productRepository, userPlaceAssignmentRepository);
     }
 
     @Bean("userAssigmentDelete")

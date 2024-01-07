@@ -23,7 +23,8 @@ public class GetPlacesConsumer implements Consumer<PlacesContext> {
     }
 
     private List<PlacesModel> getPlaces(PlacesContext placesContext) {
-        List<PlacesModel> ret = placesMapper.from(placesRepository.findAll());
+        var retr = placesRepository.findAll();
+        List<PlacesModel> ret = placesMapper.from(retr);
 
         if(placesContext.getUserScope()) {
             return ret.stream()

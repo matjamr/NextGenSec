@@ -6,7 +6,6 @@ import org.hibernate.annotations.DynamicUpdate;
 
 @Data
 @Builder(toBuilder = true)
-@DynamicUpdate
 public class ClaimsUser {
     private String email;
     private String name;

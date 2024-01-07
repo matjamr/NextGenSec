@@ -1,0 +1,12 @@
+<app-user-header></app-user-header>
+<div class="data-grid-2">
+  <div *ngFor="let method of methods$ | async">
+    <h1>{{method.name}}</h1>
+    <button>show</button>
+    <button>modify</button>
+    <button>delete</button>
+  </div>
+  <div class="data-row">
+    +
+  </div>
+</div>

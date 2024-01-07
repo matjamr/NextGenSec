@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicUpdate;
 
 import java.util.List;
@@ -28,4 +29,10 @@ public class UserPlaceAssignment {
 
     @Enumerated(value = EnumType.STRING)
     private AssignmentRole assignmentRole;
+
+    @Enumerated(value = EnumType.STRING)
+    private VerificationStage verificationStage;
+
+    @ManyToMany
+    private List<Product> products;
 }

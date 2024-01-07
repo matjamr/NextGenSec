@@ -23,22 +23,22 @@ import {PlaceEffects} from "./core/state/place/place.effects";
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
-    FooterComponent
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    UnloggedModule,
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
     CoreModule,
+    UnloggedModule,
     StoreModule.forRoot<AppState>({ products: ProductsReducer, user: UserReducer, places: PlaceReducer }),
     EffectsModule.forRoot([ProductsEffects, UserEffects, PlaceEffects])
   ],
   providers: [],
-  exports: [],
+  exports: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

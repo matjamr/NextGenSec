@@ -1,0 +1,29 @@
+.profile-card {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 10%;
+  margin-top: 1vh;
+}
+.dropdown {
+  position: relative;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  z-index: 1;
+}
+
+/* Styling for the image */
+.user-details {
+  cursor: pointer;
+}
+
+/* Show the dropdown content when the dropdown is open */
+.dropdown.open .dropdown-content {
+  display: block;
+}
+

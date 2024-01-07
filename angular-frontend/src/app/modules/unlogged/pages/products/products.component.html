@@ -1,3 +1,4 @@
+<app-unlogged-header></app-unlogged-header>
 <div class="products-grid-layout">
   <div *ngFor="let product of products$ | async;
        let i = index "
@@ -13,3 +14,4 @@
     <app-product-details [onClose]="closeProductDetails" [activeProduct]="activeProduct"></app-product-details>
   </div>
 </div>
+<app-footer></app-footer>

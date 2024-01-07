@@ -1,1 +1,25 @@
-<p>welcome-screen works!</p>
+<app-user-header></app-user-header>
+
+<div class="grid-container">
+  <div class="methods">
+    <h1>Supported methods</h1>
+    <div>
+      <button *ngFor="let method of methods$ | async">{{method.name}}</button>
+      <button>+</button>
+    </div>
+  </div>
+  <div class="notifications">
+    <h1>Notifications</h1>
+    <button *ngFor="let notif of notifications$ | async">{{notif.title}}</button>
+  </div>
+  <div class="activites">
+    <h1>Recent activites</h1>
+    <div>
+      <div *ngFor="let activity of recentActivities$ | async">
+        <!-- img placeholder -->
+        {{activity.places.address.streetName}}
+        {{activity.places.address.city}}
+      </div>
+    </div>
+  </div>
+</div>

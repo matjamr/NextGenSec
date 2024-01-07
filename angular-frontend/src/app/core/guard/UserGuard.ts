@@ -6,12 +6,12 @@ export const hasUserRole: CanActivateFn = (route, state) => {
   const router: Router = inject(Router)
 
   console.log(route.url[1])
-  let user = inject(UserService).verifyUserToGivenPlace({placeName: String(route.url[1]), role: "USER"});
+  // let user = inject(UserService).verifyUserToGivenPlace({placeName: String(route.url[1]), role: "USER"});
 
-  user.subscribe(
-    data => console.log(data),
-    error => router.navigate(['unauthorized'])
-  )
+  // user.subscribe(
+  //   data => console.log(data),
+  //   error => router.navigate(['unauthorized'])
+  // )
 
   return true;
 }

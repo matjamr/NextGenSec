@@ -112,3 +112,20 @@
 .product-details-desc-area {
   text-align: center;
 }
+
+
+.separate {
+  justify-content: space-between;
+}
+
+.space-even {
+  justify-content: space-evenly;
+}
+
+.light-button {
+
+}
+
+.w-100 {
+  width: 100%;
+}

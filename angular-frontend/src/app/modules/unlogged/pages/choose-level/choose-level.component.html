@@ -1,6 +1,0 @@
-<div *ngFor="let place of places$ | async">
-  <h1>{{place.placeName}}</h1>
-  <button *ngFor="let user of place.authorizedUsers" (click)="navgiateToPlace(place.placeName, user.assignmentRole)">
-    {{user.assignmentRole}}
-  </button>
-</div>

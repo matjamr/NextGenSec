@@ -19,6 +19,7 @@ public enum Error implements Serializable {
     NO_PLACES_ID("There is no palce with given id", 8),
     NO_USER_ID("There is no user with given id", 9),
     UNAUTHORIZED("User is not authorized to enter this page", 10),
+    INVALID_PRODUCT_DATA("Invalid product data", 11),
     ;
 
     private final String message;

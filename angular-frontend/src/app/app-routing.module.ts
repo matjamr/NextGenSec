@@ -8,7 +8,7 @@ const routes: Routes = [
     loadChildren: () =>  import('./modules/unlogged/unlogged.module').then((m) => m.UnloggedModule)
   },
   {
-    path: 'USER/:placeName',
+    path: 'user',
     loadChildren: () =>  import('./modules/user-logged/user-logged.module').then((m) => m.UserLoggedModule),
     canActivate: [hasUserRole]
   }

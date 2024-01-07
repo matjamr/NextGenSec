@@ -27,12 +27,14 @@ export class ChooseLevelComponent implements OnInit {
   ngOnInit(): void {
     this.store.dispatch(GetPlaces())
     this.places$.subscribe(data => {
-      console.log(data)
+      if(data[0]?.authorizedUsers[0]?.assignmentRole === "ADMIN") {
+        this.router.navigate(["/admin"])
+      } else if(data[0]?.authorizedUsers[0]?.assignmentRole === "USER") {
+        this.router.navigate(["/user"])
+      } else {
+        this.router.navigate(["/unauthorized"])
+      }
     })
   }
 
-
-  navgiateToPlace(placeName: string, assigmentRole: string) {
-    this.router.navigate(["/" + assigmentRole + "/" + placeName])
-  }
 }

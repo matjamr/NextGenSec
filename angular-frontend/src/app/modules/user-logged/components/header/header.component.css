@@ -1,0 +1,10 @@
+.right-section {
+}
+
+.left-section {
+}
+
+.grid-navbar-container {
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
