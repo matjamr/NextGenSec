@@ -1,0 +1,9 @@
+<div class="horizontal-container separate">
+  <app-logo-title></app-logo-title>
+  <div class="navbar-buttons">
+    <div *ngFor="let navBar of navRouterBars" class="custom-button" [ngClass]="[activeRoute === navBar.url ? 'active-button' : '']" (click)="navigate(navBar.url)">
+      {{navBar.title}}
+    </div>
+  </div>
+  <app-profile-logo></app-profile-logo>
+</div>

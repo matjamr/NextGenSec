@@ -66,6 +66,11 @@
   display: block;
 }
 
+.navbar-buttons {
+  display: flex;
+  margin-right: 10px;
+}
+
 .horizontal-line {
   width: 80%;
   padding: 0 10%;
@@ -129,3 +134,23 @@
 .w-100 {
   width: 100%;
 }
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 25vh 50vh;
+}
+
+.grid-right {
+  grid-column: 3;
+  grid-row: 1 / 3;
+}
+
+.grid-bottom {
+  grid-column: 1 / 3;
+}
+
+.grid-left {
+  grid-column: 1 / 3;
+}
+

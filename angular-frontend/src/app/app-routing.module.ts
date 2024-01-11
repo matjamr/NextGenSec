@@ -11,6 +11,10 @@ const routes: Routes = [
     path: 'user',
     loadChildren: () =>  import('./modules/user-logged/user-logged.module').then((m) => m.UserLoggedModule),
     canActivate: [hasUserRole]
+  },
+  {
+    path: 'admin',
+    loadChildren: () =>  import('./modules/admin-logged/admin-logged.module').then((m) => m.AdminLoggedModule),
   }
 ];
 

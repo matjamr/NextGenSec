@@ -37,8 +37,9 @@ import {PlaceEffects} from "./core/state/place/place.effects";
     EffectsModule.forRoot([ProductsEffects, UserEffects, PlaceEffects])
   ],
   providers: [],
-  exports: [
-  ],
+    exports: [
+        HeaderComponent
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

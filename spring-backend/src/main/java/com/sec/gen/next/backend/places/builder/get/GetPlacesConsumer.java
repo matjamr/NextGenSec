@@ -31,6 +31,9 @@ public class GetPlacesConsumer implements Consumer<PlacesContext> {
                     .filter(place -> place.getAuthorizedUsers()
                             .stream()
                             .anyMatch(userPlaceAssignmentModel -> userPlaceAssignmentModel.getUser().getEmail().equals(placesContext.getClaimsUser().getEmail())))
+                    .map(place -> place.toBuilder()
+                            .authorizedUsers(place.getAuthorizedUsers().stream().filter(user -> user.getUser().getEmail().equals(placesContext.getClaimsUser().getEmail())).toList())
+                            .build())
                     .toList();
         }
 
