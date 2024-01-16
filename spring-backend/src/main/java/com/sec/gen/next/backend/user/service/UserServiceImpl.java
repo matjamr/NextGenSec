@@ -3,18 +3,27 @@ package com.sec.gen.next.backend.user.service;
 import com.sec.gen.next.backend.api.exception.Error;
 import com.sec.gen.next.backend.api.exception.ServiceException;
 import com.sec.gen.next.backend.api.external.AdditionalInformationUpdateModel;
+import com.sec.gen.next.backend.api.external.SensitiveDataModel;
 import com.sec.gen.next.backend.api.external.UserModel;
 import com.sec.gen.next.backend.api.external.UserPlaceModel;
 import com.sec.gen.next.backend.api.internal.*;
+import com.sec.gen.next.backend.image.repository.ImageRepository;
 import com.sec.gen.next.backend.places.repository.PlacesRepository;
+import com.sec.gen.next.backend.product.repository.ProductRepository;
 import com.sec.gen.next.backend.security.builder.Builder;
+import com.sec.gen.next.backend.user.mapper.SensitiveDataMapper;
 import com.sec.gen.next.backend.user.mapper.UserMapper;
+import com.sec.gen.next.backend.user.repository.SensitiveDataRepository;
 import com.sec.gen.next.backend.user.repository.UserPlaceAssignmentRepository;
 import com.sec.gen.next.backend.user.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
+import static com.sec.gen.next.backend.api.exception.Error.INVALID_USER_DATA;
 import static com.sec.gen.next.backend.api.exception.Error.UNAUTHORIZED;
 
 
@@ -27,6 +36,10 @@ public class UserServiceImpl implements UserService {
     private final Builder<User, User> usertoDbBuilder;
     private final Builder<ClaimsUser, User> claimsToUserBuilder;
     private final UserMapper userMapper;
+    private final SensitiveDataRepository sensitiveDataRepository;
+    private final SensitiveDataMapper sensitiveDataMapper;
+    private final ImageRepository imageRepository;
+    private final ProductRepository productRepository;
 
     @Override
     public User save(UserModel userModel) {
@@ -54,6 +67,11 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
+    private void registerUser(ClaimsUser claimsUser) {
+        userRepository.save(usertoDbBuilder.apply(
+                claimsToUserBuilder.apply(claimsUser)));
+    }
+
     @Override
     public User verify(ClaimsUser claimsUser) {
         return userRepository.findUserByEmail(claimsUser.getEmail())
@@ -78,8 +96,33 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new ServiceException(UNAUTHORIZED));
     }
 
-    private void registerUser(ClaimsUser claimsUser) {
-        userRepository.save(usertoDbBuilder.apply(
-                claimsToUserBuilder.apply(claimsUser)));
+    @Transactional
+    @Override
+    public List<SensitiveDataModel> addSensitiveData(ClaimsUser claimsUser, SensitiveDataModel sensitiveDataModel) {
+        Image image = imageRepository.findById(sensitiveDataModel.getImage().getId()).get();
+        Product product = productRepository.findById(sensitiveDataModel.getProduct().getId()).get();
+
+        SensitiveData beforeSaveData = sensitiveDataMapper.map(sensitiveDataModel)
+                .setId(UUID.randomUUID().toString())
+                .setImage(image)
+                .setProduct(product);
+
+        SensitiveData sensitiveData = sensitiveDataRepository.save(beforeSaveData);
+        User user = findUserByEmail(claimsUser.getEmail());
+        user.sensitiveData().add(sensitiveData);
+        userRepository.save(user);
+
+        return List.of(sensitiveDataMapper.map(sensitiveData));
+    }
+
+    @Transactional
+    @Override
+    public List<SensitiveDataModel> getSensitiveData(String email) {
+        return userRepository.findUserByEmail(email)
+                .map(User::sensitiveData)
+                .orElseThrow(() -> new ServiceException(INVALID_USER_DATA))
+                .stream()
+                .map(sensitiveDataMapper::map)
+                .toList();
     }
 }

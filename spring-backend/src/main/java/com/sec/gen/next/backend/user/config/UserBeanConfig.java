@@ -5,13 +5,17 @@ import com.sec.gen.next.backend.api.external.UserPlaceAssignmentModel;
 import com.sec.gen.next.backend.api.internal.ClaimsUser;
 import com.sec.gen.next.backend.api.internal.User;
 import com.sec.gen.next.backend.api.internal.UserPlaceAssignment;
+import com.sec.gen.next.backend.image.repository.ImageRepository;
 import com.sec.gen.next.backend.places.repository.PlacesRepository;
+import com.sec.gen.next.backend.product.repository.ProductRepository;
 import com.sec.gen.next.backend.security.builder.Builder;
 import com.sec.gen.next.backend.user.builders.ClaimsToUserBuilder;
 import com.sec.gen.next.backend.user.builders.UserPlaceAssignmentToDbBuilder;
 import com.sec.gen.next.backend.user.builders.UserToDbBuilder;
+import com.sec.gen.next.backend.user.mapper.SensitiveDataMapper;
 import com.sec.gen.next.backend.user.mapper.UserMapper;
 import com.sec.gen.next.backend.user.mapper.UserPlaceAssignmentMapper;
+import com.sec.gen.next.backend.user.repository.SensitiveDataRepository;
 import com.sec.gen.next.backend.user.repository.UserPlaceAssignmentRepository;
 import com.sec.gen.next.backend.user.repository.UserRepository;
 import com.sec.gen.next.backend.user.service.UserService;
@@ -34,14 +38,22 @@ public class UserBeanConfig {
             final UserPlaceAssignmentRepository userPlaceAssignmentRepository,
             final @Qualifier("usertoDbBuilder") Builder<User, User> usertoDbBuilder,
             final Builder<ClaimsUser, User> claimsToUserBuilder,
-            final UserMapper userMapper
-            ) {
+            final UserMapper userMapper,
+            final SensitiveDataRepository sensitiveDataRepository,
+            final SensitiveDataMapper sensitiveDataMapper,
+            final ProductRepository productRepository,
+            final ImageRepository imageRepository
+    ) {
         return new UserServiceImpl(userRepository,
                 userPlaceAssignmentRepository,
                 placesRepository,
                 usertoDbBuilder,
                 claimsToUserBuilder,
-                userMapper);
+                userMapper,
+                sensitiveDataRepository,
+                sensitiveDataMapper,
+                imageRepository,
+                productRepository);
     }
 
     @Bean
@@ -58,7 +70,7 @@ public class UserBeanConfig {
     public Function<List<UserPlaceAssignmentModel>, List<UserPlaceAssignment>> userPlaceAssignmentToDbBuilder(
             final UserPlaceAssignmentRepository userPlaceAssignmentRepository,
             final UserPlaceAssignmentMapper userPlaceAssignmentMapper
-            ) {
+    ) {
         return new UserPlaceAssignmentToDbBuilder(userPlaceAssignmentRepository, userPlaceAssignmentMapper);
     }
 }

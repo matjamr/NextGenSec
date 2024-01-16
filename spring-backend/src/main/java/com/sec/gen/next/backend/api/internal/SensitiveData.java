@@ -1,7 +1,6 @@
 package com.sec.gen.next.backend.api.internal;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,9 +13,16 @@ import org.hibernate.annotations.DynamicUpdate;
 @AllArgsConstructor
 @Data
 @DynamicUpdate
+@Accessors(chain = true)
 public class SensitiveData {
 
-    private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
+
+    @ManyToOne
     private Image image;
-    private Integer product_id;
+
+    @ManyToOne
+    private Product product;
 }

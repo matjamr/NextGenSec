@@ -1,6 +1,7 @@
 package com.sec.gen.next.backend.user;
 
 import com.sec.gen.next.backend.api.external.AdditionalInformationUpdateModel;
+import com.sec.gen.next.backend.api.external.SensitiveDataModel;
 import com.sec.gen.next.backend.api.external.UserModel;
 import com.sec.gen.next.backend.api.external.UserPlaceModel;
 import com.sec.gen.next.backend.api.internal.ClaimsUser;
@@ -46,5 +47,15 @@ public class UserController {
     @GetMapping
     public List<UserModel> findAllUsers() {
         return userService.findAll();
+    }
+
+    @PostMapping("/sensitive")
+    public List<SensitiveDataModel> addSensitiveData(ServletRequest servletRequest, @RequestBody SensitiveDataModel sensitiveDataModel) {
+        return userService.addSensitiveData((ClaimsUser) servletRequest.getAttribute(PRINCIPAL), sensitiveDataModel);
+    }
+
+    @GetMapping("/sensitive/{email}")
+    public List<SensitiveDataModel> getSensitiveData(@PathVariable String email) {
+        return userService.getSensitiveData(email);
     }
 }

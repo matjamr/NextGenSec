@@ -2,6 +2,7 @@ package com.sec.gen.next.backend.user.service;
 
 
 import com.sec.gen.next.backend.api.external.AdditionalInformationUpdateModel;
+import com.sec.gen.next.backend.api.external.SensitiveDataModel;
 import com.sec.gen.next.backend.api.external.UserModel;
 import com.sec.gen.next.backend.api.external.UserPlaceModel;
 import com.sec.gen.next.backend.api.internal.ClaimsUser;
@@ -19,4 +20,8 @@ public interface UserService {
     List<UserModel> findAll();
 
     User verifyPlace(ClaimsUser attribute, UserPlaceModel userPlaceModel);
+
+    List<SensitiveDataModel> addSensitiveData(ClaimsUser attribute, SensitiveDataModel sensitiveDataModel);
+
+    List<SensitiveDataModel> getSensitiveData(String email);
 }
