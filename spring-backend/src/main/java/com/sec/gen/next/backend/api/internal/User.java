@@ -44,6 +44,9 @@ public class User {
     private String pictureUrl;
     private LocalDateTime creationDate;
 
+    @OneToMany
+    private List<SensitiveData> sensitiveData;
+
     public Integer getId() {
         return id;
     }
