@@ -16,8 +16,8 @@ public class GoogleUserInfoController {
         this.googleUserInfoService = googleUserInfoService;
     }
 
-    @GetMapping("/verify")
-    public Mono<AuthorizedUser> getUserInfo(@RequestBody String token, @RequestHeader Source source) {
+    @PostMapping("/verify")
+    public Mono<AuthorizedUser> getUserInfo(@RequestHeader String token, @RequestHeader Source source) {
         return googleUserInfoService.getUserInfo(token, source);
     }
 }
