@@ -1,2 +1,24 @@
 <app-header></app-header>
-<p>users works!</p>
+<div class="filter-options">
+  <select [(ngModel)]="filterType">
+    <option value="email">Email</option>
+    <option value="surname">Surname</option>
+  </select>
+</div>
+<div class="contact-search">
+  <input type="text" placeholder="Enter email..." [(ngModel)]="searchText">
+</div>
+<div class="contact-list">
+  <div class="contact-item" *ngFor="let contact of filteredContacts(searchText)">
+    <div class="contact-info">
+      <div class="contact-name">{{ contact.name }}</div>
+      <div class="contact-details">
+        {{ contact.birthday }} {{ contact.email }}
+      </div>
+    </div>
+    <div class="contact-actions">
+      <button class="info-btn">i</button>
+      <button class="delete-btn">✖</button>
+    </div>
+  </div>
+</div>

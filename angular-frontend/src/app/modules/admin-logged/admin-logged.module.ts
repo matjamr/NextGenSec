@@ -7,6 +7,7 @@ import { MonitorComponent } from './pages/monitor/monitor.component';
 import { PlaceInfoComponent } from './pages/place-info/place-info.component';
 import {RouterModule, Routes} from "@angular/router";
 import {CoreModule} from "../../core/core.module";
+import {FormsModule} from "@angular/forms";
 
 const routes: Routes = [
   {
@@ -39,6 +40,7 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     CoreModule,
+    FormsModule
   ]
 })
 export class AdminLoggedModule { }

@@ -1,0 +1,56 @@
+.contact-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.contact-info .contact-name {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.contact-actions {
+  display: flex;
+  align-items: center;
+}
+
+.info-btn, .delete-btn {
+  border: none;
+  background: none;
+  cursor: pointer;
+  margin-left: 10px;
+  font-size: 16px;
+}
+
+.info-btn {
+  color: #FFD700;
+}
+
+.delete-btn {
+  color: #FF6347;
+}
+
+.contact-search input {
+  width: calc(100% - 20px);
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  outline: none;
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.contact-search input::placeholder {
+  color: #aaa;
+}
+
+.contact-search input:focus {
+  border-color: #88aaff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}

@@ -4,9 +4,11 @@
   margin-right: 10%;
   margin-top: 1vh;
 }
+
 .dropdown {
   position: relative;
 }
+
 
 .dropdown-content {
   display: none;
@@ -17,12 +19,17 @@
   z-index: 1;
 }
 
-/* Styling for the image */
+
 .user-details {
   cursor: pointer;
+  text-decoration: underline;
+  font-size: 0.8em;
 }
 
-/* Show the dropdown content when the dropdown is open */
+.user-name {
+  font-size: 1.2em;
+}
+
 .dropdown.open .dropdown-content {
   display: block;
 }

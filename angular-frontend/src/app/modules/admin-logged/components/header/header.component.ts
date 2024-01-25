@@ -9,25 +9,28 @@ import {NavigationEnd, Router} from "@angular/router";
 })
 export class HeaderComponent implements OnInit {
   navRouterBars: ActiveNavBar[] = [
-    { url: "/", title: "Home"},
+    { url: "", title: "Home"},
     { url: "/users", title: "Users"},
     { url: "/monitor", title: "Monitor",},
     { url: "/place-info", title: "Places"}
   ];
 
-  activeRoute: string = "";
-
   constructor(private router: Router) {}
 
   ngOnInit(): void {
     this.router.events.subscribe((value) => {
-      if (value instanceof NavigationEnd){
-        this.activeRoute = value.url
+      if (value instanceof NavigationEnd && localStorage.getItem("url") == null){
+        localStorage.setItem("url", value.url)
       }
     })
   }
 
   navigate(url: string) {
+    localStorage.setItem("url", "/admin" + url)
     this.router.navigate(["admin/" + url])
+  }
+
+  isActiveRoute(navBar: ActiveNavBar) {
+      return localStorage.getItem("url") === "/admin" + navBar.url
   }
 }
