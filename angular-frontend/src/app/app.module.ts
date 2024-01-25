@@ -19,6 +19,7 @@ import {UserReducer} from "./core/state/user/user.reducer";
 import {UserEffects} from "./core/state/user/user.effects";
 import {PlaceReducer} from "./core/state/place/place.reducer";
 import {PlaceEffects} from "./core/state/place/place.effects";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import {PlaceEffects} from "./core/state/place/place.effects";
     CoreModule,
     UnloggedModule,
     StoreModule.forRoot<AppState>({ products: ProductsReducer, user: UserReducer, places: PlaceReducer }),
-    EffectsModule.forRoot([ProductsEffects, UserEffects, PlaceEffects])
+    EffectsModule.forRoot([ProductsEffects, UserEffects, PlaceEffects]),
+    NgbModule
   ],
   providers: [],
     exports: [

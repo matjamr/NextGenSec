@@ -5,6 +5,19 @@
   <div *ngFor="let navBar of navRouterBars" class="light-theme-btn" [class]="[isActiveRoute(navBar) ? 'active-light-button' : '']" (click)="navigate(navBar.url)">
     {{navBar.title}}
   </div>
+
+
+  <div class="dropdown">
+    <button class="btn dropdown-toggle" style="background-color: #80B982" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+      Administrative
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <li (click)="navigate('users')"><div class="dropdown-item">Users</div></li>
+      <li (click)="navigate('place-info')"><div class="dropdown-item">Place info</div></li>
+      <li (click)="navigate('sample')"><div class="dropdown-item" href="#">Sample</div></li>
+    </ul>
+  </div>
+
   <div style="width: 5%"></div>
   <app-profile-logo></app-profile-logo>
 </div>

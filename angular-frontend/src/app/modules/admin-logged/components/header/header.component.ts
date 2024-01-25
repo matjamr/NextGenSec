@@ -10,9 +10,9 @@ import {NavigationEnd, Router} from "@angular/router";
 export class HeaderComponent implements OnInit {
   navRouterBars: ActiveNavBar[] = [
     { url: "", title: "Home"},
-    { url: "/users", title: "Users"},
+    { url: "/email", title: "Email"},
     { url: "/monitor", title: "Monitor",},
-    { url: "/place-info", title: "Places"}
+    { url: "/chat", title: "Chat"}
   ];
 
   constructor(private router: Router) {}
