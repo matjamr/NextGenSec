@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import {Router} from "@angular/router";
+import {NavigationEnd, Router} from "@angular/router";
+import {ActiveNavBar} from "../../../../core/models/ActiveNavBar";
 
 @Component({
   selector: 'app-user-header',
@@ -8,12 +9,29 @@ import {Router} from "@angular/router";
 })
 export class HeaderComponent {
 
-  constructor(
-    private router: Router
-  ) {
+  navRouterBars: ActiveNavBar[] = [
+    { url: "", title: "Home"},
+    { url: "/data", title: "Data"},
+    { url: "/history", title: "History",},
+    { url: "/places", title: "places"},
+    { url: "/chat", title: "Chat"}
+  ];
+
+  constructor(private router: Router) {}
+
+  ngOnInit(): void {
+    this.router.events.subscribe((value) => {
+      if (value instanceof NavigationEnd) {
+        localStorage.setItem("url", value.url)
+      }
+    })
   }
 
-  navigate(path: string) {
-    this.router.navigate(["user/" + path])
+  navigate(url: string) {
+    this.router.navigate(["user/" + url])
+  }
+
+  isActiveRoute(navBar: ActiveNavBar) {
+    return localStorage.getItem("url") === "/user" + navBar.url
   }
 }

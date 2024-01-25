@@ -1,8 +1,7 @@
 <div class="horizontal-container separate">
   <app-logo-title></app-logo-title>
-  <div class="navbar-buttons">
-    <div *ngFor="let navBar of navRouterBars" class="custom-button" [ngClass]="[activeRoute === navBar.url ? 'active-button' : '']" (click)="navigate(navBar.url)">
-      {{navBar.title}}
-    </div>
+  <div style="width: 5%"></div>
+  <div *ngFor="let navBar of navRouterBars" class="light-theme-btn" [class]="[isActiveRoute(navBar) ? 'active-light-button' : '']" (click)="navigate(navBar.url)">
+    {{navBar.title}}
   </div>
 </div>

@@ -19,14 +19,13 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.router.events.subscribe((value) => {
-      if (value instanceof NavigationEnd && localStorage.getItem("url") == null){
+      if (value instanceof NavigationEnd) {
         localStorage.setItem("url", value.url)
       }
     })
   }
 
   navigate(url: string) {
-    localStorage.setItem("url", "/admin" + url)
     this.router.navigate(["admin/" + url])
   }
 

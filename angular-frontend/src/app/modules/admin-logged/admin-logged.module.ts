@@ -8,6 +8,8 @@ import { PlaceInfoComponent } from './pages/place-info/place-info.component';
 import {RouterModule, Routes} from "@angular/router";
 import {CoreModule} from "../../core/core.module";
 import {FormsModule} from "@angular/forms";
+import { EmailComponent } from './pages/email/email.component';
+import { ChatComponent } from './pages/chat/chat.component';
 
 const routes: Routes = [
   {
@@ -26,6 +28,14 @@ const routes: Routes = [
     path: 'place-info',
     component: PlaceInfoComponent
   },
+  {
+    path: 'email',
+    component: EmailComponent
+  },
+  {
+    path: 'chat',
+    component: ChatComponent
+  },
 ]
 
 @NgModule({
@@ -34,7 +44,9 @@ const routes: Routes = [
     HomeComponent,
     UsersComponent,
     MonitorComponent,
-    PlaceInfoComponent
+    PlaceInfoComponent,
+    EmailComponent,
+    ChatComponent
   ],
   imports: [
     CommonModule,

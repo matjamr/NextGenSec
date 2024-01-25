@@ -8,6 +8,7 @@ import { DataComponent } from './pages/data/data.component';
 import { HistoryComponent } from './pages/history/history.component';
 import { PlacesComponent } from './pages/places/places.component';
 import {SupportedMethodsPipe} from "./pipes/SupportedMethodsPipe";
+import { UserChatComponent } from './pages/user-chat/user-chat.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
     path: 'places',
     component: PlacesComponent
   },
+  {
+    path: 'chat',
+    component: UserChatComponent
+  },
 ]
 
 @NgModule({
@@ -36,6 +41,7 @@ const routes: Routes = [
     HistoryComponent,
     PlacesComponent,
     SupportedMethodsPipe,
+    UserChatComponent,
   ],
     imports: [
         CommonModule,

@@ -1,15 +1,10 @@
-<div class="navbar">
-  <app-logo-title></app-logo-title>
-  <div class="nav-links">
-    <div class="light-button" (click)="navigate('')">home</div>
-
-    <div class="light-button" (click)="navigate('data')">data</div>
-
-    <div class="light-button" (click)="navigate('history')">history</div>
-
-    <div class="light-button" (click)="navigate('places')">places</div>
-  </div>
-
-  <app-profile-logo></app-profile-logo>
-
+<div class="horizontal-container separate">
+<app-logo-title></app-logo-title>
+<div style="width: 5%"></div>
+<div *ngFor="let navBar of navRouterBars" class="light-theme-btn"
+     [class]="[isActiveRoute(navBar) ? 'active-light-button' : '']" (click)="navigate(navBar.url)">
+  {{navBar.title}}
+</div>
+<div style="width: 5%"></div>
+<app-profile-logo></app-profile-logo>
 </div>

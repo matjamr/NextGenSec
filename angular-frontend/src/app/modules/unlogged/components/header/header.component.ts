@@ -16,19 +16,21 @@ export class HeaderComponent implements OnInit {
     { url: "/login", title: "Login"}
   ];
 
-  activeRoute: string = "";
-
   constructor(private router: Router) {}
 
   ngOnInit(): void {
     this.router.events.subscribe((value) => {
       if (value instanceof NavigationEnd){
-        this.activeRoute = value.url
+        localStorage.setItem("url", value.url)
       }
     })
   }
 
   navigate(url: string) {
     this.router.navigate([url])
+  }
+
+  isActiveRoute(navBar: ActiveNavBar) {
+    return localStorage.getItem("url") === "/" + navBar.url
   }
 }
