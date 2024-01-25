@@ -13,6 +13,8 @@ spring:
     properties:
       hibernate:
         dialect: 'org.hibernate.dialect.PostgreSQLDialect'
+  application:
+    name: 'main-service'
   security:
     oauth2:
       client:
