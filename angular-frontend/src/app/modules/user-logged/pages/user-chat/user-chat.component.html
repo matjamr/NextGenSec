@@ -1,1 +1,20 @@
-<p>user-chat works!</p>
+<app-user-header></app-user-header>
+<div class="chat-container">
+
+  <div class="chat-categories">
+    <button class="category-button" (click)="selectCategory('present')">Present</button>
+    <button class="category-button" (click)="selectCategory('historical')">Historical</button>
+  </div>
+
+  <div class="chat-list">
+    <div *ngFor="let chat of (selectedCategory === 'present' ? presentChats$ : historicalChats$) | async" class="chat-entry">
+      <div (click)="enterChat(chat)" class="chat-info">
+        <h3>{{ chat.title }}</h3>
+        <p>{{ chat.lastMessage }}</p>
+      </div>
+      <div class="chat-meta">
+        <span>{{ chat.updatedAt | date: 'short' }}</span>
+      </div>
+    </div>
+  </div>
+</div>

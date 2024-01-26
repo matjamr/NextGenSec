@@ -1,7 +1,8 @@
 <app-user-header></app-user-header>
 
-<div class="container">
-  <div *ngFor="let record of recentActivities$ | async">
-    <span>{{record.places.placeName}} at {{record.date}}</span>
+<div class="main-content">
+  <div *ngFor="let record of recentActivities$ | async" class="event-item">
+    <span class="event-description">{{record.places.placeName}}</span>
+    <span class="event-time"> at {{record.date | date: 'medium'}}</span>
   </div>
 </div>

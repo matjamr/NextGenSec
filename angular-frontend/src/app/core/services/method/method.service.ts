@@ -18,8 +18,8 @@ export class MethodService {
   getMethods(): Observable<Method[]> {
     return this.http.get<Method[]>(this.apiUrl, {
       headers: {
-        "Authorization": "Bearer " + String(localStorage.getItem("token")),
-        "Source": "GOOGLE",
+        "token": String(localStorage.getItem("token")),
+        "source": "GOOGLE",
         "user-scope": "true"
       }
     });

@@ -19,8 +19,8 @@ export class PlaceService {
   getPlacesByUser(): Observable<Place[]> {
     return this.http.get<Place[]>(this.apiUrl, {
       headers: {
-        "Authorization": "Bearer " + String(localStorage.getItem("token")),
-        "Source": "GOOGLE",
+        "token": String(localStorage.getItem("token")),
+        "source": "GOOGLE",
         "user-scope": "true"
       }
     })

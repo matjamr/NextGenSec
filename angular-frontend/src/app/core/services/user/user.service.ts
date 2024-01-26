@@ -21,17 +21,13 @@ export class UserService {
   verifyUser(): Observable<User> {
     return this.http.post<User>(this.apiUrl, {}, buildHeader())
   }
-
-  verifyUserToGivenPlace(userPlace: UserPlace): Observable<User> {
-    return this.http.post<User>(this.apiUrl + "/place", userPlace, buildHeader())
-  }
 }
 
 export const buildHeader = () => {
   return {
     headers: {
-      "Authorization": "Bearer " + String(localStorage.getItem("token")),
-      "Source": "GOOGLE"
+      "token": String(localStorage.getItem("token")),
+      "source": "GOOGLE"
     }
   }
 }

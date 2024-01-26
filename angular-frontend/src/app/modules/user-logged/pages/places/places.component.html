@@ -1,6 +1,11 @@
 <app-user-header></app-user-header>
-<div class="container">
-  <div *ngFor="let place of places$ | async">
-    <h1>{{place.placeName}}</h1>
-  </div>
+
+<div class="place-container" *ngFor="let place of places$ | async">
+  <h2>{{ place.placeName }}</h2>
+  <p><strong>Email:</strong> {{ place.emailPlace }}</p>
+  <p><strong>Address:</strong> {{ place.address.streetName }}, {{ place.address.city }}, {{ place.address.postalCode }}</p>
+  <!-- Buttons for each place -->
+  <button (click)="showOnMap(place)">Show on Google Map</button>
+  <button (click)="withdraw(place)">Withdraw from Place</button>
+  <button (click)="showStats(place)">Show More Stats</button>
 </div>

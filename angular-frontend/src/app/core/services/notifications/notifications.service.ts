@@ -17,8 +17,8 @@ export class NotificationsService {
   getNotifications(): Observable<Notification[]> {
     return this.http.get<Notification[]>(this.apiUrl, {
       headers: {
-        "Authorization": "Bearer " + String(localStorage.getItem("token")),
-        "Source": "GOOGLE",
+        "token": String(localStorage.getItem("token")),
+        "source": "GOOGLE",
         "user-scope": "true"
       }
     });

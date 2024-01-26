@@ -20,17 +20,14 @@ class FaceRecognitionService(Service):
         self.loaded_face_recognizer.read("saved-models/face_recognition_model.yml")
         print("Model loaded successfully.")
 
-        # kafka_bootstrap_servers = 'localhost:9092'
-        # kafka_topic = 'test'
-        #
-        # producer = KafkaProducer(
-        #     bootstrap_servers=[kafka_bootstrap_servers],
-        #     value_serializer=lambda v: json.dumps(v).encode('utf-8')
-        # )
+        kafka_bootstrap_servers = 'localhost:9092'
+        self.kafka_topic = 'test'
 
-        message_data = {"key": "key1", "value": "Hello, Kafka!"}
-        # producer.send(kafka_topic, value=message_data)
-        # producer.close()
+        self.producer = KafkaProducer(
+            bootstrap_servers=[kafka_bootstrap_servers],
+            value_serializer=lambda v: json.dumps(v).encode('utf-8')
+        )
+        # self.producer.close()
 
     def validate(self):
         if 'file' not in request.files:
@@ -64,9 +61,12 @@ class FaceRecognitionService(Service):
         try:
             ret: list[VerificationStage] = self.repository.get_place_verification_data_by_place_id(device.place_id, email)
         except:
+            print({"error": "invalid user"})
             return jsonify({"error": "invalid user"})
 
         if len(ret) <= 0:
             return jsonify({"error": "invalid auth invocation sent"})
 
-        return jsonify(ret[0])
+        aaaa = jsonify(ret[0])
+        self.producer.send(self.kafka_topic, value=ret[0])
+        return aaaa

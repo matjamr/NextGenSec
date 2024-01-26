@@ -1,12 +1,10 @@
-from flask import Blueprint, render_template, request, json, Flask, jsonify
-from model.context import Context
-from service.service_class import Service
-from service.face_recognition_service import FaceRecognitionService
-from flask_sqlalchemy import SQLAlchemy
+import psycopg2
+from flask import Flask, jsonify, g
+
 # from model.models import db
-import cv2
-from utils.utils import predict_on_loaded_model
 from repository.Repository import Repository
+from service.face_recognition_service import FaceRecognitionService
+from service.service_class import Service
 
 app = Flask(__name__)
 
@@ -18,6 +16,21 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 userRepository: Repository = Repository(None)
 face_recognition_service: Service = FaceRecognitionService(userRepository)
+
+@app.before_request
+def before_request():
+    g.conn = psycopg2.connect(database="postgres",
+                             host="localhost",
+                             user="postgres",
+                             password="postgres",
+                             port="5432")
+
+@app.after_request
+def after_request(response):
+    if g.conn is not None:
+        print('closing connection')
+        g.conn.close()
+    return response
 
 @app.route('/verify', methods=['POST'])
 def process_data_route():
@@ -31,5 +44,4 @@ def find_all():
     print(userRepository.get_all())
     return jsonify(userRepository.get_all())
 
-# KURWA to zadziala tak ze walidacja jest po stronie AI microservice, natomiast ai microservice pierdolnie cos na kolejke i my pozniej na
-# spring-backend to wczytamy. ale kurwa big brain
+app.run()

@@ -1,25 +1,38 @@
 <app-header></app-header>
 <div class="grid-container">
+
   <div class="grid-left">
     <h1>Todays statistics:</h1>
     <div>
       <p>Emails: X Messages: X Vists: X</p>
     </div>
   </div>
+
   <div class="grid-right">
     <h1>Notifications</h1>
-    <button>notif 1</button>
-    <button>notif 2</button>
-<!--    <button *ngFor="let notif of notifications$ | async">{{notif.title}}</button>-->
-  </div>
-  <div class="grid-bottom">
-    <h1>Recent Messages</h1>
-    <div>
-<!--      <div *ngFor="let activity of recentActivities$ | async">-->
-<!--        &lt;!&ndash; img placeholder &ndash;&gt;-->
-<!--        {{activity.places.address.streetName}}-->
-<!--        {{activity.places.address.city}}-->
-<!--      </div>-->
+    <div class="button-group">
+<!--      <button *ngFor="let notif of notifications$ | async">{{ notif.title }}</button>-->
+      <button>notif 1</button>
+      <button>notif 2</button>
     </div>
+  </div>
+
+  <div class="grid-bottom">
+<!--    <div>-->
+<!--      <div *ngFor="let activity of recentActivities$ | async">-->
+<!--        &lt;!&ndash; Placeholder for an image, if needed &ndash;&gt;-->
+<!--        <span>{{ activity.places.address.streetName }}</span>,-->
+<!--        <span>{{ activity.places.address.city }}</span>-->
+<!--      </div>-->
+<!--    </div>-->
+
+    <h1>Recent Messages</h1>
+<!--    <div>-->
+      <!--      <div *ngFor="let activity of recentActivities$ | async">-->
+      <!--        &lt;!&ndash; img placeholder &ndash;&gt;-->
+      <!--        {{activity.places.address.streetName}}-->
+      <!--        {{activity.places.address.city}}-->
+      <!--      </div>-->
+<!--    </div>-->
   </div>
 </div>

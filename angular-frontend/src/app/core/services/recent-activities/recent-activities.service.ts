@@ -18,8 +18,8 @@ export class RecentActivitiesService {
   getRecentActivities(): Observable<RecentActivity[]> {
     return this.http.get<RecentActivity[]>(this.apiUrl, {
       headers: {
-        "Authorization": "Bearer " + String(localStorage.getItem("token")),
-        "Source": "GOOGLE",
+        "token": String(localStorage.getItem("token")),
+        "source": "GOOGLE",
         "user-scope": "true"
       }
     });

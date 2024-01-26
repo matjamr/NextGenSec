@@ -1,0 +1,33 @@
+.main-content {
+  padding: 20px;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 80%;
+  margin: 40px auto;
+}
+
+.event-item {
+  background-color: #ffffff;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.event-time {
+  font-size: 0.85em;
+  color: #666666;
+}
+
+.event-description {
+  font-weight: bold;
+}
+
+.event-item:hover {
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
