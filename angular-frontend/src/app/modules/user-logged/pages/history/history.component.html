@@ -1,6 +1,9 @@
 <app-user-header></app-user-header>
 
 <div class="main-content">
+  <div *ngIf="(recentActivities$ | async)?.length === 0" class="event-item">
+    There is no record of any history entrance.
+  </div>
   <div *ngFor="let record of recentActivities$ | async" class="event-item">
     <span class="event-description">{{record.places.placeName}}</span>
     <span class="event-time"> at {{record.date | date: 'medium'}}</span>

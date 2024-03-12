@@ -33,7 +33,7 @@ public class Places {
     @OneToOne(cascade = CascadeType.ALL)
     private Address address;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private List<UserPlaceAssignment> authorizedUsers;
 
     @Enumerated(value = EnumType.STRING)

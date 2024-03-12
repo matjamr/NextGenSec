@@ -1,5 +1,7 @@
 package com.sec.gen.next.backend.history.config;
 
+import com.sec.gen.next.backend.common.kafka.KafkaChatServiceProducer;
+import com.sec.gen.next.backend.device.repository.DeviceRepository;
 import com.sec.gen.next.backend.history.repository.HistoryRepository;
 import com.sec.gen.next.backend.history.service.HistoryMapper;
 import com.sec.gen.next.backend.history.service.HistoryService;
@@ -19,8 +21,13 @@ public class HistoryBeansConfig {
             HistoryRepository historyRepository,
             UserRepository userRepository,
             PlacesRepository placesRepository,
-            ProductRepository productRepository
+            ProductRepository productRepository,
+            DeviceRepository deviceRepository,
+            KafkaChatServiceProducer kafkaChatServiceProducer
     ) {
-        return new HistoryServiceImpl(historyMapper, historyRepository, userRepository, placesRepository, productRepository);
+        return new HistoryServiceImpl(historyMapper, historyRepository,
+                userRepository, placesRepository,
+                productRepository ,deviceRepository,
+                kafkaChatServiceProducer);
     }
 }

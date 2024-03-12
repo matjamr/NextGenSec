@@ -1,6 +1,4 @@
 import {createAction, props} from "@ngrx/store";
-import {Products} from "../../models/Products";
-import {User} from "../../models/User";
 import {Place} from "../../models/Place";
 
 const GET_PLACE_BY_USER = '[Places] Get Place by user'

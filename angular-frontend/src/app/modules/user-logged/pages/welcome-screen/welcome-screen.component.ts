@@ -9,6 +9,10 @@ import {AppState} from "../../../../app.state";
 import {GetPlaces} from "../../../../core/state/place/place.actions";
 import {Method} from "../../../../core/models/Method";
 import {MethodService} from "../../../../core/services/method/method.service";
+import {User} from "../../../../core/models/User";
+import {Product} from "../../../../core/models/Product";
+import {UserService} from "../../../../core/services/user/user.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-welcome-screen',
@@ -20,16 +24,23 @@ export class WelcomeScreenComponent implements OnInit {
   notifications$: Observable<Notification[]>;
   recentActivities$: Observable<RecentActivity[]>;
   methods$: Observable<Method[]>;
+  supportedProducts: Product[] = [];
+  notifications: Notification[] = [];
 
   constructor(
     private notificationService: NotificationsService,
     private recentActivitiesService: RecentActivitiesService,
     private methodService: MethodService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private userService: UserService,
+    private router: Router
   ) {
     this.notifications$ = this.notificationService.getNotifications();
     this.recentActivities$ = this.recentActivitiesService.getRecentActivities();
     this.methods$ = this.methodService.getMethods();
+    userService.verifyUser().subscribe((user: User) => {
+      this.supportedProducts = user.supportedProducts;
+    });
   }
 
   ngOnInit(): void {
@@ -42,8 +53,23 @@ export class WelcomeScreenComponent implements OnInit {
       // console.log(data)
     })
 
-    this.methods$.subscribe(data => {
-      // console.log(data)
-    })
+    this.notificationService.getNotifications().subscribe(
+      (notifications: Notification[]) => {
+        this.notifications = notifications;
+        console.log(notifications)
+      }
+    );
+  }
+
+  navigate(s: string, params: any) {
+    this.router.navigate([s], {queryParams: params});
+  }
+
+  deleteNotif(notif: Notification) {
+    this.notificationService.deleteNotification(notif).subscribe(
+      (response: any) => {
+        this.notifications = this.notifications.filter(n => n.id !== notif.id);
+      }
+    );
   }
 }

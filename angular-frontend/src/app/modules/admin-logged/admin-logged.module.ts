@@ -10,6 +10,7 @@ import {CoreModule} from "../../core/core.module";
 import {FormsModule} from "@angular/forms";
 import { EmailComponent } from './pages/email/email.component';
 import { ChatComponent } from './pages/chat/chat.component';
+import {UserEditComponent} from "../../core/components/user-edit/user-edit.component";
 
 const routes: Routes = [
   {
@@ -35,7 +36,7 @@ const routes: Routes = [
   {
     path: 'chat',
     component: ChatComponent
-  },
+  }
 ]
 
 @NgModule({

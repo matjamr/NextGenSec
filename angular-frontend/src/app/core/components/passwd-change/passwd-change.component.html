@@ -1,0 +1,12 @@
+<div id="passwordModal" class="modal" [ngClass]="{'show': showModal}">
+  <div class="modal-content">
+    <h2>Change Your Password</h2>
+    <p>Looks like you need to change your password.</p>
+    <form (ngSubmit)="submitPasswordChange()">
+      <input type="password" [(ngModel)]="oldPassword" name="oldPassword" placeholder="Old Password" required>
+      <input type="password" [(ngModel)]="newPassword" name="newPassword" placeholder="New Password" required>
+      <input type="password" [(ngModel)]="confirmNewPassword" name="confirmNewPassword" placeholder="Confirm New Password" required>
+      <button type="submit" (click)="submitPasswordChange()">Submit</button>
+    </form>
+  </div>
+</div>

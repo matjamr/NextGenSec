@@ -23,6 +23,8 @@
   border-radius: 8px;
   padding: 20px;
   box-shadow: 0 4px 8px #4CAF50;
+  max-height: 50vh;
+  overflow-y: hidden;
 }
 
 h1 {

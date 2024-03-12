@@ -10,8 +10,10 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @Data
 public class AdditionalInformationUpdateModel {
+    private String email;
     private String name;
     private String surname;
     private String phoneNumber;
     private AddressModel addressModel;
+    private String password;
 }

@@ -1,5 +1,56 @@
-.section-header {
+.hero {
   text-align: center;
-  color: #3A7734;
-  font-size: 4em;
+  padding: 100px 20px;
+  background: #ffffff;
+}
+
+.hero h1 {
+  font-size: 3em;
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 1.5em;
+  color: #5a5a5a;
+  margin-bottom: 30px;
+}
+
+.cta-button {
+  padding: 10px 30px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 1.2em;
+  transition: background-color 0.3s;
+}
+
+.cta-button:hover {
+  background-color: #3e8e41;
+}
+
+.about {
+  padding: 50px 20px;
+  background: #e9ecef;
+  text-align: center;
+}
+
+footer {
+  background: #333;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  font-size: 0.8em;
+}
+
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2.5em;
+  }
+
+  .hero p {
+    font-size: 1.2em;
+  }
 }

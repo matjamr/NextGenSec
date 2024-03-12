@@ -13,4 +13,5 @@ public class AuthorizedUser {
     private String family_name;
     private String picture;
     private String source;
+    private String password;
 }

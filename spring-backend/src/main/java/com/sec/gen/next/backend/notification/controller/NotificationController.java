@@ -25,7 +25,7 @@ public class NotificationController {
         return notificationService.getAllNotifications();
     }
 
-    @DeleteMapping
+    @PostMapping("/delete")
     public void deleteNotification(@RequestBody NotificationModel notificationModel) {
         notificationService.deleteNotification(notificationModel);
     }

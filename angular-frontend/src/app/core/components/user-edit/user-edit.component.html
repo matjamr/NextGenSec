@@ -1,0 +1,46 @@
+<div class="modal" [ngClass]="{'show': getShowState()}">
+  <div class="modal-content">
+    <span class="close" (click)="closeModal()">&times;</span>
+    <div class="modal-header">
+      <h2>Edit User</h2>
+    </div>
+    <form (ngSubmit)="onSubmit(f)" class="modal-form" #f="ngForm">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" [(ngModel)]="editableUser.name" name="name" required [ngClass]="{'is-invalid': !editableUser.name && f.submitted}">
+      </div>
+
+      <div class="form-group">
+        <label for="surname">Surname:</label>
+        <input type="text" id="surname" [(ngModel)]="editableUser.surname" name="surname" required [ngClass]="{'is-invalid': !editableUser.surname && f.submitted}">
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" [(ngModel)]="editableUser.email" name="email" disabled [ngClass]="{'is-invalid': !editableUser.email && f.submitted}">
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Phone Number:</label>
+        <input type="text" id="phone" [(ngModel)]="editableUser.phoneNumber" name="phoneNumber" required [ngClass]="{'is-invalid': !editableUser.phoneNumber && f.submitted}">
+      </div>
+
+      <div class="form-group">
+        <label for="street">Street Name:</label>
+        <input type="text" id="street" [(ngModel)]="editableUser.address.streetName" name="streetName" required [ngClass]="{'is-invalid': !editableUser.address.streetName && f.submitted}">
+      </div>
+
+      <div class="form-group">
+        <label for="postal">Postal Code:</label>
+        <input type="text" id="postal" [(ngModel)]="editableUser.address.postalCode" name="postalCode" required [ngClass]="{'is-invalid': !editableUser.address.postalCode && f.submitted}">
+      </div>
+
+      <div class="form-group">
+        <label for="city">City:</label>
+        <input type="text" id="city" [(ngModel)]="editableUser.address.city" name="city" required [ngClass]="{'is-invalid': !editableUser.address.city && f.submitted}">
+      </div>
+
+      <button type="submit" class="submit-btn">Save Changes</button>
+    </form>
+  </div>
+</div>

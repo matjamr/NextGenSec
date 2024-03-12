@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import {hasAdminRole} from "./core/guard/AdminGuard";
 import {hasUserRole} from "./core/guard/UserGuard";
 
 const routes: Routes = [
@@ -15,6 +16,7 @@ const routes: Routes = [
   {
     path: 'admin',
     loadChildren: () =>  import('./modules/admin-logged/admin-logged.module').then((m) => m.AdminLoggedModule),
+    canActivate: [hasAdminRole]
   }
 ];
 

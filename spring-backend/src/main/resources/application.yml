@@ -27,11 +27,16 @@ spring:
         jwt:
           issuer-uri: https://accounts.google.com
           jwk-set-uri: https://www.googleapis.com/oauth2/v3/certs
-
 security:
   supportedRegistrationSources:
     - GOOGLE
     - JWT
 
+kafka:
+  url: ${KAFKA_URL}
+
+server:
+  url: ${SERVER_URL}
+
 jwt:
-  secret-key: my-32-character-ultra-secure-and-ultra-long-secret
+  secret-key: ${JWT_SECRET_KEY}

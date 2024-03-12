@@ -43,7 +43,10 @@ button {
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
-
+.button-group {
+  display: flex;
+  flex-direction: column;
+}
 button:hover {
   background-color: #367c39;
 }

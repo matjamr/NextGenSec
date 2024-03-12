@@ -19,6 +19,7 @@ public class ErrorHandlingController {
     Error employeeNotFoundHandler(final HttpServletRequest request,
                                   final HttpServletResponse response,
                                   final ServiceException ex) {
+        ex.printStackTrace();
 
         return ex.getError();
     }

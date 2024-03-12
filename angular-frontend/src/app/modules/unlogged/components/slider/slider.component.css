@@ -1,3 +1,15 @@
+.slider-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  margin: 0 auto;
+  background-color: #e9ecef;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
 .slider-images {
   list-style: none;
   padding: 0;
@@ -6,33 +18,44 @@
   overflow: hidden
 }
 
-li img{
-  width: 200px;
-}
-
-.slider-dot:hover {
-  width: 55px;
-  height: 55px;
-  margin: 7.5px;
-  background: blue;
+.slider-dot-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
 }
 
 .slider-dot {
-  width: 50px;
-  height: 50px;
-  -webkit-border-radius: 25px;
-  -moz-border-radius: 25px;
-  border-radius: 25px;
-  background: white;
-  border-color: black;
-  border-style: solid;
-  border-width: 1px;
-  margin: 10px;
-  transition: 0.5s ease-in-out;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #dee2e6;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
 }
 
-.active {
-  background-color: blue;
+.slider-dot:hover,
+.slider-dot.active {
+  background: #007bff;
+}
+
+
+.slider-button {
+  padding: 10px 20px;
+  margin: 10px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.slider-button:hover {
+  background-color: #0056b3;
 }
 
 .clock-popup {
@@ -42,6 +65,7 @@ li img{
   transform: translate(-50%, -50%);
   background-color: white;
   padding: 20px;
+  border-radius: 8px;
   border: 1px solid #ccc;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   z-index: 2;
@@ -50,5 +74,5 @@ li img{
 .clock-content {
   font-size: 18px;
   font-weight: bold;
+  color: #333;
 }
-

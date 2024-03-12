@@ -9,6 +9,9 @@ import { HistoryComponent } from './pages/history/history.component';
 import { PlacesComponent } from './pages/places/places.component';
 import {SupportedMethodsPipe} from "./pipes/SupportedMethodsPipe";
 import { UserChatComponent } from './pages/user-chat/user-chat.component';
+import {UserEditComponent} from "../../core/components/user-edit/user-edit.component";
+import { DataUploadModalComponent } from './components/data-upload-modal/data-upload-modal.component';
+import {SharedModule} from "../../shared/shared.module";
 
 const routes: Routes = [
   {
@@ -31,6 +34,10 @@ const routes: Routes = [
     path: 'chat',
     component: UserChatComponent
   },
+  {
+    path: 'settings',
+    component: UserEditComponent
+  },
 ]
 
 @NgModule({
@@ -42,12 +49,17 @@ const routes: Routes = [
     PlacesComponent,
     SupportedMethodsPipe,
     UserChatComponent,
+    DataUploadModalComponent,
   ],
-    imports: [
-        CommonModule,
-        RouterModule.forChild(routes),
-        CoreModule
-    ]
+  exports: [
+    UserChatComponent
+  ],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(routes),
+    CoreModule,
+    SharedModule
+  ]
 })
 export class UserLoggedModule {
 }

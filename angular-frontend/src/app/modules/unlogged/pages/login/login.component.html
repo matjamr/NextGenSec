@@ -1,25 +1,48 @@
 <app-unlogged-header></app-unlogged-header>
-<div class="login-section-grid">
+<div class="login-section-grid"  *ngIf="isLogin">
+    <div class="log-in-section container">
+      <h1>Login to Your Account</h1>
+      <h5>Login using social networks</h5>
+      <div class="social-login-buttons">
+        <button>Facebook</button>
+        <button (click)="getGmailToken()">Gmail</button>
+        <button>Linkedin</button>
+      </div>
+      <div class="or-divider">
+        <hr class="divider-line"/> or <hr class="divider-line"/>
+      </div>
+      <div class="login-form">
+        <input type="email" required placeholder="Username" value="email" [(ngModel)]="username"/>
+        <input type="password" placeholder="Password" value="password" [(ngModel)]="password"/>
+        <button (click)="getJwtToken()">Sign in</button>
+      </div>
+    </div>
+    <div class="register-section light-theme-bg container">
+      <h1>Don't have an account?</h1>
+      <button (click)="changeSwitch()" class="register-button">Register</button>
+    </div>
+</div>
+<div class="login-section-grid" *ngIf="!isLogin">
   <div class="log-in-section container">
-    <h1>Login to Your Account</h1>
-    <h5>Login using social networks</h5>
-    <div>
-      <button>Facebook</button>
-      <button>Gmail</button>
-      <button>Linkedin</button>
+    <h1>Register Your Account</h1>
+    <h5>Register using social networks</h5>
+    <div class="social-login-buttons">
+      <button disabled>Facebook</button>
+      <button (click)="getGmailToken()">Gmail</button>
+      <button disabled>Linkedin</button>
     </div>
-    <div class="horizontal-container">
-      <div></div> or <div></div>
+    <div class="or-divider">
+      <hr class="divider-line"/> or <hr class="divider-line"/>
     </div>
-    <div class="container">
-      <input />
-      <input />
-      <button (click)="getToken()">sign in</button>
+    <div class="login-form">
+      <input type="email" placeholder="Username" [(ngModel)]="username"/>
+      <input type="password" placeholder="Password" [(ngModel)]="password"/>
+      <button (click)="register()">Register</button>
     </div>
   </div>
   <div class="register-section light-theme-bg container">
-    <h1>Don't have account?</h1>
-    <button>Register</button>
+    <h1>Already have an account?</h1>
+    <button (click)="changeSwitch()" class="register-button">Login</button>
   </div>
 </div>
 <app-footer></app-footer>

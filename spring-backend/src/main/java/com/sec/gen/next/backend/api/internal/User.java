@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Accessors(chain = true, fluent = true)
+@Accessors(chain = true)
 @DynamicUpdate
 public class User {
 
@@ -29,6 +29,7 @@ public class User {
     @Column(unique = true)
     private String email;
     private String phoneNumber;
+    private String passwordChange;
 
     @ManyToOne
     private Address address;
@@ -40,43 +41,5 @@ public class User {
     @OneToMany
     private List<SensitiveData> sensitiveData;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public RegisterSource getRegistrationSource() {
-        return registrationSource;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public LocalDateTime getCreationDate() {
-        return creationDate;
-    }
-
-    public String getPictureUrl() {
-        return pictureUrl;
-    }
-
-    public void setPictureUrl(String pictureUrl) {
-        this.pictureUrl = pictureUrl;
-    }
+    private String password;
 }

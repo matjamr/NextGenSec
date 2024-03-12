@@ -21,8 +21,8 @@ public class PlaceExistenceValidator implements Validator<PlacesContext> {
                 .map(PlacesContext::getPlacesModel)
                 .orElseThrow(() -> new ServiceException(Error.INVALID_PLACE_DATA));
 
-        if(placesRepository.existsByPlaceNameOrEmailPlace(placesModel.getPlaceName(), placesModel.getEmailPlace())) {
-            throw new ServiceException(Error.INVALID_PLACE_DATA);
-        }
+//        if(placesRepository.existsByPlaceNameOrEmailPlace(placesModel.getPlaceName(), placesModel.getEmailPlace())) {
+//            throw new ServiceException(Error.INVALID_PLACE_DATA);
+//        }
     }
 }

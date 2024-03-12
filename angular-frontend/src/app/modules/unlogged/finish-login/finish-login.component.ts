@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Observable} from "rxjs";
 import {User} from "../../../core/models/User";
 import {select, Store} from "@ngrx/store";
 import {AppState} from "../../../app.state";
-import {VerifyUser} from "../../../core/state/user/user.actions";
+import {UserService} from "../../../core/services/user/user.service";
 
 @Component({
   selector: 'app-finish-login',
@@ -19,12 +19,15 @@ export class FinishLoginComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private route: ActivatedRoute,
+    private userService: UserService
   ) {
     this.user$ = store.pipe(select('user'))
   }
 
   ngOnInit() {
+    localStorage.setItem("source", "GOOGLE")
     let match = window.location.href.match(this.regex)
 
     if (match && match[1]) {
@@ -39,15 +42,29 @@ export class FinishLoginComponent implements OnInit {
   }
 
   navigate() {
-    this.store.dispatch(VerifyUser({}))
     let match = window.location.href.match(this.stateRegexp)
+    const name =  this.route.queryParams.subscribe(params => {
+      var shouldRegister = params['register'];
+      if(shouldRegister === "true") {
+        this.userService.oauth2Login().subscribe(accessToken => {
+          // @ts-ignore
+          this.navigateTo(match);
+        })
+      } else {
+        // @ts-ignore
+        this.navigateTo(match);
+      }
+    });
 
+  }
+
+  private navigateTo(match: RegExpMatchArray) {
     if (match && match[1]) {
       const stateUrl = match[1].replace("\"", "");
 
-      if(stateUrl === "EMPTY") {
+      if (stateUrl === "EMPTY") {
         this.user$.subscribe(user => {
-          this.router.navigate(["/choose"])
+          window.location.href = "http://localhost:4200/choose";
         })
       } else {
         this.user$.subscribe(a => {
@@ -59,5 +76,4 @@ export class FinishLoginComponent implements OnInit {
       this.router.navigate(['/error'])
     }
   }
-
 }

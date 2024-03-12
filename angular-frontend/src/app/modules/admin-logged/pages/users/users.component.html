@@ -1,24 +1,52 @@
 <app-header></app-header>
-<div class="filter-options">
-  <select [(ngModel)]="filterType">
-    <option value="email">Email</option>
-    <option value="surname">Surname</option>
-  </select>
+
+<div class="alert show" *ngIf="showAlert">
+  <span class="closebtn" (click)="showAlert=false">&times;</span>
+  {{ alertMessage }}
 </div>
-<div class="contact-search">
-  <input type="text" placeholder="Enter email..." [(ngModel)]="searchText">
-</div>
-<div class="contact-list">
-  <div class="contact-item" *ngFor="let contact of filteredContacts(searchText)">
-    <div class="contact-info">
-      <div class="contact-name">{{ contact.name }}</div>
-      <div class="contact-details">
-        {{ contact.birthday }} {{ contact.email }}
+
+<div class="main-container">
+  <div class="filter-options">
+    <select class="filter-select" [(ngModel)]="filterType">
+      <option value="email">Email</option>
+      <option value="surname">Surname</option>
+    </select>
+    <button class="add-user-btn" (click)="toggleAddUserModal()">Add User</button>
+  </div>
+  <div class="contact-search">
+    <input type="text" placeholder="Enter email..." [(ngModel)]="searchText">
+  </div>
+  <div class="contact-list">
+    <div class="contact-item" *ngFor="let contact of filteredContacts(searchText)">
+      <div class="contact-info">
+        <div class="contact-name">{{ contact.name }} {{ contact.surname }}</div>
+        <div class="contact-details">
+          {{ contact.email }}
+        </div>
+      </div>
+      <div class="contact-actions">
+        <button [class]="isAssignedUser(contact) ? 'contact-disabled' : 'add-btn'" (click)="assignUserToPlace(contact)">+</button>
+        <button  [class]="isAssignedUser(contact) ? 'info-btn' : 'contact-disabled'" (click)="makeUserAdmin(contact)">i</button>
+        <button [class]="isAssignedUser(contact) ? 'delete-btn' : 'contact-disabled'" (click)="deleteUserFromPlace(contact)">✖</button>
       </div>
     </div>
-    <div class="contact-actions">
-      <button class="info-btn">i</button>
-      <button class="delete-btn">✖</button>
-    </div>
+  </div>
+</div>
+
+
+<div class="modal" [class.show-modal]="showAddUserModal">
+  <div class="modal-content">
+    <span class="close" (click)="toggleAddUserModal()">&times;</span>
+    <form (submit)="addUser($event)">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" [(ngModel)]="newUser.name" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" [(ngModel)]="newUser.email" required>
+      </div>
+      <button type="submit" class="btn btn-success">Add User</button>
+    </form>
   </div>
 </div>

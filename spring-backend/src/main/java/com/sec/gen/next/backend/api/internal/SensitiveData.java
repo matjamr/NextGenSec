@@ -20,7 +20,7 @@ public class SensitiveData {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Image image;
 
     @ManyToOne

@@ -18,6 +18,7 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import org.springframework.web.cors.CorsConfiguration;
 
 import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.POST;
 
 
 @Configuration
@@ -35,6 +36,7 @@ public class SecurityConfiguration {
                         .requestMatchers(GET, "/api/product", "/api/product/*").permitAll()
                         .requestMatchers(GET, "/api/image", "/api/image/*").permitAll()
                         .requestMatchers(GET, "/api/news").permitAll()
+                        .requestMatchers(POST, "/api/user/register").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

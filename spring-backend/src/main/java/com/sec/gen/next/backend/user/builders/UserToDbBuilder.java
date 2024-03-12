@@ -11,7 +11,7 @@ public class UserToDbBuilder implements Builder<User, User> {
 
     @Override
     public User apply(User user) {
-        return user.creationDate(LocalDateTime.now());
+        return user.setCreationDate(LocalDateTime.now());
     }
 
 }

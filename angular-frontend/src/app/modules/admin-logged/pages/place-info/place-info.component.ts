@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import {Place} from "../../../../core/models/Place";
+import {defaultUserPlaceAssigment} from "../../../../core/models/UserPlaceAssigment";
+import {PlaceService} from "../../../../core/services/place/place.service";
 
 @Component({
   selector: 'app-place-info',
@@ -10,55 +12,27 @@ export class PlaceInfoComponent {
   // @ts-ignore
   place: Place = {
       "id": 1,
-      "placeName": "Cosa",
-      "emailPlace": "jeba123awdawaawdaaasdasdawawddadwaaaadadsa1adawna.edasdulica@gmail.com",
+      "placeName": "",
+      "emailPlace": "m",
       "address": {
         "id": 1,
         "streetName": "ulica",
         "postalCode": "41-625",
         "city": "city"
       },
-      "authorizedUsers": [
-        {
-          "id": 1,
-          "user": {
-            "id": 1,
-            "email": "jamr.mat@gmail.com"
-          },
-          "assignmentRole": "USER",
-          "products": [
-            {
-              "id": 1,
-              "name": "Facial recognition",
-              "description": "description sample",
-              "monthlyPrice": 10.0,
-              "imgIds": []
-            },
-            {
-              "id": 1,
-              "name": "Facial recognition",
-              "description": "description sample",
-              "monthlyPrice": 10.0,
-              "imgIds": []
-            }
-          ]
-        },
-        {
-          "id": 2,
-          "user": {
-            "id": 2,
-            "email": "modkil265@gmail.com"
-          },
-          "assignmentRole": "ADMIN",
-          "products": []
-        }
-      ]
+      "authorizedUsers": [defaultUserPlaceAssigment]
   }
 
 
-  constructor() {}
+  constructor(
+    private placeService: PlaceService
+  ) {}
 
   ngOnInit(): void {
-    // Fetch place data here
+    this.placeService.getPlacesByUser().subscribe(places => {
+      this.placeService.getAllPlaces().subscribe(places_ => {
+        this.place = places_.filter(p => p.id === places[0].id)[0];
+      });
+    });
   }
 }

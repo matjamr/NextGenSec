@@ -7,7 +7,6 @@ export interface Place {
   placeName: string,
   emailPlace: string,
   address: Address
-  // batchRetrieve: Place[],
   authorizedUsers: UserPlaceAssigment[],
-  product: Product
+  product: Product,
 }

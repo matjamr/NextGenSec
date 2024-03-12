@@ -18,8 +18,17 @@ export class NotificationsService {
     return this.http.get<Notification[]>(this.apiUrl, {
       headers: {
         "token": String(localStorage.getItem("token")),
-        "source": "GOOGLE",
+        "source": String(localStorage.getItem("source")),
         "user-scope": "true"
+      }
+    });
+  }
+
+  deleteNotification(notif: Notification) {
+    return this.http.post<Notification[]>(this.apiUrl + "/delete",notif, {
+      headers: {
+        "token": String(localStorage.getItem("token")),
+        "source": String(localStorage.getItem("source"))
       }
     });
   }

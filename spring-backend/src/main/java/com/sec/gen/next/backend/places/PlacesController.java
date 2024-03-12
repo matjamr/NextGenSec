@@ -37,7 +37,7 @@ public class PlacesController {
                 RoutingEnum.ADD);
     }
 
-    @PutMapping
+    @PostMapping("/update")
     public List<PlacesModel> updatePlace(
             final @Qualifier("placesContext") PlacesContext placesContext,
             final @RequestBody PlacesModel placesModel

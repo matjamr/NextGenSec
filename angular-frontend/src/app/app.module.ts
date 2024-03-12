@@ -20,6 +20,7 @@ import {UserEffects} from "./core/state/user/user.effects";
 import {PlaceReducer} from "./core/state/place/place.reducer";
 import {PlaceEffects} from "./core/state/place/place.effects";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {SharedModule} from "./shared/shared.module";
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     UnloggedModule,
     StoreModule.forRoot<AppState>({ products: ProductsReducer, user: UserReducer, places: PlaceReducer }),
     EffectsModule.forRoot([ProductsEffects, UserEffects, PlaceEffects]),
-    NgbModule
+    NgbModule,
+    SharedModule
   ],
   providers: [],
     exports: [

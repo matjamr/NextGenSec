@@ -10,7 +10,7 @@
     <div *ngFor="let chat of (selectedCategory === 'present' ? presentChats$ : historicalChats$) | async" class="chat-entry">
       <div (click)="enterChat(chat)" class="chat-info">
         <h3>{{ chat.title }}</h3>
-        <p>{{ chat.lastMessage }}</p>
+        <p>{{ chat.lastMessage.content }}</p>
       </div>
       <div class="chat-meta">
         <span>{{ chat.updatedAt | date: 'short' }}</span>

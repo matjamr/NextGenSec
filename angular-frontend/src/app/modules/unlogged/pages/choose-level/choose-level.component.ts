@@ -1,41 +1,37 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {select, Store} from "@ngrx/store";
-import {AppState} from "../../../../app.state";
-import {GetProducts} from "../../../../core/state/products/products.actions";
-import {Observable, of} from "rxjs";
-import {User} from "../../../../core/models/User";
-import {VerifyUser} from "../../../../core/state/user/user.actions";
-import {Router} from "@angular/router";
-import {Place} from "../../../../core/models/Place";
-import {GetPlaces} from "../../../../core/state/place/place.actions";
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from "@angular/router";
+import { Subscription } from "rxjs";
+import { PlaceService } from "../../../../core/services/place/place.service";
 
 @Component({
   selector: 'app-choose-level',
   templateUrl: './choose-level.component.html',
   styleUrls: ['./choose-level.component.css']
 })
-export class ChooseLevelComponent implements OnInit {
-  places$: Observable<Place[]>;
+export class ChooseLevelComponent implements OnInit, OnDestroy {
+  private subscription: Subscription = new Subscription();
 
   constructor(
     private router: Router,
-    private store: Store<AppState>
-  ) {
-    this.places$ = store.pipe(select('places'))
-  }
+    private placeService: PlaceService
+  ) {}
 
   ngOnInit(): void {
-    this.store.dispatch(GetPlaces())
-    this.places$.subscribe(data => {
-      console.log(data)
-      if(data[0]?.authorizedUsers[0]?.assignmentRole === "ADMIN") {
-        this.router.navigate(["/admin"])
-      } else if(data[0]?.authorizedUsers[0]?.assignmentRole === "USER") {
-        this.router.navigate(["/user"])
+    this.subscription.add(this.placeService.getPlacesByUser().subscribe(data => {
+      if (data && data.length > 0) {
+        const targetRole = data[0]?.authorizedUsers[0]?.assignmentRole === "ADMIN" ? "admin" : "user";
+          localStorage.setItem("role", targetRole);
+          window.location.href = "http://localhost:4200/" + targetRole;
+
       } else {
-        this.router.navigate(["/unauthorized"])
+        this.router.navigate([`/user`]).then(() => {
+          console.log(`Navigated to /user`);
+        })
       }
-    })
+    }));
   }
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 }

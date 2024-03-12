@@ -1,4 +1,4 @@
-<div class="container light-theme-bg slider-container">
+<div class="light-theme-bg slider-container">
   <ul class="slider-images">
     <li *ngFor="let item of slideItems;let i = index">
       <h1 *ngIf="i == counter" @fade class="light-theme-header">{{item.title}}</h1>
@@ -7,15 +7,15 @@
   </ul>
 
   <div class="horizontal-container">
-    <button (click)="showPreviousImage()">previous</button>
+    <button class="light-theme-btn w-100 light-border-shadow" (click)="showPreviousImage()">previous</button>
 
-    <ul class="horizontal-container">
-      <div *ngFor="let item of slideItems;let i = index">
-        <div *ngIf="i == counter" class="slider-dot active" (click)="showImage(i)"></div>
-        <div *ngIf="i != counter" class="slider-dot" (click)="showImage(i)"></div>
+    <div class="slider-dot-container">
+      <div *ngFor="let item of slideItems; let i = index" (click)="showImage(i)">
+        <div class="slider-dot" [class.active]="i == counter"></div>
       </div>
-    </ul>
+    </div>
 
-    <button (click)="showNextImage()">next</button>
+    <button class="light-theme-btn w-100 light-border-shadow" (click)="showNextImage()">next</button>
   </div>
+
 </div>

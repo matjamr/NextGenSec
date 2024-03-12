@@ -25,7 +25,6 @@ export class HistoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.recentActivities$.subscribe(data => {
-      console.log(data)
     })
   }
 }

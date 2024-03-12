@@ -1,8 +1,8 @@
 <app-user-header></app-user-header>
 
 <div class="methods-container">
-  <div class="method-card" *ngFor="let method of methods$ | async">
-    <div class="method-title">{{method.name}}</div>
+  <div class="method-card" *ngFor="let product of user!!.supportedProducts">
+    <div class="method-title">{{product.name}}</div>
     <div class="method-actions">
       <button class="show-button">show</button>
       <button class="modify-button">modify</button>
@@ -12,7 +12,9 @@
 
 
 
-  <div class="method-card add-method">
+  <div class="method-card add-method" (click)="openModal()">
     <span>+</span>
   </div>
+
+  <app-data-upload-modal *ngIf="showModal" (close)="closeModal()" [userProducts]="user!!.supportedProducts"></app-data-upload-modal>
 </div>

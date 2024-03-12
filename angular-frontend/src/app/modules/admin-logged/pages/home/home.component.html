@@ -10,10 +10,11 @@
 
   <div class="grid-right">
     <h1>Notifications</h1>
-    <div class="button-group">
-<!--      <button *ngFor="let notif of notifications$ | async">{{ notif.title }}</button>-->
-      <button>notif 1</button>
-      <button>notif 2</button>
+    <div *ngIf="notifications.length === 0">
+      <div>No notifications</div>
+    </div>
+    <div class="button-group"  *ngIf="notifications.length !== 0">
+      <button *ngFor="let notif of notifications" (click)="deleteNotif(notif)">{{ notif.title }}</button>
     </div>
   </div>
 

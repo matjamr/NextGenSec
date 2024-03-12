@@ -7,6 +7,7 @@ import com.sec.gen.next.backend.api.external.UserPlaceAssignmentModel;
 import com.sec.gen.next.backend.api.internal.Places;
 import com.sec.gen.next.backend.api.internal.UserPlaceAssignment;
 import com.sec.gen.next.backend.common.address.AddressMapper;
+import com.sec.gen.next.backend.notification.service.NotificationService;
 import com.sec.gen.next.backend.places.PlacesContext;
 import com.sec.gen.next.backend.places.builder.PlacesDispatcher;
 import com.sec.gen.next.backend.places.builder.PlacesMapper;
@@ -198,13 +199,17 @@ public class BeansConfig {
     }
 
     @Bean("userAssigmentDelete")
-    public BiConsumer<Places, PlacesModel> userAssigmentDelete() {
-        return new UserAssigmentDelete();
+    public BiConsumer<Places, PlacesModel> userAssigmentDelete(
+            final UserPlaceAssignmentRepository userPlaceAssignmentRepository
+    ) {
+        return new UserAssigmentDelete(userPlaceAssignmentRepository);
     }
 
     @Bean("userAssigmentUpdate")
-    public BiConsumer<Places, PlacesModel> userAssigmentUpdate() {
-        return new UserAssigmentUpdate();
+    public BiConsumer<Places, PlacesModel> userAssigmentUpdate(
+            NotificationService notificationService
+    ) {
+        return new UserAssigmentUpdate(notificationService);
     }
 
     @Bean("placeExistenceValidator")

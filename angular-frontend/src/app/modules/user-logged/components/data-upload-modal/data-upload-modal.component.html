@@ -1,0 +1,30 @@
+<div class="modal-backdrop" (click)="onClose()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>Data Upload</h3>
+      <button class="close" aria-label="Close" (click)="onClose()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <label for="dataTypeDropdown" class="visually-hidden">Select Data Type</label>
+      <select id="dataTypeDropdown" (change)="setSelectedProduct($event)" class="data-type-dropdown" name="name">
+        <option *ngFor="let c of products" [value]="c.name">{{c.name}}</option>
+      </select>
+      <div class="drop-area" appDragDrop (fileDropped)="onFileDrop($event)" (click)="triggerFileInput()">
+        <div class="file-input-button">
+          <i class="file-upload-icon material-icons">upload images</i>
+          <p>Select data type and drag 'n' drop some images here, or click to select files</p>
+          <input type="file" id="fileInput" aria-label="File upload" (change)="fileBrowseHandler($event)" multiple style="display: none">
+        </div>
+      </div>
+      <ul class="file-list">
+        <li class="file-list-item" *ngFor="let file of files">
+          <span class="file-name">{{ file.name }}</span>
+          <button class="file-remove-btn" aria-label="Remove file" (click)="removeFile(file)">&times;</button>
+        </li>
+      </ul>
+    </div>
+    <div class="modal-footer">
+      <button [class]="isDataValid() ? 'submit-button' : 'invalid-submit-button'" (click)="onSubmit()">Submit</button>
+    </div>
+  </div>
+</div>

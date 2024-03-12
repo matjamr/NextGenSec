@@ -6,10 +6,10 @@ import { Injectable } from '@angular/core';
 export class AuthGuardService {
   oauth2Endpoint: string = "https://accounts.google.com/o/oauth2/v2/auth"
 
-  auth() {
+  auth(isLogin: boolean) {
     let params = {
       'client_id': '815525200901-5cvm0rdumhlk9sp152o9frf73t5cnkrq.apps.googleusercontent.com',
-      'redirect_uri': 'http://localhost:4200/finishLogin',
+      'redirect_uri': 'http://localhost:4200/finishLogin?register='+!isLogin,
       'response_type': 'id_token token',
       'scope': 'https://www.googleapis.com/auth/drive.metadata.readonly',
       'include_granted_scopes': 'true',

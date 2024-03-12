@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {AuthGuardService} from "../../../../core/services/auth-guard/auth-guard.service";
+import {UserService} from "../../../../core/services/user/user.service";
 
 @Component({
   selector: 'app-login',
@@ -8,12 +9,34 @@ import {AuthGuardService} from "../../../../core/services/auth-guard/auth-guard.
 })
 export class LoginComponent {
 
+  isLogin= true;
+  username: string = "";
+  password: string = "";
+
   constructor(
-    private authService: AuthGuardService
+    private googleAuth: AuthGuardService,
+    private userService: UserService
   ) {
   }
 
-  getToken() {
-    this.authService.auth()
+  getGmailToken() {
+    this.googleAuth.auth(this.isLogin)
+  }
+
+  getJwtToken() {
+    if(this.isLogin) {
+      this.userService.login(this.username, this.password)
+    }
+  }
+
+  changeSwitch() {
+    this.isLogin = !this.isLogin;
+  }
+
+  register() {
+    this.userService.register(this.username, this.password, "JWT")
+      .subscribe(data => console.log(data))
+    alert("Please log in!")
+    this.isLogin = !this.isLogin;
   }
 }

@@ -4,7 +4,7 @@
   <p><strong>Email:</strong> {{ place.emailPlace }}</p>
   <p><strong>Address:</strong> {{ place.address.streetName }}, {{ place.address.city }}, {{ place.address.postalCode }}</p>
 
-  <h3>Authorized Users:</h3>
+  <h3>Admins:</h3>
   <div class="users-list">
     <div *ngFor="let userPl of place.authorizedUsers">
       <div *ngIf="userPl.assignmentRole == 'ADMIN'" class="user-details">{{ userPl.user.email }}</div>

@@ -20,6 +20,11 @@ public class HistoryController {
         return historyService.getHistoryEntranceForUser();
     }
 
+    @GetMapping("{placeId}")
+    public List<HistoryEntranceModel> getAllHistory(@PathVariable Integer placeId) {
+        return historyService.getHistoryEntrance(placeId);
+    }
+
     @PostMapping
     public HistoryEntranceModel addEntrance(@RequestBody HistoryEntranceModel historyEntranceModel) {
         return historyService.addHistoryEntrance(historyEntranceModel);

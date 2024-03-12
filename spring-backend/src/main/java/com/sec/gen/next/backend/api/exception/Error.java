@@ -20,7 +20,7 @@ public enum Error implements Serializable {
     NO_USER_ID("There is no user with given id", 9),
     UNAUTHORIZED("User is not authorized to enter this page", 10),
     INVALID_PRODUCT_DATA("Invalid product data", 11),
-    ;
+    INVALID_DEVICE_DATA("Invalid device data", 12);
 
     private final String message;
     private final Integer code;

@@ -19,7 +19,7 @@ export class RecentActivitiesService {
     return this.http.get<RecentActivity[]>(this.apiUrl, {
       headers: {
         "token": String(localStorage.getItem("token")),
-        "source": "GOOGLE",
+        "source": String(localStorage.getItem("source")),
         "user-scope": "true"
       }
     });

@@ -1,12 +1,110 @@
 .login-section-grid {
   display: grid;
-  grid-template-columns: 1fr 0.5fr;
-  height: 86vh; /* ????? */
-
+  grid-template-columns: 2fr 1fr;
+  height: 83.5vh;
+  align-items: center;
+  justify-items: center;
+  gap: 20px;
+  padding: 40px;
 }
 
-.log-in-section {
-
+.log-in-section, .register-section {
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 60vh;
 }
 
-.register-section {}
+.social-login-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.register-section {
+  background: #80B982;
+}
+
+button {
+  background: #80B982;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #669f76;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.horizontal-container div {
+  width: 100%;
+  text-align: center;
+  margin: 20px 0;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+h5 {
+  margin-bottom: 10px;
+}
+
+.register-section h1 {
+  color: white;
+}
+
+.register-button {
+  background: #8ccea7;
+}
+
+@media (max-width: 768px) {
+  .login-section-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    height: auto;
+    margin: 0
+  }
+
+  .social-login-buttons {
+    justify-content: center;
+  }
+
+  .log-in-section, .register-section {
+    width: 100%;
+  }
+
+  input {
+    width: calc(100% - 20px);
+  }
+
+  .log-in-section, .register-section {
+    width: 100%;
+    height: auto;
+    padding: 20px;
+  }
+
+  .social-login-buttons, .login-form {
+    width: 100%;
+  }
+
+  .register-button, .social-login-buttons button {
+    width: 100%;
+    margin: 10px 0;
+  }
+}

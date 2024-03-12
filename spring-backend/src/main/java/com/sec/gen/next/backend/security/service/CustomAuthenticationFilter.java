@@ -7,6 +7,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
+import org.springframework.data.util.Pair;
 import org.springframework.http.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,10 +27,11 @@ public class CustomAuthenticationFilter extends OncePerRequestFilter {
     private final CustomAuthenticationManager customAuthenticationManager;
     private final static RestTemplate restTemplate = new RestTemplate();
 
-    private static final Set<String> allowedEndopints = Set.of(
-            "/api/product",
-            "/api/news",
-            "/api/image"
+    private static final Set<Pair<String, HttpMethod>> allowedEndopints = Set.of(
+            Pair.of("/api/product", HttpMethod.GET),
+            Pair.of("/api/news", HttpMethod.GET),
+            Pair.of("/api/image", HttpMethod.GET),
+            Pair.of("/api/user/register", HttpMethod.POST)
     );
 
     @Override
@@ -39,14 +41,15 @@ public class CustomAuthenticationFilter extends OncePerRequestFilter {
         String token = request.getHeader("token");
         Authentication authenticatedObject;
 
-        var requestURI = request.getRequestURI();
-        if(isPermitAllEndpoint(requestURI)) {
+        String requestURI = request.getRequestURI();
+        String method = request.getMethod();
+        if (isPermitAllEndpoint(requestURI, method)) {
             filterChain.doFilter(request, response);
             return;
         }
 
 
-        if(isNull(source) || isNull(token)) {
+        if (isNull(source) || isNull(token)) {
             throw new RuntimeException("Invalid token");
         }
 
@@ -67,8 +70,8 @@ public class CustomAuthenticationFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    private boolean isPermitAllEndpoint(String requestURI) {
+    private boolean isPermitAllEndpoint(String requestURI, String method) {
         return allowedEndopints.stream()
-                .anyMatch(requestURI::startsWith);
+                .anyMatch(pair -> requestURI.startsWith(pair.getFirst()) && pair.getSecond().name().equals(method));
     }
 }

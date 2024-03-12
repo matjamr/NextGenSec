@@ -1,5 +1,5 @@
-import {Component, ElementRef, Input, ViewChild} from '@angular/core';
-import {Product} from "../../../../core/models/Product";
+import { Component, Input, ViewChild, ElementRef } from '@angular/core';
+import { Product } from '../../../../core/models/Product';
 
 @Component({
   selector: 'app-product-details',
@@ -7,24 +7,25 @@ import {Product} from "../../../../core/models/Product";
   styleUrls: ['./product-details.component.css']
 })
 export class ProductDetailsComponent {
-
-  @ViewChild('windowPopup')
-  clockPopup!: ElementRef;
-
-  @Input()
-  activeProduct!: Product
-
-  @Input()
-  onClose: any
+  @ViewChild('windowPopup') windowPopup!: ElementRef;
+  @Input() activeProduct!: Product;
+  @Input() onClose: any;
 
   fakeArray = new Array(5);
 
   close(): void {
-    this.hideDiv()
-    this.onClose()
+    this.hideDiv();
+    this.onClose();
   }
 
   hideDiv = () => {
-    this.clockPopup.nativeElement.style.display = 'none';
+    this.windowPopup.nativeElement.style.display = 'none';
   };
+
+  getProductImageUrl(id: number): string {
+    return `http://localhost:8080/api/image/${id}`;
+  }
+
+  selectImage(id: number): void {
+  }
 }

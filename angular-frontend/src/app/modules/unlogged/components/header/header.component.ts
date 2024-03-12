@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.router.events.subscribe((value) => {
-      if (value instanceof NavigationEnd){
+      if (value instanceof NavigationEnd) {
         localStorage.setItem("url", value.url)
       }
     })

@@ -1,24 +1,29 @@
 <app-user-header></app-user-header>
-
+<app-passwd-change></app-passwd-change>
 <div class="grid-container">
   <div class="grid-left">
     <h1>Supported methods</h1>
     <div class="button-group">
-      <button *ngFor="let method of methods$ | async">{{ method.name }}</button>
-      <button>+</button>
+      <button *ngFor="let product of supportedProducts">{{ product.name }}</button>
+      <button (click)="navigate('/user/data', {'add': 'true'})">+</button>
     </div>
   </div>
   <div class="grid-right">
     <h1>Notifications</h1>
-    <div class="button-group">
-      <button *ngFor="let notif of notifications$ | async">{{ notif.title }}</button>
+    <div *ngIf="notifications.length === 0">
+      <div>No notifications</div>
+    </div>
+    <div class="button-group"  *ngIf="notifications.length !== 0">
+      <button *ngFor="let notif of notifications" (click)="deleteNotif(notif)">{{ notif.title }}</button>
     </div>
   </div>
   <div class="grid-bottom">
     <h1>Recent activities</h1>
-    <div>
+    <div *ngIf="(recentActivities$ | async)?.length === 0">
+      <div>No recent activites</div>
+    </div>
+    <div *ngIf="(recentActivities$ | async)?.length !== 0">
       <div *ngFor="let activity of recentActivities$ | async">
-        <!-- Placeholder for an image, if needed -->
         <span>{{ activity.places.address.streetName }}</span>,
         <span>{{ activity.places.address.city }}</span>
       </div>

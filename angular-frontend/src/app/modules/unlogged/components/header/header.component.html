@@ -1,7 +1,12 @@
-<div class="horizontal-container separate">
+<div class="horizontal-container navbar">
+  <div class="spacer"></div>
   <app-logo-title></app-logo-title>
-  <div style="width: 5%"></div>
-  <div *ngFor="let navBar of navRouterBars" class="light-theme-btn" [class]="[isActiveRoute(navBar) ? 'active-light-button' : '']" (click)="navigate(navBar.url)">
-    {{navBar.title}}
+  <div class="nav-links">
+    <div *ngFor="let navBar of navRouterBars" class="nav-item"
+         [ngClass]="{'active': isActiveRoute(navBar)}"
+         (click)="navigate(navBar.url)">
+      {{navBar.title}}
+    </div>
   </div>
+  <div class="spacer"></div>
 </div>

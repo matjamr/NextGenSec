@@ -4,24 +4,31 @@ import com.sec.gen.next.backend.api.exception.Error;
 import com.sec.gen.next.backend.api.exception.ServiceException;
 import com.sec.gen.next.backend.api.external.*;
 import com.sec.gen.next.backend.api.internal.*;
+import com.sec.gen.next.backend.common.address.AddressRepository;
+import com.sec.gen.next.backend.common.kafka.KafkaOutboundEmailProducer;
 import com.sec.gen.next.backend.image.repository.ImageRepository;
 import com.sec.gen.next.backend.places.repository.PlacesRepository;
-import com.sec.gen.next.backend.user.mapper.SensitiveDataMapper;
-import com.sec.gen.next.backend.user.repository.SensitiveDataRepository;
-import com.sec.gen.next.backend.user.repository.UserPlaceAssignmentRepository;
-import com.sec.gen.next.backend.user.repository.UserRepository;
 import com.sec.gen.next.backend.product.repository.ProductRepository;
 import com.sec.gen.next.backend.security.builder.Builder;
+import com.sec.gen.next.backend.user.mapper.SensitiveDataMapper;
 import com.sec.gen.next.backend.user.mapper.UserMapper;
+import com.sec.gen.next.backend.user.repository.SensitiveDataRepository;
+import com.sec.gen.next.backend.user.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 import static com.sec.gen.next.backend.api.exception.Error.INVALID_USER_DATA;
 import static com.sec.gen.next.backend.api.exception.Error.UNAUTHORIZED;
+import static java.util.Objects.nonNull;
 
 
 @RequiredArgsConstructor
@@ -36,15 +43,49 @@ public class UserServiceImpl implements UserService {
     private final SensitiveDataMapper sensitiveDataMapper;
     private final ImageRepository imageRepository;
     private final ProductRepository productRepository;
+    private final List<Executor<User, UserModel>> updateUserConsumerList;
+    private final AddressRepository addressRepository;
+    private final KafkaOutboundEmailProducer kafkaOutboundEmailProducer;
+    private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(8);
 
     @Override
-    public User save(UserModel userModel) {
-        return userRepository.save(userMapper.from(userModel));
+    public User save(UserModel userModel, RegisterSource source) {
+        kafkaOutboundEmailProducer.sendMessage(new OutboundEmailModel()
+                .setEmail(userModel.getEmail())
+                .setParams(Map.of("email", userModel.getEmail()))
+                .setStrategy("ACCOUNT_CREATE"));
+
+        return userRepository.save(
+                userMapper.from(userModel)
+                        .setCreationDate(LocalDateTime.now())
+                        .setRegistrationSource(source)
+                        .setPasswordChange(Optional.ofNullable(userModel.getPasswordChange()).orElse("false"))
+                        .setPassword(passwordEncoder.encode(
+                                Optional.ofNullable(userModel.getPassword())
+                                        .orElseGet(() -> {
+                                            var a = UUID.randomUUID().toString();
+                                            kafkaOutboundEmailProducer.sendMessage(new OutboundEmailModel()
+                                                    .setEmail(userModel.getEmail())
+                                                    .setParams(Map.of("email", userModel.getEmail()))
+                                                    .setParams(Map.of("password", a))
+                                                    .setStrategy("PASSWD_CHANGE"));
+                                            return a;
+                                        })
+                        ))
+        );
     }
 
     @Override
-    public User update(AdditionalInformationUpdateModel additionalInformationUpdateModel) {
-        return null;
+    public UserModel update(UserModel userModel) {
+        User user = userRepository.findUserByEmail(userModel.getEmail())
+                    .orElseThrow(() -> new ServiceException(Error.INVALID_USER_DATA));
+
+        updateUserConsumerList
+                .stream()
+                .filter(consumer -> consumer.shouldAccept(user, userModel))
+                .forEach(consumer -> consumer.accept(user, userModel));
+
+        return userMapper.from(userRepository.save(user));
     }
 
     @Override
@@ -69,15 +110,52 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User verify() {
+    @Transactional
+    public UserModel verify() {
         var email = SecurityContextHolder.getContext().getAuthentication().getName();
-        return userRepository.findUserByEmail(email)
+
+        User user = userRepository.findUserByEmail(email)
                 .orElseThrow(() -> new ServiceException(Error.INVALID_USER_DATA));
+
+        if(nonNull(user.getAddress())) {
+            user.setAddress(addressRepository.findById(user.getAddress().getId())
+                    .orElseThrow(() -> new ServiceException(Error.INVALID_ADDRESS_DATA)));
+        }
+
+        UserModel userModel = userMapper.from(user);
+
+        if(nonNull(user.getSensitiveData())) {
+            userModel.setSupportedProducts(user.getSensitiveData().stream()
+                    .map(sensitiveData -> ProductModel.builder()
+                            .id(sensitiveData.getProduct().getId())
+                            .name(sensitiveData.getProduct().getName()).build())
+                            .distinct()
+                    .toList());
+        }
+
+        return userModel;
     }
 
     @Override
-    public List<UserModel> findAll() {
-        return userRepository.findAll().stream().map(userMapper::from).toList();
+    public List<UserModel> findAll(boolean placeRestriction) {
+        List<UserModel> userModels = userRepository.findAll().stream()
+                .map(userMapper::from).toList();
+
+        if(!placeRestriction) {
+            return userModels;
+        }
+
+        String adminEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+        Places place = placesRepository.findAll().stream()
+                .filter(places -> places.getAuthorizedUsers().stream()
+                        .anyMatch(userPlaceAssignment -> userPlaceAssignment.getUser().getEmail().equals(adminEmail)))
+                .findFirst()
+                .orElseThrow(() -> new ServiceException(Error.UNAUTHORIZED));
+
+        return place.getAuthorizedUsers().stream()
+                .map(UserPlaceAssignment::getUser)
+                .map(userMapper::from)
+                .toList();
     }
 
     @Override
@@ -109,7 +187,7 @@ public class UserServiceImpl implements UserService {
 
         SensitiveData sensitiveData = sensitiveDataRepository.save(beforeSaveData);
         User user = findUserByEmail(email);
-        user.sensitiveData().add(sensitiveData);
+        user.getSensitiveData().add(sensitiveData);
         userRepository.save(user);
 
         return List.of(sensitiveDataMapper.map(sensitiveData));
@@ -119,10 +197,27 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<SensitiveDataModel> getSensitiveData(String email) {
         return userRepository.findUserByEmail(email)
-                .map(User::sensitiveData)
+                .map(User::getSensitiveData)
                 .orElseThrow(() -> new ServiceException(INVALID_USER_DATA))
                 .stream()
                 .map(sensitiveDataMapper::map)
                 .toList();
+    }
+
+    @Override
+    public UserModel oauth2Login(RegisterSource source) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        if(userRepository.findUserByEmail(email).isPresent()) {
+            throw new ServiceException(INVALID_USER_DATA);
+        }
+
+        User user = userRepository.save(new User()
+                .setEmail(email)
+                .setCreationDate(LocalDateTime.now())
+                .setRegistrationSource(source)
+                .setPasswordChange("false"));
+
+        return userMapper.from(user);
     }
 }

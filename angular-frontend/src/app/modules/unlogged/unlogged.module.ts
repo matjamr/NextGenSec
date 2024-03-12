@@ -11,6 +11,8 @@ import {CoreModule} from "../../core/core.module";
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { FinishLoginComponent } from './finish-login/finish-login.component';
 import { ChooseLevelComponent } from './pages/choose-level/choose-level.component';
+import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
+import {FormsModule} from "@angular/forms";
 
 const routes: Routes = [
   {
@@ -36,6 +38,10 @@ const routes: Routes = [
   {
     path: 'choose',
     component: ChooseLevelComponent
+  },
+  {
+    path: 'unauthorized',
+    component: UnauthorizedComponent
   }
 ]
 
@@ -49,13 +55,15 @@ const routes: Routes = [
     SliderComponent,
     ProductDetailsComponent,
     FinishLoginComponent,
-    ChooseLevelComponent
+    ChooseLevelComponent,
+    UnauthorizedComponent
   ],
     imports: [
         CommonModule,
         RouterModule.forChild(routes),
         CoreModule,
         NgOptimizedImage,
+        FormsModule,
     ],
   exports: [
     RouterModule,

@@ -13,7 +13,7 @@ export class HeaderComponent {
     { url: "", title: "Home"},
     { url: "/data", title: "Data"},
     { url: "/history", title: "History",},
-    { url: "/places", title: "places"},
+    { url: "/places", title: "Places"},
     { url: "/chat", title: "Chat"}
   ];
 

@@ -59,11 +59,10 @@
   background-color: #367c39;
 }
 
-/* You might want different colors for different buttons */
 .place-container button:nth-child(2) {
-  background-color: #ff9800; /* Orange for 'Withdraw' button */
+  background-color: #ff9800;
 }
 
 .place-container button:nth-child(3) {
-  background-color: #2196f3; /* Blue for 'Show Stats' button */
+  background-color: #2196f3;
 }

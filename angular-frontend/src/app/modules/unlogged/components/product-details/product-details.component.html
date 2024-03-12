@@ -1,19 +1,17 @@
 <div class="window-popup" #windowPopup>
-  <div class="window-content clickable">
+  <div class="window-content">
     <span (click)="close()" class="x-button">&#10006;</span>
   </div>
   <div class="images-container">
     <div class="main-image-area">
-      <img src="{{'http://localhost:8080/api/image/' + activeProduct.imgIds[0]}}"/>
+      <img [src]="getProductImageUrl(activeProduct.imgIds[0])" alt="Main Image"/>
     </div>
     <div class="image-grid-area">
-      <div *ngFor="let item of fakeArray">
-        <img src="{{'http://localhost:8080/api/image/' + activeProduct.imgIds[0]}}"/>
-      </div>
+      <img *ngFor="let id of fakeArray; let i = index" [src]="getProductImageUrl(activeProduct.imgIds[0])" alt="Image {{0}}" (click)="selectImage(0)"/>
     </div>
   </div>
-  <div class="horizontal-line light-theme-bg"></div>
+  <div class="horizontal-line"></div>
   <div class="product-details-desc-area">
-      {{activeProduct.description}}
+    {{activeProduct.description}}
   </div>
 </div>

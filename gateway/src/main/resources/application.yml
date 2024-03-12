@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      routes:
+        - id: auth-server
+          predicates:
+            - Path=/api/security/verify
+          uri: localhost:8081
+        - id: main-service
+          predicates:
+            - Path=/api/places
+            - Path=/api/product
+            - Path=/api/device
+            - Path=/api/history
+            - Path=/api/method
+            - Path=/api/news
+            - Path=/api/notification
+            - Path=/api/user
+          uri: localhost:8080
+
+server:
+  port: 8000

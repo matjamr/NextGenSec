@@ -1,2 +1,15 @@
 <app-header></app-header>
-<p>chat works!</p>
+<div class="chat-container">
+  <aside class="chat-sidebar">
+  </aside>
+  <section class="chat-main">
+    <ul class="chat-messages">
+      <li class="chat-message received">Hello! How are you?</li>
+      <li class="chat-message sent">I'm good, thanks for asking!</li>
+    </ul>
+    <div class="chat-input-container">
+      <input type="text" [(ngModel)]="message" placeholder="Enter your message..." class="chat-input">
+      <button (click)="sendMessage()" class="chat-send-button">Send</button>
+    </div>
+  </section>
+</div>

@@ -13,10 +13,10 @@ public class ClaimsToUserBuilder implements Builder<AuthorizedUser, User> {
     @Override
     public User apply(AuthorizedUser claimsUser) {
         return new User()
-                .name(claimsUser.getGiven_name())
-                .email(claimsUser.getEmail())
-                .surname(claimsUser.getFamily_name())
-                .pictureUrl(claimsUser.getPicture())
-                .creationDate(LocalDateTime.now());
+                .setName(claimsUser.getGiven_name())
+                .setEmail(claimsUser.getEmail())
+                .setSurname(claimsUser.getFamily_name())
+                .setPictureUrl(claimsUser.getPicture())
+                .setCreationDate(LocalDateTime.now());
     }
 }

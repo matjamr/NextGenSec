@@ -19,7 +19,7 @@ export class MethodService {
     return this.http.get<Method[]>(this.apiUrl, {
       headers: {
         "token": String(localStorage.getItem("token")),
-        "source": "GOOGLE",
+        "source": String(localStorage.getItem("source")),
         "user-scope": "true"
       }
     });

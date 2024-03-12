@@ -2,10 +2,15 @@ package com.sec.gen.next.backend.news.mapper;
 
 import com.sec.gen.next.backend.api.external.NewsModel;
 import com.sec.gen.next.backend.api.internal.News;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.List;
 
 public class NewsMapperImpl implements NewsMapper {
+
+    @Value("${server.url}")
+    private String serverUrl;
+
     @Override
     public News from(NewsModel newsModel) {
         return new News()
@@ -23,7 +28,7 @@ public class NewsMapperImpl implements NewsMapper {
                 .lastUpdate(news.getLastUpdate())
                 .imageId(news.getImage().getId())
                 .title(news.getTitle())
-                .imageUrl("http://localhost:8080/api/image/" + news.getImage().getId())
+                .imageUrl(serverUrl + "/api/image/" + news.getImage().getId())
                 .build();
     }
 
