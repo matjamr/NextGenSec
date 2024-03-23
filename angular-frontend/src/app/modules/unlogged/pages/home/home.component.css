@@ -1,56 +1,41 @@
-.hero {
-  text-align: center;
-  padding: 100px 20px;
-  background: #ffffff;
+.main-container {
+  padding-top: 5vh;
+  display: flex;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 1fr;
+  padding-right: 6%;
 }
 
-.hero h1 {
+.welcome-area, slider-container {
   font-size: 3em;
-  color: #2c3e50;
-  margin-bottom: 20px;
 }
 
-.hero p {
+.welcome-area {
+  justify-content: center;
+  margin-bottom: 8vh;
+  padding-left: 6%;
+}
+
+.slider-container {
+}
+
+.discover-area {
   font-size: 1.5em;
-  color: #5a5a5a;
-  margin-bottom: 30px;
-}
-
-.cta-button {
-  padding: 10px 30px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  text-decoration: none;
-  font-size: 1.2em;
-  transition: background-color 0.3s;
-}
-
-.cta-button:hover {
-  background-color: #3e8e41;
-}
-
-.about {
-  padding: 50px 20px;
-  background: #e9ecef;
-  text-align: center;
-}
-
-footer {
-  background: #333;
-  color: white;
-  text-align: center;
   padding: 20px;
-  font-size: 0.8em;
+  color: white;
+  padding-left: 6%;
+  background-color: #80B982;
 }
 
-@media (max-width: 768px) {
-  .hero h1 {
-    font-size: 2.5em;
-  }
-
-  .hero p {
-    font-size: 1.2em;
-  }
+.buttons-area {
+  gap: 7%;
 }
+
+.buttons-area div {
+  font-size: 0.9em;
+}
+
+.discover-area-product {
+  margin-bottom: 2vh;
+}
+

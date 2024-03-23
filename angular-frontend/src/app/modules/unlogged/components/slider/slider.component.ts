@@ -1,42 +1,33 @@
-import { Component } from '@angular/core';
-import {animate, state, style, transition, trigger} from "@angular/animations";
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-unlogged-slider',
   templateUrl: './slider.component.html',
   styleUrls: ['./slider.component.css'],
-  animations: [trigger("fade", [
-    state("void", style({ opacity: 0 })),
-    transition("void <=> *", [animate("0.5s ease-in-out")])
-  ])]
 })
-export class SliderComponent {
-  counter = 0;
-  slideItems = [
-    { src: 'https://picsum.photos/200/300', title: 'Title 1' },
-    { src: 'https://picsum.photos/200/301', title: 'Title 2' },
-    { src: 'https://picsum.photos/200/302', title: 'Title 3' },
-    { src: 'https://picsum.photos/200/303', title: 'Title 4' },
-    { src: 'https://picsum.photos/200/304', title: 'Title 5' }
-  ];
+export class SliderComponent implements OnInit {
+  slides: any[] = new Array(3).fill({id: -1, src: '', title: '', subtitle: ''});
 
-  showNextImage() {
-    if (this.counter < this.slideItems.length - 1) {
-      this.counter += 1;
-    } else if(this.counter == this.slideItems.length - 1) {
-      this.counter = 0;
+  constructor() { }
+
+  ngOnInit(): void {
+    this.slides[0] = {
+      id: 0,
+      src: './assets/img/angular.jpg',
+      title: 'First slide',
+      subtitle: 'Nulla vitae elit libero, a pharetra augue mollis interdum.'
+    };
+    this.slides[1] = {
+      id: 1,
+      src: './assets/img/react.jpg',
+      title: 'Second slide',
+      subtitle: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
     }
-  }
-
-  showPreviousImage() {
-    if (this.counter > 0) {
-      this.counter -= 1;
-    } else if(this.counter == 0) {
-      this.counter = this.slideItems.length - 1;
+    this.slides[2] = {
+      id: 2,
+      src: './assets/img/vue.jpg',
+      title: 'Third slide',
+      subtitle: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.'
     }
-  }
-
-  showImage(index: number) {
-    this.counter = index
   }
 }

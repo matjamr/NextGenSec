@@ -1,12 +1,32 @@
-<div class="horizontal-container navbar">
-  <div class="spacer"></div>
-  <app-logo-title></app-logo-title>
-  <div class="nav-links">
-    <div *ngFor="let navBar of navRouterBars" class="nav-item"
-         [ngClass]="{'active': isActiveRoute(navBar)}"
-         (click)="navigate(navBar.url)">
-      {{navBar.title}}
+<div class="navbar">
+  <app-logo-title class="navbar-logo"></app-logo-title>
+
+  <div class="navbar-button-list">
+    <div class="navbar-button" (click)="navigate('/')">
+      Home
     </div>
+
+    <div class="navbar-button" (click)="navigate('/products')">
+      Products
+    </div>
+
+    <div class="navbar-button" (click)="navigate('/aboutus')">
+      About us
+    </div>
+
+    <div class="navbar-button" (click)="navigate('/pricing')">
+      Pricing
+    </div>
+
+<!--    <div *ngFor="let navBar of navRouterBars" class="navbar-button"-->
+<!--         [ngClass]="{'active': isActiveRoute(navBar)}"-->
+<!--         (click)="navigate(navBar.url)">-->
+<!--      {{navBar.title}}-->
+<!--    </div>-->
   </div>
-  <div class="spacer"></div>
+
+  <div class="login-button" (click)="navigate('/login')">
+    <div class="navbar-button">Log in</div>
+  </div>
+
 </div>

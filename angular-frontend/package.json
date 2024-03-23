@@ -18,12 +18,16 @@
     "@angular/platform-browser": "^16.1.0",
     "@angular/platform-browser-dynamic": "^16.1.0",
     "@angular/router": "^16.1.0",
+    "@coreui/angular": "^4.7.17",
+    "@coreui/coreui": "^4.3.2",
     "@ng-bootstrap/ng-bootstrap": "^15.1.2",
     "@ngrx/effects": "16.2",
     "@ngrx/store": "16.2",
     "@popperjs/core": "^2.11.6",
     "angular2-click-outside": "^0.1.0",
     "bootstrap": "^5.2.3",
+    "igniteui-angular": "^17.1.5",
+    "nx": "18.1.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
@@ -43,3 +47,4 @@
     "typescript": "~5.1.3"
   }
 }
+

@@ -1,18 +1,19 @@
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 import {CommonModule, NgOptimizedImage} from '@angular/common';
-import { HomeComponent } from './pages/home/home.component';
-import { ProductsComponent } from './pages/products/products.component';
-import { AboutComponent } from './pages/about/about.component';
-import { LoginComponent } from './pages/login/login.component';
+import {HomeComponent} from './pages/home/home.component';
+import {ProductsComponent} from './pages/products/products.component';
+import {AboutComponent} from './pages/about/about.component';
+import {LoginComponent} from './pages/login/login.component';
 import {RouterModule, Routes} from "@angular/router";
-import { HeaderComponent } from './components/header/header.component';
-import { SliderComponent } from './components/slider/slider.component';
+import {HeaderComponent} from './components/header/header.component';
+import {SliderComponent} from './components/slider/slider.component';
 import {CoreModule} from "../../core/core.module";
-import { ProductDetailsComponent } from './components/product-details/product-details.component';
-import { FinishLoginComponent } from './finish-login/finish-login.component';
-import { ChooseLevelComponent } from './pages/choose-level/choose-level.component';
-import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
+import {ProductDetailsComponent} from './components/product-details/product-details.component';
+import {FinishLoginComponent} from './finish-login/finish-login.component';
+import {ChooseLevelComponent} from './pages/choose-level/choose-level.component';
+import {UnauthorizedComponent} from './components/unauthorized/unauthorized.component';
 import {FormsModule} from "@angular/forms";
+import {CarouselModule} from '@coreui/angular';
 
 const routes: Routes = [
   {
@@ -64,6 +65,7 @@ const routes: Routes = [
         CoreModule,
         NgOptimizedImage,
         FormsModule,
+        CarouselModule
     ],
   exports: [
     RouterModule,

@@ -1,18 +1,37 @@
 <app-unlogged-header></app-unlogged-header>
-<div>
-  <app-unlogged-slider></app-unlogged-slider>
-  <main>
-    <section class="hero">
-      <h1>Welcome to NextGenSec</h1>
-      <p>Your security is our priority. Discover our innovative solutions.</p>
-      <a href="products" class="cta-button">Explore Products</a>
-    </section>
+<div class="main-container">
+  <div class="full-flex intro-container">
+    <div class="flex-col full-flex welcome-area">
+      Welcome to NextGenSec <br>Your security is our priority.
+    </div>
+    <div class="full-flex discover-area shadow">
+      <div class="discover-area-product">Discover our products</div>
+      <div class="buttons-area flex-row">
+        <div class="light-btn">Explore products</div>
+        <div class="light-btn">Pricing</div>
+      </div>
+    </div>
+  </div>
+  <div class="full-flex slider-container">
+    <app-unlogged-slider class="shadow"></app-unlogged-slider>
+  </div>
 
-    <section class="about">
-      <h2>About us</h2>
-      <p>Learn more about our commitment to excellence and customer service.</p>
-    </section>
-  </main>
 </div>
+
+<!--<div>-->
+<!--  <app-unlogged-slider></app-unlogged-slider>-->
+<!--  <main>-->
+<!--    <section class="hero">-->
+<!--      <h1>Welcome to NextGenSec</h1>-->
+<!--      <p>Your security is our priority. Discover our innovative solutions.</p>-->
+<!--      <a href="products" class="cta-button">Explore Products</a>-->
+<!--    </section>-->
+
+<!--    <section class="about">-->
+<!--      <h2>About us</h2>-->
+<!--      <p>Learn more about our commitment to excellence and customer service.</p>-->
+<!--    </section>-->
+<!--  </main>-->
+<!--</div>-->
 
 <app-footer></app-footer>
