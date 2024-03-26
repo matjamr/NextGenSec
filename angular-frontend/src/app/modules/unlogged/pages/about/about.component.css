@@ -1,8 +1,5 @@
 .about-container {
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  padding: 20px;
   background: #f5f5f6;
 }
 
@@ -12,7 +9,6 @@
   margin: 20px;
   padding: 20px;
   background: white;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -27,7 +23,6 @@
   font-size: 1em;
   line-height: 1.6;
   text-align: justify;
-  margin: 20px;
 }
 
 .section-area {
@@ -39,10 +34,10 @@
 }
 
 .about-image {
-  max-width: 100%;
+  max-width: 50%;
   height: auto;
   border-radius: 20px;
-  margin: 10px 0;
+  margin: 10px;
 }
 
 
