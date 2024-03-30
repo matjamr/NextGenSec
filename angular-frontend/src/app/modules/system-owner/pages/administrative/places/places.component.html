@@ -1,1 +1,15 @@
-<p>places works!</p>
+<app-nav-wrapper>
+  <div class="p-lg-5 full-height">
+
+    <app-configurable-table
+      [elementData]="ELEMENT_DATA"
+      [tableTemplate]="tableTemplate"
+      [checkboxSupport]="true"
+      [addButtonAction]="addButtonAction"
+      [rowActionButtons]="rowActionButtons"
+    />
+
+  </div>
+
+
+</app-nav-wrapper>

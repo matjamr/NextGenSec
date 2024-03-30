@@ -25,6 +25,8 @@ import {
   MatExpansionPanelTitle
 } from "@angular/material/expansion";
 import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
+import {CanvasJSAngularChartsModule} from "@canvasjs/angular-charts";
+import {MatTabContent} from "@angular/material/tabs";
 
 const routes: Routes = [
   {
@@ -91,7 +93,9 @@ const routes: Routes = [
     MatCard,
     MatCardContent,
     MatCardHeader,
-    MatCardTitle
+    MatCardTitle,
+    CanvasJSAngularChartsModule,
+    MatTabContent
   ]
 })
 export class UserLoggedModule {

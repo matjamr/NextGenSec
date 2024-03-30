@@ -1,0 +1,88 @@
+<h2 mat-dialog-title>Add new place</h2>
+<mat-dialog-content class="mat-typography">
+
+  <mat-stepper #stepper [linear]="true">
+    <mat-step [stepControl]="firstFormGroup" errorMessage="Data of place owner is required.">
+
+      <form [formGroup]="firstFormGroup" class="flex-col">
+        <ng-template matStepLabel>Place Owner Data</ng-template>
+
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input matInput placeholder="Email" formControlName="email" required>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input matInput placeholder="Name" formControlName="name" required>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Surname</mat-label>
+          <input matInput placeholder="Surname" formControlName="surname" required>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>City</mat-label>
+          <input matInput placeholder="City" formControlName="city" required>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Postal Code</mat-label>
+          <input matInput placeholder="Postal Code" formControlName="postalCode" required>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Street Name</mat-label>
+          <input matInput placeholder="Street Name" formControlName="streetName" required>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Login Method</mat-label>
+          <mat-select required>
+            <mat-option value="JWT">JWT</mat-option>
+            <mat-option value="GMAIL">GMAIL</mat-option>
+            <mat-option value="FACEBOOK">FACEBOOK</mat-option>
+            <mat-option value="FACEBOOK">LINKEDIN</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="secondFormGroup" errorMessage="Place details data required">
+      <form [formGroup]="secondFormGroup" class="flex-col">
+        <ng-template matStepLabel>Places Details Data</ng-template>
+        <mat-form-field>
+          <mat-label>Email Place</mat-label>
+          <input matInput formControlName="emailPlace" required>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Place Name</mat-label>
+          <input matInput formControlName="placeName" required>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>City</mat-label>
+          <input matInput placeholder="City" formControlName="city" required>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Postal Code</mat-label>
+          <input matInput placeholder="Postal Code" formControlName="postalCode" required>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Street Name</mat-label>
+          <input matInput placeholder="Street Name" formControlName="streetName" required>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      <p>You are now good to go! Place has been added</p>
+      <div>
+        <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Finish</button>
+      </div>
+    </mat-step>
+
+  </mat-stepper>
+</mat-dialog-content>

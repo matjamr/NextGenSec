@@ -20,12 +20,38 @@ import {
   MatExpansionPanelHeader,
   MatExpansionPanelTitle
 } from "@angular/material/expansion";
-import {MatButton, MatIconButton} from "@angular/material/button";
+import {MatButton, MatFabButton, MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {MatListItem, MatNavList} from "@angular/material/list";
 import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
 import {MatSidenav, MatSidenavContainer, MatSidenavContent} from "@angular/material/sidenav";
 import {MatToolbar} from "@angular/material/toolbar";
+import {DevicesComponent} from './pages/administrative/devices/devices.component';
+import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
+import {CanvasJSAngularChartsModule} from "@canvasjs/angular-charts";
+import {MatTabContent} from "@angular/material/tabs";
+import {
+  MatCell,
+  MatCellDef,
+  MatColumnDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
+  MatHeaderRow,
+  MatHeaderRowDef,
+  MatNoDataRow,
+  MatRow,
+  MatRowDef,
+  MatTable
+} from "@angular/material/table";
+import {MatPaginator} from "@angular/material/paginator";
+import {MatFormField, MatLabel} from "@angular/material/form-field";
+import {MatInput} from "@angular/material/input";
+import {MatSort} from "@angular/material/sort";
+import {MatTooltip} from "@angular/material/tooltip";
+import {MatCheckbox} from "@angular/material/checkbox";
+import {MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle} from "@angular/material/dialog";
+import {MatStep, MatStepLabel, MatStepperNext, MatStepperPrevious} from "@angular/material/stepper";
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 const routes: Routes = [
@@ -34,47 +60,51 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
-    path: 'admins',
+    path: 'administrative/admins',
     component: AdminsComponent
   },
   {
-    path: 'places',
+    path: 'administrative/places',
     component: PlacesComponent
   },
   {
-    path: 'products',
+    path: 'administrative/products',
     component: ProductsComponent
   },
   {
-    path: 'admin_settings',
+    path: 'administrative/products',
+    component: ProductsComponent
+  },
+  {
+    path: 'administrative/devices',
+    component: DevicesComponent
+  },
+  {
+    path: 'settings/admin',
     component: AdminSettingsComponent
   },
   {
-    path: 'credentials',
+    path: 'settings/credentials',
     component: CredentialsComponent
   },
   {
-    path: 'logs',
+    path: 'settings/logs',
     component: LogsComponent
   },
   {
-    path: 'logs',
-    component: LogsComponent
-  },
-  {
-    path: 'restrictions',
+    path: 'settings/restrictions',
     component: RestrictionsComponent
   },
   {
-    path: 'system_alert',
+    path: 'settings/alerts',
     component: SystemAlertComponent
   },
   {
-    path: 'chat',
+    path: 'social/chat',
     component: ChatComponent
   },
   {
-    path: 'email',
+    path: 'social/email',
     component: EmailComponent
   }
 ]
@@ -92,7 +122,8 @@ const routes: Routes = [
     CredentialsComponent,
     LogsComponent,
     SystemAlertComponent,
-    NavWrapperComponent
+    NavWrapperComponent,
+    DevicesComponent
   ],
   imports: [
     CommonModule,
@@ -114,6 +145,40 @@ const routes: Routes = [
     MatSidenavContent,
     MatToolbar,
     MatMenuTrigger,
+    MatCard,
+    MatCardContent,
+    MatCardHeader,
+    MatCardTitle,
+    CanvasJSAngularChartsModule,
+    MatTabContent,
+    MatHeaderRowDef,
+    MatHeaderRow,
+    MatRow,
+    MatRowDef,
+    MatHeaderCell,
+    MatColumnDef,
+    MatCell,
+    MatCellDef,
+    MatHeaderCellDef,
+    MatTable,
+    MatPaginator,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    MatSort,
+    MatNoDataRow,
+    MatFabButton,
+    MatTooltip,
+    MatCheckbox,
+    MatDialogActions,
+    MatDialogClose,
+    MatDialogTitle,
+    MatDialogContent,
+    MatStep,
+    ReactiveFormsModule,
+    MatStepperPrevious,
+    MatStepLabel,
+    MatStepperNext,
   ]
 })
 export class SystemOwnerModule { }

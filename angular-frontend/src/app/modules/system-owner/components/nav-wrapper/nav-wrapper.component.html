@@ -16,12 +16,12 @@
     <button mat-menu-item>edit profile</button>
     <button mat-menu-item>logout</button>
   </mat-menu>
-
 </mat-toolbar>
+
 <mat-sidenav-container autosize class="mat-sidenav-container full-height">
   <mat-sidenav [mode]="isMobile ? 'over' : 'side'" [opened]="!isMobile">
     <mat-nav-list>
-      <a mat-list-item routerLink="/user">
+      <a mat-list-item routerLink="/system">
         <mat-panel-title class="entry">
           <mat-icon>house</mat-icon>
           <span *ngIf="!isCollapsed">Home</span>
@@ -31,39 +31,48 @@
         <mat-expansion-panel style="box-shadow: none">
           <mat-expansion-panel-header >
             <mat-panel-title>
-              <mat-icon>place</mat-icon>
-              <span *ngIf="!isCollapsed">&nbsp;Places</span>
+              <mat-icon>accessibility</mat-icon>
+              <span *ngIf="!isCollapsed">Administrative</span>
             </mat-panel-title>
           </mat-expansion-panel-header>
 
           <a
             mat-list-item
-            routerLink="user/places/find"
+            routerLink="administrative/places"
             class="sidenav__list-item list-sub-item"
             [routerLinkActive]="['active']"
           >
-            <mat-icon>search</mat-icon>
-            <span style="padding-top: 11px;" *ngIf="!isCollapsed">Find</span>
+            <mat-icon>place</mat-icon>
+            <span style="padding-top: 11px;" *ngIf="!isCollapsed">Places</span>
           </a>
 
           <a
             mat-list-item
-            routerLink="user/places/apply"
+            routerLink="administrative/admins"
             class="sidenav__list-item list-sub-item"
             [routerLinkActive]="['active']"
           >
-            <mat-icon>add</mat-icon>
-            <span style="padding-top: 11px;" *ngIf="!isCollapsed">Apply</span>
+            <mat-icon>lock_open</mat-icon>
+            <span style="padding-top: 11px;" *ngIf="!isCollapsed">Admins</span>
           </a>
 
           <a
             mat-list-item
-            routerLink="user/places/view"
+            routerLink="administrative/products"
             class="sidenav__list-item list-sub-item"
             [routerLinkActive]="['active']"
           >
-            <mat-icon>slideshow</mat-icon>
-            <span style="padding-top: 11px;" *ngIf="!isCollapsed">View</span>
+            <mat-icon>fingerprint</mat-icon>
+            <span style="padding-top: 11px;" *ngIf="!isCollapsed">Products</span>
+          </a>
+          <a
+            mat-list-item
+            routerLink="administrative/devices"
+            class="sidenav__list-item list-sub-item"
+            [routerLinkActive]="['active']"
+          >
+            <mat-icon>perm_device_information</mat-icon>
+            <span style="padding-top: 11px;" *ngIf="!isCollapsed">Devices</span>
           </a>
         </mat-expansion-panel>
       </mat-accordion>
@@ -71,48 +80,93 @@
         <mat-expansion-panel style="box-shadow: none">
           <mat-expansion-panel-header >
             <mat-panel-title>
-              <mat-icon>person</mat-icon>
-              <span *ngIf="!isCollapsed">&nbsp;Profile</span>
+              <mat-icon>group</mat-icon>
+              <span *ngIf="!isCollapsed">Social</span>
             </mat-panel-title>
           </mat-expansion-panel-header>
 
           <a
             mat-list-item
-            routerLink="user/history"
+            routerLink="social/email"
             class="sidenav__list-item list-sub-item"
             [routerLinkActive]="['active']"
           >
-            <mat-icon>history</mat-icon>
-            <span style="padding-top: 11px;" *ngIf="!isCollapsed">History</span>
+            <mat-icon>email</mat-icon>
+            <span style="padding-top: 11px;" *ngIf="!isCollapsed">Email</span>
           </a>
 
           <a
             mat-list-item
-            routerLink="user/methods"
+            routerLink="social/chat"
             class="sidenav__list-item list-sub-item"
             [routerLinkActive]="['active']"
           >
             <mat-icon>lock_open</mat-icon>
-            <span style="padding-top: 11px;" *ngIf="!isCollapsed">Methods</span>
+            <span style="padding-top: 11px;" *ngIf="!isCollapsed">Chat</span>
+          </a>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+      <mat-accordion mat-list-item>
+        <mat-expansion-panel style="box-shadow: none">
+          <mat-expansion-panel-header >
+            <mat-panel-title>
+              <mat-icon>settings</mat-icon>
+              <span *ngIf="!isCollapsed">Settings</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <a
+            mat-list-item
+            routerLink="settings/restrictions"
+            class="sidenav__list-item list-sub-item"
+            [routerLinkActive]="['active']"
+          >
+            <mat-icon>lock</mat-icon>
+            <span style="padding-top: 11px;" *ngIf="!isCollapsed">Restrictions</span>
           </a>
 
           <a
             mat-list-item
-            routerLink="user/notif"
+            routerLink="settings/admin"
             class="sidenav__list-item list-sub-item"
             [routerLinkActive]="['active']"
           >
-            <mat-icon>notifications</mat-icon>
-            <span style="padding-top: 11px;" *ngIf="!isCollapsed">Notifications</span>
+            <mat-icon>input</mat-icon>
+            <span style="padding-top: 11px;" *ngIf="!isCollapsed">Admin Settings</span>
+          </a>
+
+          <a
+            mat-list-item
+            routerLink="settings/credentials"
+            class="sidenav__list-item list-sub-item"
+            [routerLinkActive]="['active']"
+          >
+            <mat-icon>extension</mat-icon>
+            <span style="padding-top: 11px;" *ngIf="!isCollapsed">Credentials</span>
+          </a>
+
+          <a
+            mat-list-item
+            routerLink="settings/logs"
+            class="sidenav__list-item list-sub-item"
+            [routerLinkActive]="['active']"
+          >
+            <mat-icon>select_all</mat-icon>
+            <span style="padding-top: 11px;" *ngIf="!isCollapsed">Logs</span>
+          </a>
+
+          <a
+            mat-list-item
+            routerLink="settings/alerts"
+            class="sidenav__list-item list-sub-item"
+            [routerLinkActive]="['active']"
+          >
+            <mat-icon>warning</mat-icon>
+            <span style="padding-top: 11px;" *ngIf="!isCollapsed">System Alerts</span>
           </a>
         </mat-expansion-panel>
       </mat-accordion>
-      <a mat-list-item routerLink="user/settings">
-         <span class="entry">
-            <mat-icon>settings</mat-icon>
-            <span *ngIf="!isCollapsed">Settings</span>
-         </span>
-      </a>
 
     </mat-nav-list>
   </mat-sidenav>
