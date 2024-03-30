@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 import {hasAdminRole} from "./core/guard/AdminGuard";
 import {hasUserRole} from "./core/guard/UserGuard";
 
@@ -17,6 +17,10 @@ const routes: Routes = [
     path: 'admin',
     loadChildren: () =>  import('./modules/admin-logged/admin-logged.module').then((m) => m.AdminLoggedModule),
     canActivate: [hasAdminRole]
+  },
+  {
+    path: 'system',
+    loadChildren: () =>  import('./modules/system-owner/system-owner.module').then((m) => m.SystemOwnerModule)
   }
 ];
 

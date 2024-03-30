@@ -1,3 +1,5 @@
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
 * body {
   padding: 0;
   margin: 0;
@@ -35,15 +37,6 @@ body {
   border-radius: 10px;
 }
 
-/*.container {*/
-/*  display: flex;*/
-/*  flex-direction: column;*/
-/*  justify-content: center;*/
-/*  align-items: center;*/
-/*  padding: 0;*/
-/*  margin: 0;*/
-/*}*/
-
 .horizontal {
   display: flex;
   flex-direction: row;
@@ -57,40 +50,10 @@ body {
   color: #80B982;
 }
 
-/*.light-theme-btn {*/
-/*  background-color: #80B982;*/
-/*  padding: 5px;*/
-/*  color: white;*/
-/*  margin: 5px;*/
-/*  font-size: 20px;*/
-/*  border-radius: 10px;*/
-/*  transition: 0.2s;*/
-/*  width: 10%;*/
-/*  text-align: center;*/
-/*}*/
-
 .light-border-shadow {
   box-shadow: 1px 1px 1px #3A7734;
   border: 0;
 }
-
-/*.light-theme-btn:hover {*/
-/*  padding: 5px;*/
-/*  margin: 2.5px;*/
-/*  font-size: 22px;*/
-/*  box-shadow: 1px 1px 1px #cecece;*/
-/*  cursor: pointer;*/
-/*  background-color: #3A7734;*/
-/*}*/
-
-/*.active-light-button {*/
-/*  padding: 5px;*/
-/*  margin: 2.5px;*/
-/*  font-size: 22px;*/
-/*  box-shadow: 1px 1px 1px #cecece;*/
-/*  cursor: pointer;*/
-/*  background-color: #3A7734;*/
-/*}*/
 
 .light-theme-header {
   color: #17251e;
@@ -108,13 +71,14 @@ body {
   box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
 }
 
-/*.navbar-buttons {*/
-/*  display: flex;*/
-/*  margin-right: 10px;*/
-/*}*/
-
 .horizontal-container-2 {
   justify-content: space-evenly;
 }
 
+.full-height {
+  height: 80vh;
+}
 
+.spacer {
+  flex: 1 1 auto;
+}

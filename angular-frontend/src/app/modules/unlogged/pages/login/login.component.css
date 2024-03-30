@@ -73,6 +73,22 @@ h5 {
   background: #8ccea7;
 }
 
+.or-divider {
+  width: 40%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 10px;
+}
+
+.divider-line {
+  width: 40%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  /*margin: 1px;*/
+}
+
 @media (max-width: 768px) {
   .login-section-grid {
     grid-template-columns: 1fr;

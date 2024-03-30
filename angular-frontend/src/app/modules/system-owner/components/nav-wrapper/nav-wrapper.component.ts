@@ -4,11 +4,11 @@ import {BreakpointObserver} from "@angular/cdk/layout";
 import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-user-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  selector: 'app-nav-wrapper',
+  templateUrl: './nav-wrapper.component.html',
+  styleUrl: './nav-wrapper.component.css'
 })
-export class HeaderComponent {
+export class NavWrapperComponent {
   title = 'material-responsive-sidenav';
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
