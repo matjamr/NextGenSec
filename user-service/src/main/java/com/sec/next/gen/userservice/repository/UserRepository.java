@@ -1,16 +1,18 @@
 package com.sec.next.gen.userservice.repository;
 
-import com.sec.next.gen.userservice.models.AuthorizedUser;
-import com.sec.next.gen.userservice.models.User;
+
+import com.sec.next.gen.userservice.api.User;
+import lombok.NonNull;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import reactor.core.publisher.Mono;
 
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface UserRepository extends JpaRepository<User, String> {
 
-    @Query("select p FROM User p where p.email = ?1")
     Optional<User> findByEmail(String userEmail);
+    User save(@NonNull User user);
+    boolean existsUserByEmail(String userEmail);
 }

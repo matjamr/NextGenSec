@@ -1,9 +1,9 @@
 package com.sec.next.gen.userservice.config;
 
 
+import com.next.gen.sec.model.RegistrationSource;
 import com.sec.next.gen.userservice.controller.RegistrationSourceDispatcher;
-import com.sec.next.gen.userservice.models.Source;
-import com.sec.next.gen.userservice.service.AuthorizationService;
+import com.sec.next.gen.userservice.service.authorization.AuthorizationService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.config.CorsRegistry;
@@ -16,13 +16,13 @@ import java.util.function.Function;
 public class BeanConfig {
 
     @Bean
-    public Function<Source, AuthorizationService> sourceAuthorizationServiceDispatcher(
+    public Function<RegistrationSource, AuthorizationService> sourceAuthorizationServiceDispatcher(
             AuthorizationService googleUserInfoService,
             AuthorizationService jwtService
     ) {
         return new RegistrationSourceDispatcher(Map.of(
-                Source.GOOGLE, googleUserInfoService,
-                Source.JWT, jwtService
+                RegistrationSource.GOOGLE, googleUserInfoService,
+                RegistrationSource.JWT, jwtService
         )
         );
     }

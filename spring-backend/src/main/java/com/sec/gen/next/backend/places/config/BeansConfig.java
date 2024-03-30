@@ -155,7 +155,9 @@ public class BeansConfig {
             @Qualifier("userPlaceAssignmentToDbBuilder") Function<List<UserPlaceAssignmentModel>, List<UserPlaceAssignment>> userPlaceAssignmentToDbBuilder,
             PlacesMapper placesMapper
     ) {
-        return new PlacesToDbBuilder(placesRepository, userPlaceAssignmentToDbBuilder, dynamicStatusUpdater, placesMapper);
+        return new PlacesToDbBuilder(placesRepository, userPlaceAssignmentToDbBuilder,
+                dynamicStatusUpdater, placesMapper,
+                null);
     }
 
     @Bean("placesUpdater")

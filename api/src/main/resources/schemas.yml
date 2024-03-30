@@ -1,0 +1,110 @@
+openapi: 3.0.3
+info:
+  title: Cosmo page backend
+  description: |-
+    A simple banking API that allows two operations:
+    - get account balance given account number
+    - deposit amount to a account
+  version: 1.0-SNAPSHOT
+servers:
+  - url: http://localhost:808/api
+tags:
+  - name: images
+    description: images operations
+
+  - name: admin restricted
+    description: admin restricted operations
+
+  - name: permit all
+    description: operations that are open to all
+
+  - name: user
+    description: user operations
+
+paths:
+  /sample:
+    get:
+      tags:
+        - admin restricted
+      summary: Summary template
+      description: Description template
+      operationId: operationId
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AddressModel"
+
+components:
+  schemas:
+    # external
+    UserModel:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        surname:
+          type: string
+        password:
+          type: string
+        passwordChange:
+          type: boolean
+        phoneNumber:
+          type: string
+        email:
+          type: string
+        source:
+          $ref: '#/components/schemas/RegistrationSource'
+        address:
+          $ref: '#/components/schemas/AddressModel'
+    Role:
+      type: integer
+      enum: [ 0, 1, 2 ]
+      x-enum-varnames: [ USER, ADMIN, OWNER ]
+    RegistrationSource:
+      type: integer
+      enum: [ 0, 1, 2, 3 ]
+      x-enum-varnames: [ JWT, GOOGLE, FACEBOOK, LINKEDIN ]
+    AddressModel:
+      type: object
+      properties:
+        id:
+          type: string
+        streetName:
+          type: string
+        postalCode:
+          type: string
+        city:
+          type: string
+    PostModel:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        imageIds:
+          type: array
+          items:
+            type: string
+    GoogleAuthorizedUser:
+      type: object
+      properties:
+        email:
+          type: string
+        given_name:
+          type: string
+        family_name:
+          type: string
+        picture:
+          type: string
+        source:
+          $ref: '#/components/schemas/RegistrationSource'
+        password:
+          type: string

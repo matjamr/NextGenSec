@@ -21,5 +21,4 @@ public class UserModel {
     private String name;
     private String surname;
     private AddressModel address;
-    private List<ProductModel> supportedProducts;
 }

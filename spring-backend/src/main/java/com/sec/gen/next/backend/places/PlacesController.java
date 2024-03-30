@@ -19,7 +19,6 @@ import java.util.Optional;
 public class PlacesController {
 
     private final Dispatcher<List<PlacesModel>, PlacesContext, RoutingEnum> placesDispatcher;
-    private final static String PRINCIPAL = "PRINCIPAL";
 
     public PlacesController(
             @Qualifier("placesDispatcher") Dispatcher<List<PlacesModel>, PlacesContext, RoutingEnum> placesDispatcher) {

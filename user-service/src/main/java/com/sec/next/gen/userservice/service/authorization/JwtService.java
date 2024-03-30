@@ -1,8 +1,8 @@
-package com.sec.next.gen.userservice.service;
+package com.sec.next.gen.userservice.service.authorization;
 
-import com.sec.next.gen.userservice.models.AuthorizedUser;
-import com.sec.next.gen.userservice.models.Source;
-import com.sec.next.gen.userservice.models.User;
+import com.next.gen.sec.model.GoogleAuthorizedUser;
+import com.next.gen.sec.model.RegistrationSource;
+import com.sec.next.gen.userservice.api.User;
 import com.sec.next.gen.userservice.repository.UserRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -10,17 +10,16 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 import reactor.core.publisher.Mono;
 
 import java.security.Key;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
+
+import static com.sec.next.gen.userservice.config.Error.INVALID_USER_DATA;
 
 @Service
 @RequiredArgsConstructor
@@ -30,14 +29,15 @@ public class JwtService implements AuthorizationService {
     private static final BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder(8);
 
     @Override
-    public Mono<AuthorizedUser> getUserInfo(String idToken, Source source) {
+    public GoogleAuthorizedUser getUserInfo(String idToken, RegistrationSource source) {
 
         String userEmail = extractUsername(idToken);
-        if(isTokenValid(idToken, userRepository.findByEmail(userEmail).orElseThrow(() -> new RuntimeException("Invalid user")))) {
-            return Mono.just(new AuthorizedUser().setEmail(userEmail).setSource(Source.JWT.name()));
-        };
-
-        throw new RuntimeException("Invalid user");
+        return userRepository.findByEmail(userEmail)
+                .filter(user -> isTokenValid(idToken, user))
+                .map(user -> new GoogleAuthorizedUser()
+                        .email(user.getEmail())
+                        .source(RegistrationSource.JWT)
+                ).orElseThrow(INVALID_USER_DATA::getError);
     }
 
     public String extractUsername(String token) {
@@ -49,16 +49,14 @@ public class JwtService implements AuthorizationService {
         return claimResolver.apply(claims);
     }
 
-    public String generateToken(AuthorizedUser authorizedUser) {
-        User user = userRepository.findByEmail(authorizedUser.getEmail()).orElseThrow(() -> new RuntimeException("Invalid user"));
-
-        if(!bcrypt.matches(authorizedUser.getPassword(), user.password())) {
-            throw new RuntimeException("Invalid password");
-        }
-        return generateToken(new HashMap<>(), authorizedUser);
+    public String generateToken(GoogleAuthorizedUser authorizedUser) {
+        return userRepository.findByEmail(authorizedUser.getEmail())
+                .filter(user -> !bcrypt.matches(authorizedUser.getPassword(), user.getPassword()))
+                .map(user -> generateToken(Map.of(), authorizedUser))
+                .orElseThrow(INVALID_USER_DATA::getError);
     }
 
-    public String generateToken(Map<String, Object> extraClaims, AuthorizedUser authorizedUser) {
+    public String generateToken(Map<String, Object> extraClaims, GoogleAuthorizedUser authorizedUser) {
         return Jwts.builder()
                 .setClaims(extraClaims)
                 .setSubject(authorizedUser.getEmail())
@@ -71,7 +69,7 @@ public class JwtService implements AuthorizationService {
 
     public boolean isTokenValid(String token, User user ) {
         final String username = extractUsername(token);
-        return (username.equals(user.email())) && !isTokenExpired(token);
+        return (username.equals(user.getEmail())) && !isTokenExpired(token);
     }
 
     private boolean isTokenExpired(String token) {

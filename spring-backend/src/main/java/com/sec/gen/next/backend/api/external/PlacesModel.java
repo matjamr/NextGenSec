@@ -15,4 +15,5 @@ public class PlacesModel {
     private AddressModel address;
     private List<UserPlaceAssignmentModel> authorizedUsers;
     private VerificationStage verificationStage;
+    private UserModel userModel;
 }
