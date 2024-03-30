@@ -1,9 +1,6 @@
-import {inject, Injectable} from "@angular/core";
-import {ActivatedRoute, CanActivateFn, Router} from "@angular/router";
+import {inject} from "@angular/core";
+import {CanActivateFn, Router} from "@angular/router";
 import {UserService} from "../services/user/user.service";
-import {select, Store} from "@ngrx/store";
-import {AppState} from "../../app.state";
-import {GetPlaces} from "../state/place/place.actions";
 import {PlaceService} from "../services/place/place.service";
 
 export const hasUserRole: CanActivateFn = (route, state) => {

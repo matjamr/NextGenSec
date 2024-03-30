@@ -1,7 +1,6 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {RecentActivity} from "../../models/RecentActivity";
 import {Method} from "../../models/Method";
 
 @Injectable({

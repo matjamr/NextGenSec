@@ -1,6 +1,5 @@
-import {Product} from "../../models/Product";
 import {createReducer, on} from "@ngrx/store";
-import {GetProducts, GetProductsFailure, GetProductsSuccess} from "../products/products.actions";
+import {GetProductsFailure} from "../products/products.actions";
 import {User} from "../../models/User";
 import {VerifyUser, VerifyUserSuccess} from "./user.actions";
 

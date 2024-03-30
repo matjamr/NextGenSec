@@ -1,12 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {Observable} from "rxjs";
-import {Method} from "../../../../core/models/Method";
-import {NotificationsService} from "../../../../core/services/notifications/notifications.service";
-import {RecentActivitiesService} from "../../../../core/services/recent-activities/recent-activities.service";
-import {MethodService} from "../../../../core/services/method/method.service";
-import {Store} from "@ngrx/store";
-import {AppState} from "../../../../app.state";
-import {GetPlaces} from "../../../../core/state/place/place.actions";
 import {ActivatedRoute, Router} from "@angular/router";
 import {User} from "../../../../core/models/User";
 import {UserService} from "../../../../core/services/user/user.service";

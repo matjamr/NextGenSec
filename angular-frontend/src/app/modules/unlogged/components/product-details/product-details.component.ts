@@ -1,5 +1,5 @@
-import { Component, Input, ViewChild, ElementRef } from '@angular/core';
-import { Product } from '../../../../core/models/Product';
+import {Component, ElementRef, Input, ViewChild} from '@angular/core';
+import {Product} from '../../../../core/models/Product';
 
 @Component({
   selector: 'app-product-details',

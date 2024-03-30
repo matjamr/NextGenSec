@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {Place} from "../../../../core/models/Place";
 import {defaultUserPlaceAssigment} from "../../../../core/models/UserPlaceAssigment";
 import {PlaceService} from "../../../../core/services/place/place.service";

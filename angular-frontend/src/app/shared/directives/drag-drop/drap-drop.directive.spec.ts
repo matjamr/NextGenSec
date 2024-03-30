@@ -1,4 +1,4 @@
-import { DrapDropDirective } from './drap-drop.directive';
+import {DrapDropDirective} from './drap-drop.directive';
 
 describe('DrapDropDirective', () => {
   it('should create an instance', () => {

@@ -1,5 +1,4 @@
 import {createReducer, on} from "@ngrx/store";
-import {Products} from "../../models/Products";
 import {GetProducts, GetProductsFailure, GetProductsSuccess} from "./products.actions";
 import {Product} from "../../models/Product";
 

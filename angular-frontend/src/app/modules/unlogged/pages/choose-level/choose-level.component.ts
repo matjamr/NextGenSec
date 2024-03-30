@@ -1,7 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from "@angular/router";
-import { Subscription } from "rxjs";
-import { PlaceService } from "../../../../core/services/place/place.service";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Router} from "@angular/router";
+import {Subscription} from "rxjs";
+import {PlaceService} from "../../../../core/services/place/place.service";
 
 @Component({
   selector: 'app-choose-level',

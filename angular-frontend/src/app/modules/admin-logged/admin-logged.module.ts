@@ -1,16 +1,15 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { HeaderComponent } from './components/header/header.component';
-import { HomeComponent } from './pages/home/home.component';
-import { UsersComponent } from './pages/users/users.component';
-import { MonitorComponent } from './pages/monitor/monitor.component';
-import { PlaceInfoComponent } from './pages/place-info/place-info.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {HeaderComponent} from './components/header/header.component';
+import {HomeComponent} from './pages/home/home.component';
+import {UsersComponent} from './pages/users/users.component';
+import {MonitorComponent} from './pages/monitor/monitor.component';
+import {PlaceInfoComponent} from './pages/place-info/place-info.component';
 import {RouterModule, Routes} from "@angular/router";
 import {CoreModule} from "../../core/core.module";
 import {FormsModule} from "@angular/forms";
-import { EmailComponent } from './pages/email/email.component';
-import { ChatComponent } from './pages/chat/chat.component';
-import {UserEditComponent} from "../../core/components/user-edit/user-edit.component";
+import {EmailComponent} from './pages/email/email.component';
+import {ChatComponent} from './pages/chat/chat.component';
 
 const routes: Routes = [
   {

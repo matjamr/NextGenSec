@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { DataUploadModalComponent } from './data-upload-modal.component';
+import {DataUploadModalComponent} from './data-upload-modal.component';
 
 describe('DataUploadModalComponent', () => {
   let component: DataUploadModalComponent;

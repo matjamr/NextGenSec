@@ -1,5 +1,4 @@
 import {createAction, props} from "@ngrx/store";
-import {Products} from "../../models/Products";
 import {User} from "../../models/User";
 
 

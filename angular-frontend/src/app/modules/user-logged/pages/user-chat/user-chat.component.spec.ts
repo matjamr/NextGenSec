@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { UserChatComponent } from './user-chat.component';
+import {UserChatComponent} from './user-chat.component';
 
 describe('UserChatComponent', () => {
   let component: UserChatComponent;

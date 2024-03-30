@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ChooseLevelComponent } from './choose-level.component';
+import {ChooseLevelComponent} from './choose-level.component';
 
 describe('ChooseLevelComponent', () => {
   let component: ChooseLevelComponent;

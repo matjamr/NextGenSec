@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { PasswdChangeComponent } from './passwd-change.component';
+import {PasswdChangeComponent} from './passwd-change.component';
 
 describe('PasswdChangeComponent', () => {
   let component: PasswdChangeComponent;

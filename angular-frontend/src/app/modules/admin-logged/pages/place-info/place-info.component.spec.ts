@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { PlaceInfoComponent } from './place-info.component';
+import {PlaceInfoComponent} from './place-info.component';
 
 describe('PlaceInfoComponent', () => {
   let component: PlaceInfoComponent;

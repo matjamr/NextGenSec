@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from "rxjs";
-import { Place } from "../../../../core/models/Place";
-import { Store, select } from "@ngrx/store";
-import { AppState } from "../../../../app.state";
-import { GetPlaces } from "../../../../core/state/place/place.actions";
+import {Component, OnInit} from '@angular/core';
+import {Observable} from "rxjs";
+import {Place} from "../../../../core/models/Place";
+import {select, Store} from "@ngrx/store";
+import {AppState} from "../../../../app.state";
+import {GetPlaces} from "../../../../core/state/place/place.actions";
 
 @Component({
   selector: 'app-places',

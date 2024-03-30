@@ -1,8 +1,7 @@
-import { Injectable } from '@angular/core';
-import {Observable, of} from "rxjs";
+import {Injectable} from '@angular/core';
+import {Observable} from "rxjs";
 import {RecentActivity} from "../../models/RecentActivity";
 import {HttpClient} from "@angular/common/http";
-import {Notification} from "../../models/Notification";
 
 @Injectable({
   providedIn: 'root'

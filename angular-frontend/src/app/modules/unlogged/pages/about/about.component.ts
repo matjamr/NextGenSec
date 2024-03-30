@@ -1,4 +1,4 @@
-import { Component, HostListener, ElementRef, AfterViewInit } from '@angular/core';
+import {AfterViewInit, Component, ElementRef, HostListener} from '@angular/core';
 
 @Component({
   selector: 'app-about',

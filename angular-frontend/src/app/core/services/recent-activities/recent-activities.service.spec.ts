@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { RecentActivitiesService } from './recent-activities.service';
+import {RecentActivitiesService} from './recent-activities.service';
 
 describe('RecentActivitiesService', () => {
   let service: RecentActivitiesService;

@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActiveNavBar} from "../../../../core/models/ActiveNavBar";
 import {NavigationEnd, Router} from "@angular/router";
-import {filter} from "rxjs";
 
 @Component({
   selector: 'app-unlogged-header',

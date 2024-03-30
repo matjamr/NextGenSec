@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {AuthGuardService} from "../../../../core/services/auth-guard/auth-guard.service";
 import {UserService} from "../../../../core/services/user/user.service";
 

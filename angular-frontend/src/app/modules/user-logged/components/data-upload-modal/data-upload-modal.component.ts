@@ -1,7 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {ImageService} from "../../../../core/services/image/image.service";
 import {ProductsService} from "../../../../core/services/products/products.service";
-import {Products} from "../../../../core/models/Products";
 import {Product} from "../../../../core/models/Product";
 
 @Component({

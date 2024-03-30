@@ -5,7 +5,6 @@ import {Observable} from "rxjs";
 import {select, Store} from "@ngrx/store";
 import {AppState} from "../../../app.state";
 import {VerifyUser} from "../../state/user/user.actions";
-import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-profile-logo',

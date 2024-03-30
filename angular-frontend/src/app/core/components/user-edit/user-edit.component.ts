@@ -1,7 +1,6 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {User} from "../../models/User";
 import {NgForm} from "@angular/forms";
-import {UserService} from "../../services/user/user.service";
 
 @Component({
   selector: 'app-user-edit',
