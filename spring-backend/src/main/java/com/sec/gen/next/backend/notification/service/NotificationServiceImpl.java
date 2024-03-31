@@ -3,10 +3,9 @@ package com.sec.gen.next.backend.notification.service;
 import com.sec.gen.next.backend.api.exception.Error;
 import com.sec.gen.next.backend.api.exception.ServiceException;
 import com.sec.gen.next.backend.api.external.NotificationModel;
-import com.sec.gen.next.backend.api.internal.Notification;
-import com.sec.gen.next.backend.api.internal.User;
+import com.next.gen.api.Notification;
+import com.next.gen.api.User;
 import com.sec.gen.next.backend.notification.repository.NotificationRepository;
-import com.sec.gen.next.backend.user.repository.UserRepository;
 import com.sec.gen.next.backend.notification.mapper.NotificationMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,7 +14,6 @@ import java.util.List;
 
 @RequiredArgsConstructor
 public class NotificationServiceImpl implements NotificationService {
-    private final UserRepository userRepository;
     private final NotificationRepository notificationRepository;
     private final NotificationMapper notificationMapper;
 
@@ -41,8 +39,7 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     private User getUser(Notification notification) {
-        return userRepository.findUserByEmail(notification.getUser().getEmail())
-                .orElseThrow(() -> new ServiceException(Error.INVALID_USER_DATA));
+        return new User(); // TODO refactor
     }
 
     @Override

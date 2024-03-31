@@ -1,7 +1,7 @@
 package com.sec.gen.next.backend.image.mapper;
 
 import com.sec.gen.next.backend.api.external.ImageModel;
-import com.sec.gen.next.backend.api.internal.Image;
+import com.next.gen.api.Image;
 import org.mapstruct.Mapper;
 import org.springframework.beans.factory.annotation.Value;
 

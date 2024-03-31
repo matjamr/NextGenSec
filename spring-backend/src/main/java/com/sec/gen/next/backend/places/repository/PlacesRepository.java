@@ -1,6 +1,6 @@
 package com.sec.gen.next.backend.places.repository;
 
-import com.sec.gen.next.backend.api.internal.Places;
+import com.next.gen.api.Places;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

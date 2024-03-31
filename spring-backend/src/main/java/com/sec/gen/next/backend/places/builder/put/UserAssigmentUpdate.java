@@ -4,8 +4,8 @@ import com.sec.gen.next.backend.api.external.NotificationModel;
 import com.sec.gen.next.backend.api.external.PlacesModel;
 import com.sec.gen.next.backend.api.external.UserModel;
 import com.sec.gen.next.backend.api.external.UserPlaceAssignmentModel;
-import com.sec.gen.next.backend.api.internal.Notification;
-import com.sec.gen.next.backend.api.internal.Places;
+import com.next.gen.api.Notification;
+import com.next.gen.api.Places;
 import com.sec.gen.next.backend.notification.service.NotificationService;
 import lombok.RequiredArgsConstructor;
 

@@ -4,7 +4,7 @@ import com.sec.gen.next.backend.api.exception.Error;
 import com.sec.gen.next.backend.api.exception.ServiceException;
 import com.sec.gen.next.backend.api.external.PlacesModel;
 import com.sec.gen.next.backend.api.external.UserPlaceAssignmentModel;
-import com.sec.gen.next.backend.api.internal.Places;
+import com.next.gen.api.Places;
 import com.sec.gen.next.backend.product.repository.ProductRepository;
 import com.sec.gen.next.backend.user.repository.UserPlaceAssignmentRepository;
 import lombok.RequiredArgsConstructor;

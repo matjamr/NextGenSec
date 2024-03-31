@@ -1,8 +1,8 @@
 package com.sec.gen.next.backend.product.mapper;
 
 import com.sec.gen.next.backend.api.external.ProductModel;
-import com.sec.gen.next.backend.api.internal.Image;
-import com.sec.gen.next.backend.api.internal.Product;
+import com.next.gen.api.Image;
+import com.next.gen.api.Product;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;

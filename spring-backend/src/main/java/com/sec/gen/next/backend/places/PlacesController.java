@@ -1,8 +1,7 @@
 package com.sec.gen.next.backend.places;
 
-import com.sec.gen.next.backend.api.external.AuthorizedUser;
+import com.sec.gen.next.backend.api.CustomAuthentication;
 import com.sec.gen.next.backend.api.external.PlacesModel;
-import com.sec.gen.next.backend.api.internal.CustomAuthentication;
 import com.sec.gen.next.backend.places.builder.RoutingEnum;
 import com.sec.gen.next.backend.common.Dispatcher;
 import jakarta.servlet.ServletRequest;

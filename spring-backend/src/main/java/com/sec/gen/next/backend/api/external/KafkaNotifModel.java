@@ -3,7 +3,7 @@ package com.sec.gen.next.backend.api.external;
 
 import com.fasterxml.jackson.annotation.JacksonAnnotation;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.sec.gen.next.backend.api.internal.AssignmentRole;
+import com.next.gen.api.AssignmentRole;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;

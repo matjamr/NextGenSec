@@ -1,7 +1,7 @@
 package com.sec.gen.next.backend.news.mapper;
 
 import com.sec.gen.next.backend.api.external.NewsModel;
-import com.sec.gen.next.backend.api.internal.News;
+import com.next.gen.api.News;
 
 import java.util.List;
 

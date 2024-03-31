@@ -1,6 +1,6 @@
 package com.sec.gen.next.backend.image.builder;
 
-import com.sec.gen.next.backend.api.internal.Image;
+import com.next.gen.api.Image;
 import com.sec.gen.next.backend.image.repository.ImageRepository;
 import lombok.RequiredArgsConstructor;
 

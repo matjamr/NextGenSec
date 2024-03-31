@@ -1,6 +1,6 @@
 package com.sec.gen.next.backend.api.external;
 
-import com.sec.gen.next.backend.api.internal.User;
+import com.next.gen.api.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

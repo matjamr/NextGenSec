@@ -20,6 +20,7 @@
 		<spring-dotenv.version>4.0.0</spring-dotenv.version>
 		<org.mapstruct.version>1.4.1.Final</org.mapstruct.version>
 		<spring-cloud.version>2022.0.3</spring-cloud.version>
+		<api.version>1.0</api.version>
 	</properties>
 
 	<dependencies>
@@ -91,6 +92,11 @@
 		<dependency>
 			<groupId>org.springframework.kafka</groupId>
 			<artifactId>spring-kafka</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.next.gen.api</groupId>
+			<artifactId>api</artifactId>
+			<version>${api.version}</version>
 		</dependency>
 	</dependencies>
 

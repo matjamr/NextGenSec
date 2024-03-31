@@ -2,9 +2,9 @@ package com.sec.gen.next.backend.places.builder.add;
 
 import com.sec.gen.next.backend.api.external.UserModel;
 import com.sec.gen.next.backend.api.external.UserPlaceAssignmentModel;
-import com.sec.gen.next.backend.api.internal.Places;
-import com.sec.gen.next.backend.api.internal.User;
-import com.sec.gen.next.backend.api.internal.UserPlaceAssignment;
+import com.next.gen.api.Places;
+import com.next.gen.api.User;
+import com.next.gen.api.UserPlaceAssignment;
 import com.sec.gen.next.backend.common.Service;
 import com.sec.gen.next.backend.places.repository.PlacesRepository;
 import com.sec.gen.next.backend.places.PlacesContext;

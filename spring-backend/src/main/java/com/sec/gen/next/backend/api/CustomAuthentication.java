@@ -1,4 +1,4 @@
-package com.sec.gen.next.backend.api.internal;
+package com.sec.gen.next.backend.api;
 
 import com.sec.gen.next.backend.api.external.AuthorizedUser;
 import lombok.AllArgsConstructor;

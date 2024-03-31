@@ -2,7 +2,7 @@ package com.sec.gen.next.backend.places.builder.put;
 
 import com.sec.gen.next.backend.api.exception.ServiceException;
 import com.sec.gen.next.backend.api.external.PlacesModel;
-import com.sec.gen.next.backend.api.internal.Places;
+import com.next.gen.api.Places;
 import com.sec.gen.next.backend.places.repository.PlacesRepository;
 import com.sec.gen.next.backend.places.PlacesContext;
 import com.sec.gen.next.backend.places.builder.PlacesMapper;

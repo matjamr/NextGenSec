@@ -3,7 +3,7 @@ package com.sec.gen.next.backend.method.service;
 import com.sec.gen.next.backend.api.exception.Error;
 import com.sec.gen.next.backend.api.exception.ServiceException;
 import com.sec.gen.next.backend.api.external.MethodModel;
-import com.sec.gen.next.backend.api.internal.*;
+import com.next.gen.api.*;
 import com.sec.gen.next.backend.image.repository.ImageRepository;
 import com.sec.gen.next.backend.method.mapper.MethodMapper;
 import com.sec.gen.next.backend.product.repository.ProductRepository;

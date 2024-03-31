@@ -6,7 +6,7 @@ import com.sec.gen.next.backend.api.external.AuthorizedUser;
 import com.sec.gen.next.backend.api.external.HistoryEntranceModel;
 import com.sec.gen.next.backend.api.external.KafkaChatServiceModel;
 import com.sec.gen.next.backend.api.external.KafkaNotifModel;
-import com.sec.gen.next.backend.api.internal.*;
+import com.next.gen.api.*;
 import com.sec.gen.next.backend.common.kafka.KafkaChatServiceProducer;
 import com.sec.gen.next.backend.device.repository.DeviceRepository;
 import com.sec.gen.next.backend.history.repository.HistoryRepository;

@@ -1,10 +1,10 @@
 package com.sec.gen.next.backend.places;
 
+import com.sec.gen.next.backend.api.CustomAuthentication;
 import com.sec.gen.next.backend.api.exception.Error;
 import com.sec.gen.next.backend.api.external.AuthorizedUser;
 import com.sec.gen.next.backend.api.external.PlacesModel;
-import com.sec.gen.next.backend.api.internal.CustomAuthentication;
-import com.sec.gen.next.backend.api.internal.Places;
+import com.next.gen.api.Places;
 import lombok.Builder;
 import lombok.Data;
 

@@ -20,12 +20,12 @@ public class Image {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(unique = false)
+    @Column
     private String title;
     private String description;
     private String extension;
 
     @Lob
-    @Column(unique = false)
+    @Column
     private byte[] content;
 }

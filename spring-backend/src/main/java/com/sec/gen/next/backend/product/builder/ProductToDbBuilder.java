@@ -1,6 +1,6 @@
 package com.sec.gen.next.backend.product.builder;
 
-import com.sec.gen.next.backend.api.internal.Product;
+import com.next.gen.api.Product;
 import com.sec.gen.next.backend.product.repository.ProductRepository;
 import com.sec.gen.next.backend.product.ProductContext;
 import com.sec.gen.next.backend.product.mapper.ProductMapper;

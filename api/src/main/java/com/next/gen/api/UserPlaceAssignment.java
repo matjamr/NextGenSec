@@ -17,8 +17,8 @@ import java.util.List;
 @Data
 @Accessors(chain = true)
 @Builder(toBuilder = true)
-@DynamicUpdate
 public class UserPlaceAssignment {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

@@ -1,6 +1,6 @@
 package com.sec.gen.next.backend.news.repository;
 
-import com.sec.gen.next.backend.api.internal.News;
+import com.next.gen.api.News;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

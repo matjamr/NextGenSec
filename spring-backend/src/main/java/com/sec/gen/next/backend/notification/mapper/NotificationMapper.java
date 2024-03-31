@@ -1,7 +1,7 @@
 package com.sec.gen.next.backend.notification.mapper;
 
 import com.sec.gen.next.backend.api.external.NotificationModel;
-import com.sec.gen.next.backend.api.internal.Notification;
+import com.next.gen.api.Notification;
 import com.sec.gen.next.backend.user.mapper.UserMapper;
 import org.mapstruct.Mapper;
 

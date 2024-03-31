@@ -1,7 +1,7 @@
 package com.sec.gen.next.backend.device.builder;
 
 import com.sec.gen.next.backend.api.external.DeviceModel;
-import com.sec.gen.next.backend.api.internal.Device;
+import com.next.gen.api.Device;
 import org.mapstruct.Mapper;
 
 @Mapper

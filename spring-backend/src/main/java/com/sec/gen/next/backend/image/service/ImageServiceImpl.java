@@ -3,7 +3,7 @@ package com.sec.gen.next.backend.image.service;
 import com.sec.gen.next.backend.api.exception.Error;
 import com.sec.gen.next.backend.api.exception.ServiceException;
 import com.sec.gen.next.backend.api.external.ImageModel;
-import com.sec.gen.next.backend.api.internal.Image;
+import com.next.gen.api.Image;
 import com.sec.gen.next.backend.image.repository.ImageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;

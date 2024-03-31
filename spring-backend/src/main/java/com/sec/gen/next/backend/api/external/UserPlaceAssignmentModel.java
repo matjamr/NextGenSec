@@ -1,7 +1,6 @@
 package com.sec.gen.next.backend.api.external;
 
-import com.sec.gen.next.backend.api.internal.AssignmentRole;
-import com.sec.gen.next.backend.api.internal.VerificationStage;
+import com.next.gen.api.AssignmentRole;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,14 +14,13 @@ public class UserPlaceAssignmentModel {
     private Integer id;
     private UserModel user;
     private AssignmentRole assignmentRole;
-    private VerificationStage verificationStage;
     private List<ProductModel> products;
     private UserAdd userAdd;
     private UserDelete userDelete;
     private UserModify userModify;
     private ProductAdd productAdd;
 
-    public record UserAdd(UserModel user, AssignmentRole assignmentRole, VerificationStage verificationStage) { }
+    public record UserAdd(UserModel user, AssignmentRole assignmentRole) { }
 
     public record UserDelete(Integer id) { }
 

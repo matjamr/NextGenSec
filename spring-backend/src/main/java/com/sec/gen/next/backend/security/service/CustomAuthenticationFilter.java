@@ -1,7 +1,7 @@
 package com.sec.gen.next.backend.security.service;
 
+import com.sec.gen.next.backend.api.CustomAuthentication;
 import com.sec.gen.next.backend.api.external.AuthorizedUser;
-import com.sec.gen.next.backend.api.internal.CustomAuthentication;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

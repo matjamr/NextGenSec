@@ -1,6 +1,6 @@
 package com.sec.gen.next.backend.history.repository;
 
-import com.sec.gen.next.backend.api.internal.HistoryEntrance;
+import com.next.gen.api.HistoryEntrance;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

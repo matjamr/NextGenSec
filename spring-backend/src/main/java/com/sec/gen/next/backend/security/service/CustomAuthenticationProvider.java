@@ -1,6 +1,6 @@
 package com.sec.gen.next.backend.security.service;
 
-import com.sec.gen.next.backend.api.internal.CustomAuthentication;
+import com.sec.gen.next.backend.api.CustomAuthentication;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;

@@ -1,7 +1,7 @@
 package com.sec.gen.next.backend.api.external;
 
-import com.sec.gen.next.backend.api.internal.Product;
-import com.sec.gen.next.backend.api.internal.RegisterSource;
+import com.next.gen.api.Product;
+import com.next.gen.sec.model.RegistrationSource;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,7 +15,7 @@ public class UserModel {
     private Integer id;
     private String email;
     private String password;
-    private RegisterSource source;
+    private RegistrationSource source;
     private String passwordChange;
     private String phoneNumber;
     private String name;

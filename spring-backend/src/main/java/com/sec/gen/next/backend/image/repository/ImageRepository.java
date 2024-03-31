@@ -1,6 +1,6 @@
 package com.sec.gen.next.backend.image.repository;
 
-import com.sec.gen.next.backend.api.internal.Image;
+import com.next.gen.api.Image;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

@@ -2,7 +2,7 @@ package com.sec.gen.next.backend.common.kafka;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sec.gen.next.backend.api.external.KafkaChatServiceModel;
-import com.sec.gen.next.backend.api.internal.HistoryEntrance;
+import com.next.gen.api.HistoryEntrance;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.kafka.core.KafkaTemplate;

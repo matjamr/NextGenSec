@@ -2,7 +2,7 @@ package com.sec.gen.next.backend.image.config;
 
 
 import com.sec.gen.next.backend.api.external.ImageModel;
-import com.sec.gen.next.backend.api.internal.Image;
+import com.next.gen.api.Image;
 import com.sec.gen.next.backend.image.builder.ImageLoadConsumer;
 import com.sec.gen.next.backend.image.builder.ImageLoader;
 import com.sec.gen.next.backend.image.builder.ImageModelBuilder;

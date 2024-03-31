@@ -2,8 +2,8 @@ package com.sec.gen.next.backend.product;
 
 import com.sec.gen.next.backend.api.exception.Error;
 import com.sec.gen.next.backend.api.external.ProductModel;
-import com.sec.gen.next.backend.api.internal.Image;
-import com.sec.gen.next.backend.api.internal.Product;
+import com.next.gen.api.Image;
+import com.next.gen.api.Product;
 import com.sec.gen.next.backend.image.builder.ImageLoader;
 import lombok.Builder;
 import lombok.Data;

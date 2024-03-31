@@ -1,7 +1,7 @@
 package com.sec.gen.next.backend.common.address;
 
 import com.sec.gen.next.backend.api.external.AddressModel;
-import com.sec.gen.next.backend.api.internal.Address;
+import com.next.gen.api.Address;
 import lombok.RequiredArgsConstructor;
 
 import java.util.function.Consumer;

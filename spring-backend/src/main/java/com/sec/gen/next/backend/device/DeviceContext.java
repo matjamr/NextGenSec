@@ -2,7 +2,7 @@ package com.sec.gen.next.backend.device;
 
 import com.sec.gen.next.backend.api.exception.Error;
 import com.sec.gen.next.backend.api.external.DeviceModel;
-import com.sec.gen.next.backend.api.internal.Device;
+import com.next.gen.api.Device;
 import lombok.Builder;
 import lombok.Data;
 

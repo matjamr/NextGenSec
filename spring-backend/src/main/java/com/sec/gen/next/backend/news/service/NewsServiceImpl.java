@@ -2,8 +2,8 @@ package com.sec.gen.next.backend.news.service;
 
 import com.sec.gen.next.backend.api.exception.ServiceException;
 import com.sec.gen.next.backend.api.external.NewsModel;
-import com.sec.gen.next.backend.api.internal.Image;
-import com.sec.gen.next.backend.api.internal.News;
+import com.next.gen.api.Image;
+import com.next.gen.api.News;
 import com.sec.gen.next.backend.image.repository.ImageRepository;
 import com.sec.gen.next.backend.news.mapper.NewsMapper;
 import com.sec.gen.next.backend.news.repository.NewsRepository;

@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -34,4 +35,7 @@ public class User {
     private String pictureUrl;
     private LocalDateTime creationDate;
     private String password;
+
+    @OneToMany
+    private List<SensitiveData> sensitiveData;
 }

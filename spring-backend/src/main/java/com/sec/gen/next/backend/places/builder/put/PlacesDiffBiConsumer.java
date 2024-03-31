@@ -1,7 +1,7 @@
 package com.sec.gen.next.backend.places.builder.put;
 
 import com.sec.gen.next.backend.api.external.PlacesModel;
-import com.sec.gen.next.backend.api.internal.Places;
+import com.next.gen.api.Places;
 
 import java.util.Optional;
 import java.util.function.BiConsumer;

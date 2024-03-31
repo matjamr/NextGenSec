@@ -2,7 +2,7 @@ package com.sec.gen.next.backend.places.builder.put;
 
 import com.sec.gen.next.backend.api.external.PlacesModel;
 import com.sec.gen.next.backend.api.external.UserPlaceAssignmentModel;
-import com.sec.gen.next.backend.api.internal.Places;
+import com.next.gen.api.Places;
 import com.sec.gen.next.backend.user.repository.UserPlaceAssignmentRepository;
 import lombok.RequiredArgsConstructor;
 

@@ -3,11 +3,8 @@ package com.sec.gen.next.backend.places.builder.put;
 import com.sec.gen.next.backend.api.exception.ServiceException;
 import com.sec.gen.next.backend.api.external.PlacesModel;
 import com.sec.gen.next.backend.api.external.UserPlaceAssignmentModel;
-import com.sec.gen.next.backend.api.internal.Places;
-import com.sec.gen.next.backend.api.internal.UserPlaceAssignment;
-import com.sec.gen.next.backend.api.internal.VerificationStage;
-import com.sec.gen.next.backend.user.repository.UserPlaceAssignmentRepository;
-import com.sec.gen.next.backend.user.repository.UserRepository;
+import com.next.gen.api.Places;
+import com.next.gen.api.UserPlaceAssignment;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Collections;
@@ -42,7 +39,6 @@ public class UserAssigmentAdd implements BiConsumer<Places, PlacesModel> {
                 .user(userRepository.findUserByEmail(userAdd.user().getEmail())
                         .orElseThrow(() -> new ServiceException(NO_USER_ID)))
                 .assignmentRole(userAdd.assignmentRole())
-                .verificationStage(Optional.ofNullable(userAdd.verificationStage()).orElse(VerificationStage.APPLIED))
                 .build();
     }
 }

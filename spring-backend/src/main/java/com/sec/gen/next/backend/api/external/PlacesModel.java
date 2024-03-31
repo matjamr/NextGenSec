@@ -1,6 +1,5 @@
 package com.sec.gen.next.backend.api.external;
 
-import com.sec.gen.next.backend.api.internal.VerificationStage;
 import lombok.Builder;
 import lombok.Data;
 
@@ -14,6 +13,5 @@ public class PlacesModel {
     private String emailPlace;
     private AddressModel address;
     private List<UserPlaceAssignmentModel> authorizedUsers;
-    private VerificationStage verificationStage;
     private UserModel userModel;
 }

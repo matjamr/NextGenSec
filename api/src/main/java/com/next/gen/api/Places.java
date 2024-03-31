@@ -35,4 +35,7 @@ public class Places {
 
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private List<UserPlaceAssignment> authorizedUsers;
+
+    @OneToMany
+    private List<Device> devices;
 }

@@ -1,6 +1,6 @@
 package com.sec.gen.next.backend.common.address;
 
-import com.sec.gen.next.backend.api.internal.Address;
+import com.next.gen.api.Address;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

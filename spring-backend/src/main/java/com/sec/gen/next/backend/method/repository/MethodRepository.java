@@ -1,6 +1,6 @@
 package com.sec.gen.next.backend.method.repository;
 
-import com.sec.gen.next.backend.api.internal.Method;
+import com.next.gen.api.Method;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

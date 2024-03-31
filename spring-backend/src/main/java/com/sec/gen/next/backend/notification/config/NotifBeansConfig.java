@@ -13,10 +13,9 @@ public class NotifBeansConfig {
 
     @Bean
     public NotificationService notificationService(
-            final UserRepository userRepository,
             final NotificationRepository notificationRepository,
             final NotificationMapper notificationMapper
             ) {
-        return new NotificationServiceImpl(userRepository, notificationRepository, notificationMapper);
+        return new NotificationServiceImpl(notificationRepository, notificationMapper);
     }
 }

@@ -1,6 +1,6 @@
 package com.sec.gen.next.backend.device.builder;
 
-import com.sec.gen.next.backend.api.internal.Device;
+import com.next.gen.api.Device;
 import com.sec.gen.next.backend.device.DeviceContext;
 import com.sec.gen.next.backend.device.repository.DeviceRepository;
 import lombok.RequiredArgsConstructor;

@@ -1,7 +1,7 @@
 package com.sec.gen.next.backend.places.builder;
 
 import com.sec.gen.next.backend.api.external.PlacesModel;
-import com.sec.gen.next.backend.api.internal.Places;
+import com.next.gen.api.Places;
 import com.sec.gen.next.backend.common.address.AddressMapper;
 import com.sec.gen.next.backend.user.mapper.UserPlaceAssignmentMapper;
 import org.mapstruct.CollectionMappingStrategy;

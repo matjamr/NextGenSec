@@ -1,6 +1,6 @@
 package com.sec.gen.next.backend.api.external;
 
-import com.sec.gen.next.backend.api.internal.AssignmentRole;
+import com.next.gen.api.AssignmentRole;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
