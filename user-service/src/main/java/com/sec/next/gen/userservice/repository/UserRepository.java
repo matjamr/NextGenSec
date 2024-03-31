@@ -1,7 +1,7 @@
 package com.sec.next.gen.userservice.repository;
 
 
-import com.sec.next.gen.userservice.api.User;
+import com.next.gen.api.User;
 import lombok.NonNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

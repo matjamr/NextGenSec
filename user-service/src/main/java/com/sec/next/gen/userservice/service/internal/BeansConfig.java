@@ -1,10 +1,10 @@
 package com.sec.next.gen.userservice.service.internal;
 
 import com.next.gen.sec.model.UserModel;
-import com.sec.next.gen.userservice.api.User;
-import com.sec.next.gen.userservice.mapper.AddressMapper;
+import com.next.gen.api.User;import com.sec.next.gen.userservice.mapper.AddressMapper;
 import com.sec.next.gen.userservice.mapper.UserMapper;
 import com.sec.next.gen.userservice.repository.UserRepository;
+import com.sec.next.gen.userservice.service.external.kafka.KafkaProducer;
 import com.sec.next.gen.userservice.service.internal.update.BaseUserValuesUpdater;
 import com.sec.next.gen.userservice.service.internal.update.UserAddressUpdater;
 import org.springframework.context.annotation.Bean;
@@ -20,9 +20,10 @@ public class BeansConfig {
     public UserService userService(
             UserRepository userRepository,
             UserMapper userMapper,
-            List<BiConsumer<User, UserModel>> updateUserModelsConsumerList
+            List<BiConsumer<User, UserModel>> updateUserModelsConsumerList,
+            KafkaProducer kafkaProducer
     ) {
-        return new UserServiceImpl(userRepository, userMapper, updateUserModelsConsumerList);
+        return new UserServiceImpl(userRepository, userMapper, updateUserModelsConsumerList, kafkaProducer);
     }
 
     @Bean

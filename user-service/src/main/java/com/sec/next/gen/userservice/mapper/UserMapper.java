@@ -1,7 +1,7 @@
 package com.sec.next.gen.userservice.mapper;
 
 import com.next.gen.sec.model.UserModel;
-import com.sec.next.gen.userservice.api.User;
+import com.next.gen.api.User;
 import org.mapstruct.Mapper;
 
 @Mapper

@@ -1,7 +1,7 @@
 package com.sec.next.gen.userservice.service.internal.update;
 
 import com.next.gen.sec.model.UserModel;
-import com.sec.next.gen.userservice.api.User;
+import com.next.gen.api.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 

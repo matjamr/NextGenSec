@@ -3,7 +3,7 @@ package com.sec.next.gen.userservice.config;
 
 import com.next.gen.sec.model.RegistrationSource;
 import com.next.gen.sec.model.UserModel;
-import com.sec.next.gen.userservice.api.User;
+import com.next.gen.api.User;
 import com.sec.next.gen.userservice.controller.RegistrationSourceDispatcher;
 import com.sec.next.gen.userservice.mapper.UserMapper;
 import com.sec.next.gen.userservice.repository.UserRepository;

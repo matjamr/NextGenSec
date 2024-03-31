@@ -2,8 +2,8 @@ package com.sec.next.gen.userservice.service.internal.update;
 
 import com.next.gen.sec.model.AddressModel;
 import com.next.gen.sec.model.UserModel;
-import com.sec.next.gen.userservice.api.Address;
-import com.sec.next.gen.userservice.api.User;
+import com.next.gen.api.Address;
+import com.next.gen.api.User;
 import com.sec.next.gen.userservice.mapper.AddressMapper;
 import lombok.RequiredArgsConstructor;
 

@@ -1,4 +1,4 @@
-package com.sec.next.gen.userservice.service.external;
+package com.sec.next.gen.userservice.service.external.providers;
 
 import com.next.gen.sec.model.GoogleAuthorizedUser;
 import org.springframework.cloud.openfeign.FeignClient;

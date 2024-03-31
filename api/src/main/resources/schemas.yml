@@ -108,3 +108,15 @@ components:
           $ref: '#/components/schemas/RegistrationSource'
         password:
           type: string
+    OutboundEmailModel:
+      type: object
+      properties:
+        strategy:
+          type: string
+        email:
+          type: string
+        params:
+          type: string
+          additionalProperties:
+            type: string
+

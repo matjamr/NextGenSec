@@ -1,4 +1,4 @@
-package com.sec.next.gen.userservice.api;
+package com.next.gen.api;
 
 import jakarta.persistence.*;
 import lombok.Data;

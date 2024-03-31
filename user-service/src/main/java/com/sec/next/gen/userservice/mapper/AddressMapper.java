@@ -1,7 +1,7 @@
 package com.sec.next.gen.userservice.mapper;
 
 import com.next.gen.sec.model.AddressModel;
-import com.sec.next.gen.userservice.api.Address;
+import com.next.gen.api.Address;
 import org.mapstruct.Mapper;
 
 @Mapper

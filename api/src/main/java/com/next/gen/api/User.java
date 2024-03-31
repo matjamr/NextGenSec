@@ -1,4 +1,4 @@
-package com.sec.next.gen.userservice.api;
+package com.next.gen.api;
 
 import com.next.gen.sec.model.RegistrationSource;
 import jakarta.persistence.*;

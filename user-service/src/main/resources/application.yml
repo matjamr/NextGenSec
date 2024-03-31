@@ -9,9 +9,9 @@ spring:
     defaultPropertyInclusion: "non_null"
   datasource:
     driverClassName: 'org.postgresql.Driver'
-    url: jdbc:postgresql://localhost:5432/db
-    username: postgres
-    password: postgres
+    url: ${POSTGRES_URL}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
   jpa:
     showSql: 'true'
     hibernate:
@@ -22,3 +22,6 @@ spring:
 
 external:
   google: https://oauth2.googleapis.com/tokeninfo
+
+kafka:
+  url: ${KAFKA_URL}

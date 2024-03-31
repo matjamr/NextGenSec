@@ -2,8 +2,7 @@ package com.sec.next.gen.userservice.service.authorization;
 
 import com.next.gen.sec.model.GoogleAuthorizedUser;
 import com.next.gen.sec.model.RegistrationSource;
-import com.sec.next.gen.userservice.api.User;
-import com.sec.next.gen.userservice.repository.UserRepository;
+import com.next.gen.api.User;import com.sec.next.gen.userservice.repository.UserRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -19,7 +18,7 @@ import java.util.Date;
 import java.util.Map;
 import java.util.function.Function;
 
-import static com.sec.next.gen.userservice.config.Error.INVALID_USER_DATA;
+import static com.sec.next.gen.userservice.config.Error.*;
 
 @Service
 @RequiredArgsConstructor
@@ -37,7 +36,7 @@ public class JwtService implements AuthorizationService {
                 .map(user -> new GoogleAuthorizedUser()
                         .email(user.getEmail())
                         .source(RegistrationSource.JWT)
-                ).orElseThrow(INVALID_USER_DATA::getError);
+                ).orElseThrow(NO_USER_WITH_EMAIL::getError);
     }
 
     public String extractUsername(String token) {
@@ -51,9 +50,9 @@ public class JwtService implements AuthorizationService {
 
     public String generateToken(GoogleAuthorizedUser authorizedUser) {
         return userRepository.findByEmail(authorizedUser.getEmail())
-                .filter(user -> !bcrypt.matches(authorizedUser.getPassword(), user.getPassword()))
+                .filter(user -> bcrypt.matches(authorizedUser.getPassword(), user.getPassword()))
                 .map(user -> generateToken(Map.of(), authorizedUser))
-                .orElseThrow(INVALID_USER_DATA::getError);
+                .orElseThrow(PASSWORD_DO_NOT_MATCH::getError);
     }
 
     public String generateToken(Map<String, Object> extraClaims, GoogleAuthorizedUser authorizedUser) {
