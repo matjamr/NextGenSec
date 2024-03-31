@@ -8,19 +8,23 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Map;
+
 @Slf4j
 @ControllerAdvice
 public class ErrorController {
 
     @ResponseBody
     @ExceptionHandler(ServiceError.class)
-    public ResponseEntity<Error> errorHandler(final ServiceError serviceError) {
+    public ResponseEntity<Map<String, String>> errorHandler(final ServiceError serviceError) {
 
         final Error error = serviceError.getError();
         log.error(error.getMessage());
 
         return ResponseEntity
                 .status(error.getHttpStatus().value())
-                .body(error);
+                .body(Map.of(
+                        "message", error.getMessage()
+                ));
     }
 }

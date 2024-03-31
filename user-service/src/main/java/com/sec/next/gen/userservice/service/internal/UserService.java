@@ -7,4 +7,5 @@ import reactor.core.publisher.Mono;
 public interface UserService {
     UserModel findUserByEmail(String email);
     UserModel saveUser(UserModel userModel);
+    UserModel updateUser(UserModel userModel);
 }

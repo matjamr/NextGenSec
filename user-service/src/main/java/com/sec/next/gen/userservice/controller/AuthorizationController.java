@@ -11,6 +11,7 @@ import reactor.core.publisher.Mono;
 import java.util.function.Function;
 
 @RestController
+@RequestMapping("/security")
 @RequiredArgsConstructor
 public class AuthorizationController {
 
