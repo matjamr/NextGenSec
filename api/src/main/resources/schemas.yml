@@ -62,12 +62,12 @@ components:
         address:
           $ref: '#/components/schemas/AddressModel'
     Role:
-      type: integer
-      enum: [ 0, 1, 2 ]
+      type: string
+      enum: [ "USER", "ADMIN", "OWNER" ]
       x-enum-varnames: [ USER, ADMIN, OWNER ]
     RegistrationSource:
-      type: integer
-      enum: [ 0, 1, 2, 3 ]
+      type: string
+      enum: [ "JWT", "GOOGLE", "FACEBOOK", "LINKEDIN" ]
       x-enum-varnames: [ JWT, GOOGLE, FACEBOOK, LINKEDIN ]
     AddressModel:
       type: object
