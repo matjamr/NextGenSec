@@ -1,0 +1,28 @@
+spring:
+  jackson:
+    defaultPropertyInclusion: "non_null"
+  datasource:
+    driverClassName: 'org.postgresql.Driver'
+    url: ${POSTGRES_URL}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+  jpa:
+    showSql: 'true'
+    hibernate:
+      ddl-auto: 'update'
+    properties:
+      hibernate:
+        dialect: 'org.hibernate.dialect.PostgreSQLDialect'
+  application:
+    name: service-orchestrator
+
+security:
+  supportedRegistrationSources:
+    - GOOGLE
+    - JWT
+
+kafka:
+  url: ${KAFKA_URL}
+
+server:
+  url: ${SERVER_URL}
