@@ -16,13 +16,25 @@ spring:
   application:
     name: service-orchestrator
 
+
 security:
   supportedRegistrationSources:
     - GOOGLE
     - JWT
+  paths:
+    - url: api/product
+      method: GET
+    - url: api/news
+      method: GET
+    - url: api/image
+      method: GET
 
 kafka:
   url: ${KAFKA_URL}
 
 server:
   url: ${SERVER_URL}
+
+services:
+  user-service:
+    url: http://localhost:8081/api

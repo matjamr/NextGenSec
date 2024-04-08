@@ -1,7 +1,10 @@
 package com.sec.gen.next.serviceorchestrator.api;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.next.gen.sec.model.GoogleAuthorizedUser;
+import com.next.gen.sec.model.RegistrationSource;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.Authentication;
@@ -11,9 +14,14 @@ import java.util.Collection;
 
 @Getter
 @Setter
-@AllArgsConstructor
+@Builder
 public class CustomAuthentication implements Authentication {
-    private final GoogleAuthorizedUser claimsUser;
+
+    private String email;
+    private String givenName;
+    private String familyName;
+    private String picture;
+    private RegistrationSource source;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -32,7 +40,7 @@ public class CustomAuthentication implements Authentication {
 
     @Override
     public Object getPrincipal() {
-        return claimsUser;
+        return this;
     }
 
     @Override
@@ -46,6 +54,6 @@ public class CustomAuthentication implements Authentication {
 
     @Override
     public String getName() {
-        return claimsUser.getEmail();
+        return email;
     }
 }

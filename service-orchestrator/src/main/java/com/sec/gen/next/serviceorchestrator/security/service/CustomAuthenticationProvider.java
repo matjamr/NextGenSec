@@ -14,14 +14,11 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        CustomAuthentication customAuthentication = (CustomAuthentication) authentication;
-
-
 //        if(appSecretKey.equalsIgnoreCase(headerKey)) {
 //            log.info("Request have valid key");
 //            return new CustomAuthentication(true, headerKey);
 //        }
-        return customAuthentication;
+        return (CustomAuthentication) authentication;
 //        throw new BadCredentialsException("Secret key in header did not match Application Secret key...");
     }
 
