@@ -18,7 +18,7 @@ import java.util.List;
 public class ProductBeansConfig {
 
     @Bean
-    public CrudService<ProductModel, ProductModel> productService(
+    public CrudService<ProductModel, ProductModel, String> productService(
             final ProductRepository productRepository,
             final ProductMapper productMapper
             ) {

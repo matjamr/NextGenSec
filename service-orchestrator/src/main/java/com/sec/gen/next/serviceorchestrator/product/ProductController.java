@@ -12,7 +12,7 @@ import java.util.List;
 @RequestMapping("/api/product")
 @RequiredArgsConstructor
 public class ProductController {
-    private final CrudService<ProductModel, ProductModel> productService;
+    private final CrudService<ProductModel, ProductModel, String> productService;
 
     @PostMapping
     public ProductModel addProduct(
@@ -21,30 +21,13 @@ public class ProductController {
         return productService.save(productModel);
     }
 
-//    @PutMapping
-//    public List<ProductModel> updatePlace(
-//            final @Qualifier("productContext") ProductContext productContext,
-//            final @RequestBody ProductModel productModel
-//    ) {
-//        return productDispatcher.dispatch(productContext.toBuilder()
-//                        .productModel(productModel)
-//                        .build(),
-//                RoutingEnum.UPDATE);
-//    }
-
     @GetMapping
     public List<ProductModel> getProducts() {
         return productService.findAll();
     }
 
-//    @DeleteMapping
-//    public List<ProductModel> deleteProducts(
-//            final @Qualifier("productContext") ProductContext productContext,
-//            final @RequestBody ProductModel productModel
-//    ) {
-//        return productDispatcher.dispatch(productContext.toBuilder()
-//                        .productModel(productModel)
-//                        .build(),
-//                RoutingEnum.DELETE);
-//    }
+    @DeleteMapping
+    public ProductModel deleteProduct(@RequestBody ProductModel productModel) {
+        return productService.delete(productModel);
+    }
 }

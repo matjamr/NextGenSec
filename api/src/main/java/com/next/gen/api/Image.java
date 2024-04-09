@@ -13,15 +13,15 @@ import org.hibernate.annotations.DynamicUpdate;
 @AllArgsConstructor
 @Data
 @Accessors(chain = true)
-@DynamicUpdate
 public class Image {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
 
     @Column
     private String title;
+    private boolean isSensitive;
     private String description;
     private String extension;
 

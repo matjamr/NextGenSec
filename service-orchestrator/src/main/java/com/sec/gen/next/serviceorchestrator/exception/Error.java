@@ -22,7 +22,10 @@ public enum Error implements Serializable {
     INVALID_PRODUCT_DATA("Invalid product data", 11),
     INVALID_DEVICE_DATA("Invalid device data", 12),
     INVALID_HEADER("Invalid headers provided", 13),
-    PRODUCT_EXISTS("Product already exists", 14);
+    PRODUCT_EXISTS("Product already exists", 14),
+    INVALID_IMAGE_SIZE("Invalid image size", 15),
+    INVALID_IMAGE_EXTENSION("Invalid image size", 16),
+    INVALID_IMAGE_ID("There is no image with given id", 17);
 
     private final String message;
     private final Integer code;
