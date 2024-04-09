@@ -21,7 +21,8 @@ public enum Error implements Serializable {
     UNAUTHORIZED("User is not authorized to enter this page", 10),
     INVALID_PRODUCT_DATA("Invalid product data", 11),
     INVALID_DEVICE_DATA("Invalid device data", 12),
-    INVALID_HEADER("Invalid headers provided", 13);
+    INVALID_HEADER("Invalid headers provided", 13),
+    PRODUCT_EXISTS("Product already exists", 14);
 
     private final String message;
     private final Integer code;
@@ -38,5 +39,9 @@ public enum Error implements Serializable {
 
     public Integer getCode() {
         return code;
+    }
+
+    public ServiceException getError() {
+        return new ServiceException(this);
     }
 }

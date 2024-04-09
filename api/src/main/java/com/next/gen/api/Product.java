@@ -20,8 +20,8 @@ import java.util.List;
 @DynamicUpdate
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
 
     @Column(unique = true)
     private String name;
@@ -33,6 +33,6 @@ public class Product {
     @ElementCollection(targetClass = String.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "image_ids", joinColumns = @JoinColumn(name = "image_id"))
     @Column(name = "image_ids", nullable = false)
-    private List<String> imageIds = new ArrayList<>();
+    private List<String> images = new ArrayList<>();
 
 }

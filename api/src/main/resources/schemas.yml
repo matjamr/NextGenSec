@@ -119,4 +119,17 @@ components:
           type: string
           additionalProperties:
             type: string
+    ProductModel:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        monthlyPrice:
+          type: number
+        images:
+          type: array
+          items:
+            type: string
 

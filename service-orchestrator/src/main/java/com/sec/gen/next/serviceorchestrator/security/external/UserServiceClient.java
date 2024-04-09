@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 @FeignClient(name = "userServiceClient", url = "${services.user-service.url}")
 public interface UserServiceClient {
 
-    @PostMapping("/security/verify")
+    @PostMapping("/user/security/verify")
     GoogleAuthorizedUser getAccessToken(@RequestHeader("source") String source,
                                         @RequestHeader("token") String token);
 }
