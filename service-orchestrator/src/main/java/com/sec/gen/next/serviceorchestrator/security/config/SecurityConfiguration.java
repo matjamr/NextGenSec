@@ -4,15 +4,20 @@ import com.sec.gen.next.serviceorchestrator.security.service.CustomAuthenticatio
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
+
+import java.util.Objects;
 
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
@@ -27,15 +32,15 @@ public class SecurityConfiguration {
     private final CustomAuthenticationFilter customAuthenticationFilter;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(final HttpSecurity http, final SecurityPropertiesConfig securityPropertiesConfig) throws Exception {
         http
-                .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers(GET, "/api/product", "/api/product/*").permitAll()
-                        .requestMatchers(GET, "/api/image", "/api/image/*").permitAll()
-                        .requestMatchers(GET, "/api/news").permitAll()
-                        .requestMatchers(POST, "/api/user/register").permitAll()
-                        .anyRequest().authenticated()
-                )
+                .authorizeHttpRequests(requests -> {
+                    securityPropertiesConfig.getPaths().forEach(rule -> {
+                        HttpMethod httpMethod = HttpMethod.valueOf(rule.getMethod());
+                        requests.requestMatchers(httpMethod, rule.getUrl()).permitAll();
+                    });
+                    requests.anyRequest().authenticated();
+                })
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .formLogin(AbstractHttpConfigurer::disable)
                 .cors(httpSecurityCorsConfigurer -> httpSecurityCorsConfigurer.configurationSource(rq -> new CorsConfiguration().applyPermitDefaultValues()))

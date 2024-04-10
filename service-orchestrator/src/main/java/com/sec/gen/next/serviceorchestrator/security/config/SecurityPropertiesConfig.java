@@ -16,6 +16,15 @@ public class SecurityPropertiesConfig {
     public static class PathMethodPair {
         private String url;
         private String method;
+        private String access;
+
+        public String getAccess() {
+            return access;
+        }
+
+        public void setAccess(String access) {
+            this.access = access;
+        }
 
         public String getUrl() {
             return url;

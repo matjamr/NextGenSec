@@ -22,12 +22,18 @@ security:
     - GOOGLE
     - JWT
   paths:
-    - url: api/product
+    - url: /api/product
       method: GET
-    - url: api/news
+      access: permitAll
+    - url: /api/news
       method: GET
-    - url: api/image
+      access: permitAll
+    - url: /api/image
       method: GET
+      access: permitAll
+    - url: /api/image/*
+      method: GET
+      access: permitAll
 
 kafka:
   url: ${KAFKA_URL}
