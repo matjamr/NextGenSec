@@ -164,7 +164,7 @@ components:
       type: object
       properties:
         id:
-          type: integer
+          type: string
         deviceName:
           type: string
         place:
@@ -178,7 +178,7 @@ components:
       type: object
       properties:
         id:
-          type: integer
+          type: string
         user:
           $ref: '#/components/schemas/UserModel'
         assignmentRole:
@@ -187,3 +187,33 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ProductModel'
+    NotificationModel:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        content:
+          type: string
+        user:
+          $ref: '#/components/schemas/UserModel'
+        date:
+          type: string
+          format: date-time
+    NewsModel:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/ImageModel'
+        lastUpdate:
+          type: string
+          format: date-time

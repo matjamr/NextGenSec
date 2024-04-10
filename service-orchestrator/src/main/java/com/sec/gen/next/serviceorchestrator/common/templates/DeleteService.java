@@ -1,5 +1,9 @@
 package com.sec.gen.next.serviceorchestrator.common.templates;
 
+import org.apache.commons.lang.NotImplementedException;
+
 public interface DeleteService<RQ, RS> {
-    RS delete(RQ rq);
+    default RS delete(RQ rq) {
+        throw new NotImplementedException();
+    }
 }

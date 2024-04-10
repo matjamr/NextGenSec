@@ -9,6 +9,8 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "news")
@@ -19,12 +21,15 @@ import java.time.OffsetDateTime;
 @DynamicUpdate
 public class News {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
     private String title;
     private String description;
 
-    @ManyToOne
-    private Image image;
+    @ElementCollection(targetClass = String.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "image_ids", joinColumns = @JoinColumn(name = "image_id"))
+    @Column(name = "image_ids", nullable = false)
+    private List<String> images = new ArrayList<>();
+
     private OffsetDateTime lastUpdate;
 }

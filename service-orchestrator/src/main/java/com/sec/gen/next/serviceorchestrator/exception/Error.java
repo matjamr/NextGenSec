@@ -28,7 +28,10 @@ public enum Error implements Serializable {
     INVALID_IMAGE_EXTENSION("Invalid image size", 16),
     INVALID_IMAGE_ID("There is no image with given id", 17),
     PLACE_EXISTS("Place already exists", 18),
-    USERS_ALREADY_ADDED("Users already added -> %s", 19);
+    USERS_ALREADY_ADDED("Users already added -> %s", 19),
+    INVALID_NOTIFICATION_DATA("Invalid notification data", 20),
+    NO_NOTIF_ID("There is no notification with given id", 21),
+    INVALID_NEWS("Invalid news data", 22);
 
     private String message;
     private Integer code;
