@@ -5,7 +5,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 
-@FeignClient(name = "userServiceClient", url = "${services.user-service.url}")
+@FeignClient(name = "userServiceClient", url = "${services.user-service.url}", configuration = SimpleErrorDecoder.class)
 public interface UserServiceClient {
 
     @PostMapping("/user/security/verify")

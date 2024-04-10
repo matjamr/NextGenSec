@@ -2,7 +2,9 @@ package com.sec.next.gen.userservice.controller;
 
 import com.sec.next.gen.userservice.config.Error;
 import com.sec.next.gen.userservice.config.ServiceError;
+import io.jsonwebtoken.ExpiredJwtException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -25,6 +27,18 @@ public class ErrorController {
                 .status(error.getHttpStatus().value())
                 .body(Map.of(
                         "message", error.getMessage()
+                ));
+    }
+
+    @ResponseBody
+    @ExceptionHandler(ExpiredJwtException.class)
+    public ResponseEntity<Map<String, String>> errorHandler(final ExpiredJwtException expiredJwtException) {
+        log.error(expiredJwtException.getMessage());
+
+        return ResponseEntity
+                .status(HttpStatus.UNAUTHORIZED)
+                .body(Map.of(
+                        "message", "Expired JWT token"
                 ));
     }
 }
