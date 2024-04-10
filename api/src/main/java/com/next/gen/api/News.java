@@ -8,6 +8,7 @@ import lombok.experimental.Accessors;
 import org.hibernate.annotations.DynamicUpdate;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 @Entity
 @Table(name = "news")
@@ -25,5 +26,5 @@ public class News {
 
     @ManyToOne
     private Image image;
-    private LocalDateTime lastUpdate;
+    private OffsetDateTime lastUpdate;
 }

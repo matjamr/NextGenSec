@@ -1,12 +1,13 @@
 package com.sec.gen.next.serviceorchestrator.exception;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import java.io.Serializable;
 
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
-@RequiredArgsConstructor
+@AllArgsConstructor
 public enum Error implements Serializable {
     UNKOWN_ERROR("Unknown error occured", 0),
     NO_SOURCE_HEADER_INFO("No registration source included in the header", 1),
@@ -25,10 +26,12 @@ public enum Error implements Serializable {
     PRODUCT_EXISTS("Product already exists", 14),
     INVALID_IMAGE_SIZE("Invalid image size", 15),
     INVALID_IMAGE_EXTENSION("Invalid image size", 16),
-    INVALID_IMAGE_ID("There is no image with given id", 17);
+    INVALID_IMAGE_ID("There is no image with given id", 17),
+    PLACE_EXISTS("Place already exists", 18),
+    USERS_ALREADY_ADDED("Users already added -> %s", 19);
 
-    private final String message;
-    private final Integer code;
+    private String message;
+    private Integer code;
 
 
     @Override
@@ -45,6 +48,11 @@ public enum Error implements Serializable {
     }
 
     public ServiceException getError() {
+        return new ServiceException(this);
+    }
+
+    public ServiceException getFormattedError(String... args) {
+        this.message = this.message.formatted(args);
         return new ServiceException(this);
     }
 }

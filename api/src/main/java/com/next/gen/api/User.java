@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 @Entity
@@ -33,7 +34,7 @@ public class User {
     private String name;
     private String surname;
     private String pictureUrl;
-    private LocalDateTime creationDate;
+    private OffsetDateTime creationDate;
     private String password;
 
     @OneToMany

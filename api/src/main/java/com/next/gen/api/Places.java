@@ -18,8 +18,8 @@ import java.util.List;
 @DynamicUpdate
 public class Places {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
 
     @OneToOne
     private User owner;

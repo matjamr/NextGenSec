@@ -8,6 +8,7 @@ import lombok.experimental.Accessors;
 import org.hibernate.annotations.DynamicUpdate;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 @Entity
 @Table(name = "history_entrance")
@@ -30,5 +31,5 @@ public class HistoryEntrance {
     @ManyToOne(fetch = FetchType.EAGER)
     private Product product;
 
-    private LocalDateTime date;
+    private OffsetDateTime date;
 }

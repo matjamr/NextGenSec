@@ -29,6 +29,12 @@ public class BetterOptional<T> {
         return Optional.of(action.get());
     }
 
+    public Optional<T> peek(Consumer<T> action) {
+        action.accept(base);
+
+        return Optional.of(base);
+    }
+
     public BetterOptional<T> verify(Supplier<Boolean> condition, RuntimeException throwable) {
         if(!condition.get()) {
             throw throwable;

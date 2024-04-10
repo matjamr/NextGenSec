@@ -1,4 +1,4 @@
-package com.sec.gen.next.serviceorchestrator.security.external;
+package com.sec.gen.next.serviceorchestrator.external;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sec.gen.next.serviceorchestrator.exception.Error;

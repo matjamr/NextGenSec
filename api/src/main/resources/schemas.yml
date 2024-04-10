@@ -139,4 +139,51 @@ components:
           type: string
         url:
           type: string
-
+    PlacesModel:
+      type: object
+      properties:
+        id:
+          type: string
+        owner:
+          $ref: '#/components/schemas/UserModel'
+        emailPlace:
+          type: string
+        placeName:
+          type: string
+        address:
+          $ref: '#/components/schemas/AddressModel'
+        authorizedUsers:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserPlaceAssignment'
+        devices:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceModel'
+    DeviceModel:
+      type: object
+      properties:
+        id:
+          type: integer
+        deviceName:
+          type: string
+        place:
+          $ref: '#/components/schemas/PlacesModel'
+        product:
+          $ref: '#/components/schemas/ProductModel'
+        installmentTime:
+          type: string
+          format: date-time
+    UserPlaceAssignment:
+      type: object
+      properties:
+        id:
+          type: integer
+        user:
+          $ref: '#/components/schemas/UserModel'
+        assignmentRole:
+          type: string
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductModel'

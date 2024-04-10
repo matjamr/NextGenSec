@@ -2,7 +2,8 @@ package com.sec.gen.next.serviceorchestrator.exception;
 
 
 public class ServiceException extends RuntimeException {
-    private final Error error;
+    private Error error;
+    private String message;
 
     public ServiceException() {
         super();
@@ -11,11 +12,6 @@ public class ServiceException extends RuntimeException {
 
     public ServiceException(Error error) {
         super(error.getMessage());
-        this.error = error;
-    }
-
-    public ServiceException(Error error, Throwable cause) {
-        super(error.getMessage(), cause);
         this.error = error;
     }
 

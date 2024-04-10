@@ -8,6 +8,7 @@ import lombok.experimental.Accessors;
 import org.hibernate.annotations.DynamicUpdate;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 @Entity
 @Table(name = "notification")
@@ -29,5 +30,5 @@ public class Notification {
     @ManyToOne
     private User user;
 
-    private LocalDateTime date;
+    private OffsetDateTime date;
 }

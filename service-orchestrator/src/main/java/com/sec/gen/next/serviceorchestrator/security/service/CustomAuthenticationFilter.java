@@ -1,11 +1,10 @@
 package com.sec.gen.next.serviceorchestrator.security.service;
 
-import com.google.gson.Gson;
 import com.next.gen.sec.model.GoogleAuthorizedUser;
 import com.sec.gen.next.serviceorchestrator.api.CustomAuthentication;
 import com.sec.gen.next.serviceorchestrator.exception.ServiceException;
 import com.sec.gen.next.serviceorchestrator.security.config.SecurityPropertiesConfig;
-import com.sec.gen.next.serviceorchestrator.security.external.UserServiceClient;
+import com.sec.gen.next.serviceorchestrator.external.UserServiceClient;
 import com.sec.gen.next.serviceorchestrator.security.mapper.CustomAuthenticationMapper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -13,19 +12,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.util.Pair;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.util.Set;
 
 import static com.sec.gen.next.serviceorchestrator.exception.Error.INVALID_HEADER;
 import static java.util.Objects.isNull;
