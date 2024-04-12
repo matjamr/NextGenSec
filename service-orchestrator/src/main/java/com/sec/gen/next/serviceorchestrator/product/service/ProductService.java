@@ -47,4 +47,11 @@ public class ProductService implements CrudService<ProductModel, ProductModel, S
                 .map(productMapper::map)
                 .orElseThrow(INVALID_PRODUCT_DATA::getError);
     }
+
+    @Override
+    public ProductModel findBy(String s) {
+        return productRepository.findById(s)
+                .map(productMapper::map)
+                .orElseThrow(INVALID_PRODUCT_DATA::getError);
+    }
 }

@@ -31,7 +31,8 @@ public enum Error implements Serializable {
     USERS_ALREADY_ADDED("Users already added -> %s", 19),
     INVALID_NOTIFICATION_DATA("Invalid notification data", 20),
     NO_NOTIF_ID("There is no notification with given id", 21),
-    INVALID_NEWS("Invalid news data", 22);
+    INVALID_NEWS("Invalid news data", 22),
+    INVALID_HISTORY_ENTRANCE("Invalid history entrance data", 23);
 
     private String message;
     private Integer code;

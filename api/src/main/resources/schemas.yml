@@ -213,7 +213,48 @@ components:
         images:
           type: array
           items:
-            $ref: '#/components/schemas/ImageModel'
+            type: string
         lastUpdate:
           type: string
           format: date-time
+
+    HistoryEntranceModel:
+      type: object
+      properties:
+        id:
+          type: string
+        places:
+          $ref: '#/components/schemas/PlacesModel'
+        user:
+          $ref: '#/components/schemas/UserModel'
+        product:
+          $ref: '#/components/schemas/ProductModel'
+        date:
+          type: string
+          format: date-time
+
+    KafkaNotifModel:
+      type: object
+      properties:
+        email:
+          type: string
+        place_id:
+          type: string
+        user_id:
+          type: string
+        assignment_role:
+          type: string
+        device_id:
+          type: string
+
+    KafkaAsyncHistoryNotif:
+      type: object
+      properties:
+        adminsEmails:
+          type: array
+          items:
+            type: string
+        user:
+          $ref: '#/components/schemas/UserModel'
+        product:
+          $ref: '#/components/schemas/ProductModel'

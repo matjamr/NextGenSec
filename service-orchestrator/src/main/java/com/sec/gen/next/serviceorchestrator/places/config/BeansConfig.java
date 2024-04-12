@@ -5,7 +5,7 @@ import com.sec.gen.next.serviceorchestrator.common.templates.CrudService;
 import com.sec.gen.next.serviceorchestrator.common.templates.SaveService;
 import com.sec.gen.next.serviceorchestrator.common.templates.SimpleQueryService;
 import com.sec.gen.next.serviceorchestrator.common.templates.UpdateService;
-import com.sec.gen.next.serviceorchestrator.external.UserServiceClient;
+import com.sec.gen.next.serviceorchestrator.external.user.UserServiceClient;
 import com.sec.gen.next.serviceorchestrator.places.mapper.PlacesMapper;
 import com.sec.gen.next.serviceorchestrator.places.repository.PlacesRepository;
 import com.sec.gen.next.serviceorchestrator.places.service.AddUserPlaceAssignmentService;

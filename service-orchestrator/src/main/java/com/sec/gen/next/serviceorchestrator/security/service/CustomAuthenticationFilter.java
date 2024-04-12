@@ -4,7 +4,7 @@ import com.next.gen.sec.model.GoogleAuthorizedUser;
 import com.sec.gen.next.serviceorchestrator.api.CustomAuthentication;
 import com.sec.gen.next.serviceorchestrator.exception.ServiceException;
 import com.sec.gen.next.serviceorchestrator.security.config.SecurityPropertiesConfig;
-import com.sec.gen.next.serviceorchestrator.external.UserServiceClient;
+import com.sec.gen.next.serviceorchestrator.external.user.UserServiceClient;
 import com.sec.gen.next.serviceorchestrator.security.mapper.CustomAuthenticationMapper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

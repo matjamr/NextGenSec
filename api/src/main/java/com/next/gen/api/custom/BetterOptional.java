@@ -29,6 +29,14 @@ public class BetterOptional<T> {
         return Optional.of(action.get());
     }
 
+    public BetterOptional<T> externalCheck(Supplier<?> action, RuntimeException throwable) {
+        if(action.get() == null) {
+            throw throwable;
+        }
+
+        return this;
+    }
+
     public Optional<T> peek(Consumer<T> action) {
         action.accept(base);
 

@@ -1,7 +1,8 @@
-package com.sec.gen.next.serviceorchestrator.external;
+package com.sec.gen.next.serviceorchestrator.external.user;
 
 import com.next.gen.sec.model.GoogleAuthorizedUser;
 import com.next.gen.sec.model.UserModel;
+import com.sec.gen.next.serviceorchestrator.external.SimpleErrorDecoder;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

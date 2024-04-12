@@ -9,6 +9,7 @@ import com.sec.gen.next.serviceorchestrator.news.repository.NewsRepository;
 import lombok.RequiredArgsConstructor;
 
 import java.lang.reflect.Field;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,6 +25,7 @@ public class CrudNewsService implements CrudService<NewsModel, NewsModel, String
     public NewsModel save(NewsModel newsModel) {
         return Optional.ofNullable(newsModel)
                 .map(newsMapper::map)
+                .map(news -> news.setLastUpdate(OffsetDateTime.now()))
                 .map(newsRepository::save)
                 .map(newsMapper::map)
                 .orElseThrow(INVALID_NEWS::getError);
@@ -35,6 +37,7 @@ public class CrudNewsService implements CrudService<NewsModel, NewsModel, String
                 .map(newsMapper::map)
                 .map(oldNews -> PlainModelUpdater.plainUpdate(oldNews, newsModel))
                 .map(newsMapper::map)
+                .map(news -> news.setLastUpdate(OffsetDateTime.now()))
                 .map(newsRepository::save)
                 .map(newsMapper::map)
                 .orElseThrow(INVALID_NEWS::getError);

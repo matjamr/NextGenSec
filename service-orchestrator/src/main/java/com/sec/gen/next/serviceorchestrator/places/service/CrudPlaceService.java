@@ -48,4 +48,11 @@ public class CrudPlaceService implements CrudService<PlacesModel, PlacesModel, S
                 .map(placesMapper::map)
                 .orElseThrow(INVALID_PLACE_DATA::getError);
     }
+
+    @Override
+    public PlacesModel findBy(String s) {
+        return placesRepository.findById(s)
+                .map(placesMapper::map)
+                .orElseThrow(NO_PLACES_ID::getError);
+    }
 }

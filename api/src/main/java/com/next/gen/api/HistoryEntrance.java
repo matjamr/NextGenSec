@@ -19,8 +19,8 @@ import java.time.OffsetDateTime;
 @DynamicUpdate
 public class HistoryEntrance {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Places places;
