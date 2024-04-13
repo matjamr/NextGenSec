@@ -1,20 +1,16 @@
 package com.sec.gen.next.serviceorchestrator.internal.places.config;
 
 import com.next.gen.sec.model.PlacesModel;
-import com.sec.gen.next.serviceorchestrator.common.templates.CrudService;
-import com.sec.gen.next.serviceorchestrator.common.templates.SaveService;
-import com.sec.gen.next.serviceorchestrator.common.templates.SimpleQueryService;
-import com.sec.gen.next.serviceorchestrator.common.templates.UpdateService;
+import com.sec.gen.next.serviceorchestrator.common.templates.*;
 import com.sec.gen.next.serviceorchestrator.external.user.UserServiceClient;
 import com.sec.gen.next.serviceorchestrator.internal.places.mapper.PlacesMapper;
 import com.sec.gen.next.serviceorchestrator.internal.places.repository.PlacesRepository;
-import com.sec.gen.next.serviceorchestrator.internal.places.service.AddUserPlaceAssignmentService;
-import com.sec.gen.next.serviceorchestrator.internal.places.service.CrudPlaceService;
-import com.sec.gen.next.serviceorchestrator.internal.places.service.PlacesSaveService;
-import com.sec.gen.next.serviceorchestrator.internal.places.service.SimpleQueryPlacesService;
+import com.sec.gen.next.serviceorchestrator.internal.places.service.*;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.function.Supplier;
 
 
 @Configuration
@@ -41,5 +37,12 @@ public class BeansConfig {
     public SimpleQueryPlacesService simpleQueryPlacesService(PlacesRepository placesRepository,
                                                              PlacesMapper placesMapper) {
         return new SimpleQueryPlacesService(placesRepository, placesMapper);
+    }
+
+    @Bean
+    public Supplier<PlacesModel> placesForUserSupplier(
+            final @Qualifier("crudPlaceService") ListQueryService<PlacesModel> placesListQueryService
+            ) {
+        return new PlacesForUserSupplier(placesListQueryService);
     }
 }

@@ -2,6 +2,7 @@ package com.sec.next.gen.userservice.controller;
 
 import com.sec.next.gen.userservice.config.Error;
 import com.sec.next.gen.userservice.config.ServiceError;
+import feign.FeignException;
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,18 @@ public class ErrorController {
 
         return ResponseEntity
                 .status(error.getHttpStatus().value())
+                .body(Map.of(
+                        "message", error.getMessage()
+                ));
+    }
+
+    @ResponseBody
+    @ExceptionHandler(FeignException.class)
+    public ResponseEntity<Map<String, String>> errorHandler(final FeignException error) {
+        log.error(error.getMessage());
+
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
                 .body(Map.of(
                         "message", error.getMessage()
                 ));

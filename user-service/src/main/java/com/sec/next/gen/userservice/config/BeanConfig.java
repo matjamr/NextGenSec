@@ -3,17 +3,13 @@ package com.sec.next.gen.userservice.config;
 
 import com.next.gen.sec.model.GoogleAuthorizedUser;
 import com.next.gen.sec.model.RegistrationSource;
+import com.next.gen.sec.model.UserModel;
 import com.sec.next.gen.userservice.controller.RegistrationSourceDispatcher;
 import com.sec.next.gen.userservice.repository.UserRepository;
-import com.sec.next.gen.userservice.service.internal.authorization.client.ExternalClient;
-import com.sec.next.gen.userservice.service.internal.authorization.client.ExternalClientProvider;
-import com.sec.next.gen.userservice.service.internal.authorization.client.FacebookExternalClient;
-import com.sec.next.gen.userservice.service.internal.authorization.client.JwtExternalClient;
+import com.sec.next.gen.userservice.service.external.providers.GoogleApiClient;
+import com.sec.next.gen.userservice.service.internal.authorization.client.*;
 import com.sec.next.gen.userservice.service.internal.authorization.providers.AuthorizationService;
-import com.sec.next.gen.userservice.service.internal.authorization.token.KeyProvider;
-import com.sec.next.gen.userservice.service.internal.authorization.token.TokenBuilder;
-import com.sec.next.gen.userservice.service.internal.authorization.token.TokenContext;
-import com.sec.next.gen.userservice.service.internal.authorization.token.TokenGenerator;
+import com.sec.next.gen.userservice.service.internal.authorization.token.*;
 import com.sec.next.gen.userservice.service.external.providers.FacebookApiClient;
 import com.sec.next.gen.userservice.service.internal.user.UserService;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,6 +18,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.reactive.config.CorsRegistry;
 import org.springframework.web.reactive.config.WebFluxConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.security.Key;
 import java.util.Map;
@@ -44,17 +41,6 @@ public class BeanConfig {
     }
 
     @Bean
-    public WebFluxConfigurer corsConfigurer() {
-        return new WebFluxConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**")
-                        .allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH");
-            }
-        };
-    }
-
-    @Bean
     public Supplier<Key> keyProvider(
             @Value("${jwt.secret}") String secret
     ) {
@@ -73,11 +59,13 @@ public class BeanConfig {
     @Bean
     public Function<RegistrationSource, ExternalClient> externalClientProvider(
             final ExternalClient jwtExternalClient,
-            final ExternalClient facebookExternalClient
+            final ExternalClient facebookExternalClient,
+            final ExternalClient googleExternalClient
     ) {
         return new ExternalClientProvider(Map.of(
                 RegistrationSource.JWT, jwtExternalClient,
-                RegistrationSource.FACEBOOK, facebookExternalClient
+                RegistrationSource.FACEBOOK, facebookExternalClient,
+                RegistrationSource.GOOGLE, googleExternalClient
         ));
     }
 
@@ -100,6 +88,29 @@ public class BeanConfig {
             final UserRepository userRepository
             ) {
         return new FacebookExternalClient(facebookApiClient, userRepository);
+    }
+
+    @Bean
+    public ExternalClient googleExternalClient(
+            final GoogleApiClient googleApiClient,
+            final UserRepository userRepository
+    ) {
+        return new GoogleExternalClient(googleApiClient, userRepository);
+    }
+
+    @Bean
+    public Function<String, UserModel> fromTokenUserProvider(
+            final Function<String, String> tokenDecoder,
+            final UserService userService
+    ) {
+        return new FromTokenUserProvider(tokenDecoder, userService);
+    }
+
+    @Bean
+    public Function<String, String> tokenDecoder(
+            final Supplier<Key> keySupplier
+    ) {
+        return new TokenDecoder(keySupplier);
     }
 
     @Bean

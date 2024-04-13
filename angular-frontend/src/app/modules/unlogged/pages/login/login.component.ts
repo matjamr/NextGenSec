@@ -36,6 +36,7 @@ export class LoginComponent {
   register() {
     this.userService.register(this.username, this.password, "JWT")
       .subscribe(data => console.log(data))
+
     alert("Please log in!")
     this.isLogin = !this.isLogin;
   }

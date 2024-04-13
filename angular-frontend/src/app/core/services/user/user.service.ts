@@ -9,8 +9,8 @@ import {Router} from "@angular/router";
 })
 export class UserService {
 
-    private userApiUrl: string = "http://localhost:8080/api/user"
-    private securityApiUrl: string = "http://localhost:8081/api/security/"
+    private userApiUrl: string = "http://localhost:8081/api/user/servicing"
+    private securityApiUrl: string = "http://localhost:8081/api/user/security"
 
     constructor(
         private http: HttpClient,
@@ -33,12 +33,11 @@ export class UserService {
     }
 
 
-    retrieveToken(email: string, password: string): Observable<ArrayBuffer> {
+    retrieveToken(email: string, password: string): Observable<string> {
         return this.http.post<string>(
-            this.securityApiUrl + "token",
+            this.securityApiUrl + "/token",
             {email: email, password: password},
-            // @ts-ignore
-            {responseType: "text"}
+            {headers: {source: "JWT"}},
         ).pipe(
             tap(token => {
                 localStorage.setItem("token", String(token));
@@ -60,10 +59,11 @@ export class UserService {
     }
 
     register(username: string, password: string, source: string): Observable<User> {
-        return this.http.post<User>(this.userApiUrl + "/register", {
+        return this.http.post<User>(this.userApiUrl, {
             email: username,
-            password: password
-        }, {headers: {source: source}})
+            password: password,
+            source: source
+        })
     }
 
     add(username: string): Observable<User> {

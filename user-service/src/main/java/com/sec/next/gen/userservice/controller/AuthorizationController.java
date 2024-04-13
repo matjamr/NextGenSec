@@ -2,6 +2,7 @@ package com.sec.next.gen.userservice.controller;
 
 import com.next.gen.sec.model.GoogleAuthorizedUser;
 import com.next.gen.sec.model.RegistrationSource;
+import com.next.gen.sec.model.UserModel;
 import com.sec.next.gen.userservice.service.internal.authorization.token.TokenContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -12,15 +13,12 @@ import java.util.function.Function;
 @RequestMapping("/security")
 @RequiredArgsConstructor
 public class AuthorizationController {
-
-//    private final Function<String, AuthorizationService> sourceAuthorizationServiceDispatcher;
     private final Function<TokenContext, String> tokenGenerator;
+    private final Function<String, UserModel> fromTokenUserProvider;
 
     @PostMapping("/verify")
-    public GoogleAuthorizedUser getUserInfo(@RequestHeader String token) {
-//        return sourceAuthorizationServiceDispatcher.apply(token)
-//                .getUserInfo(token);
-        return null;
+    public UserModel getUserInfo(@RequestHeader String token) {
+        return fromTokenUserProvider.apply(token);
     }
 
     @PostMapping("/token")

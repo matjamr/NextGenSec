@@ -11,6 +11,7 @@ public enum Error {
     NO_USER_WITH_EMAIL("There is no user with given email", HttpStatus.BAD_REQUEST),
     PASSWORD_DO_NOT_MATCH("Passwords do not match", HttpStatus.BAD_REQUEST),
     CLIENT_NOT_SUPPORTED("Client with given context is not supported", HttpStatus.BAD_REQUEST),
+    EXPIRED_TOKEN("Expired token", HttpStatus.UNAUTHORIZED),
     USER_EXISTS("User with given email already exists", HttpStatus.BAD_REQUEST);
 
     private final String message;
