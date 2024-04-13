@@ -2,11 +2,9 @@ package com.sec.next.gen.userservice.controller;
 
 import com.next.gen.sec.model.GoogleAuthorizedUser;
 import com.next.gen.sec.model.RegistrationSource;
-import com.sec.next.gen.userservice.service.authorization.AuthorizationService;
-import com.sec.next.gen.userservice.service.authorization.JwtService;
+import com.sec.next.gen.userservice.service.internal.authorization.token.TokenContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import reactor.core.publisher.Mono;
 
 import java.util.function.Function;
 
@@ -15,17 +13,23 @@ import java.util.function.Function;
 @RequiredArgsConstructor
 public class AuthorizationController {
 
-    private final Function<RegistrationSource, AuthorizationService> sourceAuthorizationServiceDispatcher;
-    private final JwtService jwtService;
+//    private final Function<String, AuthorizationService> sourceAuthorizationServiceDispatcher;
+    private final Function<TokenContext, String> tokenGenerator;
 
     @PostMapping("/verify")
-    public GoogleAuthorizedUser getUserInfo(@RequestHeader String token, @RequestHeader RegistrationSource source) {
-        return sourceAuthorizationServiceDispatcher.apply(source)
-                .getUserInfo(token, source);
+    public GoogleAuthorizedUser getUserInfo(@RequestHeader String token) {
+//        return sourceAuthorizationServiceDispatcher.apply(token)
+//                .getUserInfo(token);
+        return null;
     }
 
     @PostMapping("/token")
-    public String createToken(@RequestBody GoogleAuthorizedUser authorizedUser) {
-        return jwtService.generateToken(authorizedUser);
+    public String createToken(@RequestBody(required = false) GoogleAuthorizedUser authorizedUser,
+                              @RequestHeader("source") RegistrationSource source,
+                              @RequestHeader(value = "token", required = false) String token) {
+        return tokenGenerator.apply(new TokenContext()
+                .setAuthorizedUser(authorizedUser)
+                .setSource(source)
+                .setToken(token));
     }
 }

@@ -1,4 +1,4 @@
-package com.sec.next.gen.userservice.service.internal.update;
+package com.sec.next.gen.userservice.service.internal.user.update;
 
 import com.next.gen.sec.model.UserModel;
 import com.next.gen.api.User;

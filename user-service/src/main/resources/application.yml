@@ -20,6 +20,9 @@ spring:
       hibernate:
         dialect: 'org.hibernate.dialect.PostgreSQLDialect'
 
+jwt:
+  secret: myverysecuasdadsadasdaasdfawrfQuihfqwhf8q8fdq8whd9pQHPDFHqwudjQNDJqnuiHEUqwuiedjqwnweujhqweuhsdaeqaweaeawearekey
+
 external:
   google: https://oauth2.googleapis.com/tokeninfo
 

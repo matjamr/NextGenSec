@@ -1,7 +1,7 @@
 package com.sec.next.gen.userservice.controller;
 
 import com.next.gen.sec.model.RegistrationSource;
-import com.sec.next.gen.userservice.service.authorization.AuthorizationService;
+import com.sec.next.gen.userservice.service.internal.authorization.providers.AuthorizationService;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Map;

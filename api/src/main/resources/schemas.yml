@@ -108,6 +108,19 @@ components:
           $ref: '#/components/schemas/RegistrationSource'
         password:
           type: string
+    FacebookUserResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        name:
+          type: string
     OutboundEmailModel:
       type: object
       properties:
