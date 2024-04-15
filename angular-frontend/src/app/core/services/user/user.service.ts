@@ -19,7 +19,7 @@ export class UserService {
     }
 
     verifyUser(): Observable<User> {
-        return this.http.post<User>(this.userApiUrl + "/verify", {}, buildHeader())
+        return this.http.post<User>(this.securityApiUrl + "/verify", {}, buildHeader())
     }
 
     getAll(placeRestriction: boolean): Observable<User[]> {
@@ -33,14 +33,14 @@ export class UserService {
     }
 
 
-    retrieveToken(email: string, password: string): Observable<string> {
-        return this.http.post<string>(
+    retrieveToken(email: string, password: string): Observable<any> {
+        return this.http.post<any>(
             this.securityApiUrl + "/token",
             {email: email, password: password},
             {headers: {source: "JWT"}},
         ).pipe(
             tap(token => {
-                localStorage.setItem("token", String(token));
+                localStorage.setItem("token", token.token);
                 localStorage.setItem("source", "JWT");
             })
         );
@@ -54,7 +54,7 @@ export class UserService {
                     console.log('User verified:', user);
                     this.router.navigate(["/choose"])
                 }, error => console.log(error))
-            }, error: error => alert("Wrong credentials")
+            }
         });
     }
 

@@ -1,6 +1,7 @@
 package com.sec.gen.next.serviceorchestrator.security.service;
 
 import com.next.gen.sec.model.GoogleAuthorizedUser;
+import com.next.gen.sec.model.UserModel;
 import com.sec.gen.next.serviceorchestrator.api.CustomAuthentication;
 import com.sec.gen.next.serviceorchestrator.exception.ServiceException;
 import com.sec.gen.next.serviceorchestrator.security.config.SecurityPropertiesConfig;
@@ -38,7 +39,6 @@ public class CustomAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         try {
-            String source = request.getHeader("source");
             String token = request.getHeader("token");
             Authentication authenticatedObject;
 
@@ -50,11 +50,11 @@ public class CustomAuthenticationFilter extends OncePerRequestFilter {
                 return;
             }
 
-            if (isNull(source) || isNull(token)) {
+            if (isNull(token)) {
                 throw new ServiceException(INVALID_HEADER);
             }
 
-            GoogleAuthorizedUser authorizedUser = userServiceClient.getAccessToken(source, token);
+            UserModel authorizedUser = userServiceClient.getAccessToken(token);
 
             CustomAuthentication customAuthentication = authenticationMapper.map(authorizedUser);
             authenticatedObject = customAuthenticationManager.authenticate(customAuthentication);
@@ -62,7 +62,7 @@ public class CustomAuthenticationFilter extends OncePerRequestFilter {
             SecurityContextHolder.getContext().setAuthentication(authenticatedObject);
 
         } catch (ServiceException e) {
-            log.error(e.getMessage());
+            e.printStackTrace();
             response.resetBuffer();
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
             response.setHeader(HttpHeaders.CONTENT_TYPE, "application/json");

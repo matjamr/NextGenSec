@@ -6,7 +6,7 @@ import {Product} from "../../../../core/models/Product";
 @Component({
   selector: 'app-data-upload-modal',
   templateUrl: './data-upload-modal.component.html',
-  styleUrls: ['./data-upload-modal.component.css']
+  styleUrls: ['./data-upload-modal.component.scss']
 })
 export class DataUploadModalComponent {
   @Output() close = new EventEmitter<void>();

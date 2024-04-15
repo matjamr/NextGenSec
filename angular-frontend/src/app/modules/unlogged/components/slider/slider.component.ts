@@ -3,7 +3,7 @@ import {Component, OnInit} from '@angular/core';
 @Component({
   selector: 'app-unlogged-slider',
   templateUrl: './slider.component.html',
-  styleUrls: ['./slider.component.css'],
+  styleUrls: ['./slider.component.scss'],
 })
 export class SliderComponent implements OnInit {
   slides: any[] = new Array(3).fill({id: -1, src: '', title: '', subtitle: ''});

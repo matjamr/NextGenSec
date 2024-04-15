@@ -3,7 +3,7 @@ import {Component} from '@angular/core';
 @Component({
   selector: 'app-credentials',
   templateUrl: './credentials.component.html',
-  styleUrl: './credentials.component.css'
+  styleUrl: './credentials.component.scss'
 })
 export class CredentialsComponent {
 

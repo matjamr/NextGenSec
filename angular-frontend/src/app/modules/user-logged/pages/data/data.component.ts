@@ -6,7 +6,7 @@ import {UserService} from "../../../../core/services/user/user.service";
 @Component({
   selector: 'app-data',
   templateUrl: './data.component.html',
-  styleUrls: ['./data.component.css']
+  styleUrls: ['./data.component.scss']
 })
 export class DataComponent implements OnInit {
   user: User = {address: {city: "", id: 0, postalCode: "", streetName: ""}, creationDate: "", email: "", id: 0, name: "", passwordChange: "", phoneNumber: "", prictureUrl: "", surname: "", supportedProducts: []};

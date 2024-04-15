@@ -6,7 +6,7 @@ import {PlaceService} from "../../../../core/services/place/place.service";
 @Component({
   selector: 'app-choose-level',
   templateUrl: './choose-level.component.html',
-  styleUrls: ['./choose-level.component.css']
+  styleUrls: ['./choose-level.component.scss']
 })
 export class ChooseLevelComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
@@ -14,21 +14,26 @@ export class ChooseLevelComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private placeService: PlaceService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
-    this.subscription.add(this.placeService.getPlacesByUser().subscribe(data => {
-      if (data && data.length > 0) {
-        const targetRole = data[0]?.authorizedUsers[0]?.assignmentRole === "ADMIN" ? "admin" : "user";
+    this.subscription.add(this.placeService.getPlacesByUser().subscribe(
+      places => {
+        if (places && places.length > 0) {
+          const targetRole = places[0]?.authorizedUsers[0]?.assignmentRole === "ADMIN" ? "admin" : "user";
           localStorage.setItem("role", targetRole);
-          window.location.href = "http://localhost:4200/" + targetRole;
-
-      } else {
-        this.router.navigate([`/user`]).then(() => {
-          console.log(`Navigated to /user`);
-        })
+          this.router.navigate([`/${targetRole}`]);
+        } else {
+          this.router.navigate([`/user`]).then(() => {
+            console.log(`Navigated to /user`);
+          })
+        }
+      },
+      error => {
+        console.error('Error fetching places:', error);
       }
-    }));
+    ));
   }
 
   ngOnDestroy(): void {

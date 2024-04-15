@@ -14,7 +14,7 @@ export interface DialogData {
 @Component({
   selector: 'app-places',
   templateUrl: './places.component.html',
-  styleUrl: './places.component.css'
+  styleUrl: './places.component.scss'
 })
 export class PlacesComponent {
   constructor(public dialog: MatDialog) {}

@@ -6,7 +6,7 @@ import {PlaceService} from "../../../../core/services/place/place.service";
 @Component({
   selector: 'app-place-info',
   templateUrl: './place-info.component.html',
-  styleUrls: ['./place-info.component.css']
+  styleUrls: ['./place-info.component.scss']
 })
 export class PlaceInfoComponent {
   // @ts-ignore

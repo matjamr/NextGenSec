@@ -6,7 +6,7 @@ import {UserService} from "../../services/user/user.service";
 @Component({
   selector: 'app-passwd-change',
   templateUrl: './passwd-change.component.html',
-  styleUrls: ['./passwd-change.component.css']
+  styleUrls: ['./passwd-change.component.scss']
 })
 export class PasswdChangeComponent implements OnInit {
   showModal: boolean = false;

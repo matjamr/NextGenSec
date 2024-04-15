@@ -12,7 +12,7 @@ import {MatOption, MatSelect} from "@angular/material/select";
 @Component({
   selector: 'app-places-dialog',
   templateUrl: './places-dialog.component.html',
-  styleUrl: './places-dialog.component.css',
+  styleUrl: './places-dialog.component.scss',
   providers: [
     {
       provide: STEPPER_GLOBAL_OPTIONS,

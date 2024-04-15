@@ -9,7 +9,7 @@ import {UserService} from "../../../core/services/user/user.service";
 @Component({
   selector: 'app-finish-login',
   templateUrl: './finish-login.component.html',
-  styleUrls: ['./finish-login.component.css']
+  styleUrls: ['./finish-login.component.scss']
 })
 export class FinishLoginComponent implements OnInit {
   regex = /id_token=([^&]*)/;

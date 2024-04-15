@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 public interface UserServiceClient {
 
     @PostMapping("/user/security/verify")
-    GoogleAuthorizedUser getAccessToken(@RequestHeader("source") String source,
-                                        @RequestHeader("token") String token);
+    UserModel getAccessToken(@RequestHeader("token") String token);
 
     @GetMapping("/user/servicing/{email}")
     UserModel getUserByEmail(@PathVariable String email);

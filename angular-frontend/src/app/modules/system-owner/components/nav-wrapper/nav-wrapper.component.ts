@@ -6,7 +6,7 @@ import {Router} from "@angular/router";
 @Component({
   selector: 'app-nav-wrapper',
   templateUrl: './nav-wrapper.component.html',
-  styleUrl: './nav-wrapper.component.css'
+  styleUrl: './nav-wrapper.component.scss'
 })
 export class NavWrapperComponent {
   title = 'material-responsive-sidenav';

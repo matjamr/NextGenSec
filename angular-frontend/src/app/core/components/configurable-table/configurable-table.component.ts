@@ -21,7 +21,7 @@ export interface RowActionButton<T> {
 @Component({
   selector: 'app-configurable-table',
   templateUrl: './configurable-table.component.html',
-  styleUrl: './configurable-table.component.css'
+  styleUrl: './configurable-table.component.scss'
 })
 export class ConfigurableTableComponent implements OnInit {
   displayedColumns: string[] = [];

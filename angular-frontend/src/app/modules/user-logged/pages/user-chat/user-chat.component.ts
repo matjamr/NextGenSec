@@ -5,7 +5,7 @@ import {Chat} from "../../../../core/models/Chat";
 @Component({
   selector: 'app-user-chat',
   templateUrl: './user-chat.component.html',
-  styleUrls: ['./user-chat.component.css']
+  styleUrls: ['./user-chat.component.scss']
 })
 export class UserChatComponent implements OnInit {
   presentChats$: Observable<Chat[]>;

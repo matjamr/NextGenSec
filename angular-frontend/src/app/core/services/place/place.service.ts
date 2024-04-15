@@ -17,9 +17,7 @@ export class PlaceService {
   getPlacesByUser(): Observable<Place[]> {
     return this.http.get<Place[]>(this.apiUrl, {
       headers: {
-        "token": String(localStorage.getItem("token")),
-        "source": String(localStorage.getItem("source")),
-        "user-scope": "true"
+        "token": String(localStorage.getItem("token"))
       }
     })
   }
@@ -27,8 +25,7 @@ export class PlaceService {
   getAllPlaces(): Observable<Place[]> {
     return this.http.get<Place[]>(this.apiUrl, {
       headers: {
-        "token": String(localStorage.getItem("token")),
-        "source": String(localStorage.getItem("source"))
+        "token": String(localStorage.getItem("token"))
       }
     })
   }

@@ -4,7 +4,7 @@ import {Product} from '../../../../core/models/Product';
 @Component({
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
-  styleUrls: ['./product-details.component.css']
+  styleUrls: ['./product-details.component.scss']
 })
 export class ProductDetailsComponent {
   @ViewChild('windowPopup') windowPopup!: ElementRef;

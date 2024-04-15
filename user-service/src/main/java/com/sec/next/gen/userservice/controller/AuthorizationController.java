@@ -7,6 +7,7 @@ import com.sec.next.gen.userservice.service.internal.authorization.token.TokenCo
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
 import java.util.function.Function;
 
 @RestController
@@ -22,12 +23,12 @@ public class AuthorizationController {
     }
 
     @PostMapping("/token")
-    public String createToken(@RequestBody(required = false) GoogleAuthorizedUser authorizedUser,
+    public Map<String, String> createToken(@RequestBody(required = false) GoogleAuthorizedUser authorizedUser,
                               @RequestHeader("source") RegistrationSource source,
                               @RequestHeader(value = "token", required = false) String token) {
-        return tokenGenerator.apply(new TokenContext()
+        return Map.of("token", tokenGenerator.apply(new TokenContext()
                 .setAuthorizedUser(authorizedUser)
                 .setSource(source)
-                .setToken(token));
+                .setToken(token)));
     }
 }

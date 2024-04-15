@@ -9,7 +9,7 @@ import {VerifyUser} from "../../state/user/user.actions";
 @Component({
   selector: 'app-profile-logo',
   templateUrl: './profile-logo.component.html',
-  styleUrls: ['./profile-logo.component.css']
+  styleUrls: ['./profile-logo.component.scss']
 })
 export class ProfileLogoComponent {
   isDropdownOpen = false;

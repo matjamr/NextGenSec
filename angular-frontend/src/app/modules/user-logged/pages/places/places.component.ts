@@ -8,7 +8,7 @@ import {GetPlaces} from "../../../../core/state/place/place.actions";
 @Component({
   selector: 'app-places',
   templateUrl: './places.component.html',
-  styleUrls: ['./places.component.css']
+  styleUrls: ['./places.component.scss']
 })
 export class PlacesComponent implements OnInit {
   places$: Observable<Place[]>;
