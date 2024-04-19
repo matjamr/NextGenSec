@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from "rxjs";
 import {Place} from "../../models/Place";
 import {HttpClient} from "@angular/common/http";
+import {getTokenHeader} from "../utils";
 
 @Injectable({
   providedIn: 'root'
@@ -15,28 +16,19 @@ export class PlaceService {
   ) { }
 
   getPlacesByUser(): Observable<Place[]> {
-    return this.http.get<Place[]>(this.apiUrl, {
-      headers: {
-        "token": String(localStorage.getItem("token"))
-      }
-    })
+    return this.http.get<Place[]>(this.apiUrl,  getTokenHeader())
   }
 
   getAllPlaces(): Observable<Place[]> {
-    return this.http.get<Place[]>(this.apiUrl, {
-      headers: {
-        "token": String(localStorage.getItem("token"))
-      }
-    })
+    return this.http.get<Place[]>(this.apiUrl, getTokenHeader())
   }
 
   updatePlace(place: Place) {
-    return this.http.post<Place[]>(this.apiUrl + "/update", place,{
-      headers: {
-        "token": String(localStorage.getItem("token")),
-        "source": String(localStorage.getItem("source"))
-      }
-    })
+    return this.http.post<Place[]>(this.apiUrl + "/update", place, getTokenHeader())
+  }
+
+  addPlace(place: Place) {
+    return this.http.post<Place>(this.apiUrl, place, getTokenHeader())
   }
 
 }

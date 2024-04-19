@@ -1,5 +1,21 @@
 @use '@angular/material' as mat;
 @import '@angular/material/prebuilt-themes/purple-green.css';
+@include mat.core();
+
+$green-palette: mat.define-palette(mat.$green-palette);
+
+
+$theme: mat.define-light-theme((
+  color: (
+    primary: $green-palette,
+    accent: $green-palette,
+    warn: mat.define-palette(mat.$red-palette)
+  )
+));
+
+
+
+@include mat.all-component-themes($theme);
 
 * body {
   padding: 0;

@@ -46,13 +46,17 @@ export class FinishLoginComponent implements OnInit {
     const name =  this.route.queryParams.subscribe(params => {
       var shouldRegister = params['register'];
       if(shouldRegister === "true") {
-        this.userService.oauth2Login().subscribe(accessToken => {
-          // @ts-ignore
-          this.navigateTo(match);
-        })
+        this.userService.providerRegister().subscribe((res) => {
+          console.log(res);
+          this.navigateTo(match!);
+        });
       } else {
-        // @ts-ignore
-        this.navigateTo(match);
+        this.userService.providerLogin().subscribe((res) => {
+          // @ts-ignore
+          localStorage.setItem("token", res.token)
+          console.log(res)
+          this.navigateTo(match!);
+        });
       }
     });
 

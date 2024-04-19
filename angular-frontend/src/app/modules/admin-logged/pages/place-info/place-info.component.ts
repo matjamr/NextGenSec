@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
-import {Place} from "../../../../core/models/Place";
-import {defaultUserPlaceAssigment} from "../../../../core/models/UserPlaceAssigment";
+import {defaultPlace, Place} from "../../../../core/models/Place";
 import {PlaceService} from "../../../../core/services/place/place.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-place-info',
@@ -9,30 +9,21 @@ import {PlaceService} from "../../../../core/services/place/place.service";
   styleUrls: ['./place-info.component.scss']
 })
 export class PlaceInfoComponent {
+  subscriptions: Subscription[] = [];
+
   // @ts-ignore
-  place: Place = {
-      "id": 1,
-      "placeName": "",
-      "emailPlace": "m",
-      "address": {
-        "id": 1,
-        "streetName": "ulica",
-        "postalCode": "41-625",
-        "city": "city"
-      },
-      "authorizedUsers": [defaultUserPlaceAssigment]
-  }
+  place: Place = defaultPlace;
 
 
   constructor(
-    private placeService: PlaceService
+    private placeService: PlaceService,
   ) {}
 
   ngOnInit(): void {
-    this.placeService.getPlacesByUser().subscribe(places => {
+    this.subscriptions.push(this.placeService.getPlacesByUser().subscribe(places => {
       this.placeService.getAllPlaces().subscribe(places_ => {
         this.place = places_.filter(p => p.id === places[0].id)[0];
       });
-    });
+    }));
   }
 }

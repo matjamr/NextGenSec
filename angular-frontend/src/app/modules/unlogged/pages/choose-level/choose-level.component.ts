@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {Subscription} from "rxjs";
 import {PlaceService} from "../../../../core/services/place/place.service";
+import {UserService} from "../../../../core/services/user/user.service";
 
 @Component({
   selector: 'app-choose-level',
@@ -13,7 +14,8 @@ export class ChooseLevelComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private placeService: PlaceService
+    private placeService: PlaceService,
+    private userService: UserService
   ) {
   }
 
@@ -21,7 +23,7 @@ export class ChooseLevelComponent implements OnInit, OnDestroy {
     this.subscription.add(this.placeService.getPlacesByUser().subscribe(
       places => {
         if (places && places.length > 0) {
-          const targetRole = places[0]?.authorizedUsers[0]?.assignmentRole === "ADMIN" ? "admin" : "user";
+          const targetRole = places[0]?.authorizedUsers![0]?.assignmentRole === "ADMIN" ? "admin" : "user";
           localStorage.setItem("role", targetRole);
           this.router.navigate([`/${targetRole}`]);
         } else {

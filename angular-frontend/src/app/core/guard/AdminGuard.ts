@@ -13,7 +13,7 @@ export const hasAdminRole: CanActivateFn = (route, state) => {
     user.subscribe(
       data => {
         // console.log(place[0]?.authorizedUsers[0]?.assignmentRole.toLowerCase())
-        if(place[0]?.authorizedUsers[0]?.assignmentRole.toLowerCase() === "admin") {
+        if(place[0]?.authorizedUsers![0]?.assignmentRole.toLowerCase() === "admin") {
         } else {
           router.navigate(["/unauthorized"])
         }

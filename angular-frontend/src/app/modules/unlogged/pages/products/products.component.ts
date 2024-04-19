@@ -14,7 +14,7 @@ export class ProductsComponent implements OnInit {
 
   products$: Observable<Product[]>;
   activeId = -1;
-  activeProduct: Product = {id:1, name: "", description: "", imgIds: [1], monthlyPrice: 1}
+  activeProduct: Product = {id:"1", name: "", description: "", imgIds: [1], monthlyPrice: 1}
 
   constructor(
     private store: Store<AppState>,
@@ -27,10 +27,10 @@ export class ProductsComponent implements OnInit {
     this.store.dispatch(GetProducts({}))
   }
 
-  showProductDetails(id: number) {
-    this.activeId = id
+  showProductDetails(id: string) {
+    // this.activeId = id
     this.products$.subscribe(data => {
-      this.activeProduct = data.filter(d => d.id === id)[0]
+      this.activeProduct = data.filter(d => d.id === "id")[0]
     })
   }
 

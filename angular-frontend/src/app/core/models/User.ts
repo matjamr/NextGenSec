@@ -2,7 +2,7 @@ import {Address} from "./Address";
 import {Product} from "./Product";
 
 export interface User {
-  "id": number,
+  "id": string,
   "email": string,
   "name": string,
   "surname": string,
@@ -12,4 +12,22 @@ export interface User {
   "phoneNumber": string,
   "address": Address,
   "supportedProducts": Product[],
+}
+
+export const defaultUser: User = {
+  "id": "" ,
+  "email": "",
+  "name": "",
+  "surname": "",
+  "prictureUrl": "",
+  "creationDate": "",
+  "passwordChange": "",
+  "phoneNumber": "",
+  "address": {
+    "id": "",
+    "city": "",
+    "postalCode": "",
+    "streetName": "",
+  },
+  "supportedProducts": [],
 }

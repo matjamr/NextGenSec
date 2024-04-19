@@ -1,5 +1,5 @@
 import {Product} from "./Product";
-import {User} from "./User";
+import {defaultUser, User} from "./User";
 
 export interface UserPlaceAssigment {
   id: number,
@@ -25,17 +25,5 @@ export const defaultUserPlaceAssigment: UserPlaceAssigment = {
     {email: "", id: 0},
   userAdd: {
     assignmentRole: "",
-    user: {
-      address: {city: "", id: 0, postalCode: "", streetName: ""},
-      creationDate: "",
-      email: "",
-      id: 0,
-      name: "",
-      passwordChange: "",
-      phoneNumber: "",
-      prictureUrl: "",
-      surname: "",
-      supportedProducts: []
-    }
-  }
+    user: defaultUser}
 }

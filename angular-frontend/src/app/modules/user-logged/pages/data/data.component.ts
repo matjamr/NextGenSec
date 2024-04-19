@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {User} from "../../../../core/models/User";
+import {defaultUser, User} from "../../../../core/models/User";
 import {UserService} from "../../../../core/services/user/user.service";
 
 @Component({
@@ -9,7 +9,7 @@ import {UserService} from "../../../../core/services/user/user.service";
   styleUrls: ['./data.component.scss']
 })
 export class DataComponent implements OnInit {
-  user: User = {address: {city: "", id: 0, postalCode: "", streetName: ""}, creationDate: "", email: "", id: 0, name: "", passwordChange: "", phoneNumber: "", prictureUrl: "", surname: "", supportedProducts: []};
+  user: User = defaultUser;
   showModal: boolean = false;
 
   constructor(

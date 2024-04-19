@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from "../../../../core/services/user/user.service";
-import {User} from "../../../../core/models/User";
+import {defaultUser, User} from "../../../../core/models/User";
 import {PlaceService} from "../../../../core/services/place/place.service";
-import {Place} from "../../../../core/models/Place";
+import {defaultPlace, Place} from "../../../../core/models/Place";
 
 @Component({
   selector: 'app-users',
@@ -15,18 +15,11 @@ export class UsersComponent implements OnInit {
   localUsers: User[] = [];
   allUsers: User[] = [];
   showAddUserModal = false;
-  newUser: User = { supportedProducts: [], creationDate: "", email: "", phoneNumber:"", id: 0, name: "", passwordChange: "", prictureUrl: "", surname: "", address: {city: "", id: 0, streetName: "", postalCode: ""}};
+  newUser: User = defaultUser;
   queryAllUsers = false;
   showAlert = false;
   alertMessage = '';
-  place: Place = {
-    address: {id: 0, city: "", postalCode: "", streetName: ""},
-    authorizedUsers: [],
-    emailPlace: "",
-    id: 0,
-    placeName: "",
-    product: {id: 0, name: "", description: "", monthlyPrice: 0, imgIds: []}
-  };
+  place: Place = defaultPlace;
 
 
   constructor(
@@ -60,10 +53,7 @@ export class UsersComponent implements OnInit {
       console.log(ret)
     })
 
-    this.newUser = {
-      supportedProducts: [],
-      creationDate: "", email: "", phoneNumber:"", id: 0, name: "", passwordChange: "", prictureUrl: "", surname: "", address: {city: "", id: 0, streetName: "", postalCode: ""}};
-
+    this.newUser = defaultUser;
     this.toggleAddUserModal();
   }
 

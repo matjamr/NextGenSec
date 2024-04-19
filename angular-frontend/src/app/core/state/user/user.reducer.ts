@@ -1,25 +1,9 @@
 import {createReducer, on} from "@ngrx/store";
 import {GetProductsFailure} from "../products/products.actions";
-import {User} from "../../models/User";
+import {defaultUser, User} from "../../models/User";
 import {VerifyUser, VerifyUserSuccess} from "./user.actions";
 
-export const initialState: User = {
-  supportedProducts: [],
-  "id": -1,
-  "email": "awda",
-  "name": "string",
-  "surname": "string",
-  "prictureUrl": "string",
-  "creationDate": "string",
-  "passwordChange": "string",
-  "phoneNumber": "string",
-  "address": {
-    "id": -1,
-    "streetName": "string",
-    "postalCode": "string",
-    "city": "string"
-  }
-};
+export const initialState: User = defaultUser;
 
 export const UserReducer = createReducer(
   initialState,
