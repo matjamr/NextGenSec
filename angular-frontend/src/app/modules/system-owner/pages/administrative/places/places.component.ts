@@ -40,17 +40,16 @@ export class PlacesComponent implements OnInit {
     }
   ]
 
-  ELEMENT_DATA: Place[] = [
-    {id: 1, placeName: 'my fitness place', emailPlace: 'myfitnessplace@gmail.com'},
-    {id: 2, placeName: 'my fitness place2', emailPlace: 'myfitnessplace@gmail.com'},
-  ];
-
   addButtonAction = () => {
     const dialogRef = this.dialog.open(PlacesDialogComponent);
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
+  }
+
+  onRemove = (places: Place[]) => {
+    console.log(places);
   }
 }
 

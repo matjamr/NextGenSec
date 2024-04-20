@@ -46,6 +46,9 @@ export class ConfigurableTableComponent implements OnInit, OnDestroy {
   @Input()
   rowActionButtons: RowActionButton<any>[] = []
 
+  @Input()
+  onRemoveClick: any | null = () => {};
+
   ngOnInit() {
     this.dataSubscription = this.elementData.subscribe(data => {
       this.dataSource.data = data;
@@ -71,6 +74,14 @@ export class ConfigurableTableComponent implements OnInit, OnDestroy {
     if(this.checkboxSupport) {
       this.displayedColumns = ['select', ...this.displayedColumns];
     }
+  }
+
+  isAnySelected(): boolean {
+    return this.selection.selected.length > 0;
+  }
+
+  onRemove() {
+    this.onRemoveClick(this.selection.selected);
   }
 
   isAllSelected() {

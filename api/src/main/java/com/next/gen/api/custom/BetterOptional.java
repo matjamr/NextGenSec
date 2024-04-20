@@ -51,6 +51,14 @@ public class BetterOptional<T> {
         return this;
     }
 
+    public <X extends Throwable> BetterOptional<T> verify(Supplier<Boolean> condition, Supplier<X> throwable) throws X {
+        if(!condition.get()) {
+            throw throwable.get();
+        }
+
+        return this;
+    }
+
     public Optional<T> checkIfNotEmpty(Supplier<Optional<T>> action, RuntimeException throwable) {
         if(action.get().isEmpty()) {
             throw throwable;

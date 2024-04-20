@@ -23,7 +23,12 @@
   <ng-container matColumnDef="additionalData">
     <th mat-header-cell *matHeaderCellDef>
       <button mat-button (click)="addButtonAction()">Add</button>
-      <button mat-button disabled *ngIf="isCheckboxSupported()">Remove</button>
+      <button mat-button
+              [disabled]="!isAnySelected()"
+              *ngIf="isCheckboxSupported()"
+              (click)="onRemove()">
+          Remove
+      </button>
     </th>
     <td mat-cell *matCellDef="let element"></td>
   </ng-container>

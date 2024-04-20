@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 
@@ -44,5 +45,10 @@ public class BeansConfig {
             final @Qualifier("crudPlaceService") ListQueryService<PlacesModel> placesListQueryService
             ) {
         return new PlacesForUserSupplier(placesListQueryService);
+    }
+
+    @Bean
+    public DeleteService<List<String>, List<String>> placesDeleteService(PlacesRepository placesRepository) {
+        return new PlacesDeleteService(placesRepository);
     }
 }

@@ -2,7 +2,7 @@ package com.sec.gen.next.serviceorchestrator.internal.places;
 
 import com.next.gen.sec.model.PlacesModel;
 import com.sec.gen.next.serviceorchestrator.common.templates.CrudService;
-import com.sec.gen.next.serviceorchestrator.common.templates.SimpleQueryService;
+import com.sec.gen.next.serviceorchestrator.common.templates.DeleteService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,11 +19,14 @@ public class PlacesController {
     @Qualifier("placesForUserSupplier")
     private final Supplier<PlacesModel> placesForUserSupplier;
 
+    private final DeleteService<List<String>, List<String>> placesDeleteService;
+
 
     public PlacesController(CrudService<PlacesModel, PlacesModel, String> crudPlaceService,
-                            Supplier<PlacesModel> placesForUserSupplier) {
+                            Supplier<PlacesModel> placesForUserSupplier, DeleteService<List<String>, List<String>> placesDeleteService) {
         this.crudPlaceService = crudPlaceService;
         this.placesForUserSupplier = placesForUserSupplier;
+        this.placesDeleteService = placesDeleteService;
     }
 
 //    private final UpdateService<PlacesModel, PlacesModel> addUserPlaceAssignmentService;
@@ -45,8 +48,8 @@ public class PlacesController {
         return placesForUserSupplier.get();
     }
 
-//    @DeleteMapping
-//    public PlacesModel deletePlace(@RequestBody PlacesModel placesModel) {
-//        return placesService.delete(placesModel);
-//    }
+    @DeleteMapping
+    public List<String> deletePlace(@RequestBody List<String> placesIds) {
+        return placesDeleteService.delete(placesIds);
+    }
 }
