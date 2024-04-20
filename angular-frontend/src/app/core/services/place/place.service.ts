@@ -31,4 +31,7 @@ export class PlaceService {
     return this.http.post<Place>(this.apiUrl, place, getTokenHeader())
   }
 
+  deletePlace(payload: string[]) {
+    return this.http.delete<{payload: string[]}>(this.apiUrl, {...getTokenHeader(), body: payload});
+  }
 }

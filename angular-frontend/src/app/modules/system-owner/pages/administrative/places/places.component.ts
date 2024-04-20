@@ -6,7 +6,7 @@ import {
 import {Place} from "../../../../../core/models/Place";
 import {MatDialog} from "@angular/material/dialog";
 import {PlacesDialogComponent} from "./places-dialog/places-dialog.component";
-import {GetPlaces} from "../../../../../core/state/place/place.actions";
+import {DeletePlace, GetPlaces} from "../../../../../core/state/place/place.actions";
 import {select, Store} from "@ngrx/store";
 import {AppState} from "../../../../../app.state";
 import {Observable} from "rxjs";
@@ -49,7 +49,7 @@ export class PlacesComponent implements OnInit {
   }
 
   onRemove = (places: Place[]) => {
-    console.log(places);
+    this.store.dispatch(DeletePlace({payload: places.map(place => place.id!)}));
   }
 }
 

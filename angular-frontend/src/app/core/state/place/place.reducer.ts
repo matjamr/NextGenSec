@@ -1,6 +1,14 @@
 import {createReducer, on} from "@ngrx/store";
 
-import {AddPlace, GetPlaces, GetPlacesFailure, GetPlacesSuccess, PlaceSuccess} from "./place.actions";
+import {
+  AddPlace,
+  DeletePlace,
+  DeletePlaceSuccess,
+  GetPlaces,
+  GetPlacesFailure,
+  GetPlacesSuccess,
+  PlaceSuccess
+} from "./place.actions";
 import {Place} from "../../models/Place";
 
 export const initialState: Place[] = []
@@ -22,5 +30,12 @@ export const PlaceReducer = createReducer(
   }),
   on(PlaceSuccess, (state, place) => {
     return [...state, place];
+  }),
+  on(DeletePlace, (state, {payload}) => {
+    console.log(payload);
+    return state;
+  }),
+  on(DeletePlaceSuccess, (state, {payload}) => {
+    return [...state.filter(place => !payload.includes(place.id!))];
   }),
 )
