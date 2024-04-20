@@ -38,7 +38,7 @@ export class DataUploadModalComponent {
   }
 
   onSubmit() {
-    this.imageService.uploadImage(this.files, this.products, this.selectedProduct)
+    this.imageService.uploadImage(this.files, this.selectedProduct)
     this.close.emit();
   }
 

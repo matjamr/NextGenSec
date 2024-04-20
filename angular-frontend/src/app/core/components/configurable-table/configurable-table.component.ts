@@ -82,6 +82,7 @@ export class ConfigurableTableComponent implements OnInit, OnDestroy {
 
   onRemove() {
     this.onRemoveClick(this.selection.selected);
+    this.selection.clear();
   }
 
   isAllSelected() {

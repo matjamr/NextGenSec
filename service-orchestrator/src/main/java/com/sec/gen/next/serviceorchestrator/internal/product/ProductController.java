@@ -2,6 +2,8 @@ package com.sec.gen.next.serviceorchestrator.internal.product;
 
 import com.next.gen.sec.model.ProductModel;
 import com.sec.gen.next.serviceorchestrator.common.templates.CrudService;
+import com.sec.gen.next.serviceorchestrator.common.templates.DeleteService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductController {
     private final CrudService<ProductModel, ProductModel, String> productService;
+    private final DeleteService<List<ProductModel>, List<ProductModel>> productDeleteService;
 
     @PostMapping
     public ProductModel addProduct(
@@ -21,13 +24,15 @@ public class ProductController {
         return productService.save(productModel);
     }
 
+    @Transactional
     @GetMapping
     public List<ProductModel> getProducts() {
         return productService.findAll();
     }
 
+    @Transactional
     @DeleteMapping
-    public ProductModel deleteProduct(@RequestBody ProductModel productModel) {
-        return productService.delete(productModel);
+    public List<ProductModel> deleteProduct(@RequestBody List<ProductModel> productModel) {
+        return productDeleteService.delete(productModel);
     }
 }

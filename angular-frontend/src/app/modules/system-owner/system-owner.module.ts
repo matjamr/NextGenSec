@@ -22,12 +22,12 @@ import {
 } from "@angular/material/expansion";
 import {MatButton, MatFabButton, MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
-import {MatListItem, MatNavList} from "@angular/material/list";
+import {MatList, MatListItem, MatNavList} from "@angular/material/list";
 import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
 import {MatSidenav, MatSidenavContainer, MatSidenavContent} from "@angular/material/sidenav";
 import {MatToolbar} from "@angular/material/toolbar";
 import {DevicesComponent} from './pages/administrative/devices/devices.component';
-import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
+import {MatCard, MatCardContent, MatCardHeader, MatCardImage, MatCardTitle} from "@angular/material/card";
 import {CanvasJSAngularChartsModule} from "@canvasjs/angular-charts";
 import {MatTabContent} from "@angular/material/tabs";
 import {
@@ -50,8 +50,16 @@ import {MatSort} from "@angular/material/sort";
 import {MatTooltip} from "@angular/material/tooltip";
 import {MatCheckbox} from "@angular/material/checkbox";
 import {MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle} from "@angular/material/dialog";
-import {MatStep, MatStepLabel, MatStepperNext, MatStepperPrevious} from "@angular/material/stepper";
+import {MatStep, MatStepLabel, MatStepper, MatStepperNext, MatStepperPrevious} from "@angular/material/stepper";
 import {ReactiveFormsModule} from "@angular/forms";
+import {
+  AddProductDialogComponent
+} from './pages/administrative/products/components/add-product-dialog/add-product-dialog.component';
+import {
+  ProductImagesDialogComponent
+} from './pages/administrative/products/components/product-images-dialog/product-images-dialog.component';
+import {MatOption} from "@angular/material/autocomplete";
+import {MatSelect} from "@angular/material/select";
 
 
 const routes: Routes = [
@@ -123,7 +131,9 @@ const routes: Routes = [
     LogsComponent,
     SystemAlertComponent,
     NavWrapperComponent,
-    DevicesComponent
+    DevicesComponent,
+    AddProductDialogComponent,
+    ProductImagesDialogComponent
   ],
   imports: [
     CommonModule,
@@ -179,6 +189,11 @@ const routes: Routes = [
     MatStepperPrevious,
     MatStepLabel,
     MatStepperNext,
+    MatOption,
+    MatSelect,
+    MatStepper,
+    MatList,
+    MatCardImage,
   ]
 })
 export class SystemOwnerModule { }

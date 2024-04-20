@@ -1,1 +1,13 @@
-<p>products works!</p>
+<app-nav-wrapper>
+  <div class="container">
+    <h3>Products</h3>
+    <app-configurable-table
+      [elementData]="products$"
+      [tableTemplate]="tableTemplate"
+      [rowActionButtons]="rowActionButtons"
+      [addButtonAction]="addButtonAction"
+      [onRemoveClick]="onRemove">
+    </app-configurable-table>
+  </div>
+
+</app-nav-wrapper>

@@ -4,10 +4,10 @@
   </div>
   <div class="images-container">
     <div class="main-image-area">
-      <img [src]="getProductImageUrl(activeProduct.imgIds[0])" alt="Main Image"/>
+      <img [src]="activeProduct.images![0].url" alt="Main Image"/>
     </div>
     <div class="image-grid-area">
-      <img *ngFor="let id of fakeArray; let i = index" [src]="getProductImageUrl(activeProduct.imgIds[0])" alt="Image {{0}}" (click)="selectImage(0)"/>
+      <img *ngFor="let id of fakeArray; let i = index" [src]="activeProduct.images![0].url" alt="Image {{0}}" (click)="selectImage(0)"/>
     </div>
   </div>
   <div class="horizontal-line"></div>

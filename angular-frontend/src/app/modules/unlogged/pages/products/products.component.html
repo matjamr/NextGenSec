@@ -2,9 +2,9 @@
 
 
 <div class="products-grid-layout">
-  <div *ngFor="let product of products$ | async" class="product-container" (click)="showProductDetails(product.id)">
+  <div *ngFor="let product of products$ | async" class="product-container" (click)="showProductDetails(product.id!)">
     <div class="product-card">
-      <img class="product-image" [src]='"http://localhost:8080/api/image/" + product.imgIds[0]' [alt]="product.name" />
+      <img class="product-image" [src]='product.images![0].url' [alt]="product.name" />
       <div class="product-info">
         <h2 class="product-title">{{ product.name }}</h2>
         <p class="hover-text">Learn More!</p>

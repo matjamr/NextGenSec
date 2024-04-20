@@ -8,22 +8,23 @@ import com.sec.gen.next.serviceorchestrator.internal.image.repository.ImageRepos
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+import java.util.Optional;
+
 import static com.sec.gen.next.serviceorchestrator.exception.Error.*;
 
 @RequiredArgsConstructor
-public class SaveImageService implements SaveService<ImageModel, MultipartFile> {
+public class SaveImageService implements SaveService<List<ImageModel>, List<MultipartFile>> {
 
     private final ImageMapper imageMapper;
     private final ImageRepository imageRepository;
 
     @Override
-    public ImageModel save(MultipartFile multipartFile)  {
-        return BetterOptional.of(multipartFile)
-                .verify(() -> isAllowedExtension(multipartFile), INVALID_IMAGE_EXTENSION.getError())
-                .verify(() -> isAllowedSize(multipartFile), INVALID_IMAGE_SIZE.getError())
-                .optionalMap(imageMapper::map)
-                .map(imageRepository::save)
-                .map(imageMapper::map)
+    public List<ImageModel> save(List<MultipartFile> multipartFile)  {
+        return Optional.of(multipartFile)
+                .map(images -> images.stream().map(imageMapper::map).toList())
+                .map(imageRepository::saveAll)
+                .map(images -> images.stream().map(imageMapper::map).toList())
                 .orElseThrow(INVALID_IMAGE_DATA::getError);
     }
 

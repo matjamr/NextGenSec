@@ -1,5 +1,13 @@
 import {createReducer, on} from "@ngrx/store";
-import {GetProducts, GetProductsFailure, GetProductsSuccess} from "./products.actions";
+import {
+  AddProduct,
+  AddProductSuccess,
+  DeleteProducts,
+  DeleteProductsSuccess,
+  GetProducts,
+  GetProductsFailure,
+  GetProductsSuccess
+} from "./products.actions";
 import {Product} from "../../models/Product";
 
 export const initialState: Product[] = [];
@@ -15,4 +23,21 @@ export const ProductsReducer = createReducer(
     console.log(error);
     return state;
   }),
+  on(AddProduct, (state, { payload }) => {
+    return state;
+  }),
+  on(AddProductSuccess, (state, { payload }) => {
+    console.log(payload)
+    return [...state, payload];
+  }),
+  on(DeleteProducts, (state, { payload }) => {
+    return state;
+  }),
+  on(DeleteProductsSuccess, (state, { payload }) => {
+    let tmpIds = payload.map(product => product.id);
+    console.log(tmpIds);
+    return [...state.filter(product => !tmpIds.includes(product.id!))];
+  }),
+
+
 )

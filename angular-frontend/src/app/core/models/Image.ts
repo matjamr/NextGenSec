@@ -1,1 +1,1 @@
-export interface Image {id: number, url: string}
+export interface Image {id: string, url: string}

@@ -20,13 +20,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ImageController {
 
-    private final SaveService<ImageModel, MultipartFile> saveImageService;
+    private final SaveService<List<ImageModel>, List<MultipartFile>> saveImageService;
     private final SimpleQueryService<String, byte[]> simpleImageQueryService;
+
     private final QueryService<ImageModel, String> imageQueryService;
 
     @PostMapping
-    public ImageModel save(final @RequestParam("image") MultipartFile multipartFile) {
-        return saveImageService.save(multipartFile);
+    public List<ImageModel> save(final @RequestParam("images") List<MultipartFile> multipartFiles) {
+        return saveImageService.save(multipartFiles);
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.IMAGE_JPEG_VALUE)

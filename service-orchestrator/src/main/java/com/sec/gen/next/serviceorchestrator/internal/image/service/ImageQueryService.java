@@ -4,6 +4,7 @@ import com.next.gen.sec.model.ImageModel;
 import com.sec.gen.next.serviceorchestrator.common.templates.QueryService;
 import com.sec.gen.next.serviceorchestrator.internal.image.mapper.ImageMapper;
 import com.sec.gen.next.serviceorchestrator.internal.image.repository.ImageRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;

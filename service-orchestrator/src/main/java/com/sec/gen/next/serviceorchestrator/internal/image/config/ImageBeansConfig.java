@@ -14,11 +14,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @Configuration
 public class ImageBeansConfig {
 
     @Bean
-    public SaveService<ImageModel, MultipartFile> saveImageService(
+    public SaveService<List<ImageModel>, List<MultipartFile>> saveImageService(
             final ImageMapper imageMapper,
             final ImageRepository imageRepository
             ) {

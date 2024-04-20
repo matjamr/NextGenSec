@@ -1,7 +1,9 @@
+import {Image} from "./Image";
+
 export interface Product {
-  id: string,
+  id?: string,
   name: string,
   description: string,
-  monthlyPrice: number,
-  imgIds: number[]
+  monthlyPrice: number | string,
+  images?: Image[]
 }

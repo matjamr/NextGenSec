@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Image} from "../../models/Image";
 import {Product} from "../../models/Product";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class ImageService {
   private apiUrl: string =  "http://localhost:8080/api/image"
   private apiSensitiveUrl: string =  "http://localhost:8080/api/user/sensitive"
 
-  public uploadImage(images: File[], products: Product[], selectedProduct: Product | null) {
+  public uploadImage(images: File[], selectedProduct: Product | null) {
     const formData = new FormData();
     let idsTab: Image[] = [];
     formData.append('image', images[0]);
@@ -34,6 +35,17 @@ export class ImageService {
     }
 
     return idsTab;
+  }
+
+  public uploadImages(images: File[]): Observable<Image[]> {
+    const formData = new FormData();
+
+    images.forEach(image => {
+      formData.append("images", image);
+    })
+
+
+    return this.http.post<Image[]>(this.apiUrl, formData, buildHeader());
   }
 }
 

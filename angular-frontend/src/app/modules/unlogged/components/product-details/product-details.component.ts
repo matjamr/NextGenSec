@@ -22,10 +22,6 @@ export class ProductDetailsComponent {
     this.windowPopup.nativeElement.style.display = 'none';
   };
 
-  getProductImageUrl(id: number): string {
-    return `http://localhost:8080/api/image/${id}`;
-  }
-
   selectImage(id: number): void {
   }
 }

@@ -30,9 +30,7 @@ public class Product {
 
     private Double monthlyPrice;
 
-    @ElementCollection(targetClass = String.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "image_ids", joinColumns = @JoinColumn(name = "image_id"))
-    @Column(name = "image_ids", nullable = false)
-    private List<String> images = new ArrayList<>();
+    @ManyToMany(cascade = {CascadeType.MERGE }, fetch = FetchType.LAZY)
+    private List<Image> images;
 
 }

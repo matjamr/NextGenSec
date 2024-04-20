@@ -139,12 +139,14 @@ components:
           type: string
         name:
           type: string
+        description:
+          type: string
         monthlyPrice:
           type: number
         images:
           type: array
           items:
-            type: string
+            $ref: '#/components/schemas/ImageModel'
     ImageModel:
       type: object
       properties:
@@ -226,7 +228,7 @@ components:
         images:
           type: array
           items:
-            type: string
+            $ref: '#/components/schemas/ImageModel'
         lastUpdate:
           type: string
           format: date-time

@@ -14,7 +14,7 @@ export class ProductsComponent implements OnInit {
 
   products$: Observable<Product[]>;
   activeId = -1;
-  activeProduct: Product = {id:"1", name: "", description: "", imgIds: [1], monthlyPrice: 1}
+  activeProduct: Product = {id:"1", name: "", description: "", images: [], monthlyPrice: 1}
 
   constructor(
     private store: Store<AppState>,
@@ -24,7 +24,7 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(GetProducts({}))
+    this.store.dispatch(GetProducts())
   }
 
   showProductDetails(id: string) {
