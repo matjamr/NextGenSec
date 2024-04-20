@@ -20,6 +20,7 @@ import {PlaceReducer} from "./core/state/place/place.reducer";
 import {PlaceEffects} from "./core/state/place/place.effects";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {SharedModule} from "./shared/shared.module";
+import {DeviceReducer} from "./core/state/device/device.reducer";
 
 @NgModule({
   declarations: [
@@ -34,7 +35,7 @@ import {SharedModule} from "./shared/shared.module";
     BrowserAnimationsModule,
     CoreModule,
     UnloggedModule,
-    StoreModule.forRoot<AppState>({ products: ProductsReducer, user: UserReducer, places: PlaceReducer }),
+    StoreModule.forRoot<AppState>({ products: ProductsReducer, user: UserReducer, places: PlaceReducer, devices: DeviceReducer }),
     EffectsModule.forRoot([ProductsEffects, UserEffects, PlaceEffects]),
     NgbModule,
     SharedModule

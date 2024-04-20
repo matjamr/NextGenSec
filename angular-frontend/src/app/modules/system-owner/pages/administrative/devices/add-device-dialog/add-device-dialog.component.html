@@ -1,0 +1,62 @@
+<h4 mat-dialog-title>Add device</h4>
+<mat-dialog-content class="mat-typography">
+
+  <mat-stepper #stepper [linear]="true">
+    <mat-step [stepControl]="userForm" errorMessage="Data of product is required.">
+
+      <form [formGroup]="userForm" class="flex-col">
+        <ng-template matStepLabel>Product data</ng-template>
+
+        <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input matInput placeholder="Name" formControlName="name" required>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Name</mat-label>
+          <textarea matInput placeholder="Description" formControlName="description" required></textarea>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Monthly price</mat-label>
+          <input matInput placeholder="Monthly Price" formControlName="monthlyPrice" required>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="imagesForm">
+      <form [formGroup]="imagesForm" class="flex-col">
+        <ng-template matStepLabel>Upload Images</ng-template>
+
+        <input type="file" #fileInput formControlName="files" (change)="onFileSelected($event)" multiple hidden>
+        <button mat-raised-button (click)="fileInput.click()" color="primary">Choose Images</button>
+        <span *ngIf="images.length > 0">{{ images.length }} file(s) selected</span>
+
+        <div class="horizontal-scroll">
+          <mat-card *ngFor="let image of images" class="image-card">
+            <mat-card-header>
+              <mat-card-title>Image Preview</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <img [src]="image" alt="Image preview" style="width: 100%; height: auto;">
+            </mat-card-content>
+          </mat-card>
+        </div>
+
+        <div>
+          <button mat-button matStepperNext (click)="submitForm()">Next</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      <p *ngIf="productAdded">You are now good to go! Product has been added</p>
+      <div>
+        <button mat-button [mat-dialog-close]="productAdded" cdkFocusInitial>Finish</button>
+      </div>
+    </mat-step>
+
+  </mat-stepper>
+</mat-dialog-content>

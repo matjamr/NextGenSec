@@ -35,7 +35,6 @@ export const ProductsReducer = createReducer(
   }),
   on(DeleteProductsSuccess, (state, { payload }) => {
     let tmpIds = payload.map(product => product.id);
-    console.log(tmpIds);
     return [...state.filter(product => !tmpIds.includes(product.id!))];
   }),
 

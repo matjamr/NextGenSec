@@ -60,6 +60,7 @@ import {
 } from './pages/administrative/products/components/product-images-dialog/product-images-dialog.component';
 import {MatOption} from "@angular/material/autocomplete";
 import {MatSelect} from "@angular/material/select";
+import {AddDeviceDialogComponent} from "./pages/administrative/devices/add-device-dialog/add-device-dialog.component";
 
 
 const routes: Routes = [
@@ -133,7 +134,8 @@ const routes: Routes = [
     NavWrapperComponent,
     DevicesComponent,
     AddProductDialogComponent,
-    ProductImagesDialogComponent
+    ProductImagesDialogComponent,
+    AddDeviceDialogComponent
   ],
   imports: [
     CommonModule,
