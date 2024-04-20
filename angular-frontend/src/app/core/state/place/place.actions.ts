@@ -15,6 +15,6 @@ export const GetPlaces = createAction(GET_PLACE_BY_USER)
 export const GetPlacesSuccess = createAction(GET_PLACE_SUCCESSFULLY, props<{places: Place[]}>());
 export const GetPlacesFailure = createAction(GET_PLACE_FAILURE, props<{error:any}>());
 
-export const AddPlace = createAction(ADD_PLACE, props<Place>());
+export const AddPlace = createAction(ADD_PLACE, props<{payload: Place | any}>());
 export const PlaceSuccess = createAction(PLACE_SUCCESSFUL, props<Place>());
 export const PlaceError = createAction(PLACE_ERROR, props<{error: any}>());

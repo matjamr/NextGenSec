@@ -17,7 +17,7 @@ export class PlaceEffects {
 
   addPlace$ = createEffect(() => this.actions$.pipe(
     ofType(AddPlace),
-    mergeMap((action) => this.placesService.addPlace(action)
+    mergeMap((action) => this.placesService.addPlace(action.payload)
       .pipe(
         map(place => PlaceSuccess(place)),
         catchError((error) => of(PlaceError(error))))

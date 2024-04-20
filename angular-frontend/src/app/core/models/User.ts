@@ -10,6 +10,7 @@ export interface User {
   "creationDate": string,
   "passwordChange": string,
   "phoneNumber": string,
+  "source": string,
   "address": Address,
   "supportedProducts": Product[],
 }
@@ -22,6 +23,7 @@ export const defaultUser: User = {
   "prictureUrl": "",
   "creationDate": "",
   "passwordChange": "",
+  "source": "",
   "phoneNumber": "",
   "address": {
     "id": "",

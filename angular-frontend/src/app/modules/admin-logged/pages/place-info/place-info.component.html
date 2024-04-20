@@ -2,7 +2,7 @@
 <div class="place-container">
   <h2>{{ place.placeName }}</h2>
   <p><strong>Email:</strong> {{ place.emailPlace }}</p>
-  <p><strong>Address:</strong> {{ place.address.streetName }}, {{ place.address.city }}, {{ place.address.postalCode }}</p>
+  <p><strong>Address:</strong> {{ place.address!.streetName }}, {{ place.address!.city }}, {{ place.address!.postalCode }}</p>
 
   <h3>Admins:</h3>
   <div class="users-list">

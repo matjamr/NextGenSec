@@ -1,6 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
 import {SelectionModel} from "@angular/cdk/collections";
+import {Observable, of, Subscription} from "rxjs";
 
 export interface ConfigurableTableTemplate {
   columnTitle: string,
@@ -21,18 +22,18 @@ export interface RowActionButton<T> {
 @Component({
   selector: 'app-configurable-table',
   templateUrl: './configurable-table.component.html',
-  styleUrl: './configurable-table.component.scss'
+  styleUrls: ['./configurable-table.component.scss']
 })
-export class ConfigurableTableComponent implements OnInit {
+export class ConfigurableTableComponent implements OnInit, OnDestroy {
+  private dataSubscription: Subscription = new Subscription();
   displayedColumns: string[] = [];
 
   @Input()
-  elementData: any[] = []
+  elementData: Observable<any[]> = of([]);
 
   @Input()
   tableTemplate: ConfigurableTableTemplate[] = []
 
-  @Input()
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
   selection = new SelectionModel<any>(true, []);
 
@@ -46,8 +47,18 @@ export class ConfigurableTableComponent implements OnInit {
   rowActionButtons: RowActionButton<any>[] = []
 
   ngOnInit() {
-    this.dataSource = new MatTableDataSource(this.elementData);
-    this.displayedColumns = this.tableTemplate.map(data => data.displayedColumn)
+    this.dataSubscription = this.elementData.subscribe(data => {
+      this.dataSource.data = data;
+      this.updateDisplayedColumns();
+    });
+  }
+
+  ngOnDestroy() {
+    this.dataSubscription.unsubscribe();
+  }
+
+  updateDisplayedColumns() {
+    this.displayedColumns = this.tableTemplate.map(data => data.displayedColumn);
 
     if(this.addButtonAction !== null) {
       this.displayedColumns = [...this.displayedColumns, 'additionalData']

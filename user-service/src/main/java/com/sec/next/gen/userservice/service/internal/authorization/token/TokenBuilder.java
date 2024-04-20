@@ -28,7 +28,7 @@ public class TokenBuilder implements Function<GoogleAuthorizedUser, String> {
                 .setClaims(Map.of())
                 .setSubject(authorizedUser.getEmail())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 100))
                 .signWith(keyProvider.get(), SignatureAlgorithm.HS256)
                 .compact();
     }

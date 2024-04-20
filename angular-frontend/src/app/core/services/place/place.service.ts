@@ -27,7 +27,7 @@ export class PlaceService {
     return this.http.post<Place[]>(this.apiUrl + "/update", place, getTokenHeader())
   }
 
-  addPlace(place: Place) {
+  addPlace(place: Place | any) {
     return this.http.post<Place>(this.apiUrl, place, getTokenHeader())
   }
 

@@ -22,7 +22,7 @@ export class PlacesComponent implements OnInit {
   }
 
   showOnMap(place: Place): void {
-    const address = `${place.address.streetName}, ${place.address.city}, ${place.address.postalCode}`;
+    const address = `${place.address!.streetName}, ${place.address!.city}, ${place.address!.postalCode}`;
     const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
     window.open(url, '_blank');
   }

@@ -2,17 +2,15 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MatButtonModule} from "@angular/material/button";
 import {MatInputModule} from "@angular/material/input";
 import {MatFormFieldModule} from "@angular/material/form-field";
-import {FormBuilder, FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {FormBuilder, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatStepperModule} from "@angular/material/stepper";
 import {STEPPER_GLOBAL_OPTIONS} from "@angular/cdk/stepper";
 import {MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle} from "@angular/material/dialog";
 import {MatOption, MatSelect} from "@angular/material/select";
-import {select, Store} from "@ngrx/store";
+import {Store} from "@ngrx/store";
 import {AppState} from "../../../../../../app.state";
-import {Observable} from "rxjs";
-import {defaultPlace, Place} from "../../../../../../core/models/Place";
-import {AddPlace, GetPlaces} from "../../../../../../core/state/place/place.actions";
-import {defaultUser, User} from "../../../../../../core/models/User";
+import {AddPlace} from "../../../../../../core/state/place/place.actions";
+import {User} from "../../../../../../core/models/User";
 
 
 @Component({
@@ -42,26 +40,41 @@ import {defaultUser, User} from "../../../../../../core/models/User";
   ],
 })
 export class PlacesDialogComponent implements OnInit, OnDestroy {
-  places$: Observable<Place[]>;
-  user: User = defaultUser;
-  placeToBeAdded: Place = defaultPlace;
 
-  firstFormGroup = this._formBuilder.group<User>(defaultUser);
-  secondFormGroup = this._formBuilder.group(defaultPlace);
+  userForm = this._formBuilder.group({
+    email: ['', Validators.required],
+    name: ['', Validators.required],
+    surname: ['', Validators.required],
+    source: ['', Validators.required],
+    address: this._formBuilder.group({
+      city: ['', Validators.required],
+      postalCode: ['', Validators.required],
+      streetName: ['', Validators.required],
+    })
+  });
+
+  placeFormGroup = this._formBuilder.group({
+    emailPlace: ['', Validators.required],
+    placeName: ['', Validators.required],
+    address: this._formBuilder.group({
+      city: ['', Validators.required],
+      postalCode: ['', Validators.required],
+      streetName: ['', Validators.required],
+    })
+  });
 
   constructor(private _formBuilder: FormBuilder, private store: Store<AppState>) {
-    this.places$ = store.pipe(select('places'));
-    this._formBuilder.nonNullable.group(defaultUser);
   }
 
   ngOnDestroy(): void {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(GetPlaces());
   }
 
-  onPlaceAdd(): void {
-    this.store.dispatch(AddPlace(this.placeToBeAdded!));
+  submitForm(): void {
+    let placeToBeAdded: any = {...this.placeFormGroup.getRawValue(), owner: this.userForm.getRawValue() as User};
+    this.store.dispatch(AddPlace({payload: placeToBeAdded}));
   }
+
 }

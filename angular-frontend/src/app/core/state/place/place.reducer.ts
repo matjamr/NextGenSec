@@ -1,6 +1,6 @@
 import {createReducer, on} from "@ngrx/store";
 
-import {AddPlace, GetPlaces, GetPlacesFailure, GetPlacesSuccess} from "./place.actions";
+import {AddPlace, GetPlaces, GetPlacesFailure, GetPlacesSuccess, PlaceSuccess} from "./place.actions";
 import {Place} from "../../models/Place";
 
 export const initialState: Place[] = []
@@ -17,8 +17,10 @@ export const PlaceReducer = createReducer(
     console.log(error);
     return state;
   }),
-  on(AddPlace, (state, place) => {
-    console.log("DUPA DUPA ", place);
+  on(AddPlace, (state, {payload}) => {
+    return state;
+  }),
+  on(PlaceSuccess, (state, place) => {
     return [...state, place];
-  })
+  }),
 )

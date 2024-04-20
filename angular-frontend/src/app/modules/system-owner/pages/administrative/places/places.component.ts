@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {
   ConfigurableTableTemplate,
   RowActionButton
@@ -6,19 +6,26 @@ import {
 import {Place} from "../../../../../core/models/Place";
 import {MatDialog} from "@angular/material/dialog";
 import {PlacesDialogComponent} from "./places-dialog/places-dialog.component";
-
-export interface DialogData {
-  animal: 'panda' | 'unicorn' | 'lion';
-}
+import {GetPlaces} from "../../../../../core/state/place/place.actions";
+import {select, Store} from "@ngrx/store";
+import {AppState} from "../../../../../app.state";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-places',
   templateUrl: './places.component.html',
   styleUrl: './places.component.scss'
 })
-export class PlacesComponent {
-  constructor(public dialog: MatDialog) {}
+export class PlacesComponent implements OnInit {
+  places$: Observable<Place[]>;
 
+  constructor(public dialog: MatDialog, private store: Store<AppState>) {
+    this.places$ = store.pipe(select('places'));
+  }
+
+  ngOnInit(): void {
+    this.store.dispatch(GetPlaces());
+  }
 
   tableTemplate: ConfigurableTableTemplate[] = [
     {columnTitle: 'Place Name', displayedColumn: 'placeName'},
@@ -28,16 +35,14 @@ export class PlacesComponent {
   rowActionButtons: RowActionButton<any>[] = [
     {
       iconName: 'info',
-      action: (elem: any) =>  console.log("odnosnik do strony gdzie bedzie wiecej info"),
+      action: (elem: any) => console.log("odnosnik do strony gdzie bedzie wiecej info"),
       tooltip: 'about place more info'
     }
   ]
 
   ELEMENT_DATA: Place[] = [
-    // @ts-ignore
-    {id: 1, placeName: 'my fitness place', emailPlace: 'myfitnessplace@gmail.com', address: {}, product: {}, authorizedUsers: {}},
-    // @ts-ignore
-    {id: 2, placeName: 'my fitness place2', emailPlace: 'myfitnessplace@gmail.com', address: {}, product: {}, authorizedUsers: {}},
+    {id: 1, placeName: 'my fitness place', emailPlace: 'myfitnessplace@gmail.com'},
+    {id: 2, placeName: 'my fitness place2', emailPlace: 'myfitnessplace@gmail.com'},
   ];
 
   addButtonAction = () => {
