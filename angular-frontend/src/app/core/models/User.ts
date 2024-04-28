@@ -1,5 +1,6 @@
 import {Address} from "./Address";
 import {Product} from "./Product";
+import {UserPlaceAssigment} from "./UserPlaceAssigment";
 
 export interface User {
   "id": string,
@@ -12,7 +13,9 @@ export interface User {
   "phoneNumber": string,
   "source": string,
   "address": Address,
+  role: string,
   "supportedProducts": Product[],
+  userPlaceAssignments: UserPlaceAssigment[]
 }
 
 export const defaultUser: User = {
@@ -25,6 +28,7 @@ export const defaultUser: User = {
   "passwordChange": "",
   "source": "",
   "phoneNumber": "",
+  role: "",
   "address": {
     "id": "",
     "city": "",
@@ -32,4 +36,5 @@ export const defaultUser: User = {
     "streetName": "",
   },
   "supportedProducts": [],
+  userPlaceAssignments: []
 }

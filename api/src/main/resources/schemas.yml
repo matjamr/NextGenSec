@@ -72,12 +72,12 @@ components:
 
     Role:
       type: string
-      enum: [ "user", "admin", "owner" ]
-      x-enum-varnames: [ USER, ADMIN, OWNER ]
+      enum: [ "user", "admin", "system" ]
+      x-enum-varnames: [ USER, ADMIN, SYSTEM ]
     RegistrationSource:
       type: string
-      enum: [ "JWT", "GOOGLE", "FACEBOOK", "LINKEDIN" ]
-      x-enum-varnames: [ JWT, GOOGLE, FACEBOOK, LINKEDIN ]
+      enum: [ "JWT", "GOOGLE", "FACEBOOK"]
+      x-enum-varnames: [ JWT, GOOGLE, FACEBOOK ]
     AddressModel:
       type: object
       properties:

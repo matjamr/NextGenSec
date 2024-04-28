@@ -22,7 +22,7 @@ export class ProfileLogoComponent {
     private store: Store<AppState>
   ) {
     this.currentUser$ = store.pipe(select('user'))
-    this.store.dispatch(VerifyUser({}))
+    this.store.dispatch(VerifyUser())
   }
 
   toggleDropdown() {

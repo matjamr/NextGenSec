@@ -23,13 +23,7 @@ export class UserService {
   }
 
   getAll(placeRestriction: boolean): Observable<User[]> {
-    return this.http.get<User[]>(this.userApiUrl, {
-      headers: {
-        "token": String(localStorage.getItem("token")),
-        "source": String(localStorage.getItem("source")),
-        "placeRestriction": String(placeRestriction)
-      }
-    })
+    return this.http.get<User[]>(this.userApiUrl, buildHeader());
   }
 
 
