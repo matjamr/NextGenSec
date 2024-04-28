@@ -1,11 +1,17 @@
 package com.sec.gen.next.serviceorchestrator.exception;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
+import java.io.IOException;
 import java.io.Serializable;
 
+@JsonSerialize(using = Error.ErrorSerializer.class)
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 @AllArgsConstructor
 public enum Error implements Serializable {
@@ -34,11 +40,11 @@ public enum Error implements Serializable {
     INVALID_NEWS("Invalid news data", 22),
     NO_PLACE_FOR_USER("User is not assigned to any place", 22),
     ONE_OF_PLACES_DO_NOT_EXIST("One of given places do not exist", 22),
-    INVALID_HISTORY_ENTRANCE("Invalid history entrance data", 23);
+    INVALID_HISTORY_ENTRANCE("Invalid history entrance data", 23),
+    INTERNAL_SERVER_ERROR("Internal Server Error: %s", 24);
 
     private String message;
     private Integer code;
-
 
     @Override
     public String toString() {
@@ -60,5 +66,21 @@ public enum Error implements Serializable {
     public ServiceException getFormattedError(String... args) {
         this.message = this.message.formatted(args);
         return new ServiceException(this);
+    }
+
+    public Error withFormattedError(String... args) {
+        this.message = this.message.formatted(args);
+        return this;
+    }
+
+    public static class ErrorSerializer extends JsonSerializer<Error> {
+
+        @Override
+        public void serialize(Error value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+            gen.writeStartObject();
+            gen.writeStringField("message", value.getMessage());
+            gen.writeNumberField("code", value.getCode());
+            gen.writeEndObject();
+        }
     }
 }

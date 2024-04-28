@@ -46,7 +46,10 @@ export class DevicesComponent implements OnInit {
   }
 
   addButtonAction = () => {
-    const dialogRef = this.dialog.open(AddDeviceDialogComponent);
+    const dialogRef = this.dialog.open(AddDeviceDialogComponent, {
+      width: '70%',
+      height: '80vh',
+    });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);

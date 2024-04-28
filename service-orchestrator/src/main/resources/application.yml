@@ -44,7 +44,15 @@ kafka:
 
 server:
   url: ${SERVER_URL}
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
 
 services:
   user-service:
     url: http://localhost:8081/api
+
+logging:
+  level:
+    org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG

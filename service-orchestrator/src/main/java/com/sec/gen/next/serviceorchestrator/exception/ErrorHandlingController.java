@@ -16,11 +16,18 @@ public class ErrorHandlingController {
     @ResponseBody
     @ExceptionHandler(ServiceException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    Error employeeNotFoundHandler(final HttpServletRequest request,
-                                  final HttpServletResponse response,
-                                  final ServiceException ex) {
+    Error serviceExceptionHandler(final ServiceException ex) {
         ex.printStackTrace();
 
         return ex.getError();
     }
+
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    Error exceptionHandler(final Exception ex) {
+        ex.printStackTrace();
+
+        return Error.INTERNAL_SERVER_ERROR.withFormattedError(ex.getMessage());
+    }
+
 }

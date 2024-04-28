@@ -6,9 +6,11 @@ import com.sec.gen.next.serviceorchestrator.api.CustomAuthentication;
 import com.sec.gen.next.serviceorchestrator.exception.ServiceException;
 import com.sec.gen.next.serviceorchestrator.security.config.SecurityPropertiesConfig;
 import com.sec.gen.next.serviceorchestrator.external.user.UserServiceClient;
+import com.sec.gen.next.serviceorchestrator.security.config.WrappedHttpServletResponse;
 import com.sec.gen.next.serviceorchestrator.security.mapper.CustomAuthenticationMapper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
@@ -21,7 +23,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
+import static com.next.gen.api.custom.ThrowableUtils.throwIf;
 import static com.sec.gen.next.serviceorchestrator.exception.Error.INVALID_HEADER;
 import static java.util.Objects.isNull;
 
@@ -38,6 +42,8 @@ public class CustomAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
+        WrappedHttpServletResponse wrappedResponse = new WrappedHttpServletResponse(response);
+
         try {
             String token = request.getHeader("token");
             Authentication authenticatedObject;
@@ -46,13 +52,12 @@ public class CustomAuthenticationFilter extends OncePerRequestFilter {
             String method = request.getMethod();
 
             if (isPermitAllEndpoint(requestURI, method)) {
-                filterChain.doFilter(request, response);
+                filterChain.doFilter(request, wrappedResponse);
+                log.info("Response: " + wrappedResponse.getCaptureAsString());
                 return;
             }
 
-            if (isNull(token)) {
-                throw new ServiceException(INVALID_HEADER);
-            }
+            throwIf(INVALID_HEADER.getError(), () -> isNull(token));
 
             UserModel authorizedUser = userServiceClient.getAccessToken(token);
 
@@ -63,23 +68,40 @@ public class CustomAuthenticationFilter extends OncePerRequestFilter {
 
         } catch (ServiceException e) {
             e.printStackTrace();
-            response.resetBuffer();
-            response.setStatus(HttpStatus.UNAUTHORIZED.value());
-            response.setHeader(HttpHeaders.CONTENT_TYPE, "application/json");
-            response.getOutputStream().print(e.getError().toString());
-            response.flushBuffer();
+            wrappedResponse.resetBuffer();
+            wrappedResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
+            wrappedResponse.setHeader(HttpHeaders.CONTENT_TYPE, "application/json");
+            wrappedResponse.getOutputStream().print(e.getError().toString());
+            wrappedResponse.flushBuffer();
             return;
         } catch (Exception e) {
             log.error(e.getMessage());
-            response.resetBuffer();
-            response.setStatus(HttpStatus.UNAUTHORIZED.value());
-            response.setHeader(HttpHeaders.CONTENT_TYPE, "application/json");
-            response.getOutputStream().print("{\"message\": \"" + e.getMessage() + "\"}");
-            response.flushBuffer();
+            wrappedResponse.resetBuffer();
+            wrappedResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
+            wrappedResponse.setHeader(HttpHeaders.CONTENT_TYPE, "application/json");
+            wrappedResponse.getOutputStream().print("{\"message\": \"" + e.getMessage() + "\"}");
+            wrappedResponse.flushBuffer();
             return;
         }
 
-        filterChain.doFilter(request, response);
+        try {
+            filterChain.doFilter(request, wrappedResponse);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            wrappedResponse.resetBuffer();
+            wrappedResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
+            wrappedResponse.setHeader(HttpHeaders.CONTENT_TYPE, "application/json");
+            wrappedResponse.setCharacterEncoding("UTF-8");
+
+            ServletOutputStream out = wrappedResponse.getOutputStream();
+            out.write(e.getMessage().getBytes(StandardCharsets.UTF_8));
+            out.flush();
+            out.close();
+            return;
+        }
+
+        log.info("Response: " + wrappedResponse.getCaptureAsString());
+        response.getOutputStream().write(wrappedResponse.getCaptureAsBytes());
     }
 
     private boolean isPermitAllEndpoint(String requestURI, String method) {
