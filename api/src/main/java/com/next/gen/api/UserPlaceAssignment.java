@@ -26,6 +26,9 @@ public class UserPlaceAssignment {
     @ManyToOne
     private User user;
 
+    @ManyToMany
+    private List<Places> places;
+
     @Enumerated(value = EnumType.STRING)
     private AssignmentRole assignmentRole;
 

@@ -61,9 +61,18 @@ components:
           $ref: '#/components/schemas/RegistrationSource'
         address:
           $ref: '#/components/schemas/AddressModel'
+        role:
+          $ref: '#/components/schemas/Role'
+        ownerShipPlace:
+          $ref: '#/components/schemas/PlacesModel'
+        userPlaceAssignments:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserPlaceAssignment'
+
     Role:
       type: string
-      enum: [ "USER", "ADMIN", "OWNER" ]
+      enum: [ "user", "admin", "owner" ]
       x-enum-varnames: [ USER, ADMIN, OWNER ]
     RegistrationSource:
       type: string

@@ -1,6 +1,7 @@
 package com.next.gen.api;
 
 import com.next.gen.sec.model.RegistrationSource;
+import com.next.gen.sec.model.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,7 +30,10 @@ public class User {
     private String phoneNumber;
     private boolean passwordChange;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @Enumerated(value = EnumType.STRING)
+    private Role role;
+
+    @OneToOne(cascade = CascadeType.ALL)
     private Address address;
     private String name;
     private String surname;
@@ -39,4 +43,10 @@ public class User {
 
     @OneToMany
     private List<SensitiveData> sensitiveData;
+
+    @OneToOne
+    private Places ownerShipPlace;
+
+    @OneToMany
+    private List<UserPlaceAssignment> userPlaceAssignments;
 }

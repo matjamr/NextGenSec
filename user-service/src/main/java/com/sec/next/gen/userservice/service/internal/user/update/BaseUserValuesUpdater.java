@@ -30,5 +30,8 @@ public class BaseUserValuesUpdater implements BiConsumer<User, UserModel> {
                         .setPassword(encodedPassword)
                         .setPasswordChange(false)
                 );
+
+        Optional.ofNullable(userModel.getRole())
+                .ifPresent(user::setRole);
     }
 }

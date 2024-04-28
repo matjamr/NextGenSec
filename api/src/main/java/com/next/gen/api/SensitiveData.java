@@ -29,4 +29,8 @@ public class SensitiveData {
 
     @ManyToOne
     private Product product;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }
