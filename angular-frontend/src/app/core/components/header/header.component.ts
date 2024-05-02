@@ -11,7 +11,7 @@ export class HeaderComponent {
   constructor(private router: Router) { }
 
   isUnloggedRoute(): boolean {
-    return !this.router.isActive('/choose', false)
+    return !this.router.isActive('/finishLogin', false)
       && this.router.isActive('/', false)
       && !this.isUserRoute()
       && !this.isAdminRoute()

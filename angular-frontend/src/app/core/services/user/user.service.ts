@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable, Subscription, tap} from "rxjs";
 import {User} from "../../models/User";
 import {Router} from "@angular/router";
+import {Token} from "../../models/Token";
 
 @Injectable({
   providedIn: 'root'
@@ -46,7 +47,7 @@ export class UserService {
         console.log('Token retrieved:', token);
         this.verifyUser().subscribe(user => {
           console.log('User verified:', user);
-          this.router.navigate(["/choose"])
+          this.router.navigate(["/finishLogin"])
         }, error => console.log(error))
       }
     });
@@ -58,14 +59,6 @@ export class UserService {
       password: password,
       source: source
     })
-  }
-
-  providerRegister(): Observable<User> {
-    return this.http.post<User>(this.userApiUrl, null, buildHeader());
-  }
-
-  providerLogin(): Observable<User> {
-    return this.http.post<User>(this.securityApiUrl + "/token", null, buildHeader());
   }
 
   add(username: string): Observable<User> {
@@ -80,8 +73,21 @@ export class UserService {
     this.router.navigate(["/login"])
   }
 
-  oauth2Login() {
-    return this.http.post<User>(this.userApiUrl + "/oauth2", {}, buildHeader())
+  oauth2Register(source: string, token: string): Observable<User> {
+    return this.http.post<User>(this.userApiUrl, {}, {headers: {source: source, token: token}});
+  }
+
+  oauth2Login(source: string, token: string): Observable<Token> {
+    return this.http.post<any>(
+      this.securityApiUrl + "/token",
+      {},
+      {headers: {source: source, token: token}},
+    ).pipe(
+      tap(token => {
+        localStorage.setItem("token", token.token);
+        localStorage.setItem("source", source);
+      })
+    );
   }
 }
 

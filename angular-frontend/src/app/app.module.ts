@@ -21,6 +21,7 @@ import {PlaceEffects} from "./core/state/place/place.effects";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {SharedModule} from "./shared/shared.module";
 import {DeviceReducer} from "./core/state/device/device.reducer";
+import {GoogleLoginProvider, SocialAuthServiceConfig} from "@abacritt/angularx-social-login";
 
 @NgModule({
   declarations: [
@@ -40,7 +41,23 @@ import {DeviceReducer} from "./core/state/device/device.reducer";
     NgbModule,
     SharedModule
   ],
-  providers: [],
+  providers: [{
+    provide: 'SocialAuthServiceConfig',
+    useValue: {
+      autoLogin: false,
+      providers: [
+        {
+          id: GoogleLoginProvider.PROVIDER_ID,
+          provider: new GoogleLoginProvider('815525200901-5cvm0rdumhlk9sp152o9frf73t5cnkrq.apps.googleusercontent.com', {
+            scopes: 'openid profile email',
+          }),
+        },
+      ],
+      onError: (err) => {
+        console.error(err);
+      },
+    } as SocialAuthServiceConfig,
+  }],
     exports: [
         HeaderComponent
     ],

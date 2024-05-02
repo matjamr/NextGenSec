@@ -9,11 +9,11 @@ import {HeaderComponent} from './components/header/header.component';
 import {SliderComponent} from './components/slider/slider.component';
 import {CoreModule} from "../../core/core.module";
 import {ProductDetailsComponent} from './components/product-details/product-details.component';
-import {FinishLoginComponent} from './finish-login/finish-login.component';
 import {ChooseLevelComponent} from './pages/choose-level/choose-level.component';
 import {UnauthorizedComponent} from './components/unauthorized/unauthorized.component';
 import {FormsModule} from "@angular/forms";
 import {CarouselModule} from '@coreui/angular';
+import {GoogleLoginComponent} from './components/google-login/google-login.component';
 
 const routes: Routes = [
   {
@@ -34,10 +34,6 @@ const routes: Routes = [
   },
   {
     path: 'finishLogin',
-    component: FinishLoginComponent
-  },
-  {
-    path: 'choose',
     component: ChooseLevelComponent
   },
   {
@@ -55,9 +51,9 @@ const routes: Routes = [
     HeaderComponent,
     SliderComponent,
     ProductDetailsComponent,
-    FinishLoginComponent,
     ChooseLevelComponent,
-    UnauthorizedComponent
+    UnauthorizedComponent,
+    GoogleLoginComponent
   ],
     imports: [
         CommonModule,
