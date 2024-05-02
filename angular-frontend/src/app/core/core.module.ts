@@ -24,6 +24,7 @@ import {
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {MatTooltip} from "@angular/material/tooltip";
+import {NotificationPopupComponent} from './components/notification-popup/notification-popup.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import {MatTooltip} from "@angular/material/tooltip";
     ProfileLogoComponent,
     PasswdChangeComponent,
     UserEditComponent,
-    ConfigurableTableComponent
+    ConfigurableTableComponent,
+    NotificationPopupComponent
   ],
   imports: [
     CommonModule,
@@ -56,12 +58,13 @@ import {MatTooltip} from "@angular/material/tooltip";
     MatTooltip,
     MatIconButton
   ],
-  exports: [
-    LogoTitleComponent,
-    FooterComponent,
-    ProfileLogoComponent,
-    PasswdChangeComponent,
-    ConfigurableTableComponent,
-  ]
+    exports: [
+        LogoTitleComponent,
+        FooterComponent,
+        ProfileLogoComponent,
+        PasswdChangeComponent,
+        ConfigurableTableComponent,
+        NotificationPopupComponent,
+    ]
 })
 export class CoreModule { }
