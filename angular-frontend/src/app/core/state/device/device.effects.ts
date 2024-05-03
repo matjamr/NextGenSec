@@ -1,8 +1,8 @@
 import {Injectable} from "@angular/core";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {catchError, map, mergeMap, of} from "rxjs";
-import {PlaceService} from "../../services/place/place.service";
 import {
+  AddDevice,
   AddDeviceSuccess,
   DeleteDevices,
   DeleteDevicesSuccess,
@@ -11,7 +11,7 @@ import {
   GetDevicesSuccess
 } from "./device.actions";
 import {DeviceService} from "../../services/device/device.service";
-import {AddPlace, DeletePlaceSuccess} from "../place/place.actions";
+import {NotificationService} from "../../services/notification/notification.service";
 
 @Injectable()
 export class DeviceEffects {
@@ -20,16 +20,22 @@ export class DeviceEffects {
     mergeMap(() => this.deviceService.getDevices()
       .pipe(
         map(devices => GetDevicesSuccess({ payload: devices })),
-        catchError((error) => of(GetDevicesFailure({error}))))
+        catchError((error) => {
+          this.notificationService.error('HTTP Error', error.message);
+          return of(GetDevicesFailure({error}));
+        }))
     )
   ));
 
   addDevice$ = createEffect(() => this.actions$.pipe(
-    ofType(AddPlace),
+    ofType(AddDevice),
     mergeMap((action) => this.deviceService.addDevice(action.payload)
       .pipe(
         map(device => AddDeviceSuccess({payload: device})),
-        catchError((error) => of(GetDevicesFailure(error))))
+        catchError((error) => {
+          this.notificationService.error('HTTP Error', error.message);
+          return of(GetDevicesFailure(error));
+        }))
     )
   ));
 
@@ -40,12 +46,16 @@ export class DeviceEffects {
         map(project => {
           return DeleteDevicesSuccess({payload: project})
         }),
-        catchError((error) => of(GetDevicesFailure(error))))
+        catchError((error) => {
+          this.notificationService.error('HTTP Error', error.message);
+          return of(GetDevicesFailure(error))
+        }))
     )
   ));
 
   constructor(
     private actions$: Actions,
-    private deviceService: DeviceService
+    private deviceService: DeviceService,
+    private notificationService: NotificationService
   ) {}
 }

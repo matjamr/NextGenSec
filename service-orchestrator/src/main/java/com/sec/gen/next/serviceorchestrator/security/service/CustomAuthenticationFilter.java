@@ -54,6 +54,7 @@ public class CustomAuthenticationFilter extends OncePerRequestFilter {
             if (isPermitAllEndpoint(requestURI, method)) {
                 filterChain.doFilter(request, wrappedResponse);
                 log.info("Response: " + wrappedResponse.getCaptureAsString());
+                response.getOutputStream().write(wrappedResponse.getCaptureAsBytes());
                 return;
             }
 

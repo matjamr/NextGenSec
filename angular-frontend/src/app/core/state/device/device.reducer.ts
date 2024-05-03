@@ -1,18 +1,10 @@
-import {Place} from "../../models/Place";
 import {createReducer, on} from "@ngrx/store";
-import {
-  AddPlace,
-  DeletePlace, DeletePlaceSuccess,
-  GetPlaces,
-  GetPlacesFailure,
-  GetPlacesSuccess,
-  PlaceSuccess
-} from "../place/place.actions";
 import {Device} from "../../models/Device";
 import {
   AddDevice,
   AddDeviceSuccess,
-  DeleteDevices, DeleteDevicesSuccess,
+  DeleteDevices,
+  DeleteDevicesSuccess,
   GetDevices,
   GetDevicesFailure,
   GetDevicesSuccess
@@ -28,10 +20,10 @@ export const DeviceReducer = createReducer(
     return payload;
   }),
   on(GetDevicesFailure, (state, { error }) => {
-    console.log(error);
     return state;
   }),
   on(AddDevice, (state, {payload}) => {
+    console.log(payload)
     return state;
   }),
   on(AddDeviceSuccess, (state, {payload}) => {

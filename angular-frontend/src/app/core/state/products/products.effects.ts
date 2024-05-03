@@ -11,6 +11,7 @@ import {
   GetProductsFailure,
   GetProductsSuccess
 } from "./products.actions";
+import {NotificationService} from "../../services/notification/notification.service";
 
 @Injectable()
 export class ProductsEffects {
@@ -19,7 +20,10 @@ export class ProductsEffects {
     mergeMap(() => this.productsService.getProducts()
       .pipe(
         map(products => GetProductsSuccess({products})),
-        catchError((error) => of(GetProductsFailure({error}))))
+        catchError((error) => {
+          this.notificationService.error('HTTP Error', error.message);
+          return of(GetProductsFailure({error}))
+        }))
     )
   ));
 
@@ -28,7 +32,10 @@ export class ProductsEffects {
     mergeMap(({ payload }) => this.productsService.addProduct(payload)
       .pipe(
         map(product => AddProductSuccess({payload: product})),
-        catchError((error) => of(GetProductsFailure({error}))))
+        catchError((error) => {
+          this.notificationService.error('HTTP Error', error.message);
+          return of(GetProductsFailure({error}))
+        }))
     )
   ));
 
@@ -37,12 +44,16 @@ export class ProductsEffects {
     mergeMap(({ payload }) => this.productsService.deleteProducts(payload)
       .pipe(
         map(products => DeleteProductsSuccess({payload: products})),
-        catchError((error) => of(GetProductsFailure({error}))))
+        catchError((error) => {
+          this.notificationService.error('HTTP Error', error.message);
+          return of(GetProductsFailure({error}))
+        }))
     )
   ));
 
   constructor(
     private actions$: Actions,
-    private productsService: ProductsService
+    private productsService: ProductsService,
+    private notificationService: NotificationService
   ) {}
 }

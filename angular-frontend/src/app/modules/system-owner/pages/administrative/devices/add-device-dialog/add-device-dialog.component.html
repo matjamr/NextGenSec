@@ -2,22 +2,14 @@
 <mat-dialog-content class="mat-typography">
 
   <mat-stepper #stepper [linear]="true">
-    <mat-step [stepControl]="userForm" errorMessage="Data of product is required.">
+    <mat-step [stepControl]="deviceForm" errorMessage="Data of product is required.">
 
-      <form [formGroup]="userForm" class="flex-col">
+      <form [formGroup]="deviceForm" class="flex-col">
         <ng-template matStepLabel>Device Overview</ng-template>
 
         <mat-form-field>
           <mat-label>Name</mat-label>
           <input matInput placeholder="Name" formControlName="name" required>
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Name</mat-label>
-          <textarea matInput placeholder="Description" formControlName="description" required></textarea>
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Monthly price</mat-label>
-          <input matInput placeholder="Monthly Price" formControlName="monthlyPrice" required>
         </mat-form-field>
         <div>
           <button mat-button matStepperNext>Next</button>
@@ -43,19 +35,37 @@
       </form>
     </mat-step>
 
-    <mat-step [stepControl]="imagesForm">
-      <form [formGroup]="imagesForm" class="flex-col">
-        <ng-template matStepLabel>Upload Images</ng-template>
+    <mat-step [stepControl]="productsForm">
+      <form [formGroup]="productsForm" class="flex-col" >
+        <ng-template matStepLabel>Pick a product</ng-template>
 
-        <div class="horizontal-scroll">
-          <app-file-upload />
-        </div>
+        <app-search
+          [placeholder]="'Search for a product'"
+          [renderView]="renderProductView"
+          [data]="products$ | async"
+          [searchPredicate]="searchProductPredicate"
+          [dataFormControl]="productsFormControl"
+        />
 
         <div>
           <button mat-button matStepperNext (click)="submitForm()">Next</button>
         </div>
       </form>
     </mat-step>
+
+<!--    <mat-step [stepControl]="imagesForm">-->
+<!--      <form [formGroup]="imagesForm" class="flex-col">-->
+<!--        <ng-template matStepLabel>Upload Images</ng-template>-->
+
+<!--        <div class="horizontal-scroll">-->
+<!--          <app-file-upload />-->
+<!--        </div>-->
+
+<!--        <div>-->
+<!--          <button mat-button matStepperNext (click)="submitForm()">Next</button>-->
+<!--        </div>-->
+<!--      </form>-->
+<!--    </mat-step>-->
 
     <mat-step>
       <ng-template matStepLabel>Done</ng-template>

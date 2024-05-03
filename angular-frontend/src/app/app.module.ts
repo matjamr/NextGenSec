@@ -23,6 +23,7 @@ import {SharedModule} from "./shared/shared.module";
 import {DeviceReducer} from "./core/state/device/device.reducer";
 import {GoogleLoginProvider, SocialAuthServiceConfig} from "@abacritt/angularx-social-login";
 import {HttpErrorInterceptor} from "./core/services/http-error-interceptor";
+import {DeviceEffects} from "./core/state/device/device.effects";
 
 @NgModule({
   declarations: [
@@ -43,7 +44,7 @@ import {HttpErrorInterceptor} from "./core/services/http-error-interceptor";
       places: PlaceReducer,
       devices: DeviceReducer
     }),
-    EffectsModule.forRoot([ProductsEffects, UserEffects, PlaceEffects]),
+    EffectsModule.forRoot([ProductsEffects, UserEffects, PlaceEffects, DeviceEffects]),
     NgbModule,
     SharedModule
   ],

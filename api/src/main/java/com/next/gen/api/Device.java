@@ -25,10 +25,10 @@ public class Device {
 
     private String deviceName;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Places place;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Product product;
 
     private OffsetDateTime installmentTime;

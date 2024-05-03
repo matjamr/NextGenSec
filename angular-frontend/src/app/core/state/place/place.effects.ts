@@ -12,6 +12,7 @@ import {
   PlaceSuccess
 } from "./place.actions";
 import {PlaceService} from "../../services/place/place.service";
+import {NotificationService} from "../../services/notification/notification.service";
 
 @Injectable()
 export class PlaceEffects {
@@ -20,7 +21,10 @@ export class PlaceEffects {
     mergeMap(() => this.placesService.getPlacesByUser()
       .pipe(
         map(places => GetPlacesSuccess({ places: places })),
-        catchError((error) => of(GetPlacesFailure({error}))))
+        catchError((error) => {
+          this.notificationService.error('HTTP Error', error.message);
+          return of(GetPlacesFailure({error}))
+        }))
     )
   ));
 
@@ -29,7 +33,10 @@ export class PlaceEffects {
     mergeMap((action) => this.placesService.addPlace(action.payload)
       .pipe(
         map(place => PlaceSuccess(place)),
-        catchError((error) => of(PlaceError(error))))
+        catchError((error) => {
+          this.notificationService.error('HTTP Error', error.message);
+          return of(PlaceError(error))
+        }))
     )
   ));
 
@@ -41,12 +48,16 @@ export class PlaceEffects {
           // @ts-ignore
           return DeletePlaceSuccess({payload: project})
         }),
-        catchError((error) => of(PlaceError(error))))
+        catchError((error) => {
+          this.notificationService.error('HTTP Error', error.message);
+          return of(PlaceError(error))
+        }))
     )
   ));
 
   constructor(
     private actions$: Actions,
-    private placesService: PlaceService
+    private placesService: PlaceService,
+    private notificationService: NotificationService
   ) {}
 }

@@ -1,7 +1,6 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {FormControl} from "@angular/forms";
 import {debounceTime, delay, filter, map, ReplaySubject, Subject, takeUntil, tap} from "rxjs";
-import {Searchable} from "../../models/interfaces";
 
 export interface Bank {
   id: string;
@@ -13,7 +12,7 @@ export interface Bank {
   templateUrl: './search.component.html',
   styleUrl: './search.component.css'
 })
-export class SearchComponent<T extends Searchable> implements OnInit, OnDestroy{
+export class SearchComponent<T> implements OnInit, OnDestroy{
 
   @Input()
   placeholder: string = 'Search...'

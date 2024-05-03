@@ -5,13 +5,13 @@ import {DeviceService} from "../../../../../core/services/device/device.service"
 import {AppState} from "../../../../../app.state";
 import {Store} from "@ngrx/store";
 import {
-  ConfigurableTableTemplate, RowActionButton
+  ConfigurableTableTemplate,
+  RowActionButton
 } from "../../../../../core/components/configurable-table/configurable-table.component";
-import {PlacesDialogComponent} from "../places/places-dialog/places-dialog.component";
 import {Place} from "../../../../../core/models/Place";
-import {DeletePlace} from "../../../../../core/state/place/place.actions";
 import {MatDialog} from "@angular/material/dialog";
 import {AddDeviceDialogComponent} from "./add-device-dialog/add-device-dialog.component";
+import {DeleteDevices, GetDevices} from "../../../../../core/state/device/device.actions";
 
 @Component({
   selector: 'app-devices',
@@ -42,7 +42,7 @@ export class DevicesComponent implements OnInit {
     }];
 
   ngOnInit(): void {
-    this.devices$ = this.devicesService.getDevices();
+    this.store.dispatch(GetDevices());
   }
 
   addButtonAction = () => {
@@ -56,8 +56,8 @@ export class DevicesComponent implements OnInit {
     });
   }
 
-  onRemove = (places: Place[]) => {
-    this.store.dispatch(DeletePlace({payload: places.map(place => place.id!)}));
+  onRemove = (places: Device[]) => {
+    this.store.dispatch(DeleteDevices({payload: places}));
   }
 
 }

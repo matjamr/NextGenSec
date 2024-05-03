@@ -1,7 +1,6 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {Method} from "../../models/Method";
 import {getTokenHeader} from "../utils";
 import {Device} from "../../models/Device";
 
@@ -21,6 +20,7 @@ export class DeviceService {
   }
 
   addDevice(device: Device): Observable<Device> {
+    console.log(device)
     return this.http.post<Device>(this.apiUrl, device, getTokenHeader());
 
   }
