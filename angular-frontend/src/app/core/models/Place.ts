@@ -2,8 +2,9 @@ import {Address} from "./Address";
 import {UserPlaceAssigment} from "./UserPlaceAssigment";
 import {Product} from "./Product";
 import {defaultUser, User} from "./User";
+import {Searchable} from "./interfaces";
 
-export interface Place {
+export interface Place extends Searchable {
   id?: string,
   placeName: string,
   emailPlace: string,
@@ -14,6 +15,7 @@ export interface Place {
 }
 
 export const defaultPlace: Place = {
+  searchBy: "placeName",
   id: "0",
   placeName: "",
   emailPlace: "",

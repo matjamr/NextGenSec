@@ -25,6 +25,24 @@
       </form>
     </mat-step>
 
+    <mat-step [stepControl]="placesForm">
+      <form [formGroup]="placesForm" class="flex-col" >
+        <ng-template matStepLabel>Pick a place</ng-template>
+
+        <app-search
+          [placeholder]="'Search for a place'"
+          [renderView]="renderPlaceView"
+          [data]="places$ | async"
+          [searchPredicate]="searchPlacePredicate"
+          [dataFormControl]="placeFormControl"
+        />
+
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+
     <mat-step [stepControl]="imagesForm">
       <form [formGroup]="imagesForm" class="flex-col">
         <ng-template matStepLabel>Upload Images</ng-template>

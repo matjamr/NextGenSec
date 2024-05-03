@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatDialog} from "@angular/material/dialog";
 import {DialogConfirmComponent} from "../dialog-confirm/dialog-confirm.component";
-import {ImageStoreService} from "../../services/image-store/image-store.service";
+import {ImageStoreService} from "../../../services/image-store/image-store.service";
 
 @Component({
   selector: 'app-file-upload',

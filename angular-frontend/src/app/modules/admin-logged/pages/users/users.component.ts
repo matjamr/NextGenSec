@@ -32,10 +32,6 @@ export class UsersComponent implements OnInit {
       this.localUsers.push(...users)
     })
 
-    this.userService.getAll(false).subscribe(users => {
-      this.allUsers.push(...users)
-    })
-
     this.placeService.getPlacesByUser().subscribe(places => {
       this.place = places[0];
     });

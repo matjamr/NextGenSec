@@ -1,0 +1,18 @@
+<p>
+  <mat-form-field>
+    <mat-select [formControl]="dataFormControl" [placeholder]="placeholder">
+      <mat-option>
+        <ngx-mat-select-search [placeholderLabel]="'Input...'"
+                               [formControl]="selectedDataFormControl"
+                               [noEntriesFoundLabel]="'No data found'"
+                               [searching]="searching" />
+      </mat-option>
+      <mat-option *ngFor="let bank of filteredData | async" [value]="bank">
+        {{renderView(bank)}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</p>
+<p>
+  {{dataFormControl.value !== null ? renderView(dataFormControl.value!) : 'No data selected' }}
+</p>

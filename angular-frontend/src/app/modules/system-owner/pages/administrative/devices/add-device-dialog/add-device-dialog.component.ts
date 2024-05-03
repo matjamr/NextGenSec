@@ -1,11 +1,13 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormBuilder, Validators} from "@angular/forms";
-import {Store} from "@ngrx/store";
+import {FormBuilder, FormControl, Validators} from "@angular/forms";
+import {select, Store} from "@ngrx/store";
 import {AppState} from "../../../../../../app.state";
-import {Subscription} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {ImageService} from "../../../../../../core/services/image/image.service";
 import {ProductsService} from "../../../../../../core/services/products/products.service";
 import {ImageStoreService} from "../../../../../../core/services/image-store/image-store.service";
+import {Place} from "../../../../../../core/models/Place";
+import {GetPlaces} from "../../../../../../core/state/place/place.actions";
 
 @Component({
   selector: 'app-add-device-dialog',
@@ -28,11 +30,26 @@ export class AddDeviceDialogComponent implements OnInit, OnDestroy {
     files: [null]
   });
 
+
+  places$: Observable<Place[]>;
+  placeFormControl: FormControl<Place | null> = new FormControl<Place | null>(null);
+
+  placesForm = this._formBuilder.group(this.placeFormControl);
+
   constructor(private _formBuilder: FormBuilder,
               private store: Store<AppState>,
               private imageService: ImageService,
               private pruductService: ProductsService,
               private imageStoreService: ImageStoreService) {
+    this.places$ = store.pipe(select('places'));
+  }
+
+  searchPlacePredicate = (data: Place, search: string) => {
+    return data.placeName.toLowerCase().includes(search.toLowerCase())
+  }
+
+  renderPlaceView = (data: Place) => {
+    return data.placeName
   }
 
   ngOnDestroy(): void {
@@ -40,27 +57,15 @@ export class AddDeviceDialogComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.store.dispatch(GetPlaces());
   }
 
   submitForm(): void {
     this.subscriptions.push(this.imageStoreService.currentImages.subscribe(images => {
       this.imagesToBeStored = images;
       console.log(this.imagesToBeStored);
+      console.log(this.placeFormControl.value);
     }));
-    // this.subscriptions.push(this.imageService.uploadImages(this.imagesToBeStored).subscribe((savedImages: Image[]) => {
-    //   console.log(savedImages);
-    //   let productToBeAdded: Product = {
-    //     name: this.userForm.value.name!,
-    //     description: this.userForm.value.description!,
-    //     monthlyPrice: this.userForm.value.monthlyPrice!,
-    //     images: savedImages
-    //   }
-    //
-    //   this.subscriptions.push(this.pruductService.addProduct(productToBeAdded).subscribe((product: Product) => {
-    //     this.productAdded = true;
-    //     this.store.dispatch(GetProducts());
-    //   }));
-    // }));
 
   }
 

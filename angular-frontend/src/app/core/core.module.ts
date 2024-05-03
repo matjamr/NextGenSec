@@ -5,7 +5,7 @@ import {ProductsComponent} from './components/products/products.component';
 import {FooterComponent} from "./components/footer/footer.component";
 import {ProfileLogoComponent} from './components/profile-logo/profile-logo.component';
 import {PasswdChangeComponent} from './components/passwd-change/passwd-change.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {UserEditComponent} from './components/user-edit/user-edit.component';
 import {ConfigurableTableComponent} from './components/configurable-table/configurable-table.component';
 import {MatCheckbox} from "@angular/material/checkbox";
@@ -25,13 +25,26 @@ import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {MatTooltip} from "@angular/material/tooltip";
 import {NotificationPopupComponent} from './components/notification-popup/notification-popup.component';
-import {DialogConfirmComponent} from './components/dialog-confirm/dialog-confirm.component';
+import {DialogConfirmComponent} from './components/dialogs/dialog-confirm/dialog-confirm.component';
 import {MatDialogActions, MatDialogContent, MatDialogTitle} from "@angular/material/dialog";
-import {FileUploadComponent} from './components/file-upload/file-upload.component';
-import {MatList, MatListItem, MatListSubheaderCssMatStyler} from "@angular/material/list";
+import {FileUploadComponent} from './components/dialogs/file-upload/file-upload.component';
+import {
+  MatList,
+  MatListItem,
+  MatListOption,
+  MatListSubheaderCssMatStyler,
+  MatNavList,
+  MatSelectionList
+} from "@angular/material/list";
 import {SharedModule} from "../shared/shared.module";
-import {MatLine} from "@angular/material/core";
+import {MatLine, MatOption} from "@angular/material/core";
 import {MatDivider} from "@angular/material/divider";
+import {FindPlaceComponent} from './components/dialogs/find-place/find-place.component';
+import {SearchComponent} from './components/search/search.component';
+import {MatFormField} from "@angular/material/form-field";
+import {MatInput} from "@angular/material/input";
+import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
+import {MatSelect} from "@angular/material/select";
 
 
 @NgModule({
@@ -45,7 +58,9 @@ import {MatDivider} from "@angular/material/divider";
     ConfigurableTableComponent,
     NotificationPopupComponent,
     DialogConfirmComponent,
-    FileUploadComponent
+    FileUploadComponent,
+    FindPlaceComponent,
+    SearchComponent
   ],
   imports: [
     CommonModule,
@@ -74,7 +89,16 @@ import {MatDivider} from "@angular/material/divider";
     MatList,
     MatListItem,
     MatLine,
-    MatDivider
+    MatDivider,
+    MatFormField,
+    MatInput,
+    MatNavList,
+    MatSelectionList,
+    MatListOption,
+    MatOption,
+    NgxMatSelectSearchModule,
+    MatSelect,
+    ReactiveFormsModule
   ],
   exports: [
     LogoTitleComponent,
@@ -84,6 +108,7 @@ import {MatDivider} from "@angular/material/divider";
     ConfigurableTableComponent,
     NotificationPopupComponent,
     FileUploadComponent,
+    SearchComponent,
   ]
 })
 export class CoreModule { }
