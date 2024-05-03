@@ -22,6 +22,7 @@ public class ErrorHandlingController {
         return ex.getError();
     }
 
+    @ResponseBody
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     Error exceptionHandler(final Exception ex) {
