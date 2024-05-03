@@ -21,7 +21,7 @@ export class ProductsEffects {
       .pipe(
         map(products => GetProductsSuccess({products})),
         catchError((error) => {
-          this.notificationService.error('HTTP Error', error.message);
+          // this.notificationService.error('HTTP Error', error.message);
           return of(GetProductsFailure({error}))
         }))
     )
@@ -33,7 +33,7 @@ export class ProductsEffects {
       .pipe(
         map(product => AddProductSuccess({payload: product})),
         catchError((error) => {
-          this.notificationService.error('HTTP Error', error.message);
+          // this.notificationService.error('HTTP Error', error.message);
           return of(GetProductsFailure({error}))
         }))
     )
@@ -45,7 +45,7 @@ export class ProductsEffects {
       .pipe(
         map(products => DeleteProductsSuccess({payload: products})),
         catchError((error) => {
-          this.notificationService.error('HTTP Error', error.message);
+          // this.notificationService.error('HTTP Error', error.message);
           return of(GetProductsFailure({error}))
         }))
     )

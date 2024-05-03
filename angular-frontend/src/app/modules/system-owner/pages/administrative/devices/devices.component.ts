@@ -56,8 +56,8 @@ export class DevicesComponent implements OnInit {
     });
   }
 
-  onRemove = (places: Device[]) => {
-    this.store.dispatch(DeleteDevices({payload: places}));
+  onRemove = (device: Device[]) => {
+    this.store.dispatch(DeleteDevices({payload: device}));
   }
 
 }

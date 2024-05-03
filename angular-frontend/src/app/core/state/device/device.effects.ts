@@ -21,7 +21,7 @@ export class DeviceEffects {
       .pipe(
         map(devices => GetDevicesSuccess({ payload: devices })),
         catchError((error) => {
-          this.notificationService.error('HTTP Error', error.message);
+          // this.notificationService.error('HTTP Error', error.message);
           return of(GetDevicesFailure({error}));
         }))
     )
@@ -33,7 +33,7 @@ export class DeviceEffects {
       .pipe(
         map(device => AddDeviceSuccess({payload: device})),
         catchError((error) => {
-          this.notificationService.error('HTTP Error', error.message);
+          // this.notificationService.error('HTTP Error', error.message);
           return of(GetDevicesFailure(error));
         }))
     )
@@ -47,7 +47,7 @@ export class DeviceEffects {
           return DeleteDevicesSuccess({payload: project})
         }),
         catchError((error) => {
-          this.notificationService.error('HTTP Error', error.message);
+          // this.notificationService.error('HTTP Error', error.message);
           return of(GetDevicesFailure(error))
         }))
     )

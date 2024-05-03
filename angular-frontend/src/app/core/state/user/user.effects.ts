@@ -13,7 +13,7 @@ export class UserEffects {
       .pipe(
         map(user => VerifyUserSuccess( user)),
         catchError((error) => {
-          this.notificationService.error('HTTP Error', error.message);
+          // this.notificationService.error('HTTP Error', error.message);
           return of(VerifyUserFailure({error}))
         }))
     )

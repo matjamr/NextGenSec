@@ -22,7 +22,7 @@ export class PlaceEffects {
       .pipe(
         map(places => GetPlacesSuccess({ places: places })),
         catchError((error) => {
-          this.notificationService.error('HTTP Error', error.message);
+          // this.notificationService.error('HTTP Error', error.message);
           return of(GetPlacesFailure({error}))
         }))
     )
@@ -34,7 +34,7 @@ export class PlaceEffects {
       .pipe(
         map(place => PlaceSuccess(place)),
         catchError((error) => {
-          this.notificationService.error('HTTP Error', error.message);
+          // this.notificationService.error('HTTP Error', error.message);
           return of(PlaceError(error))
         }))
     )
@@ -49,7 +49,7 @@ export class PlaceEffects {
           return DeletePlaceSuccess({payload: project})
         }),
         catchError((error) => {
-          this.notificationService.error('HTTP Error', error.message);
+          // this.notificationService.error('HTTP Error', error.message);
           return of(PlaceError(error))
         }))
     )
