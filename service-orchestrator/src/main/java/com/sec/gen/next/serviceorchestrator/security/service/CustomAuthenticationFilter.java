@@ -44,7 +44,7 @@ public class CustomAuthenticationFilter extends OncePerRequestFilter {
         WrappedHttpServletResponse wrappedResponse = new WrappedHttpServletResponse(response);
 
         try {
-            processAndValidateRequest(request, response, filterChain, wrappedResponse);
+            if(processAndValidateRequest(request, response, filterChain, wrappedResponse)) return;
         } catch (ServiceException e) {
             returnError(wrappedResponse, e.getError());
             return;

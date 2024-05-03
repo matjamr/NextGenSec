@@ -16,18 +16,15 @@ export const ProductsReducer = createReducer(
   initialState,
   on(GetProducts, (state) => {return state}),
   on(GetProductsSuccess, (state, { products }) => {
-    console.log(products)
     return products;
   }),
   on(GetProductsFailure, (state, { error }) => {
-    console.log(error);
     return state;
   }),
   on(AddProduct, (state, { payload }) => {
     return state;
   }),
   on(AddProductSuccess, (state, { payload }) => {
-    console.log(payload)
     return [...state, payload];
   }),
   on(DeleteProducts, (state, { payload }) => {

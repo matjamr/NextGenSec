@@ -24,7 +24,7 @@ export class AddProductDialogComponent implements OnInit, OnDestroy {
   userForm = this._formBuilder.group({
     name: ['', Validators.required],
     description: ['', Validators.required],
-    monthlyPrice: ['', Validators.required],
+    monthlyPrice: [0, Validators.required],
 
   });
 
@@ -47,7 +47,6 @@ export class AddProductDialogComponent implements OnInit, OnDestroy {
 
   submitForm(): void {
     this.subscriptions.push(this.imageService.uploadImages(this.imagesToBeStored).subscribe((savedImages: Image[]) => {
-      console.log(savedImages);
       let productToBeAdded: Product = {
         name: this.userForm.value.name!,
         description: this.userForm.value.description!,
