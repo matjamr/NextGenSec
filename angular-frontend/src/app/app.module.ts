@@ -13,7 +13,7 @@ import {AppState} from "./app.state";
 import {StoreModule} from "@ngrx/store";
 import {ProductsReducer} from "./core/state/products/products.reducer";
 import {ProductsEffects} from "./core/state/products/products.effects";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {UserReducer} from "./core/state/user/user.reducer";
 import {UserEffects} from "./core/state/user/user.effects";
 import {PlaceReducer} from "./core/state/place/place.reducer";
@@ -22,6 +22,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {SharedModule} from "./shared/shared.module";
 import {DeviceReducer} from "./core/state/device/device.reducer";
 import {GoogleLoginProvider, SocialAuthServiceConfig} from "@abacritt/angularx-social-login";
+import {HttpErrorInterceptor} from "./core/services/http-error-interceptor";
 
 @NgModule({
   declarations: [
@@ -36,7 +37,12 @@ import {GoogleLoginProvider, SocialAuthServiceConfig} from "@abacritt/angularx-s
     BrowserAnimationsModule,
     CoreModule,
     UnloggedModule,
-    StoreModule.forRoot<AppState>({ products: ProductsReducer, user: UserReducer, places: PlaceReducer, devices: DeviceReducer }),
+    StoreModule.forRoot<AppState>({
+      products: ProductsReducer,
+      user: UserReducer,
+      places: PlaceReducer,
+      devices: DeviceReducer
+    }),
     EffectsModule.forRoot([ProductsEffects, UserEffects, PlaceEffects]),
     NgbModule,
     SharedModule
@@ -57,10 +63,13 @@ import {GoogleLoginProvider, SocialAuthServiceConfig} from "@abacritt/angularx-s
         console.error(err);
       },
     } as SocialAuthServiceConfig,
-  }],
-    exports: [
-        HeaderComponent
-    ],
+  },
+    {provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true},
+  ],
+  exports: [
+    HeaderComponent
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

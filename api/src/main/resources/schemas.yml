@@ -283,3 +283,10 @@ components:
         product:
           $ref: '#/components/schemas/ProductModel'
 
+    Token:
+      type: object
+      properties:
+        token:
+          type: string
+        refreshToken:
+          type: string
