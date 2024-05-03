@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
-import {Subscription} from "rxjs";
-import {PlaceService} from "../../../../core/services/place/place.service";
+import {Observable, Subscription} from "rxjs";
 import {UserService} from "../../../../core/services/user/user.service";
+import {User} from "../../../../core/models/User";
 
 @Component({
   selector: 'app-choose-level',
@@ -11,31 +11,19 @@ import {UserService} from "../../../../core/services/user/user.service";
 })
 export class ChooseLevelComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
+  private user$: Observable<User>
 
   constructor(
+    private userService: UserService,
     private router: Router,
-    private placeService: PlaceService,
-    private userService: UserService
   ) {
+    this.user$ = this.userService.verifyUser();
   }
 
   ngOnInit(): void {
-    this.subscription.add(this.placeService.getPlacesByUser().subscribe(
-      places => {
-        if (places && places.length > 0) {
-          const targetRole = places[0]?.authorizedUsers![0]?.assignmentRole === "ADMIN" ? "admin" : "user";
-          localStorage.setItem("role", targetRole);
-          this.router.navigate([`/${targetRole}`]);
-        } else {
-          this.router.navigate([`/user`]).then(() => {
-            console.log(`Navigated to /user`);
-          })
-        }
-      },
-      error => {
-        console.error('Error fetching places:', error);
-      }
-    ));
+    this.subscription = this.user$.subscribe(user => {
+      this.router.navigate([user.role]);
+    });
   }
 
   ngOnDestroy(): void {
