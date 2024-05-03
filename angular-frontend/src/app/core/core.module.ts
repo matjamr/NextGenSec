@@ -25,6 +25,13 @@ import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {MatTooltip} from "@angular/material/tooltip";
 import {NotificationPopupComponent} from './components/notification-popup/notification-popup.component';
+import {DialogConfirmComponent} from './components/dialog-confirm/dialog-confirm.component';
+import {MatDialogActions, MatDialogContent, MatDialogTitle} from "@angular/material/dialog";
+import {FileUploadComponent} from './components/file-upload/file-upload.component';
+import {MatList, MatListItem, MatListSubheaderCssMatStyler} from "@angular/material/list";
+import {SharedModule} from "../shared/shared.module";
+import {MatLine} from "@angular/material/core";
+import {MatDivider} from "@angular/material/divider";
 
 
 @NgModule({
@@ -36,7 +43,9 @@ import {NotificationPopupComponent} from './components/notification-popup/notifi
     PasswdChangeComponent,
     UserEditComponent,
     ConfigurableTableComponent,
-    NotificationPopupComponent
+    NotificationPopupComponent,
+    DialogConfirmComponent,
+    FileUploadComponent
   ],
   imports: [
     CommonModule,
@@ -56,15 +65,25 @@ import {NotificationPopupComponent} from './components/notification-popup/notifi
     MatRowDef,
     MatIcon,
     MatTooltip,
-    MatIconButton
+    MatIconButton,
+    MatDialogTitle,
+    MatDialogContent,
+    MatDialogActions,
+    MatListSubheaderCssMatStyler,
+    SharedModule,
+    MatList,
+    MatListItem,
+    MatLine,
+    MatDivider
   ],
-    exports: [
-        LogoTitleComponent,
-        FooterComponent,
-        ProfileLogoComponent,
-        PasswdChangeComponent,
-        ConfigurableTableComponent,
-        NotificationPopupComponent,
-    ]
+  exports: [
+    LogoTitleComponent,
+    FooterComponent,
+    ProfileLogoComponent,
+    PasswdChangeComponent,
+    ConfigurableTableComponent,
+    NotificationPopupComponent,
+    FileUploadComponent,
+  ]
 })
 export class CoreModule { }

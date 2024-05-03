@@ -1,0 +1,27 @@
+<div style="padding: 15px;">
+  <div>
+    <div class="dropzone" appFileDragNDrop (filesChangeEmiter)="onFileChange($event)">
+      <div class="text-wrapper">
+        <div class="centered">
+          <input type="file" name="file" id="file" (change)="onFileDetailsChange($event)" multiple>
+          <label for="file"><span class="textLink">Select your file</span> or Drop it here!</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <h3 mat-subheader>Files</h3>
+  <div class="row fileItem"
+       *ngFor="let f of getFiles(); let ind = index"
+       (mouseover)="hoverIndex = ind"
+       (mouseout)="hoverIndex = null"
+  >
+    <div class="col-sm-12 fileItemIconDiv" (click)="openConfirmDialog(ind)">
+      <mat-icon>{{ hoverIndex === ind ? 'close' : 'file_upload' }}</mat-icon>
+    </div>
+    <div class="col-sm-12 fileItemText">
+      <span>{{ f.name }}</span>
+    </div>
+  </div>
+
+</div>
