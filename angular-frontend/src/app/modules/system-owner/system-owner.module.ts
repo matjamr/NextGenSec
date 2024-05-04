@@ -62,6 +62,7 @@ import {MatOption} from "@angular/material/autocomplete";
 import {MatSelect} from "@angular/material/select";
 import {AddDeviceDialogComponent} from "./pages/administrative/devices/add-device-dialog/add-device-dialog.component";
 import {UserLoggedModule} from "../user-logged/user-logged.module";
+import {PlaceDetailsComponent} from './pages/administrative/places/place-details/place-details.component';
 
 
 const routes: Routes = [
@@ -76,6 +77,10 @@ const routes: Routes = [
   {
     path: 'administrative/places',
     component: PlacesComponent
+  },
+  {
+    path: 'administrative/places/:placeName',
+    component: PlaceDetailsComponent
   },
   {
     path: 'administrative/products',
@@ -136,7 +141,8 @@ const routes: Routes = [
     DevicesComponent,
     AddProductDialogComponent,
     ProductImagesDialogComponent,
-    AddDeviceDialogComponent
+    AddDeviceDialogComponent,
+    PlaceDetailsComponent
   ],
     imports: [
         CommonModule,

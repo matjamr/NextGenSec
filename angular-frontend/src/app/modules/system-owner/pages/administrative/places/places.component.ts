@@ -10,6 +10,7 @@ import {DeletePlace, GetPlaces} from "../../../../../core/state/place/place.acti
 import {select, Store} from "@ngrx/store";
 import {AppState} from "../../../../../app.state";
 import {Observable} from "rxjs";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-places',
@@ -19,7 +20,7 @@ import {Observable} from "rxjs";
 export class PlacesComponent implements OnInit {
   places$: Observable<Place[]>;
 
-  constructor(public dialog: MatDialog, private store: Store<AppState>) {
+  constructor(public dialog: MatDialog, private store: Store<AppState>, private router: Router) {
     this.places$ = store.pipe(select('places'));
   }
 
@@ -35,7 +36,7 @@ export class PlacesComponent implements OnInit {
   rowActionButtons: RowActionButton<any>[] = [
     {
       iconName: 'info',
-      action: (elem: any) => console.log("odnosnik do strony gdzie bedzie wiecej info"),
+      action: (elem: any) => this.router.navigate([`/system/administrative/places/${elem.placeName}`]),
       tooltip: 'about place more info'
     }
   ]
