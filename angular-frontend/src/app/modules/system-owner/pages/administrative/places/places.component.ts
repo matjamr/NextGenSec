@@ -37,7 +37,7 @@ export class PlacesComponent implements OnInit {
     {
       iconName: 'info',
       action: (elem: any) => this.router.navigate([`/system/administrative/places/${elem.placeName}`]),
-      tooltip: 'about place more info'
+      tooltip: 'place details'
     }
   ]
 
