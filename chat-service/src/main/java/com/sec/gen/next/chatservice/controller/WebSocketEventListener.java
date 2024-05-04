@@ -21,7 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @RequiredArgsConstructor
 public class WebSocketEventListener {
 
-    public static Map<Pair<Object, String>, User> connectedUsers = new ConcurrentHashMap<>();
+    public static Map<Pair<String, String>, User> connectedUsers = new ConcurrentHashMap<>();
     private final SimpMessagingTemplate simpMessagingTemplate;
 
     @EventListener
@@ -34,32 +34,19 @@ public class WebSocketEventListener {
         connectedUsers.put(Pair.of(sessionId, userEmail), new User().setEmail(userEmail).setId(event.getUser().getName()));
 
         log.info("Connected user: " + userEmail + " with session ID: " + sessionId);
-
     }
 
     @EventListener
     public void handleWebSocketDisconnectListener(SessionDisconnectEvent event) {
         SimpMessageHeaderAccessor headerAccessor = SimpMessageHeaderAccessor.wrap(event.getMessage());
 
-
         String sessionId = headerAccessor.getSessionId();
+
         connectedUsers.keySet().stream()
                         .filter(pair -> pair.getFirst().equals(sessionId))
                         .findFirst()
                         .ifPresent(connectedUsers::remove);
 
-
         log.info("Disconnected user: " + " with session ID: " + sessionId);
-    }
-
-    public void sendMessageToUsers(KafkaChatServiceModel kafkaChatServiceModel) {
-        connectedUsers.keySet().stream()
-                .filter(pair -> kafkaChatServiceModel.getAdminsEmails().contains(pair.getSecond()))
-                .forEach(pair -> sendMessageToSessionId(connectedUsers.get(pair), kafkaChatServiceModel));
-    }
-
-    private void sendMessageToSessionId(User user, Object payload) {
-        simpMessagingTemplate.convertAndSendToUser(user.getId(), "/topic/admin/entrances", payload);
-
     }
 }

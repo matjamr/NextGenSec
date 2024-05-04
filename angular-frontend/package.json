@@ -30,6 +30,7 @@
     "@ngrx/store": "17.1.0",
     "@popperjs/core": "^2.11.6",
     "@types/fuzzy-search": "^2.1.5",
+    "@types/sockjs-client": "^1.5.4",
     "angular2-click-outside": "^0.1.0",
     "bootstrap": "^5.2.3",
     "fuzzy-search": "^3.2.1",
@@ -39,6 +40,7 @@
     "nx": "18.1.2",
     "rxjs": "~7.8.0",
     "schematics-scss-migrate": "^2.3.17",
+    "sockjs-client": "^1.6.1",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
   },

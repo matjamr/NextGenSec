@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Observable} from "rxjs";
+import {map, Observable} from "rxjs";
 import {Device} from "../../../../../core/models/Device";
 import {DeviceService} from "../../../../../core/services/device/device.service";
 import {AppState} from "../../../../../app.state";
@@ -30,8 +30,8 @@ export class DevicesComponent implements OnInit {
 
   tableTemplate: ConfigurableTableTemplate[] = [
     {columnTitle: 'Name', displayedColumn: 'deviceName'},
-    {columnTitle: 'Place', displayedColumn: 'place.placeName'},
-    {columnTitle: 'Product', displayedColumn: 'product.name'},
+    {columnTitle: 'Place', displayedColumn: 'placeName'},
+    {columnTitle: 'Product', displayedColumn: 'productName'},
   ]
 
   rowActionButtons: RowActionButton<any>[] = [
@@ -43,6 +43,14 @@ export class DevicesComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(GetDevices());
+
+    this.devices$ = this.devices$.pipe(
+      map((devices: Device[]) => devices.map(device => ({
+        ...device,
+        placeName: device.place.placeName,
+        productName: device.product.name
+      })))
+    );
   }
 
   addButtonAction = () => {

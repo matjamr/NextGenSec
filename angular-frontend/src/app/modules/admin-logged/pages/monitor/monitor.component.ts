@@ -18,9 +18,9 @@ export class MonitorComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.webSocketService.initializeWebSocketConnection((adminEntrance: MonitorEntrance) => {
-      this.adminEntrances.push(adminEntrance);
-      console.log(this.adminEntrances);
-    });
+    // this.webSocketService.initializeWebSocketConnection((adminEntrance: MonitorEntrance) => {
+    //   this.adminEntrances.push(adminEntrance);
+    //   console.log(this.adminEntrances);
+    // });
   }
 }

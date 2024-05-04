@@ -14,9 +14,9 @@ export class ChatComponent implements OnInit {
   constructor(private webSocketService: WebSocketService) {}
 
   ngOnInit(): void {
-    this.webSocketService.initializeWebSocketConnection((ret: MonitorEntrance) => {
-      this.monitorEntrances.push(ret);
-    });
+    // this.webSocketService.initializeWebSocketConnection((ret: MonitorEntrance) => {
+    //   this.monitorEntrances.push(ret);
+    // });
   }
 
   sendMessage(): void {

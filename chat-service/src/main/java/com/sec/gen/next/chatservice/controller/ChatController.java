@@ -1,25 +1,31 @@
 package com.sec.gen.next.chatservice.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sec.gen.next.chatservice.model.ChatMessage;
+import com.sec.gen.next.chatservice.model.KafkaChatServiceModel;
+import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
+import java.util.function.Consumer;
 
-@Controller
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/api/chat")
 public class ChatController {
 
-    @MessageMapping("/message")
-    @SendTo("/topic/messages")
-    public ChatMessage getMessages(ChatMessage message) {
-        return message;
+    private final Consumer<KafkaChatServiceModel> messageDispatcher;
+
+    @PostMapping("/send")
+    public void broadcast(@RequestBody KafkaChatServiceModel kafkaChatServiceModel) {
+        messageDispatcher.accept(kafkaChatServiceModel);
     }
 
-    @MessageMapping("/private-message")
-    @SendToUser("/topic/private-messages")
-    public String getPrivateMessage(ChatMessage message, final Principal principal) {
-        return "Sending message to " + principal.getName();
-    }
 }

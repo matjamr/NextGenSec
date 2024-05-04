@@ -19,4 +19,6 @@ public class KafkaChatServiceModel {
     private String name;
     private String surname;
     private String method;
+    private String message;
+    private Topic topic;
 }
