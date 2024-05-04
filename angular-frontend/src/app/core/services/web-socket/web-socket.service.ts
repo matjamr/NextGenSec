@@ -1,7 +1,10 @@
-import {Injectable, Input} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {User} from "../../models/User";
-import {UserService} from "../user/user.service";
-import {Observable} from "rxjs";
+
+export interface WebSocketConnectionSetup {
+  topic: string,
+  onReceive: Function
+}
 
 declare var SockJS: any;
 declare var Stomp: any;
@@ -16,25 +19,32 @@ export class WebSocketService {
   constructor() {
   }
 
-  initializeWebSocketConnection(user: User, onReceive: Function): void {
+  initializeWebSocketConnection(user: User, topicWithOnReceiveSetupList: WebSocketConnectionSetup[]): void {
     const ws = new SockJS(this.serverUrl);
     this.stompClient = Stomp.over(ws);
+    this.stompClient.debug = () => {}
     const that = this;
     this.stompClient.connect({"user": user.email}, function (frame: any) {
-      that.stompClient.subscribe(`/user/topic/admin/entrances`, (message: any) => {
-        if (message.body) {
-          console.log(message.body)
-          onReceive(JSON.parse(message.body));
-        }
+
+      topicWithOnReceiveSetupList.forEach((topicWithOnReceiveSetup: WebSocketConnectionSetup) => {
+        that.stompClient.subscribe(topicWithOnReceiveSetup.topic, (message: any) => {
+          if (message.body) {
+            topicWithOnReceiveSetup.onReceive(JSON.parse(message.body));
+          }
+        });
       });
 
-      that.stompClient.subscribe(`/user/topic/broadcast`, (message: any) => {
-        console.log(message)
-        if (message.body) {
-          console.log(message.body)
-          onReceive(JSON.parse(message.body));
-        }
-      });
+      // that.stompClient.subscribe(`/user/topic/admin/entrances`, (message: any) => {
+      //   if (message.body) {
+      //     onReceive(JSON.parse(message.body));
+      //   }
+      // });
+      //
+      // that.stompClient.subscribe(`/user/topic/broadcast`, (message: any) => {
+      //   if (message.body) {
+      //     onReceive(JSON.parse(message.body));
+      //   }
+      // });
     });
   }
 

@@ -29,7 +29,10 @@ export class ChatComponent implements OnInit, OnDestroy {
       .subscribe(user => {
         this.webSocketService.initializeWebSocketConnection(
           user,
-          (data: any) => console.log(data)
+          [
+            {topic: '/user/topic/admin/entrances', onReceive: (ret: any) => console.log(ret)},
+            {topic: '/user/topic/broadcast', onReceive: (ret: any) => console.log('Broadcast: ' + ret)}
+          ]
         );
       }));
   }
