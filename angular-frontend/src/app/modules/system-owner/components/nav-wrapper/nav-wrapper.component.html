@@ -29,7 +29,7 @@
       </a>
       <mat-accordion mat-list-item>
         <mat-expansion-panel style="box-shadow: none">
-          <mat-expansion-panel-header >
+          <mat-expansion-panel-header>
             <mat-panel-title>
               <mat-icon>accessibility</mat-icon>
               <span *ngIf="!isCollapsed">Administrative</span>
@@ -42,8 +42,10 @@
             class="sidenav__list-item list-sub-item"
             [routerLinkActive]="['active']"
           >
-            <mat-icon>place</mat-icon>
-            <span style="padding-top: 11px;" *ngIf="!isCollapsed">Places</span>
+            <div class="align-center">
+              <mat-icon>place</mat-icon>
+              <span *ngIf="!isCollapsed">Places</span>
+            </div>
           </a>
 
           <a
@@ -52,8 +54,10 @@
             class="sidenav__list-item list-sub-item"
             [routerLinkActive]="['active']"
           >
-            <mat-icon>fingerprint</mat-icon>
-            <span style="padding-top: 11px;" *ngIf="!isCollapsed">Products</span>
+            <div class="align-center">
+              <mat-icon>fingerprint</mat-icon>
+              <span *ngIf="!isCollapsed">Products</span>
+            </div>
           </a>
           <a
             mat-list-item
@@ -61,14 +65,16 @@
             class="sidenav__list-item list-sub-item"
             [routerLinkActive]="['active']"
           >
-            <mat-icon>perm_device_information</mat-icon>
-            <span style="padding-top: 11px;" *ngIf="!isCollapsed">Devices</span>
+            <div class="align-center">
+              <mat-icon>perm_device_information</mat-icon>
+              <span *ngIf="!isCollapsed">Devices</span>
+            </div>
           </a>
         </mat-expansion-panel>
       </mat-accordion>
       <mat-accordion mat-list-item>
         <mat-expansion-panel style="box-shadow: none">
-          <mat-expansion-panel-header >
+          <mat-expansion-panel-header>
             <mat-panel-title>
               <mat-icon>group</mat-icon>
               <span *ngIf="!isCollapsed">Social</span>
@@ -81,8 +87,10 @@
             class="sidenav__list-item list-sub-item"
             [routerLinkActive]="['active']"
           >
-            <mat-icon>email</mat-icon>
-            <span style="padding-top: 11px;" *ngIf="!isCollapsed">Email</span>
+            <div class="align-center">
+              <mat-icon>email</mat-icon>
+              <span *ngIf="!isCollapsed">Email</span>
+            </div>
           </a>
 
           <a
@@ -91,16 +99,18 @@
             class="sidenav__list-item list-sub-item"
             [routerLinkActive]="['active']"
           >
-            <mat-icon>lock_open</mat-icon>
-            <span style="padding-top: 11px;" *ngIf="!isCollapsed">Chat</span>
+            <div class="align-center">
+              <mat-icon>lock_open</mat-icon>
+              <span *ngIf="!isCollapsed">Chat</span>
+            </div>
           </a>
         </mat-expansion-panel>
       </mat-accordion>
 
-      <mat-accordion mat-list-item>
+      <mat-accordion mat-list-item style="display: flex">
         <mat-expansion-panel style="box-shadow: none">
-          <mat-expansion-panel-header >
-            <mat-panel-title>
+          <mat-expansion-panel-header>
+            <mat-panel-title style="display: flex">
               <mat-icon>settings</mat-icon>
               <span *ngIf="!isCollapsed">Settings</span>
             </mat-panel-title>
@@ -112,8 +122,12 @@
             class="sidenav__list-item list-sub-item"
             [routerLinkActive]="['active']"
           >
-            <mat-icon>lock</mat-icon>
-            <span style="padding-top: 11px;" *ngIf="!isCollapsed">Restrictions</span>
+            <div class="align-center">
+              <div class="align-center">
+                <mat-icon>lock</mat-icon>
+                <span *ngIf="!isCollapsed">Restrictions</span>
+              </div>
+            </div>
           </a>
 
           <a
@@ -122,8 +136,10 @@
             class="sidenav__list-item list-sub-item"
             [routerLinkActive]="['active']"
           >
-            <mat-icon>input</mat-icon>
-            <span style="padding-top: 11px;" *ngIf="!isCollapsed">Admin Settings</span>
+            <div class="align-center">
+              <mat-icon>input</mat-icon>
+              <span *ngIf="!isCollapsed">Admin Settings</span>
+            </div>
           </a>
 
           <a
@@ -132,8 +148,10 @@
             class="sidenav__list-item list-sub-item"
             [routerLinkActive]="['active']"
           >
-            <mat-icon>extension</mat-icon>
-            <span style="padding-top: 11px;" *ngIf="!isCollapsed">Credentials</span>
+            <div class="align-center">
+              <mat-icon>extension</mat-icon>
+              <span *ngIf="!isCollapsed">Credentials</span>
+            </div>
           </a>
 
           <a
@@ -142,8 +160,10 @@
             class="sidenav__list-item list-sub-item"
             [routerLinkActive]="['active']"
           >
-            <mat-icon>select_all</mat-icon>
-            <span style="padding-top: 11px;" *ngIf="!isCollapsed">Logs</span>
+            <div class="align-center">
+              <mat-icon>select_all</mat-icon>
+              <span *ngIf="!isCollapsed">Logs</span>
+            </div>
           </a>
 
           <a
@@ -152,8 +172,10 @@
             class="sidenav__list-item list-sub-item"
             [routerLinkActive]="['active']"
           >
-            <mat-icon>warning</mat-icon>
-            <span style="padding-top: 11px;" *ngIf="!isCollapsed">System Alerts</span>
+            <div class="align-center">
+              <mat-icon>warning</mat-icon>
+              <span *ngIf="!isCollapsed">System Alerts</span>
+            </div>
           </a>
         </mat-expansion-panel>
       </mat-accordion>
