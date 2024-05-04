@@ -22,7 +22,7 @@ export class ChooseLevelComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscription = this.user$.subscribe(user => {
-      this.router.navigate([user.role]);
+      this.router.navigate([`${user.role}/home`]);
     });
   }
 

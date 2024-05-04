@@ -66,7 +66,7 @@ import {UserLoggedModule} from "../user-logged/user-logged.module";
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'home',
     component: HomeComponent
   },
   {

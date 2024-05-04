@@ -1,15 +1,17 @@
 import {CanActivateFn, Router} from "@angular/router";
 import {inject} from "@angular/core";
-import {createFeatureSelector, Store} from "@ngrx/store";
-import {map, of, switchMap} from "rxjs";
-import {AppState} from "../../app.state";
-import {VerifyUser} from "../state/user/user.actions";
+import {map} from "rxjs";
 import {User} from "../models/User";
 import {UserService} from "../services/user/user.service";
 
 export function roleGuardFactory(role: string): CanActivateFn {
   return (route, state) => {
     const router: Router = inject(Router);
+
+    if(localStorage.getItem('token') === null) {
+      router.navigate(['/unauthorized']);
+      return false;
+    }
 
     return inject(UserService).verifyUser().pipe(map((user: User) => {
       if(user.role !== role) {
