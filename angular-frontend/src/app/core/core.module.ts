@@ -45,6 +45,8 @@ import {MatFormField} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
 import {MatSelect} from "@angular/material/select";
+import { LeftNavAreaComponent } from './components/left-nav-area/left-nav-area.component';
+import {MatToolbar} from "@angular/material/toolbar";
 
 
 @NgModule({
@@ -60,46 +62,48 @@ import {MatSelect} from "@angular/material/select";
     DialogConfirmComponent,
     FileUploadComponent,
     FindPlaceComponent,
-    SearchComponent
+    SearchComponent,
+    LeftNavAreaComponent
   ],
-  imports: [
-    CommonModule,
-    NgOptimizedImage,
-    FormsModule,
-    MatCheckbox,
-    MatHeaderCell,
-    MatColumnDef,
-    MatTable,
-    MatHeaderCellDef,
-    MatCellDef,
-    MatCell,
-    MatHeaderRow,
-    MatRow,
-    MatButton,
-    MatHeaderRowDef,
-    MatRowDef,
-    MatIcon,
-    MatTooltip,
-    MatIconButton,
-    MatDialogTitle,
-    MatDialogContent,
-    MatDialogActions,
-    MatListSubheaderCssMatStyler,
-    SharedModule,
-    MatList,
-    MatListItem,
-    MatLine,
-    MatDivider,
-    MatFormField,
-    MatInput,
-    MatNavList,
-    MatSelectionList,
-    MatListOption,
-    MatOption,
-    NgxMatSelectSearchModule,
-    MatSelect,
-    ReactiveFormsModule
-  ],
+    imports: [
+        CommonModule,
+        NgOptimizedImage,
+        FormsModule,
+        MatCheckbox,
+        MatHeaderCell,
+        MatColumnDef,
+        MatTable,
+        MatHeaderCellDef,
+        MatCellDef,
+        MatCell,
+        MatHeaderRow,
+        MatRow,
+        MatButton,
+        MatHeaderRowDef,
+        MatRowDef,
+        MatIcon,
+        MatTooltip,
+        MatIconButton,
+        MatDialogTitle,
+        MatDialogContent,
+        MatDialogActions,
+        MatListSubheaderCssMatStyler,
+        SharedModule,
+        MatList,
+        MatListItem,
+        MatLine,
+        MatDivider,
+        MatFormField,
+        MatInput,
+        MatNavList,
+        MatSelectionList,
+        MatListOption,
+        MatOption,
+        NgxMatSelectSearchModule,
+        MatSelect,
+        ReactiveFormsModule,
+        MatToolbar
+    ],
   exports: [
     LogoTitleComponent,
     FooterComponent,
@@ -109,6 +113,7 @@ import {MatSelect} from "@angular/material/select";
     NotificationPopupComponent,
     FileUploadComponent,
     SearchComponent,
+    LeftNavAreaComponent,
   ]
 })
 export class CoreModule { }

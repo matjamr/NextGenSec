@@ -1,3 +1,75 @@
 <app-nav-wrapper>
+  <div style="display: flex; flex-direction: row;">
+    <app-left-nav-area [placeName]="placeName" [buttons]="leftNavButtons" [headerButton]="leftNavHeaderButton"/>
+    <div class="place-details" *ngIf="place$ | async as place">
+      <mat-toolbar>
+        <span style="font-size: 2em; margin-bottom: 1vh; display: flex; align-items: center; justify-content: center  ">Place Name</span>
+        <mat-chip-listbox>
+          <mat-chip>tag 1</mat-chip>
+          <mat-chip>tag 2</mat-chip>
+          <button mat-icon-button matSuffix>
+            <mat-icon>add</mat-icon>
+          </button>
+        </mat-chip-listbox>
+      </mat-toolbar>
+
+      <div style="margin: 20px;">
+        <button (click)="toggleEditMode()"><mat-icon>mode_edit</mat-icon></button>
+        <button *ngIf="editMode" (click)="onSubmit()" mat-raised-button color="primary">Save</button>
+        <div *ngIf="editMode; else displayText">
+          <form [formGroup]="placeForm">
+            <mat-form-field appearance="fill">
+              <mat-label>Description</mat-label>
+              <input matInput placeholder="Description" formControlName="description">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>Location</mat-label>
+              <div fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="start center">
+                <mat-form-field fxFlex="30%">
+                  <input matInput placeholder="Street Name" formControlName="streetName">
+                </mat-form-field>
+                <mat-form-field fxFlex="20%">
+                  <input matInput placeholder="Postal Code" formControlName="postalCode">
+                </mat-form-field>
+                <mat-form-field fxFlex="30%">
+                  <input matInput placeholder="City" formControlName="city">
+                </mat-form-field>
+              </div>
+            </mat-form-field>
+          </form>
+        </div>
+
+        <ng-template #displayText>
+          <div class="description-container mat-typography">
+            <div class="description-text">Description: {{place.description}}</div>
+            <div class="location-text">Location: {{ place.address?.streetName }}, {{ place.address?.postalCode }}, {{ place.address?.city }}</div>
+          </div>
+        </ng-template>
+
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Events</mat-card-title>
+            <mat-card-subtitle>Last update: data</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <!-- Event content here -->
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-raised-button color="primary">Refresh</button>
+          </mat-card-actions>
+        </mat-card>
+
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Hooks Settings</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <!-- Hooks settings here -->
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+    </div>
+  </div>
 
 </app-nav-wrapper>

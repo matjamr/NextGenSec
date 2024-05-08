@@ -1,0 +1,16 @@
+<div class="vertical-toolbar">
+  <button mat-button *ngIf="headerButton" (click)="navigateTo(headerButton.route)">
+    <span style="display: flex; align-items: center;">
+      <mat-icon>{{headerButton.icon}}</mat-icon>
+      {{headerButton.label}}
+    </span>
+  </button>
+  <span style="height: 4vh"></span>
+
+  <button mat-button *ngFor="let button of buttons" (click)="navigateTo(button.route)">
+    <span style="display: flex; align-items: center">
+      <mat-icon>{{button.icon}}</mat-icon>
+      {{button.label}}
+    </span>
+  </button>
+</div>

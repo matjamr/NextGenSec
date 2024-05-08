@@ -1,0 +1,11 @@
+.vertical-toolbar {
+  display: flex;
+  flex-direction: column;
+  height: 90vh;
+  background-color: #F5F5F5;
+}
+
+button {
+  width: 90%;
+  margin-top: 2vh;
+}

@@ -43,6 +43,11 @@ public class PlacesController {
         return crudPlaceService.findAll();
     }
 
+    @GetMapping("/{placeName}")
+    public PlacesModel getPlaceByName(@PathVariable String placeName) {
+        return crudPlaceService.findBy(placeName);
+    }
+
     @GetMapping("/user")
     public PlacesModel getPlace() {
         return placesForUserSupplier.get();
@@ -51,5 +56,10 @@ public class PlacesController {
     @DeleteMapping
     public List<String> deletePlace(@RequestBody List<String> placesIds) {
         return placesDeleteService.delete(placesIds);
+    }
+
+    @PutMapping
+    public PlacesModel updatePlace(@RequestBody PlacesModel placesModel) {
+        return crudPlaceService.update(placesModel);
     }
 }

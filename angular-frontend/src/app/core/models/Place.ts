@@ -4,10 +4,11 @@ import {Product} from "./Product";
 import {defaultUser, User} from "./User";
 import {Searchable} from "./interfaces";
 
-export interface Place extends Searchable {
+export interface Place {
   id?: string,
   placeName: string,
-  emailPlace: string,
+  description?: string,
+  emailPlace?: string,
   address?: Address
   authorizedUsers?: UserPlaceAssigment[] | null | undefined,
   product?: Product | null,
@@ -15,7 +16,6 @@ export interface Place extends Searchable {
 }
 
 export const defaultPlace: Place = {
-  searchBy: "placeName",
   id: "0",
   placeName: "",
   emailPlace: "",

@@ -23,9 +23,10 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             errorMessage = error.error.message;
           }
 
-          if(errorMessage == "Expired JWT Token") {
+          console.log(errorMessage)
+          if(errorMessage == "Expired JWT token") {
             this.router.navigate(['/login']).then(() => {
-              console.log("epired JWT Token") // TODO implement logic for token clean up
+              console.log("epired JWT Token")
             });
           }
 

@@ -56,6 +56,7 @@ export class PlacesDialogComponent implements OnInit, OnDestroy {
   placeFormGroup = this._formBuilder.group({
     emailPlace: ['', Validators.required],
     placeName: ['', Validators.required],
+    description: ['', Validators.required],
     address: this._formBuilder.group({
       city: ['', Validators.required],
       postalCode: ['', Validators.required],

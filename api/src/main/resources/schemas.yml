@@ -184,6 +184,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/DeviceModel'
+        description:
+          type: string
     DeviceModel:
       type: object
       properties:

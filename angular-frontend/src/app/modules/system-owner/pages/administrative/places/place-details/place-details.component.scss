@@ -1,0 +1,46 @@
+.place-details {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  flex: 1;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+mat-card {
+  margin-top: 20px;
+}
+
+mat-toolbar {
+  display: flex;
+  flex-direction: column;
+  background-color: #F5F5F5;
+  height: 14vh;
+  align-items: flex-start;
+  padding: 2%;
+}
+
+mat-chip {
+  background-color: #2ecc71;
+}
+
+.description-container {
+  margin-bottom: 15px;
+}
+
+.description-text,
+.location-text {
+  padding: 8px;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 1vh;
+}
+
+.location-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

@@ -27,7 +27,14 @@ import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
 import {MatSidenav, MatSidenavContainer, MatSidenavContent} from "@angular/material/sidenav";
 import {MatToolbar} from "@angular/material/toolbar";
 import {DevicesComponent} from './pages/administrative/devices/devices.component';
-import {MatCard, MatCardContent, MatCardHeader, MatCardImage, MatCardTitle} from "@angular/material/card";
+import {
+  MatCard,
+  MatCardActions,
+  MatCardContent,
+  MatCardHeader,
+  MatCardImage, MatCardSubtitle,
+  MatCardTitle
+} from "@angular/material/card";
 import {CanvasJSAngularChartsModule} from "@canvasjs/angular-charts";
 import {MatTabContent} from "@angular/material/tabs";
 import {
@@ -44,14 +51,14 @@ import {
   MatTable
 } from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
-import {MatFormField, MatLabel} from "@angular/material/form-field";
+import {MatFormField, MatLabel, MatSuffix} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {MatSort} from "@angular/material/sort";
 import {MatTooltip} from "@angular/material/tooltip";
 import {MatCheckbox} from "@angular/material/checkbox";
 import {MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle} from "@angular/material/dialog";
 import {MatStep, MatStepLabel, MatStepper, MatStepperNext, MatStepperPrevious} from "@angular/material/stepper";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {
   AddProductDialogComponent
 } from './pages/administrative/products/components/add-product-dialog/add-product-dialog.component';
@@ -63,6 +70,8 @@ import {MatSelect} from "@angular/material/select";
 import {AddDeviceDialogComponent} from "./pages/administrative/devices/add-device-dialog/add-device-dialog.component";
 import {UserLoggedModule} from "../user-logged/user-logged.module";
 import {PlaceDetailsComponent} from './pages/administrative/places/place-details/place-details.component';
+import {MatChip, MatChipsModule} from "@angular/material/chips";
+import {FlexModule} from "@angular/flex-layout";
 
 
 const routes: Routes = [
@@ -144,66 +153,73 @@ const routes: Routes = [
     AddDeviceDialogComponent,
     PlaceDetailsComponent
   ],
-    imports: [
-        CommonModule,
-        RouterModule.forChild(routes),
-        CoreModule,
-        MatAccordion,
-        MatButton,
-        MatExpansionPanel,
-        MatExpansionPanelHeader,
-        MatExpansionPanelTitle,
-        MatIcon,
-        MatIconButton,
-        MatListItem,
-        MatMenu,
-        MatMenuItem,
-        MatNavList,
-        MatSidenav,
-        MatSidenavContainer,
-        MatSidenavContent,
-        MatToolbar,
-        MatMenuTrigger,
-        MatCard,
-        MatCardContent,
-        MatCardHeader,
-        MatCardTitle,
-        CanvasJSAngularChartsModule,
-        MatTabContent,
-        MatHeaderRowDef,
-        MatHeaderRow,
-        MatRow,
-        MatRowDef,
-        MatHeaderCell,
-        MatColumnDef,
-        MatCell,
-        MatCellDef,
-        MatHeaderCellDef,
-        MatTable,
-        MatPaginator,
-        MatFormField,
-        MatLabel,
-        MatInput,
-        MatSort,
-        MatNoDataRow,
-        MatFabButton,
-        MatTooltip,
-        MatCheckbox,
-        MatDialogActions,
-        MatDialogClose,
-        MatDialogTitle,
-        MatDialogContent,
-        MatStep,
-        ReactiveFormsModule,
-        MatStepperPrevious,
-        MatStepLabel,
-        MatStepperNext,
-        MatOption,
-        MatSelect,
-        MatStepper,
-        MatList,
-        MatCardImage,
-        UserLoggedModule,
-    ]
+  imports: [
+    CommonModule,
+    RouterModule.forChild(routes),
+    CoreModule,
+    MatAccordion,
+    MatButton,
+    MatExpansionPanel,
+    MatExpansionPanelHeader,
+    MatExpansionPanelTitle,
+    MatIcon,
+    MatIconButton,
+    MatListItem,
+    MatMenu,
+    MatMenuItem,
+    MatNavList,
+    MatSidenav,
+    MatSidenavContainer,
+    MatSidenavContent,
+    MatToolbar,
+    MatMenuTrigger,
+    MatCard,
+    MatCardContent,
+    MatCardHeader,
+    MatCardTitle,
+    CanvasJSAngularChartsModule,
+    MatTabContent,
+    MatHeaderRowDef,
+    MatHeaderRow,
+    MatRow,
+    MatRowDef,
+    MatHeaderCell,
+    MatColumnDef,
+    MatCell,
+    MatCellDef,
+    MatHeaderCellDef,
+    MatTable,
+    MatPaginator,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    MatSort,
+    MatNoDataRow,
+    MatFabButton,
+    MatTooltip,
+    MatCheckbox,
+    MatDialogActions,
+    MatDialogClose,
+    MatDialogTitle,
+    MatDialogContent,
+    MatStep,
+    ReactiveFormsModule,
+    MatStepperPrevious,
+    MatStepLabel,
+    MatStepperNext,
+    MatOption,
+    MatSelect,
+    MatStepper,
+    MatList,
+    MatCardImage,
+    UserLoggedModule,
+    MatChip,
+    MatCardActions,
+    MatSuffix,
+    MatCardSubtitle,
+    MatChipsModule,
+    FormsModule,
+    FlexModule
+  ]
 })
 export class SystemOwnerModule { }

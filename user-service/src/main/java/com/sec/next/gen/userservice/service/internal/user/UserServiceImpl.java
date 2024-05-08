@@ -51,6 +51,7 @@ public class UserServiceImpl implements UserService {
 
 
         String rawPassword = userModel.getPassword();
+        userModel.setPasswordChange(false);
 
         if (rawPassword == null && userModel.getSource() == RegistrationSource.JWT) {
             rawPassword = RandomStringUtils.randomAlphanumeric(8);
@@ -74,7 +75,7 @@ public class UserServiceImpl implements UserService {
                 .params(Map.of("email", userModel.getEmail()))
                 .strategy("ACCOUNT_CREATE"));
 
-        if(rawPassword != null)
+        if(userModel.getPasswordChange())
             kafkaProducer.sendMessage(new OutboundEmailModel()
                     .email(userModel.getEmail())
                     .params(Map.of("email", userModel.getEmail(),

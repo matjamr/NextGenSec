@@ -1,5 +1,6 @@
 package com.sec.gen.next.outbound.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -12,13 +13,16 @@ import java.util.Properties;
 public class MailConfiguration {
 
     @Bean
-    public JavaMailSender getJavaMailSender() {
+    public JavaMailSender getJavaMailSender(
+            @Value("${spring.mail.username}") String username,
+            @Value("${spring.mail.password}") String password
+    ) {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setHost("smtp.gmail.com");
         mailSender.setPort(587);
 
-        mailSender.setUsername("jamr.mat@gmail.com");
-        mailSender.setPassword("");
+        mailSender.setUsername(username);
+        mailSender.setPassword(password);
 
         Properties props = mailSender.getJavaMailProperties();
         props.put("mail.transport.protocol", "smtp");

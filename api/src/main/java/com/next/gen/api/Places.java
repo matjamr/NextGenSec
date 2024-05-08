@@ -21,6 +21,8 @@ public class Places {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
+    private String description;
+
     @OneToOne(cascade = CascadeType.ALL)
     private User owner;
 

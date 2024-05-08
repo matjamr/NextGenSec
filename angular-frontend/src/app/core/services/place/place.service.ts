@@ -3,6 +3,7 @@ import {Observable} from "rxjs";
 import {Place} from "../../models/Place";
 import {HttpClient} from "@angular/common/http";
 import {getTokenHeader} from "../utils";
+import {User} from "../../models/User";
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,7 @@ export class PlaceService {
   }
 
   updatePlace(place: Place) {
-    return this.http.post<Place[]>(this.apiUrl + "/update", place, getTokenHeader())
+    return this.http.put<Place>(this.apiUrl, place, getTokenHeader())
   }
 
   addPlace(place: Place | any) {
@@ -33,5 +34,9 @@ export class PlaceService {
 
   deletePlace(payload: string[]) {
     return this.http.delete<{payload: string[]}>(this.apiUrl, {...getTokenHeader(), body: payload});
+  }
+
+  getPlaceById(placeName: string): Observable<Place> {
+    return this.http.get<Place>(this.apiUrl + `/${placeName}`, getTokenHeader());
   }
 }
