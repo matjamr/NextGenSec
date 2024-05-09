@@ -5,6 +5,7 @@ import {Observable} from "rxjs";
 import {select, Store} from "@ngrx/store";
 import {AppState} from "../../../app.state";
 import {VerifyUser} from "../../state/user/user.actions";
+import {SocialAuthService} from "@abacritt/angularx-social-login";
 
 @Component({
   selector: 'app-profile-logo',
@@ -19,7 +20,8 @@ export class ProfileLogoComponent {
 
   constructor(
     private userService: UserService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private authService: SocialAuthService
   ) {
     this.currentUser$ = store.pipe(select('user'))
     this.store.dispatch(VerifyUser())
@@ -34,6 +36,7 @@ export class ProfileLogoComponent {
   logout() {
     localStorage.removeItem("token");
     localStorage.removeItem("source");
+    this.authService.signOut()
     this.userService.logout();
   }
 

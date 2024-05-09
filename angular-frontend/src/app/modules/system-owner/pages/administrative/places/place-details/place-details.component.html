@@ -1,6 +1,6 @@
 <app-nav-wrapper>
   <div style="display: flex; flex-direction: row;">
-    <app-left-nav-area [placeName]="placeName" [buttons]="leftNavButtons" [headerButton]="leftNavHeaderButton"/>
+    <app-place-left-nav-area [placeName]="placeName" />
     <div class="place-details" *ngIf="place$ | async as place">
       <mat-toolbar>
         <span style="font-size: 2em; margin-bottom: 1vh; display: flex; align-items: center; justify-content: center  ">Place Name</span>

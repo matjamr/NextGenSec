@@ -1,11 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {Address} from "../../../../../../core/models/Address";
 import {Observable, of, Subscription} from "rxjs";
 import {defaultPlace, Place} from "../../../../../../core/models/Place";
 import {PlaceService} from "../../../../../../core/services/place/place.service";
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {NavAreaActionButton} from "../../../../../../core/components/left-nav-area/left-nav-area.component";
 
 @Component({
   selector: 'app-place-details',
@@ -67,30 +65,6 @@ export class PlaceDetailsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscriptions.forEach(sub => sub.unsubscribe());
-  }
-
-  leftNavButtons: NavAreaActionButton[] = [
-    {
-      icon: 'info',
-      label: 'Info',
-      route: `/system/administrative/places/${this.placeName}`
-    },
-    {
-      icon: 'input',
-      label: 'Admins',
-      route: `/system/administrative/places/${this.placeName}/admins`
-    },
-    {
-      icon: 'devices',
-      label: 'Devices',
-      route: `/system/administrative/places/${this.placeName}/admins`
-    }
-  ]
-
-  leftNavHeaderButton: NavAreaActionButton = {
-    icon: 'keyboard_backspace',
-    label: 'Back',
-    route: '/system/administrative/places'
   }
 
   onSubmit() {

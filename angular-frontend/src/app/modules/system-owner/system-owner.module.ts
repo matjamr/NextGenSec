@@ -32,7 +32,8 @@ import {
   MatCardActions,
   MatCardContent,
   MatCardHeader,
-  MatCardImage, MatCardSubtitle,
+  MatCardImage,
+  MatCardSubtitle,
   MatCardTitle
 } from "@angular/material/card";
 import {CanvasJSAngularChartsModule} from "@canvasjs/angular-charts";
@@ -72,6 +73,11 @@ import {UserLoggedModule} from "../user-logged/user-logged.module";
 import {PlaceDetailsComponent} from './pages/administrative/places/place-details/place-details.component';
 import {MatChip, MatChipsModule} from "@angular/material/chips";
 import {FlexModule} from "@angular/flex-layout";
+import {PlaceAdminsComponent} from './pages/administrative/places/place-admins/place-admins.component';
+import {PlaceDevicesComponent} from './pages/administrative/places/place-devices/place-devices.component';
+import {
+  PlaceLeftNavAreaComponent
+} from './pages/administrative/places/components/place-left-nav-area/place-left-nav-area.component';
 
 
 const routes: Routes = [
@@ -90,6 +96,14 @@ const routes: Routes = [
   {
     path: 'administrative/places/:placeName',
     component: PlaceDetailsComponent
+  },
+  {
+    path: 'administrative/places/:placeName/admins',
+    component: PlaceAdminsComponent
+  },
+  {
+    path: 'administrative/places/:placeName/devices',
+    component: PlaceDevicesComponent
   },
   {
     path: 'administrative/products',
@@ -151,7 +165,10 @@ const routes: Routes = [
     AddProductDialogComponent,
     ProductImagesDialogComponent,
     AddDeviceDialogComponent,
-    PlaceDetailsComponent
+    PlaceDetailsComponent,
+    PlaceAdminsComponent,
+    PlaceDevicesComponent,
+    PlaceLeftNavAreaComponent
   ],
   imports: [
     CommonModule,
