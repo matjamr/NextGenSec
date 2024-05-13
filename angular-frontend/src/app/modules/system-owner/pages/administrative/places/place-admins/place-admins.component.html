@@ -2,6 +2,18 @@
   <div style="display: flex; flex-direction: row;">
     <app-place-left-nav-area [placeName]="placeName" />
 
+    <div class="container">
+      <h3>Admins</h3>
+      <app-configurable-table
+        [elementData]="admins$"
+        [tableTemplate]="tableTemplate"
+        [checkboxSupport]="true"
+        [addButtonAction]="addButtonAction"
+        [rowActionButtons]="rowActionButtons"
+        [onRemoveClick]="onRemove"
+      />
+
+    </div>
   </div>
 
 </app-nav-wrapper>

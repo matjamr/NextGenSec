@@ -2,6 +2,7 @@ package com.sec.gen.next.serviceorchestrator.internal.places.service;
 
 import com.next.gen.api.Places;
 import com.next.gen.api.custom.BetterOptional;
+import com.next.gen.sec.model.DeviceModel;
 import com.next.gen.sec.model.PlacesModel;
 import com.sec.gen.next.serviceorchestrator.common.templates.CrudService;
 import com.sec.gen.next.serviceorchestrator.common.util.PlainModelUpdater;
@@ -24,6 +25,7 @@ import static java.util.Objects.isNull;
 public class CrudPlaceService implements CrudService<PlacesModel, PlacesModel, String> {
     private final PlacesRepository placesRepository;
     private final PlacesMapper placesMapper;
+    private final CrudService<DeviceModel, DeviceModel, String> deviceCrudService;
 
     @Override
     public PlacesModel save(PlacesModel placesModel) {
@@ -57,6 +59,9 @@ public class CrudPlaceService implements CrudService<PlacesModel, PlacesModel, S
     public PlacesModel findBy(String s) {
         return placesRepository.findByPlaceName(s)
                 .map(placesMapper::map)
+                .map(placesModel -> placesModel.devices(deviceCrudService.findAll().stream()
+                        .filter(device -> device.getPlace().getId().equals(placesModel.getId()))
+                        .toList()))
                 .orElseThrow(NO_PLACES_ID::getError);
     }
 

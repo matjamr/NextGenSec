@@ -35,9 +35,6 @@ public class Places {
     @OneToOne(cascade = CascadeType.ALL)
     private Address address;
 
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<UserPlaceAssignment> authorizedUsers;
-
-    @OneToMany
-    private List<Device> devices;
 }

@@ -3,6 +3,7 @@ import {UserPlaceAssigment} from "./UserPlaceAssigment";
 import {Product} from "./Product";
 import {defaultUser, User} from "./User";
 import {Searchable} from "./interfaces";
+import {Device} from "./Device";
 
 export interface Place {
   id?: string,
@@ -12,7 +13,8 @@ export interface Place {
   address?: Address
   authorizedUsers?: UserPlaceAssigment[] | null | undefined,
   product?: Product | null,
-  owner?: User | null
+  owner?: User | null,
+  devices?: Device[] | []
 }
 
 export const defaultPlace: Place = {
@@ -27,5 +29,6 @@ export const defaultPlace: Place = {
   },
   authorizedUsers: [],
   owner: defaultUser,
-  product: null
+  product: null,
+  devices: []
 }

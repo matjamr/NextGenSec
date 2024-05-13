@@ -3,10 +3,7 @@ import {defaultUser, User} from "./User";
 
 export interface UserPlaceAssigment {
   id: number,
-  user: {
-    id: number,
-    email: string
-  },
+  user: User,
   assignmentRole: string,
   products: Product[],
   userAdd: {
@@ -21,8 +18,7 @@ export interface UserPlaceAssigment {
 export const defaultUserPlaceAssigment: UserPlaceAssigment = {
   userDelete: {id: 0},
   assignmentRole: "", id: 0, products: [],
-  user:
-    {email: "", id: 0},
+  user: defaultUser,
   userAdd: {
     assignmentRole: "",
     user: defaultUser}

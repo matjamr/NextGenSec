@@ -11,6 +11,7 @@ import com.sec.gen.next.serviceorchestrator.internal.device.repository.DeviceRep
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 import static com.sec.gen.next.serviceorchestrator.exception.Error.INVALID_DEVICE_DATA;
 import static com.sec.gen.next.serviceorchestrator.exception.Error.NO_PLACES_ID;

@@ -292,3 +292,12 @@ components:
           type: string
         refreshToken:
           type: string
+
+    ModifyUserToPlaceModel:
+      type: object
+      properties:
+        placeName:
+          type: string
+        userPlaceAssignment:
+          $ref: '#/components/schemas/UserPlaceAssignment'
+
