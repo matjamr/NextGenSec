@@ -1,9 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Observable} from "rxjs";
-import {Place} from "../../models/Place";
+import {ModifyUserPlaceAssigment, Place} from "../../models/Place";
 import {HttpClient} from "@angular/common/http";
 import {getTokenHeader} from "../utils";
-import {User} from "../../models/User";
 
 @Injectable({
   providedIn: 'root'
@@ -38,5 +37,17 @@ export class PlaceService {
 
   getPlaceById(placeName: string): Observable<Place> {
     return this.http.get<Place>(this.apiUrl + `/${placeName}`, getTokenHeader());
+  }
+
+  addAdminToPlace(payload: ModifyUserPlaceAssigment) {
+    return this.http.post<Place>(this.apiUrl + '/admin', payload, getTokenHeader());
+  }
+
+  removeAdminFromPlace(payload: ModifyUserPlaceAssigment) {
+    return this.http.delete<Place>(this.apiUrl + '/admin', {body: payload, ...getTokenHeader()});
+  }
+
+  updateAdminFromPlace(payload: ModifyUserPlaceAssigment) {
+    return this.http.put<Place>(this.apiUrl + '/admin', payload, getTokenHeader());
   }
 }

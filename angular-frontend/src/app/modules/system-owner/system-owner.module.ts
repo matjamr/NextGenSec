@@ -78,6 +78,9 @@ import {PlaceDevicesComponent} from './pages/administrative/places/place-devices
 import {
   PlaceLeftNavAreaComponent
 } from './pages/administrative/places/components/place-left-nav-area/place-left-nav-area.component';
+import {
+  AddAdminDialogComponent
+} from './pages/administrative/places/place-admins/add-admin-dialog/add-admin-dialog.component';
 
 
 const routes: Routes = [
@@ -168,7 +171,8 @@ const routes: Routes = [
     PlaceDetailsComponent,
     PlaceAdminsComponent,
     PlaceDevicesComponent,
-    PlaceLeftNavAreaComponent
+    PlaceLeftNavAreaComponent,
+    AddAdminDialogComponent
   ],
   imports: [
     CommonModule,

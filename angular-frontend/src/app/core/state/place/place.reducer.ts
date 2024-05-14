@@ -1,6 +1,7 @@
 import {createReducer, on} from "@ngrx/store";
 
 import {
+  AddAdminToPlace,
   AddPlace,
   DeletePlace,
   DeletePlaceSuccess,
@@ -38,4 +39,13 @@ export const PlaceReducer = createReducer(
   on(DeletePlaceSuccess, (state, {payload}) => {
     return [...state.filter(place => !payload.includes(place.id!))];
   }),
+  on(AddAdminToPlace, (state, {payload}) => {
+    return [
+      ...state.filter(place => place.placeName !== payload.placeName),
+      ...state.filter(place => place.placeName === payload.placeName).map(place => {
+        place.authorizedUsers = [...place.authorizedUsers || [], payload.userPlaceAssignment];
+        return place;
+      })
+    ];
+  })
 )

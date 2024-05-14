@@ -2,15 +2,15 @@ import {Product} from "./Product";
 import {defaultUser, User} from "./User";
 
 export interface UserPlaceAssigment {
-  id: number,
+  id?: number,
   user: User,
   assignmentRole: string,
-  products: Product[],
-  userAdd: {
+  products: Product[] | [],
+  userAdd?: {
     user: User,
     assignmentRole: string,
   },
-  userDelete: {
+  userDelete?: {
     id: number
   }
 }

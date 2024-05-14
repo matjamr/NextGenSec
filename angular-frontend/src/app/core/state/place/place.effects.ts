@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {catchError, map, mergeMap, of} from "rxjs";
 import {
+  AddAdminToPlace,
   AddPlace,
   DeletePlace,
   DeletePlaceSuccess,
@@ -13,6 +14,7 @@ import {
 } from "./place.actions";
 import {PlaceService} from "../../services/place/place.service";
 import {NotificationService} from "../../services/notification/notification.service";
+import {UserService} from "../../services/user/user.service";
 
 @Injectable()
 export class PlaceEffects {
@@ -20,7 +22,7 @@ export class PlaceEffects {
     ofType(GetPlaces),
     mergeMap(() => this.placesService.getPlacesByUser()
       .pipe(
-        map(places => GetPlacesSuccess({ places: places })),
+        map(places => GetPlacesSuccess({places: places})),
         catchError((error) => {
           // this.notificationService.error('HTTP Error', error.message);
           return of(GetPlacesFailure({error}))
@@ -48,16 +50,30 @@ export class PlaceEffects {
           // @ts-ignore
           return DeletePlaceSuccess({payload: project})
         }),
+        catchError((error) => of(PlaceError(error))))
+    )
+  ));
+
+  addAdminToPlace$ = createEffect(() => this.actions$.pipe(
+    ofType(AddAdminToPlace),
+    mergeMap((action) =>
+      this.placesService.addAdminToPlace(action.payload).pipe(
+        map(project => {
+          console.log(project)
+          return PlaceSuccess(project)
+        }),
         catchError((error) => {
-          // this.notificationService.error('HTTP Error', error.message);
           return of(PlaceError(error))
-        }))
+        })
+      )
     )
   ));
 
   constructor(
     private actions$: Actions,
     private placesService: PlaceService,
-    private notificationService: NotificationService
-  ) {}
+    private notificationService: NotificationService,
+    private userService: UserService
+  ) {
+  }
 }

@@ -69,6 +69,11 @@ export class UserService {
     return this.http.post<User>(this.userApiUrl + "/update", user, buildHeader())
   }
 
+
+  addUser(user: any) {
+    return this.http.post<User>(this.userApiUrl, user, buildHeader())
+  }
+
   logout() {
     this.router.navigate(["/login"])
   }

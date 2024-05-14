@@ -1,37 +1,53 @@
-import {Component} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
+import {ChangeDetectorRef, Component, OnDestroy} from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
 import {PlaceService} from "../../../../../../core/services/place/place.service";
 import {FormBuilder} from "@angular/forms";
-import {filter, map, Observable} from "rxjs";
-import {Place} from "../../../../../../core/models/Place";
+import {BehaviorSubject, filter, map, tap} from "rxjs";
 import {MatDialog} from "@angular/material/dialog";
-import {select, Store} from "@ngrx/store";
-import {AppState} from "../../../../../../app.state";
-import {DeletePlace, GetPlaces} from "../../../../../../core/state/place/place.actions";
 import {
   ConfigurableTableTemplate,
   RowActionButton
 } from "../../../../../../core/components/configurable-table/configurable-table.component";
-import {PlacesDialogComponent} from "../places-dialog/places-dialog.component";
-import {User} from "../../../../../../core/models/User";
+import {UserPlaceAssigment} from "../../../../../../core/models/UserPlaceAssigment";
+import {AddAdminDialogComponent} from "./add-admin-dialog/add-admin-dialog.component";
+
+interface PlaceAdmin {
+  name: string;
+  surname: string;
+  email: string;
+  userPlaceAssigment: UserPlaceAssigment;
+}
 
 @Component({
   selector: 'app-place-admins',
   templateUrl: './place-admins.component.html',
   styleUrl: './place-admins.component.css'
 })
-export class PlaceAdminsComponent {
+export class PlaceAdminsComponent implements OnDestroy {
   placeName: string;
-  admins$: Observable<User[]>;
+  admins$ = new BehaviorSubject<PlaceAdmin[]>([]);
+  subscriptions: any[] = [];
 
-  constructor(private route: ActivatedRoute, private placeService: PlaceService, private fb: FormBuilder) {
+  constructor(public dialog: MatDialog, private route: ActivatedRoute, private placeService: PlaceService, private fb: FormBuilder, private cdRef: ChangeDetectorRef) {
     this.placeName = this.route.snapshot.paramMap.get('placeName')!;
-    this.admins$ = this.placeService.getPlaceById(this.placeName).pipe(
+    this.extractAdmins();
+  }
+
+  private extractAdmins() {
+    this.placeService.getPlaceById(this.placeName).pipe(
+      tap(place => console.log('Place:', place)),
       map(place => place.authorizedUsers),
+      tap(users => console.log('Authorized users:', users)),
       filter(users => users !== undefined && users !== null),
-      map(users => users!.filter(user => user.assignmentRole === 'admin')
-        .map(userPlace => userPlace.user)
-    ));
+      map(users => users!.filter(user => user.assignmentRole !== 'admin')
+        .map(userPlace => ({
+          name: userPlace.user.name,
+          surname: userPlace.user.surname,
+          email: userPlace.user.email,
+          userPlaceAssigment: userPlace
+        }))
+      )
+    ).subscribe(admins => this.admins$.next(admins));
   }
 
   tableTemplate: ConfigurableTableTemplate[] = [
@@ -49,10 +65,31 @@ export class PlaceAdminsComponent {
   ]
 
   addButtonAction = () => {
-    console.log('Add admin');
+    const dialogRef = this.dialog.open(AddAdminDialogComponent, {
+      width: '40%',
+      data: {placeName: this.placeName}
+    });
+
+    dialogRef.afterClosed().subscribe(newAdmin => {
+      if (newAdmin) {
+        const currentAdmins = this.admins$.getValue();
+        this.admins$.next([...currentAdmins, newAdmin]);
+      }
+    });
   }
 
-  onRemove = (places: Place[]) => {
-    console.log('Remove admins');
+  onRemove = (users: PlaceAdmin[]) => {
+    console.log('Remove admins: ');
+
+    users.forEach(user => {
+      this.subscriptions.push(this.placeService.removeAdminFromPlace({
+        placeName: this.placeName,
+        userPlaceAssignment: user.userPlaceAssigment
+      }).subscribe(() => {}));
+    });
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(sub => sub.unsubscribe())
   }
 }
