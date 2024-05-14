@@ -17,7 +17,7 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatSidenav, MatSidenavContainer, MatSidenavContent} from "@angular/material/sidenav";
 import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
-import {MatListItem, MatNavList} from "@angular/material/list";
+import {MatListItem, MatListItemAvatar, MatListItemIcon, MatNavList} from "@angular/material/list";
 import {
   MatAccordion,
   MatExpansionPanel,
@@ -27,10 +27,16 @@ import {
 import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
 import {CanvasJSAngularChartsModule} from "@canvasjs/angular-charts";
 import {MatTabContent} from "@angular/material/tabs";
+import {FindPlaceComponent} from './pages/places/find-place/find-place.component';
+import {MatFormField, MatLabel, MatSuffix} from "@angular/material/form-field";
+import {MatInput} from "@angular/material/input";
+import {MatLine} from "@angular/material/core";
+import {FormsModule} from "@angular/forms";
+import {MatChip, MatChipListbox} from "@angular/material/chips";
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'home',
     component: WelcomeScreenComponent
   },
   {
@@ -44,6 +50,10 @@ const routes: Routes = [
   {
     path: 'places',
     component: PlacesComponent
+  },
+  {
+    path: 'places/find',
+    component: FindPlaceComponent
   },
   {
     path: 'chat',
@@ -65,6 +75,7 @@ const routes: Routes = [
     SupportedMethodsPipe,
     UserChatComponent,
     DataUploadModalComponent,
+    FindPlaceComponent,
   ],
   exports: [
     UserChatComponent
@@ -95,7 +106,17 @@ const routes: Routes = [
     MatCardHeader,
     MatCardTitle,
     CanvasJSAngularChartsModule,
-    MatTabContent
+    MatTabContent,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    MatSuffix,
+    MatListItemIcon,
+    MatLine,
+    FormsModule,
+    MatListItemAvatar,
+    MatChip,
+    MatChipListbox
   ]
 })
 export class UserLoggedModule {

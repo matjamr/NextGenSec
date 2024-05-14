@@ -45,8 +45,9 @@ import {MatFormField} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
 import {MatSelect} from "@angular/material/select";
-import { LeftNavAreaComponent } from './components/left-nav-area/left-nav-area.component';
+import {LeftNavAreaComponent} from './components/left-nav-area/left-nav-area.component';
 import {MatToolbar} from "@angular/material/toolbar";
+import {MapComponent} from './components/map/map.component';
 
 
 @NgModule({
@@ -63,7 +64,8 @@ import {MatToolbar} from "@angular/material/toolbar";
     FileUploadComponent,
     FindPlaceComponent,
     SearchComponent,
-    LeftNavAreaComponent
+    LeftNavAreaComponent,
+    MapComponent
   ],
     imports: [
         CommonModule,
@@ -104,16 +106,17 @@ import {MatToolbar} from "@angular/material/toolbar";
         ReactiveFormsModule,
         MatToolbar
     ],
-  exports: [
-    LogoTitleComponent,
-    FooterComponent,
-    ProfileLogoComponent,
-    PasswdChangeComponent,
-    ConfigurableTableComponent,
-    NotificationPopupComponent,
-    FileUploadComponent,
-    SearchComponent,
-    LeftNavAreaComponent,
-  ]
+    exports: [
+        LogoTitleComponent,
+        FooterComponent,
+        ProfileLogoComponent,
+        PasswdChangeComponent,
+        ConfigurableTableComponent,
+        NotificationPopupComponent,
+        FileUploadComponent,
+        SearchComponent,
+        LeftNavAreaComponent,
+        MapComponent,
+    ]
 })
 export class CoreModule { }
