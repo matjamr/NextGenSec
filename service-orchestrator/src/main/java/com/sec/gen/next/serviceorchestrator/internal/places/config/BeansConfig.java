@@ -1,11 +1,12 @@
 package com.sec.gen.next.serviceorchestrator.internal.places.config;
 
-import com.next.gen.api.Device;
+import com.next.gen.api.Address;
 import com.next.gen.sec.model.DeviceModel;
 import com.next.gen.sec.model.ModifyUserToPlaceModel;
 import com.next.gen.sec.model.PlacesModel;
 import com.sec.gen.next.serviceorchestrator.common.templates.*;
-import com.sec.gen.next.serviceorchestrator.external.user.UserServiceClient;
+import com.sec.gen.next.serviceorchestrator.external.UserServiceClient;
+import com.sec.gen.next.serviceorchestrator.external.nominatim.NominatimClient;
 import com.sec.gen.next.serviceorchestrator.internal.device.service.AddUserToPlaceService;
 import com.sec.gen.next.serviceorchestrator.internal.device.service.ChangeUserToPlaceService;
 import com.sec.gen.next.serviceorchestrator.internal.device.service.RemoveUserFromPlaceService;
@@ -18,6 +19,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 
@@ -39,8 +41,10 @@ public class BeansConfig {
 
     @Bean
     public SaveService<PlacesModel, PlacesModel> placeSaveService(PlacesRepository placesRepository,
-                                                                  PlacesMapper placesMapper) {
-        return new PlacesSaveService(placesRepository, placesMapper);
+                                                                  PlacesMapper placesMapper,
+                                                                  NominatimClient nominatimClient,
+                                                                  Function<Address, String> nominatimQueryBuilder) {
+        return new PlacesSaveService(placesRepository, placesMapper, nominatimClient, nominatimQueryBuilder);
     }
 
     @Bean

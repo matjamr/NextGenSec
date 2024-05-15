@@ -1,13 +1,11 @@
 package com.sec.gen.next.serviceorchestrator.internal.history.service;
 
 import com.next.gen.api.AssignmentRole;
-import com.next.gen.api.Places;
-import com.next.gen.api.User;
 import com.next.gen.sec.model.*;
 import com.sec.gen.next.serviceorchestrator.common.templates.SaveService;
 import com.sec.gen.next.serviceorchestrator.common.templates.SimpleQueryService;
 import com.sec.gen.next.serviceorchestrator.external.kafka.KafkaProducer;
-import com.sec.gen.next.serviceorchestrator.external.user.UserServiceClient;
+import com.sec.gen.next.serviceorchestrator.external.UserServiceClient;
 import lombok.RequiredArgsConstructor;
 
 import java.time.OffsetDateTime;

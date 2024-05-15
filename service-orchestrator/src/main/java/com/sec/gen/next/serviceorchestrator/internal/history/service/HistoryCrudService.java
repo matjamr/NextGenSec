@@ -6,7 +6,7 @@ import com.next.gen.sec.model.PlacesModel;
 import com.next.gen.sec.model.ProductModel;
 import com.sec.gen.next.serviceorchestrator.common.templates.CrudService;
 import com.sec.gen.next.serviceorchestrator.common.templates.SimpleQueryService;
-import com.sec.gen.next.serviceorchestrator.external.user.UserServiceClient;
+import com.sec.gen.next.serviceorchestrator.external.UserServiceClient;
 import com.sec.gen.next.serviceorchestrator.internal.history.mapper.HistoryMapper;
 import com.sec.gen.next.serviceorchestrator.internal.history.repository.HistoryRepository;
 import lombok.RequiredArgsConstructor;

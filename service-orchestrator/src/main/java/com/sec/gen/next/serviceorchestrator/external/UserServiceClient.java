@@ -1,4 +1,4 @@
-package com.sec.gen.next.serviceorchestrator.external.user;
+package com.sec.gen.next.serviceorchestrator.external;
 
 import com.next.gen.sec.model.GoogleAuthorizedUser;
 import com.next.gen.sec.model.UserModel;

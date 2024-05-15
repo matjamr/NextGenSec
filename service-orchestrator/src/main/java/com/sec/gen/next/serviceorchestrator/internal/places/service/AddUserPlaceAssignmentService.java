@@ -5,7 +5,7 @@ import com.next.gen.sec.model.PlacesModel;
 import com.sec.gen.next.serviceorchestrator.common.templates.SaveService;
 import com.sec.gen.next.serviceorchestrator.common.templates.SimpleQueryService;
 import com.sec.gen.next.serviceorchestrator.common.templates.UpdateService;
-import com.sec.gen.next.serviceorchestrator.external.user.UserServiceClient;
+import com.sec.gen.next.serviceorchestrator.external.UserServiceClient;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;

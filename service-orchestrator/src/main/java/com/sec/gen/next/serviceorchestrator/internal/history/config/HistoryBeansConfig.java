@@ -5,7 +5,7 @@ import com.sec.gen.next.serviceorchestrator.common.templates.CrudService;
 import com.sec.gen.next.serviceorchestrator.common.templates.SaveService;
 import com.sec.gen.next.serviceorchestrator.common.templates.SimpleQueryService;
 import com.sec.gen.next.serviceorchestrator.external.kafka.KafkaProducer;
-import com.sec.gen.next.serviceorchestrator.external.user.UserServiceClient;
+import com.sec.gen.next.serviceorchestrator.external.UserServiceClient;
 import com.sec.gen.next.serviceorchestrator.internal.history.mapper.HistoryMapper;
 import com.sec.gen.next.serviceorchestrator.internal.history.repository.HistoryRepository;
 import com.sec.gen.next.serviceorchestrator.internal.history.service.HistoryCrudService;

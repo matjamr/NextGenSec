@@ -52,6 +52,8 @@ server:
 services:
   user-service:
     url: http://localhost:8081/api
+  nominatim:
+    url: https://nominatim.openstreetmap.org
 
 logging:
   level:

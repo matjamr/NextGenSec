@@ -83,11 +83,17 @@ components:
       properties:
         id:
           type: string
+        homeNumber:
+          type: string
         streetName:
           type: string
         postalCode:
           type: string
         city:
+          type: string
+        latitude:
+          type: string
+        longitude:
           type: string
     PostModel:
       type: object
@@ -300,4 +306,39 @@ components:
           type: string
         userPlaceAssignment:
           $ref: '#/components/schemas/UserPlaceAssignment'
+
+    NominatimPlace:
+      type: object
+      properties:
+        place_id:
+          type: integer
+        licence:
+          type: string
+        osm_type:
+          type: string
+        osm_id:
+          type: integer
+        lat:
+          type: string
+        lon:
+          type: string
+        class:
+          type: string
+        type:
+          type: string
+        place_rank:
+          type: integer
+        importance:
+          type: number
+          format: double
+        addresstype:
+          type: string
+        name:
+          type: string
+        display_name:
+          type: string
+        boundingbox:
+          type: array
+          items:
+            type: string
 
