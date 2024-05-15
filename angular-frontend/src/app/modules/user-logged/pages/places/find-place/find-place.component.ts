@@ -10,21 +10,24 @@ export class FindPlaceComponent implements OnInit {
   map: Map;
   ratio = 60;
   icon = 'arrow_left';
-  searchText = '';  // Holds the text to filter
+  searchText = '';
+  isToggle = false;
 
   items = [
-    { title: 'Nature Image', url: 'https://picsum.photos/200/300', tags: ['Nature', 'Outdoor'], location: 'Yosemite, USA' },
-    { title: 'City Image', url: 'https://picsum.photos/200/300', tags: ['Urban', 'Nightlife'], location: 'New York, USA' },
-    { title: 'Space Image', url: 'https://picsum.photos/200/300', tags: ['Space', 'Stars'], location: 'Outer Space' }
+    { title: 'Nature Image', url: 'https://via.placeholder.com/150', tags: ['Nature', 'Outdoor'], location: 'Yosemite, USA', authMethods: ['password', 'fingerprint'] },
+    { title: 'City Image', url: 'https://via.placeholder.com/150', tags: ['Urban', 'Nightlife'], location: 'New York, USA', authMethods: ['password'] },
+    { title: 'Space Image', url: 'https://via.placeholder.com/150', tags: ['Space', 'Stars'], location: 'Outer Space', authMethods: ['password', 'face', 'otp'] }
   ];
 
-  filteredItems = [...this.items]; // Filtered list of items
+  filteredItems = [...this.items];
 
   toggleRatio() {
     if (this.ratio === 60) {
+      this.isToggle = true;
       this.ratio = 30;
       this.icon = 'arrow_right';
     } else {
+      this.isToggle = false;
       this.ratio = 60;
       this.icon = 'arrow_left';
     }

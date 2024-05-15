@@ -1,31 +1,31 @@
-.container {
+.custom-list {
+  width: 100%;
+}
+
+.custom-list-item {
   display: flex;
-  flex-direction: row;
-  align-items: start;
-  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
 }
 
-.map-container {
-  width: 100%;
-  overflow: hidden;
+.item-content, .item-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.mat-form-field {
-  width: 100%;
+.item-content {
+  flex-grow: 1;
 }
 
-.mat-nav-list {
-  overflow-y: auto; /* Enables scrolling for the list */
-  max-height: 300px; /* Set a max height for scrollable area */
+.item-actions {
+  flex-shrink: 0;
 }
 
-.mat-nav-list img {
+img {
   border-radius: 50%;
   object-fit: cover;
 }
-
-.mat-list-icon {
-  display: flex;
-  flex-direction: row;
-}
-

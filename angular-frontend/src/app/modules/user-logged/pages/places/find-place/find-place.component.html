@@ -6,19 +6,22 @@
         <input matInput [(ngModel)]="searchText" (keyup)="filterItems()">
       </mat-form-field>
 
-      <mat-nav-list>
-        <mat-list-item *ngFor="let item of filteredItems" style="height: 20vh">
-          <img matListItemAvatar src="{{ item.url }}" alt="{{ item.title }}"
-               style="width: 60px; height: 60px; margin-right: 15px;">
-          <div class="mat-line">{{ item.title }}</div>
-          <div class="mat-line small">{{ item.location }}</div>
-          <div mat-line class="tags">
-            <mat-chip-listbox>
-              <mat-chip *ngFor="let tag of item.tags">{{ tag }}</mat-chip>
-            </mat-chip-listbox>
+      <div class="custom-list">
+        <div *ngFor="let item of filteredItems" class="custom-list-item">
+          <div class="item-content">
+            <img src="{{ item.url }}" alt="{{ item.title }}" style="width: 60px; height: 60px; margin-right: 15px;">
+            <div>
+              <div class="mat-line">{{ item.title }}</div>
+              <div class="mat-line small">{{ item.location }}</div>
+              <mat-chip-listbox>
+                <mat-chip *ngFor="let tag of item.tags">{{ tag }}</mat-chip>
+              </mat-chip-listbox>
+              <mat-chip-listbox *ngIf="!isToggle">
+                <mat-chip *ngFor="let method of item.authMethods">{{ method }}</mat-chip>
+              </mat-chip-listbox>
+            </div>
           </div>
-
-          <div mat-list-icon>
+          <div class="item-actions"  *ngIf="!isToggle">
             <button mat-icon-button (click)="showLocation(item)">
               <mat-icon>place</mat-icon>
             </button>
@@ -29,8 +32,8 @@
               <mat-icon>report</mat-icon>
             </button>
           </div>
-        </mat-list-item>
-      </mat-nav-list>
+        </div>
+      </div>
     </div>
 
     <button mat-icon-button class="mx-2" (click)="toggleRatio()">
