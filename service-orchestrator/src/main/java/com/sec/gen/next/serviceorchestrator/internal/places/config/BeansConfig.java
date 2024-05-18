@@ -1,12 +1,12 @@
 package com.sec.gen.next.serviceorchestrator.internal.places.config;
 
-import com.next.gen.api.Address;
+import com.next.gen.sec.model.AddressModel;
 import com.next.gen.sec.model.DeviceModel;
 import com.next.gen.sec.model.ModifyUserToPlaceModel;
 import com.next.gen.sec.model.PlacesModel;
 import com.sec.gen.next.serviceorchestrator.common.templates.*;
 import com.sec.gen.next.serviceorchestrator.external.UserServiceClient;
-import com.sec.gen.next.serviceorchestrator.external.nominatim.NominatimClient;
+import com.sec.gen.next.serviceorchestrator.external.NominatimClient;
 import com.sec.gen.next.serviceorchestrator.internal.device.service.AddUserToPlaceService;
 import com.sec.gen.next.serviceorchestrator.internal.device.service.ChangeUserToPlaceService;
 import com.sec.gen.next.serviceorchestrator.internal.device.service.RemoveUserFromPlaceService;
@@ -28,8 +28,10 @@ public class BeansConfig {
     @Bean
     public CrudService<PlacesModel, PlacesModel, String> crudPlaceService(PlacesRepository placesRepository,
                                                                           PlacesMapper placesMapper,
-                                                                          CrudService<DeviceModel, DeviceModel, String> deviceCrudService) {
-        return new CrudPlaceService(placesRepository, placesMapper, deviceCrudService);
+                                                                          CrudService<DeviceModel, DeviceModel, String> deviceCrudService,
+                                                                          NominatimClient nominatimClient,
+                                                                          Function<AddressModel, String> nominatimQueryBuilder) {
+        return new CrudPlaceService(placesRepository, placesMapper, deviceCrudService, nominatimClient, nominatimQueryBuilder);
     }
 
     @Bean
@@ -41,10 +43,8 @@ public class BeansConfig {
 
     @Bean
     public SaveService<PlacesModel, PlacesModel> placeSaveService(PlacesRepository placesRepository,
-                                                                  PlacesMapper placesMapper,
-                                                                  NominatimClient nominatimClient,
-                                                                  Function<Address, String> nominatimQueryBuilder) {
-        return new PlacesSaveService(placesRepository, placesMapper, nominatimClient, nominatimQueryBuilder);
+                                                                  PlacesMapper placesMapper) {
+        return new PlacesSaveService(placesRepository, placesMapper);
     }
 
     @Bean

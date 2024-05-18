@@ -61,6 +61,7 @@ export class PlacesDialogComponent implements OnInit, OnDestroy {
       city: ['', Validators.required],
       postalCode: ['', Validators.required],
       streetName: ['', Validators.required],
+      homeNumber: ['', Validators.required],
     })
   });
 

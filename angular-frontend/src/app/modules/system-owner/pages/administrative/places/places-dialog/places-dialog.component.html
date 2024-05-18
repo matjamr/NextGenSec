@@ -73,6 +73,10 @@
           <mat-label>Street Name</mat-label>
           <input matInput placeholder="Street Name" formControlName="streetName" required>
         </mat-form-field>
+        <mat-form-field formGroupName="address">
+          <mat-label>Street Name</mat-label>
+          <input matInput placeholder="Home Number" formControlName="homeNumber" required>
+        </mat-form-field>
         <div>
           <button mat-button matStepperPrevious>Back</button>
           <button mat-button matStepperNext (click)="submitForm()">Next</button>

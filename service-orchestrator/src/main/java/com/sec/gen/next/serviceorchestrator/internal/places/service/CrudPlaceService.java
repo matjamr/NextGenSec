@@ -2,20 +2,20 @@ package com.sec.gen.next.serviceorchestrator.internal.places.service;
 
 import com.next.gen.api.Places;
 import com.next.gen.api.custom.BetterOptional;
+import com.next.gen.sec.model.AddressModel;
 import com.next.gen.sec.model.DeviceModel;
 import com.next.gen.sec.model.PlacesModel;
 import com.sec.gen.next.serviceorchestrator.common.templates.CrudService;
-import com.sec.gen.next.serviceorchestrator.common.util.PlainModelUpdater;
+import com.sec.gen.next.serviceorchestrator.external.NominatimClient;
 import com.sec.gen.next.serviceorchestrator.internal.places.mapper.PlacesMapper;
 import com.sec.gen.next.serviceorchestrator.internal.places.repository.PlacesRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.util.CollectionUtils;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 
 import static com.sec.gen.next.serviceorchestrator.exception.Error.*;
 import static java.util.Objects.isNull;
@@ -26,15 +26,29 @@ public class CrudPlaceService implements CrudService<PlacesModel, PlacesModel, S
     private final PlacesRepository placesRepository;
     private final PlacesMapper placesMapper;
     private final CrudService<DeviceModel, DeviceModel, String> deviceCrudService;
+    private final NominatimClient nominatimClient;
+    private final Function<AddressModel, String> nominatimQueryBuilder;
 
     @Override
     public PlacesModel save(PlacesModel placesModel) {
         return BetterOptional.of(placesModel)
                 .verify(() -> isNull(placesModel.getId()), PLACE_EXISTS.getError())
-                .optionalMap(placesMapper::map)
+                .peek(this::additionallyMapAddress)
+                .map(placesMapper::map)
                 .map(placesRepository::save)
                 .map(placesMapper::map)
                 .orElseThrow(PLACE_EXISTS::getError);
+    }
+
+    private void additionallyMapAddress(PlacesModel places) {
+        if(places.getAddress() != null) {
+            var response = nominatimClient.getPlaceCoords(nominatimQueryBuilder.apply(places.getAddress()), "json")
+                    .stream()
+                    .findFirst()
+                    .orElseThrow(INVALID_ADDRESS_DATA::getError);
+
+            places.getAddress().latitude(response.getLat()).longitude(response.getLon());
+        }
     }
 
     @Override
