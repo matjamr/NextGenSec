@@ -9,18 +9,29 @@ import {getTokenHeader} from "../utils";
 })
 export class PlaceService {
 
-  private apiUrl: string =  "http://localhost:8080/api/places"
+  private apiUrl: string = "http://localhost:8080/api/places"
 
   constructor(
     private http: HttpClient
-  ) { }
+  ) {
+  }
 
   getPlacesByUser(): Observable<Place[]> {
-    return this.http.get<Place[]>(this.apiUrl,  getTokenHeader())
+    return this.http.get<Place[]>(this.apiUrl, getTokenHeader())
   }
 
   getAllPlaces(): Observable<Place[]> {
     return this.http.get<Place[]>(this.apiUrl, getTokenHeader())
+  }
+
+  getAllPlacesWithCoords(coords: { lat: number, lon: number, kmRange: number }): Observable<Place[]> {
+    return this.http.get<Place[]>(this.apiUrl, {
+      ...getTokenHeader(), params: {
+        latitude: coords.lat.toString(),
+        longitude: coords.lon.toString(),
+        kmRange: coords.kmRange.toString()
+      }
+    })
   }
 
   updatePlace(place: Place) {
@@ -32,7 +43,7 @@ export class PlaceService {
   }
 
   deletePlace(payload: string[]) {
-    return this.http.delete<{payload: string[]}>(this.apiUrl, {...getTokenHeader(), body: payload});
+    return this.http.delete<{ payload: string[] }>(this.apiUrl, {...getTokenHeader(), body: payload});
   }
 
   getPlaceById(placeName: string): Observable<Place> {

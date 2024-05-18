@@ -3,4 +3,7 @@ export interface Address {
   streetName: string,
   postalCode: string,
   city: string,
+  homeNumber?: string,
+  latitude?: number,
+  longitude?: number
 }

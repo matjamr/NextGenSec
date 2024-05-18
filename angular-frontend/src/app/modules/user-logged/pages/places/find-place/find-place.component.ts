@@ -1,11 +1,16 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Place} from "../../../../../core/models/Place";
+import {filter, Observable, Subscription, switchMap} from "rxjs";
+import {PlaceService} from "../../../../../core/services/place/place.service";
+import {PositionServiceService} from "../../../../../core/services/position-service/position-service.service";
 
 @Component({
   selector: 'app-find-place',
   templateUrl: './find-place.component.html',
   styleUrl: './find-place.component.css'
 })
-export class FindPlaceComponent implements OnInit {
+export class FindPlaceComponent implements OnInit, OnDestroy {
+  subscriptions: Subscription[] = [];
   // @ts-ignore
   map: Map;
   ratio = 60;
@@ -13,13 +18,38 @@ export class FindPlaceComponent implements OnInit {
   searchText = '';
   isToggle = false;
 
-  items = [
-    { title: 'Nature Image', url: 'https://via.placeholder.com/150', tags: ['Nature', 'Outdoor'], location: 'Yosemite, USA', authMethods: ['password', 'fingerprint'] },
-    { title: 'City Image', url: 'https://via.placeholder.com/150', tags: ['Urban', 'Nightlife'], location: 'New York, USA', authMethods: ['password'] },
-    { title: 'Space Image', url: 'https://via.placeholder.com/150', tags: ['Space', 'Stars'], location: 'Outer Space', authMethods: ['password', 'face', 'otp'] }
-  ];
+  items: Place[] = [];
+
+  position$: Observable<GeolocationPosition | null>;
 
   filteredItems = [...this.items];
+
+  constructor(private placeService: PlaceService, private positionService: PositionServiceService) {
+    this.position$ = this.positionService.getPosition();
+  }
+
+  ngOnInit(): void {
+    this.subscriptions.push(
+      this.position$
+        .pipe(
+          filter(pos => pos !== null),
+          switchMap(pos => this.placeService.getAllPlacesWithCoords({
+            lat: pos!.coords.latitude,
+            lon: pos!.coords.longitude,
+            kmRange: 10
+          }))
+        )
+        .subscribe((places) => {
+          this.items = places;
+          this.filteredItems = [...this.items];
+          this.positionService.setMapPins(places);
+        })
+    );
+  };
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
 
   toggleRatio() {
     if (this.ratio === 60) {
@@ -35,12 +65,11 @@ export class FindPlaceComponent implements OnInit {
 
   filterItems() {
     this.filteredItems = this.items.filter(item =>
-      item.title.toLowerCase().includes(this.searchText.toLowerCase()) ||
-      item.tags.some(tag => tag.toLowerCase().includes(this.searchText.toLowerCase()))
+      item.placeName.toLowerCase().includes(this.searchText.toLowerCase()) ||
+      (item.tags || []).some(tag => tag.toLowerCase().includes(this.searchText.toLowerCase()))
     );
   }
 
-  // Actions for the icons
   showLocation(item: any) {
     alert('Location: ' + item.location);
   }
@@ -53,7 +82,7 @@ export class FindPlaceComponent implements OnInit {
     alert('Reported: ' + item.title);
   }
 
-  ngOnInit(): void {
-
+  getAddress(item: Place) {
+    return `${item.address?.city}, ${item.address?.streetName}, ${item.address?.homeNumber}`;
   }
 }

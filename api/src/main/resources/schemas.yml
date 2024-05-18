@@ -317,7 +317,7 @@ components:
         osm_type:
           type: string
         osm_id:
-          type: integer
+          type: string
         lat:
           type: number
         lon:

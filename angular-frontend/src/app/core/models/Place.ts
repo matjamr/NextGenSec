@@ -8,10 +8,11 @@ export interface Place {
   id?: string,
   placeName: string,
   description?: string,
+  tags?: string[] | [],
   emailPlace?: string,
   address?: Address
   authorizedUsers?: UserPlaceAssigment[] | null | undefined,
-  product?: Product | null,
+  products?: Product[] | null | [],
   owner?: User | null,
   devices?: Device[] | []
 }
@@ -28,7 +29,7 @@ export const defaultPlace: Place = {
   },
   authorizedUsers: [],
   owner: defaultUser,
-  product: null,
+  products: null,
   devices: []
 }
 
