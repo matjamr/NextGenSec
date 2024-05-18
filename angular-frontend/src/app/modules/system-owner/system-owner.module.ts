@@ -85,7 +85,7 @@ import {
 
 const routes: Routes = [
   {
-    path: 'home',
+    path: 'welcome',
     component: HomeComponent
   },
   {
