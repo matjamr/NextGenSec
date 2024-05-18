@@ -34,6 +34,7 @@ import {MatLine} from "@angular/material/core";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatChip, MatChipListbox} from "@angular/material/chips";
 import {MatSlider, MatSliderThumb} from "@angular/material/slider";
+import {AddMethodDialogComponent} from './pages/data/add-method-dialog/add-method-dialog.component';
 
 const routes: Routes = [
   {
@@ -77,6 +78,7 @@ const routes: Routes = [
     UserChatComponent,
     DataUploadModalComponent,
     FindPlaceComponent,
+    AddMethodDialogComponent,
   ],
   exports: [
     UserChatComponent
