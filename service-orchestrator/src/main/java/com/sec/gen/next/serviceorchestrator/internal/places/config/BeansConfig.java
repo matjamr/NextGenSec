@@ -14,9 +14,13 @@ import com.sec.gen.next.serviceorchestrator.internal.places.mapper.PlacesMapper;
 import com.sec.gen.next.serviceorchestrator.internal.places.mapper.UserPlaceAssignmentMapper;
 import com.sec.gen.next.serviceorchestrator.internal.places.repository.PlacesRepository;
 import com.sec.gen.next.serviceorchestrator.internal.places.service.*;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.context.annotation.RequestScope;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.List;
 import java.util.function.Function;
@@ -30,8 +34,9 @@ public class BeansConfig {
                                                                           PlacesMapper placesMapper,
                                                                           CrudService<DeviceModel, DeviceModel, String> deviceCrudService,
                                                                           NominatimClient nominatimClient,
-                                                                          Function<AddressModel, String> nominatimQueryBuilder) {
-        return new CrudPlaceService(placesRepository, placesMapper, deviceCrudService, nominatimClient, nominatimQueryBuilder);
+                                                                          Function<AddressModel, String> nominatimQueryBuilder,
+                                                                          PlacesRequestContext placesRequestContext) {
+        return new CrudPlaceService(placesRepository, placesMapper, deviceCrudService, nominatimClient, nominatimQueryBuilder, placesRequestContext);
     }
 
     @Bean
@@ -88,5 +93,21 @@ public class BeansConfig {
             final PlacesMapper placesMapper
     ) {
         return new RemoveUserFromPlaceService(placesRepository, placesMapper);
+    }
+
+    @Bean
+    @RequestScope
+    public PlacesRequestContext placesRequestContext() {
+        ServletRequestAttributes sra = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest httpServletRequest = sra.getRequest();
+
+        String longitude = httpServletRequest.getParameter("longitude");
+        String latitude = httpServletRequest.getParameter("latitude");
+        String kmRange = httpServletRequest.getParameter("kmRange");
+
+        return new PlacesRequestContext()
+                .setLongitude(longitude != null ? Double.valueOf(longitude) : Double.valueOf(-1111))
+                .setLatitude(latitude != null ? Double.valueOf(latitude) : Double.valueOf(-1111))
+                .setKmRange(kmRange != null ? Double.valueOf(kmRange) : Double.valueOf(-1111));
     }
 }

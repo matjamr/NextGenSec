@@ -17,6 +17,6 @@ public class Address {
     private String postalCode;
     private String homeNumber;
     private String city;
-    private String latitude;
-    private String longitude;
+    private Double latitude;
+    private Double longitude;
 }

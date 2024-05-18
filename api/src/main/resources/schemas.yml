@@ -92,9 +92,9 @@ components:
         city:
           type: string
         latitude:
-          type: string
+          type: number
         longitude:
-          type: string
+          type: number
     PostModel:
       type: object
       properties:
@@ -319,9 +319,9 @@ components:
         osm_id:
           type: integer
         lat:
-          type: string
+          type: number
         lon:
-          type: string
+          type: number
         class:
           type: string
         type:

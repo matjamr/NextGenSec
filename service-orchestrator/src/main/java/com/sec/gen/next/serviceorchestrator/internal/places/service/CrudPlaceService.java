@@ -7,12 +7,14 @@ import com.next.gen.sec.model.DeviceModel;
 import com.next.gen.sec.model.PlacesModel;
 import com.sec.gen.next.serviceorchestrator.common.templates.CrudService;
 import com.sec.gen.next.serviceorchestrator.external.NominatimClient;
+import com.sec.gen.next.serviceorchestrator.internal.places.config.PlacesRequestContext;
 import com.sec.gen.next.serviceorchestrator.internal.places.mapper.PlacesMapper;
 import com.sec.gen.next.serviceorchestrator.internal.places.repository.PlacesRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -28,6 +30,7 @@ public class CrudPlaceService implements CrudService<PlacesModel, PlacesModel, S
     private final CrudService<DeviceModel, DeviceModel, String> deviceCrudService;
     private final NominatimClient nominatimClient;
     private final Function<AddressModel, String> nominatimQueryBuilder;
+    private final PlacesRequestContext placesRequestContext;
 
     @Override
     public PlacesModel save(PlacesModel placesModel) {
@@ -53,11 +56,37 @@ public class CrudPlaceService implements CrudService<PlacesModel, PlacesModel, S
 
     @Override
     public List<PlacesModel> findAll() {
+        Double lat = placesRequestContext.getLatitude();
+        Double lon = placesRequestContext.getLongitude();
+        Double range = placesRequestContext.getKmRange();
+
+
         return placesRepository.findAll()
                 .stream()
                 .map(placesMapper::map)
+                .filter(place -> calculateDistance(lat, lon,
+                        place.getAddress().getLatitude(),
+                        place.getAddress().getLongitude(), range))
                 .toList();
     }
+
+    private boolean calculateDistance(Double lat1, Double lon1, BigDecimal lat2, BigDecimal lon2, Double range) {
+        if(lat1 == -1111 || lon1 == -1111 || range == -1111 || lat2 == null || lon2 == null) {
+            return true;
+        }
+
+        final int R = 6371;
+
+        double latDistance = Math.toRadians(lat2.doubleValue() - lat1);
+        double lonDistance = Math.toRadians(lon2.doubleValue() - lon1);
+        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
+                + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2.doubleValue()))
+                * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+        return R * c <= range;
+    }
+
 
     @Override
     public PlacesModel delete(PlacesModel placesModel) {
