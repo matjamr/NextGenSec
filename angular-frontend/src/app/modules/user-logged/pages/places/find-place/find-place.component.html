@@ -6,6 +6,11 @@
         <input matInput [(ngModel)]="searchText" (keyup)="filterItems()">
       </mat-form-field>
 
+      <mat-slider #slider [(ngModel)]="localKmRange" min="1" max="300" step="1" showTickMarks discrete [displayWith]="formatLabel">
+        <input matSliderThumb [value]="localKmRange">
+      </mat-slider>
+
+
       <div class="custom-list">
         <div *ngFor="let item of filteredItems" class="custom-list-item">
           <div class="item-content">

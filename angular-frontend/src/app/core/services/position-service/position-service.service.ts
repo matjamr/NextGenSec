@@ -14,6 +14,10 @@ export class PositionServiceService {
   mapPinsSubject: BehaviorSubject<MapItem[]> = new BehaviorSubject<MapItem[]>([]);
   mapPins$ = this.mapPinsSubject.asObservable();
 
+
+  kmRangeSubject: BehaviorSubject<number | null> = new BehaviorSubject<number | null>(null);
+  kmRange$ = this.kmRangeSubject.asObservable();
+
   constructor() {
     navigator.geolocation.getCurrentPosition((position) => {
       this.positionSubject.next(position);
@@ -26,6 +30,17 @@ export class PositionServiceService {
 
   getMapPins(): Observable<MapItem[]> {
     return this.mapPins$;
+  }
+
+  getKmRange(): Observable<number | null> {
+    return this.kmRange$;
+  }
+
+  setKmRange(kmRange: number | null) {
+    if(kmRange !== null) {
+      console.log(kmRange);
+      this.kmRangeSubject.next(kmRange);
+    }
   }
 
   setMapPins(items: Place[]) {

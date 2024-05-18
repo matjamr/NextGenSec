@@ -31,8 +31,9 @@ import {FindPlaceComponent} from './pages/places/find-place/find-place.component
 import {MatFormField, MatLabel, MatSuffix} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {MatLine} from "@angular/material/core";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatChip, MatChipListbox} from "@angular/material/chips";
+import {MatSlider, MatSliderThumb} from "@angular/material/slider";
 
 const routes: Routes = [
   {
@@ -116,7 +117,10 @@ const routes: Routes = [
     FormsModule,
     MatListItemAvatar,
     MatChip,
-    MatChipListbox
+    MatChipListbox,
+    MatSlider,
+    MatSliderThumb,
+    ReactiveFormsModule
   ]
 })
 export class UserLoggedModule {

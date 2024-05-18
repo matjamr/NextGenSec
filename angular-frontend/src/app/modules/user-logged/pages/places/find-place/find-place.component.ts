@@ -17,15 +17,19 @@ export class FindPlaceComponent implements OnInit, OnDestroy {
   icon = 'arrow_left';
   searchText = '';
   isToggle = false;
+  pos: GeolocationPosition | null = null;
 
   items: Place[] = [];
 
   position$: Observable<GeolocationPosition | null>;
 
   filteredItems = [...this.items];
+  kmRange$: Observable<number | null>;
+  localKmRange: number = 10;
 
   constructor(private placeService: PlaceService, private positionService: PositionServiceService) {
     this.position$ = this.positionService.getPosition();
+    this.kmRange$ = this.positionService.getKmRange();
   }
 
   ngOnInit(): void {
@@ -33,22 +37,49 @@ export class FindPlaceComponent implements OnInit, OnDestroy {
       this.position$
         .pipe(
           filter(pos => pos !== null),
+          switchMap(pos => {
+            this.pos = pos;
+            return this.placeService.getAllPlacesWithCoords({
+              lat: pos!.coords.latitude,
+              lon: pos!.coords.longitude,
+              // kmRange: this.localKmRange
+              kmRange: 15
+            })
+          })
+        ).subscribe((places) => {
+        this.items = places;
+        this.filteredItems = [...this.items];
+        this.positionService.setMapPins(places);
+      })
+    );
+
+    this.subscriptions.push(
+      this.kmRange$
+        .pipe(
+          filter(km => km !== null && this.pos !== null),
           switchMap(pos => this.placeService.getAllPlacesWithCoords({
-            lat: pos!.coords.latitude,
-            lon: pos!.coords.longitude,
-            kmRange: 10
+            lat: this.pos!.coords.latitude,
+            lon: this.pos!.coords.longitude,
+            kmRange: this.localKmRange
           }))
-        )
-        .subscribe((places) => {
-          this.items = places;
-          this.filteredItems = [...this.items];
-          this.positionService.setMapPins(places);
-        })
+        ).subscribe((places) => {
+        this.items = places;
+        this.filteredItems = [...this.items];
+        this.positionService.setMapPins(places);
+      })
     );
   };
 
   ngOnDestroy() {
     this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
+
+  formatLabel(value: number): string {
+    if (value >= 100) {
+      return Math.round(value / 100) + 'km';
+    }
+
+    return `${value}`;
   }
 
   toggleRatio() {
