@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.function.Supplier;
 
-@RestController
 @RequestMapping("/api/places")
+@RestController
 public class PlacesController {
 
     @Qualifier("crudPlaceService")

@@ -3,6 +3,7 @@ package com.sec.gen.next.serviceorchestrator.api;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.next.gen.sec.model.GoogleAuthorizedUser;
 import com.next.gen.sec.model.RegistrationSource;
+import com.next.gen.sec.model.Role;
 import jakarta.ws.rs.NotSupportedException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,6 +12,7 @@ import lombok.Setter;
 import org.springframework.security.authentication.jaas.JaasGrantedAuthority;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Collection;
 import java.util.List;
@@ -24,11 +26,12 @@ public class CustomAuthentication implements Authentication {
     private String name;
     private String surname;
     private RegistrationSource source;
+    private Role role;
     private List<GrantedAuthority> grantedAuthorities;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return grantedAuthorities;
+        return List.of(new SimpleGrantedAuthority(this.role.name()));
     }
 
     @Override

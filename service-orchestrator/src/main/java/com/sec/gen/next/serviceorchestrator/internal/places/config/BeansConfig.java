@@ -1,9 +1,7 @@
 package com.sec.gen.next.serviceorchestrator.internal.places.config;
 
-import com.next.gen.sec.model.AddressModel;
-import com.next.gen.sec.model.DeviceModel;
-import com.next.gen.sec.model.ModifyUserToPlaceModel;
-import com.next.gen.sec.model.PlacesModel;
+import com.next.gen.api.Places;
+import com.next.gen.sec.model.*;
 import com.sec.gen.next.serviceorchestrator.common.templates.*;
 import com.sec.gen.next.serviceorchestrator.external.UserServiceClient;
 import com.sec.gen.next.serviceorchestrator.external.NominatimClient;
@@ -11,7 +9,10 @@ import com.sec.gen.next.serviceorchestrator.internal.device.service.AddUserToPla
 import com.sec.gen.next.serviceorchestrator.internal.device.service.ChangeUserToPlaceService;
 import com.sec.gen.next.serviceorchestrator.internal.device.service.RemoveUserFromPlaceService;
 import com.sec.gen.next.serviceorchestrator.internal.places.mapper.PlacesMapper;
+import com.sec.gen.next.serviceorchestrator.internal.places.mapper.PlacesViewershipBuilder;
 import com.sec.gen.next.serviceorchestrator.internal.places.mapper.UserPlaceAssignmentMapper;
+import com.sec.gen.next.serviceorchestrator.internal.places.mapper.viewership.PlacesAdminViewershipBuilder;
+import com.sec.gen.next.serviceorchestrator.internal.places.mapper.viewership.PlacesUserViewershipBuilder;
 import com.sec.gen.next.serviceorchestrator.internal.places.repository.PlacesRepository;
 import com.sec.gen.next.serviceorchestrator.internal.places.service.*;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,6 +24,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -109,5 +111,15 @@ public class BeansConfig {
                 .setLongitude(longitude != null ? Double.valueOf(longitude) : Double.valueOf(-1111))
                 .setLatitude(latitude != null ? Double.valueOf(latitude) : Double.valueOf(-1111))
                 .setKmRange(kmRange != null ? Double.valueOf(kmRange) : Double.valueOf(-1111));
+    }
+
+    @Bean
+    public Function<List<PlacesModel>, List<PlacesModel>> placesViewershipBuilder() {
+        return new PlacesViewershipBuilder<>(
+                Map.of(
+                        Role.ADMIN, new PlacesAdminViewershipBuilder(),
+                        Role.USER, new PlacesUserViewershipBuilder()
+                )
+        );
     }
 }

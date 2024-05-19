@@ -61,9 +61,8 @@ public class CrudPlaceService implements CrudService<PlacesModel, PlacesModel, S
         Double range = placesRequestContext.getKmRange();
 
 
-        return placesRepository.findAll()
+        return placesMapper.map(placesRepository.findAll())
                 .stream()
-                .map(placesMapper::map)
                 .filter(place -> calculateDistance(lat, lon,
                         place.getAddress().getLatitude(),
                         place.getAddress().getLongitude(), range))

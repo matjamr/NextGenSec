@@ -38,6 +38,9 @@ security:
     - url: /api/image/*
       method: GET
       access: permitAll
+    - url: /api/place
+      method: POST
+      access: SYSTEM
 
 kafka:
   url: ${KAFKA_URL}
@@ -58,3 +61,4 @@ services:
 logging:
   level:
     org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
+    org.springframework.security: DEBUG

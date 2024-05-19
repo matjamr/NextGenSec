@@ -102,6 +102,8 @@ public class CustomAuthenticationFilter extends OncePerRequestFilter {
 
     private boolean isPermitAllEndpoint(String requestURI, String method) {
         return securityPropertiesConfig.getPaths().stream()
-                .anyMatch(pair -> requestURI.startsWith(pair.getUrl()) && pair.getMethod().equals(method));
+                .anyMatch(pair -> requestURI.startsWith(pair.getUrl()) &&
+                        pair.getMethod().equals(method) &&
+                        pair.getAccess().equals("permitAll"));
     }
 }
