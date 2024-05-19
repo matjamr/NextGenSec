@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {WebSocketService} from "../../../../core/services/web-socket/web-socket.service";
-import {MonitorEntrance} from "../../../../core/models/MonitorEntrance";
+import {WebSocketService} from "../../../../../core/services/web-socket/web-socket.service";
+import {MonitorEntrance} from "../../../../../core/models/MonitorEntrance";
 
 @Component({
   selector: 'app-chat',

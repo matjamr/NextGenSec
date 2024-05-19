@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
-import {defaultPlace, Place} from "../../../../core/models/Place";
-import {PlaceService} from "../../../../core/services/place/place.service";
+import {defaultPlace, Place} from "../../../../../core/models/Place";
+import {PlaceService} from "../../../../../core/services/place/place.service";
 import {Subscription} from "rxjs";
 
 @Component({

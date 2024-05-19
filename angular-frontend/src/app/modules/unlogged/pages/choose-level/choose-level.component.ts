@@ -26,7 +26,7 @@ export class ChooseLevelComponent implements OnInit, OnDestroy {
       if(user.role === 'user') {
         this.router.navigate([`/user/home`]);
       } else if(user.role === 'admin') {
-        this.router.navigate([`/admin/home`]);
+        this.router.navigate([`/admin/main`]);
       } else if(user.role === 'system') {
         this.router.navigate([`/system/welcome`]);
       }

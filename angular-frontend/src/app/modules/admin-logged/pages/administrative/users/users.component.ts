@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {UserService} from "../../../../core/services/user/user.service";
-import {defaultUser, User} from "../../../../core/models/User";
-import {PlaceService} from "../../../../core/services/place/place.service";
-import {defaultPlace, Place} from "../../../../core/models/Place";
+import {UserService} from "../../../../../core/services/user/user.service";
+import {defaultUser, User} from "../../../../../core/models/User";
+import {PlaceService} from "../../../../../core/services/place/place.service";
+import {defaultPlace, Place} from "../../../../../core/models/Place";
 
 @Component({
   selector: 'app-users',
