@@ -79,7 +79,7 @@ export class UserService {
   }
 
   oauth2Register(source: string, token: string): Observable<User> {
-    return this.http.post<User>(this.userApiUrl, {}, {headers: {source: source, token: token}});
+    return this.http.post<User>(this.userApiUrl, null, {headers: {source: source, token: token}});
   }
 
   oauth2Login(source: string, token: string): Observable<Token> {
