@@ -54,4 +54,16 @@ public class ErrorController {
                         "message", "Expired JWT token"
                 ));
     }
+
+    @ResponseBody
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Map<String, String>> errorHandler(final Exception exception) {
+        log.error(exception.getMessage());
+
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(Map.of(
+                        "message", exception.getMessage()
+                ));
+    }
 }

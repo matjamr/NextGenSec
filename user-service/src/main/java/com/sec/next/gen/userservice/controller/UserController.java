@@ -7,12 +7,16 @@ import com.sec.next.gen.userservice.service.internal.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.function.Function;
+
 @RestController
 @RequestMapping("/servicing")
 @RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
+    private final Function<String, List<UserModel>> retrieveUsersClient;
 
     @PostMapping
     public UserModel saveUser(@RequestBody(required = false) UserModel userModel,
@@ -32,5 +36,10 @@ public class UserController {
     @PutMapping
     public UserModel updateUser(@RequestBody UserModel userModel) {
         return userService.updateUser(userModel);
+    }
+
+    @GetMapping
+    public List<UserModel> getUsers(@RequestHeader(value = "token") String token) {
+        return retrieveUsersClient.apply(token);
     }
 }

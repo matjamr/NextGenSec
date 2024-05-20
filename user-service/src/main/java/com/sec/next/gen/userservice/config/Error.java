@@ -12,7 +12,8 @@ public enum Error {
     PASSWORD_DO_NOT_MATCH("Passwords do not match", HttpStatus.BAD_REQUEST),
     CLIENT_NOT_SUPPORTED("Client with given context is not supported", HttpStatus.BAD_REQUEST),
     EXPIRED_TOKEN("Expired token", HttpStatus.UNAUTHORIZED),
-    USER_EXISTS("User with given email already exists", HttpStatus.BAD_REQUEST);
+    USER_EXISTS("User with given email already exists", HttpStatus.BAD_REQUEST),
+    UNAUTHORIZED("Unauthorized", HttpStatus.UNAUTHORIZED);
 
     private final String message;
     private final HttpStatus httpStatus;
