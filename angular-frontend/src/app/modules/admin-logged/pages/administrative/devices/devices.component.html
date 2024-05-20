@@ -1,3 +1,13 @@
 <app-admin-header>
-  <p>devices works!</p>
+  <div class="container">
+    <h3>Devices</h3>
+    <app-configurable-table
+      [elementData]="devices$"
+      [tableTemplate]="tableTemplate"
+      [checkboxSupport]="true"
+      [addButtonAction]="addButtonAction"
+      [rowActionButtons]="rowActionButtons"
+      [onRemoveClick]="onRemove"
+    />
+  </div>
 </app-admin-header>

@@ -1,0 +1,18 @@
+<div class="container">
+  <h3 class="text-center" *ngIf="staticInquiry !== null">{{staticInquiry}}</h3>
+  <app-search
+    *ngIf="staticInquiry === null"
+    [placeholder]="'Search for a place'"
+    [renderView]="renderView"
+    [data]="searchData$! | async"
+    [searchPredicate]="searchPredicate"
+    [dataFormControl]="formControl"
+  />
+  <form [formGroup]="messageForm">
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Message:</mat-label>
+      <textarea matInput id="message" formControlName="message" rows="3" style="max-height: 30vh; width: 100%"></textarea>
+      <mat-hint>Enter your detailed message here</mat-hint>
+    </mat-form-field>
+  </form>
+</div>

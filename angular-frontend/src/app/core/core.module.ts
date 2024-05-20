@@ -41,13 +41,14 @@ import {MatLine, MatOption} from "@angular/material/core";
 import {MatDivider} from "@angular/material/divider";
 import {FindPlaceComponent} from './components/dialogs/find-place/find-place.component';
 import {SearchComponent} from './components/search/search.component';
-import {MatFormField} from "@angular/material/form-field";
+import {MatFormField, MatHint, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
 import {MatSelect} from "@angular/material/select";
 import {LeftNavAreaComponent} from './components/left-nav-area/left-nav-area.component';
 import {MatToolbar} from "@angular/material/toolbar";
 import {MapComponent} from './components/map/map.component';
+import {InquiryMessageDialogComponent} from './components/inquiry-message-dialog/inquiry-message-dialog.component';
 
 
 @NgModule({
@@ -65,7 +66,8 @@ import {MapComponent} from './components/map/map.component';
     FindPlaceComponent,
     SearchComponent,
     LeftNavAreaComponent,
-    MapComponent
+    MapComponent,
+    InquiryMessageDialogComponent
   ],
     imports: [
         CommonModule,
@@ -104,7 +106,9 @@ import {MapComponent} from './components/map/map.component';
         NgxMatSelectSearchModule,
         MatSelect,
         ReactiveFormsModule,
-        MatToolbar
+        MatToolbar,
+        MatHint,
+        MatLabel
     ],
     exports: [
         LogoTitleComponent,

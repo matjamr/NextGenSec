@@ -1,3 +1,13 @@
 <app-admin-header>
-  <p>products works!</p>
+  <div class="container">
+    <h3>Products</h3>
+    <app-configurable-table
+      [elementData]="products$"
+      [tableTemplate]="tableTemplate"
+      [rowActionButtons]="rowActionButtons"
+      [addButtonAction]="addButtonAction"
+      [onRemoveClick]="onRemove">
+    </app-configurable-table>
+  </div>
+
 </app-admin-header>
