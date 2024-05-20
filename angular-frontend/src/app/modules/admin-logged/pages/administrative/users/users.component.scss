@@ -1,209 +1,46 @@
-.main-container {
-  margin: 0 auto;
+/* search-users.component.css */
+.user-search-container {
+  width: 100%;
   max-width: 800px;
-  padding: 0 20px;
+  margin: auto;
+  padding: 20px;
 }
 
-.filter-options {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  background-color: #f8f8f8;
-  border-radius: 8px;
+.search-field {
+  width: 100%;
   margin-bottom: 20px;
 }
 
-.filter-select {
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 16px;
-  color: #333;
-  background-color: #fff;
-  cursor: pointer;
-}
-
-.add-user-btn {
-  padding: 10px 20px;
-  background-color: #4CAF50;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.add-user-btn:hover {
-  background-color: #45a049;
-}
-
-.contact-search {
-  position: relative;
-  margin-bottom: 20px;
-}
-
-.contact-item {
+.user-card {
+  margin-top: 10px;
+  padding: 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid #ccc; /* Adds a line between user cards */
 }
 
-.info-btn, .add-btn, .delete-btn, .contact-disabled {
-  border: none;
-  background: none;
-  cursor: pointer;
-  margin-left: 10px;
-  font-size: 20px;
-  transition: transform 0.2s ease-in-out;
+.user-details p {
+  margin: 5px 0;
 }
 
-.add-btn {
-  color: green;
+.actions button {
+  margin-right: 10px;
 }
 
-.info-btn {
-  color: #FFD700;
-}
-
-.delete-btn {
-  color: #FF6347;
-}
-
-.contact-disabled {
-  color: gray;
-}
-
-.contact-disabled:hover {
-  cursor: not-allowed;
-}
-
-.add-btn:hover, .info-btn:hover, .delete-btn:hover {
-  transform: scale(1.5);
-}
-
-.contact-search input {
+.user-search-container {
   width: 100%;
-  padding: 15px 20px;
-  border: 1px solid #ddd;
-  border-radius: 25px;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-  outline: none;
-  font-size: 18px;
-  color: #333;
-  transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-.contact-search input::placeholder {
-  color: #bbb;
-}
-
-.contact-search input:focus {
-  border-color: #7daeff;
-  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.2);
-}
-
-
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100vh;
-  overflow: auto;
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0,0.4);
-}
-
-.show-modal {
-  display: block;
-}
-
-.modal-content {
-  background-color: #fefefe;
-  margin: 15% auto;
+  max-width: 800px;
+  margin: auto;
   padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
 }
 
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-
-.form-group {
-  margin-bottom: 10px;
-}
-
-label {
-  display: block;
-  margin-bottom: 5px;
-}
-
-input[type="text"],
-input[type="email"] {
+.search-field {
   width: 100%;
-  padding: 8px;
-  margin-bottom: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  margin-bottom: 20px;
 }
 
-.btn-success {
-  color: white;
-  background-color: #28a745;
-  border-color: #28a745;
-  padding: 10px 20px;
-  border-radius: 4px;
-  cursor: pointer;
+.user-card {
+  margin-top: 10px;
+  padding: 15px;
 }
-
-.alert {
-  padding: 20px;
-  background-color: #4CAF50;
-  color: white;
-  opacity: 0;
-  transition: 2s ease-out;
-  position: fixed;
-  top: 10vh;
-  left: 50%;
-  width: 200px;
-  margin-left: -200px;
-  z-index: 9999;
-}
-
-.alert.show {
-  opacity: 1;
-}
-
-.alert > span.closebtn {
-  margin-left: 15px;
-  color: white;
-  font-weight: bold;
-  float: right;
-  font-size: 22px;
-  line-height: 20px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.alert > span.closebtn:hover {
-  color: #ddd;
-}
-

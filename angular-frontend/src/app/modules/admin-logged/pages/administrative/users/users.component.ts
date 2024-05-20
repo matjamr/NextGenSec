@@ -1,111 +1,153 @@
-import {Component, OnInit} from '@angular/core';
-import {UserService} from "../../../../../core/services/user/user.service";
-import {defaultUser, User} from "../../../../../core/models/User";
-import {PlaceService} from "../../../../../core/services/place/place.service";
-import {defaultPlace, Place} from "../../../../../core/models/Place";
+import {Component, ViewChild} from '@angular/core';
+import {User} from "../../../../../core/models/User";
+import {FormControl} from "@angular/forms";
+import {MatPaginator} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss']
 })
-export class UsersComponent implements OnInit {
-  searchText = '';
-  filterType = 'email';
-  localUsers: User[] = [];
-  allUsers: User[] = [];
-  showAddUserModal = false;
-  newUser: User = defaultUser;
-  queryAllUsers = false;
-  showAlert = false;
-  alertMessage = '';
-  place: Place = defaultPlace;
+export class UsersComponent {
+  searchControl = new FormControl('');
+  users: User[] = USERS;
+  allUsers: User[] = ALL_USERS;
+  displayedUsers: User[] = [];
+  pageSize = 2;
+  pageIndex = 0;
 
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(
-    private userService: UserService,
-    private placeService: PlaceService
-  ) { }
-
-  ngOnInit(): void {
-    this.userService.getAll(true).subscribe(users => {
-      this.localUsers.push(...users)
-    })
-
-    this.placeService.getPlacesByUser().subscribe(places => {
-      this.place = places[0];
+  ngOnInit() {
+    this.searchControl.valueChanges.subscribe(value => {
+      this.applyFilter(value!);
     });
+    this.applyFilter('');
   }
 
-  toggleAddUserModal() {
-    this.showAddUserModal = !this.showAddUserModal;
-  }
-
-  addUser(event: Event) {
-    event.preventDefault();
-    this.allUsers.push({...this.newUser });
-
-    this.userService.add(this.newUser.email).subscribe(ret => {
-      console.log(ret)
-    })
-
-    this.newUser = defaultUser;
-    this.toggleAddUserModal();
-  }
-
-  filteredContacts(searchString: string) {
-    if(searchString == '') {
-      this.queryAllUsers = false;
+  applyFilter(filterValue: string) {
+    let filteredUsers = this.filterUsers(filterValue, this.users);
+    if (filteredUsers.length === 0) {
+      filteredUsers = this.filterUsers(filterValue, this.allUsers);
     }
-
-    let tmpUserArr: User[] = this.queryAllUsers ? this.allUsers : this.localUsers;
-
-    let users = tmpUserArr.filter(user => {
-      if (this.filterType === 'email') {
-        return user.email.toLowerCase().includes(this.searchText.toLowerCase());
-      } else if (this.filterType === 'surname') {
-        // @ts-ignore
-        return contact.surname.toLowerCase().includes(this.searchText.toLowerCase());
-      }
-    });
-
-    if(users.length === 0 && searchString != '') {
-      this.queryAllUsers = true;
-    }
-
-    return users;
+    this.displayedUsers = filteredUsers.slice(this.pageIndex * this.pageSize, (this.pageIndex + 1) * this.pageSize);
   }
 
-  isAssignedUser(user: User) {
-    return this.localUsers.some(u => u.id === user.id);
+  filterUsers(filterValue: string, userArray: User[]) {
+    const lowerValue = filterValue.toLowerCase();
+    return userArray.filter(user =>
+      user.name.toLowerCase().includes(lowerValue) ||
+      user.surname.toLowerCase().includes(lowerValue) ||
+      user.email.toLowerCase().includes(lowerValue) ||
+      user.role.toLowerCase().includes(lowerValue)
+    );
   }
 
-  assignUserToPlace(user: User) {
-    // @ts-ignore
-    this.placeService.updatePlace({id: this.place.id, authorizedUsers: [{userAdd: {user: {id: user.id, email: user.email}, assignmentRole: "USER"}}]}).subscribe(() => {
-      this.alertMessage = `Added ${user.name}!`;
-      this.showAlert = true;
-      setTimeout(() => this.showAlert = false, 1500);
-      this.localUsers.push(user);
-    });
+  handlePageEvent(event: any) {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.applyFilter(this.searchControl.value!);
   }
 
-  deleteUserFromPlace(user: User) {
-    // @ts-ignore
-    this.placeService.updatePlace({id: this.place.id, authorizedUsers: [{userDelete: {id: user.id}}]}).subscribe(() => {
-      this.alertMessage = `Deleted ${user.name}!`;
-      this.showAlert = true;
-      setTimeout(() => this.showAlert = false, 1500);
-      this.localUsers = this.localUsers.filter(val => val.id !== user.id);
-    });
+  onMoreInfo(user: User) {
+    console.log('More Info:', user);
+    // Implement actions or routing to show more details about the user
   }
 
-  makeUserAdmin(user: User) {
-    // @ts-ignore
-    this.placeService.updatePlace({id: this.place.id, authorizedUsers: [{userModify: {user: {id: user.id, email: user.email}, assignmentRole: "ADMIN"}}]}).subscribe(() => {
-      this.alertMessage = `User ${user.name} made admin!`;
-      this.showAlert = true;
-      setTimeout(() => this.showAlert = false, 1500);
-    });
+  onUpdate(user: User) {
+    console.log('Update:', user);
+  }
+
+  addUser(user: User) {
+    console.log('Add user:', user);
   }
 }
+
+const USERS: User[] = [
+  {
+    id: '1',
+    email: 'john.doe@example.com',
+    name: 'John',
+    surname: 'Doe',
+    pictureUrl: 'http://example.com/john.jpg',
+    creationDate: '2021-01-01',
+    passwordChange: '2021-06-01',
+    phoneNumber: '123-456-7890',
+    source: 'Internet',
+    // @ts-ignore
+    address: {
+      // @ts-ignore
+      street: '1234 Broadway',
+      city: 'New York',
+      country: 'USA'
+    },
+    role: 'Administrator',
+    supportedProducts: [
+      // @ts-ignore
+      { productId: 'prod1', productName: 'Product 1' }
+    ],
+    userPlaceAssignments: [
+      // @ts-ignore
+      { placeId: 'place1', assignedRole: 'Manager' }
+    ]
+  },
+  // Add more users as needed
+];
+
+const ALL_USERS: User[] = [
+  {
+    id: '1',
+    email: 'john.dupaaaa@example.com',
+    name: 'Johdwadwan',
+    surname: 'Doedawdawdla wmdl;a',
+    pictureUrl: 'http://example.com/john.jpg',
+    creationDate: '2021-01-01',
+    passwordChange: '2021-06-01',
+    phoneNumber: '123-456-7890',
+    source: 'Internet',
+    // @ts-ignore
+    address: {
+      // @ts-ignore
+      street: '1234 Broadway',
+      city: 'New York',
+      country: 'USA'
+    },
+    role: 'Administrator',
+    supportedProducts: [
+      // @ts-ignore
+      { productId: 'prod1', productName: 'Product 1' }
+    ],
+    userPlaceAssignments: [
+      // @ts-ignore
+      { placeId: 'place1', assignedRole: 'Manager' }
+    ]
+  },
+  {
+    id: '1',
+    email: 'enail@example.com',
+    name: 'John',
+    surname: 'Doe',
+    pictureUrl: 'http://example.com/john.jpg',
+    creationDate: '2021-01-01',
+    passwordChange: '2021-06-01',
+    phoneNumber: '123-456-7890',
+    source: 'Internet',
+    // @ts-ignore
+    address: {
+      // @ts-ignore
+      street: '1234 Broadway',
+      city: 'New York',
+      country: 'USA'
+    },
+    role: 'Administrator',
+    supportedProducts: [
+      // @ts-ignore
+      { productId: 'prod1', productName: 'Product 1' }
+    ],
+    userPlaceAssignments: [
+      // @ts-ignore
+      { placeId: 'place1', assignedRole: 'Manager' }
+    ]
+  },
+  // Add more users as needed
+];
