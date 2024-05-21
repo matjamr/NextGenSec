@@ -49,4 +49,7 @@ public class User {
 
     @OneToMany
     private List<UserPlaceAssignment> userPlaceAssignments;
+
+    @OneToMany
+    private List<Email> emails;
 }

@@ -44,6 +44,8 @@ export class UsersComponent implements OnInit, OnDestroy{
     this.subscriptions.push(this.placeService.getAllPlaces().subscribe(places => {
       if(places.length > 0 && places[0].authorizedUsers) {
         this.users = places[0].authorizedUsers!.map(userPlace => userPlace.user);
+        this.applyFilter('');
+        this.cdr.detectChanges();
       }
     }))
   }

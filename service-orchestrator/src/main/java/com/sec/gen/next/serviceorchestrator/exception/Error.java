@@ -41,7 +41,8 @@ public enum Error implements Serializable {
     NO_PLACE_FOR_USER("User is not assigned to any place", 22),
     ONE_OF_PLACES_DO_NOT_EXIST("One of given places do not exist", 22),
     INVALID_HISTORY_ENTRANCE("Invalid history entrance data", 23),
-    INTERNAL_SERVER_ERROR("Internal Server Error: %s", 24);
+    INTERNAL_SERVER_ERROR("Internal Server Error: %s", 24),
+    INVALID_SEND_TO_NAME_EXCEPTION("Provided email is nor user email nor placeName", 24);
 
     private String message;
     private Integer code;

@@ -22,6 +22,7 @@ import java.util.List;
 @Builder
 public class CustomAuthentication implements Authentication {
 
+    private String id;
     private String email;
     private String name;
     private String surname;
