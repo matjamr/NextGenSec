@@ -94,6 +94,10 @@ export class UserService {
       })
     );
   }
+
+  findAll() {
+    return this.http.get<User[]>(this.userApiUrl, buildHeader())
+  }
 }
 
 export const buildHeader = () => {

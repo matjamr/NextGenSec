@@ -1,28 +1,55 @@
-import {Component, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {User} from "../../../../../core/models/User";
 import {FormControl} from "@angular/forms";
 import {MatPaginator} from "@angular/material/paginator";
+import {Subscription} from "rxjs";
+import {UserService} from "../../../../../core/services/user/user.service";
+import {UserDynamicService} from "../../../service/user-dynamic/user-dynamic.service";
+import {PlaceService} from "../../../../../core/services/place/place.service";
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss']
 })
-export class UsersComponent {
+export class UsersComponent implements OnInit, OnDestroy{
+  subscriptions: Subscription[] = [];
   searchControl = new FormControl('');
-  users: User[] = USERS;
-  allUsers: User[] = ALL_USERS;
+  users: User[] = [];
+  allUsers: User[] = [];
   displayedUsers: User[] = [];
   pageSize = 2;
   pageIndex = 0;
+  // users$: Observable<User[]>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  constructor(private userDynamicService: UserDynamicService,
+              private userService: UserService,
+              private placeService: PlaceService,
+              private cdr: ChangeDetectorRef) {
+  }
 
   ngOnInit() {
     this.searchControl.valueChanges.subscribe(value => {
       this.applyFilter(value!);
     });
-    this.applyFilter('');
+
+    this.subscriptions.push(this.userService.findAll().subscribe(users => {
+      this.allUsers = users;
+      this.applyFilter('');
+      this.cdr.detectChanges()
+    }));
+
+    this.subscriptions.push(this.placeService.getAllPlaces().subscribe(places => {
+      if(places.length > 0 && places[0].authorizedUsers) {
+        this.users = places[0].authorizedUsers!.map(userPlace => userPlace.user);
+      }
+    }))
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   applyFilter(filterValue: string) {
@@ -35,9 +62,11 @@ export class UsersComponent {
 
   filterUsers(filterValue: string, userArray: User[]) {
     const lowerValue = filterValue.toLowerCase();
-    return userArray.filter(user =>
-      user.name.toLowerCase().includes(lowerValue) ||
-      user.surname.toLowerCase().includes(lowerValue) ||
+    return userArray
+      .filter(user => user !== undefined)
+      .filter(user =>
+      // user.name.toLowerCase().includes(lowerValue) ||
+      // user.surname.toLowerCase().includes(lowerValue) ||
       user.email.toLowerCase().includes(lowerValue) ||
       user.role.toLowerCase().includes(lowerValue)
     );
@@ -51,7 +80,6 @@ export class UsersComponent {
 
   onMoreInfo(user: User) {
     console.log('More Info:', user);
-    // Implement actions or routing to show more details about the user
   }
 
   onUpdate(user: User) {
