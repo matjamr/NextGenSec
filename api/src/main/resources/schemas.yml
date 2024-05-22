@@ -353,3 +353,22 @@ components:
           items:
               type: string
 
+    MailRetrieveResponse:
+      type:
+        object
+      properties:
+        id:
+          type: string
+        subject:
+          type: string
+        content:
+          type: string
+        from:
+          $ref: '#/components/schemas/UserModel'
+        toUser:
+          $ref: '#/components/schemas/UserModel'
+        date:
+          type: string
+          format: date-time
+          pattern: "yyy-MM-dd'T'HH:mm:ss.SSSXXX"
+

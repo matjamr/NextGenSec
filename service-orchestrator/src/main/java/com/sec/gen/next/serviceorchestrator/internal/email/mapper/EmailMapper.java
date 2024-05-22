@@ -2,6 +2,7 @@ package com.sec.gen.next.serviceorchestrator.internal.email.mapper;
 
 import com.next.gen.api.Email;
 import com.next.gen.sec.model.MailModel;
+import com.next.gen.sec.model.MailRetrieveResponse;
 import com.sec.gen.next.serviceorchestrator.internal.places.mapper.UserMapper;
 import org.mapstruct.Mapper;
 
@@ -11,4 +12,6 @@ public interface EmailMapper {
     MailModel map(Email email);
 
     Email map(MailModel mailModel);
+
+    MailRetrieveResponse mapTo(Email email);
 }

@@ -84,11 +84,6 @@ public class KafkaConfig {
     }
 
     @Bean
-    public ObjectMapper objectMapper() {
-        return new ObjectMapper();
-    }
-
-    @Bean
     public KafkaProducer<KafkaAsyncHistoryNotif> kafkaAsyncHistoryNotifKafkaProducer(
             final KafkaTemplate<String, String> kafkaTemplate,
             final ObjectMapper objectMapper
