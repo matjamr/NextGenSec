@@ -17,6 +17,11 @@ export interface Place {
   devices?: Device[] | []
 }
 
+export interface UserPlaceUpdate {
+  placeName: string;
+  userPlaceAssignment: UserPlaceAssigment;
+}
+
 export const defaultPlace: Place = {
   id: "0",
   placeName: "",

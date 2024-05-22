@@ -40,6 +40,10 @@ public class RetrieveDevicesService implements QueryService<DeviceModel, String>
     }
 
     private List<DeviceModel> filterDevices(List<DeviceModel> deviceModels) {
+        if(deviceModels.isEmpty()) {
+            return deviceModels;
+        }
+
         CustomAuthentication user = (CustomAuthentication) SecurityContextHolder.getContext().getAuthentication();
 
         if(Role.SYSTEM.equals(user.getRole())) {

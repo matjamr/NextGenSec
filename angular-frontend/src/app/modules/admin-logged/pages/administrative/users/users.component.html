@@ -5,7 +5,7 @@
       <input matInput [formControl]="searchControl" placeholder="Type to search...">
     </mat-form-field>
 
-    <mat-card *ngFor="let user of displayedUsers" class="user-card">
+    <mat-card *ngFor="let user of displayedUsers | slice:(pageIndex*pageSize):((pageIndex+1)*pageSize)" class="user-card">
       <mat-card-content>
         <div class="user-details">
           <p><strong>Email:</strong> {{ user.email }}</p>
@@ -14,8 +14,8 @@
         </div>
         <div class="actions">
           <button mat-button color="primary" (click)="onMoreInfo(user)">More Info</button>
-          <button mat-button color="accent" (click)="onUpdate(user)">Update</button>
-          <button mat-button color="accent" (click)="addUser(user)" *ngIf="user.role === 'user'">Add User</button>
+          <button mat-button color="accent" (click)="removeUser(user)" *ngIf="user.role === 'user' && !isSearchAllActive">Remove User</button>
+          <button mat-button color="accent" (click)="addUser(user)" *ngIf="isSearchAllActive">Add User</button>
         </div>
       </mat-card-content>
     </mat-card>

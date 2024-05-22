@@ -5,7 +5,7 @@ export interface UserPlaceAssigment {
   id?: number,
   user: User,
   assignmentRole: string,
-  products: Product[] | [],
+  products?: Product[] | [] | null,
   userAdd?: {
     user: User,
     assignmentRole: string,

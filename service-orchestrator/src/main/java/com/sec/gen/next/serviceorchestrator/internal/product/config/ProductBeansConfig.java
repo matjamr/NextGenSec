@@ -1,9 +1,12 @@
 package com.sec.gen.next.serviceorchestrator.internal.product.config;
 
 
+import com.next.gen.sec.model.PlacesModel;
 import com.next.gen.sec.model.ProductModel;
 import com.sec.gen.next.serviceorchestrator.common.templates.CrudService;
 import com.sec.gen.next.serviceorchestrator.common.templates.DeleteService;
+import com.sec.gen.next.serviceorchestrator.internal.email.repository.UserRepository;
+import com.sec.gen.next.serviceorchestrator.internal.places.service.CrudPlaceService;
 import com.sec.gen.next.serviceorchestrator.internal.product.mapper.ProductMapper;
 import com.sec.gen.next.serviceorchestrator.internal.product.repository.ProductRepository;
 import com.sec.gen.next.serviceorchestrator.internal.product.service.ProductDeleteService;

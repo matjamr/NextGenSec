@@ -6,13 +6,14 @@ import {Subscription} from "rxjs";
 import {UserService} from "../../../../../core/services/user/user.service";
 import {UserDynamicService} from "../../../service/user-dynamic/user-dynamic.service";
 import {PlaceService} from "../../../../../core/services/place/place.service";
+import {NotificationService} from "../../../../../core/services/notification/notification.service";
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss']
 })
-export class UsersComponent implements OnInit, OnDestroy{
+export class UsersComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
   searchControl = new FormControl('');
   users: User[] = [];
@@ -20,12 +21,15 @@ export class UsersComponent implements OnInit, OnDestroy{
   displayedUsers: User[] = [];
   pageSize = 2;
   pageIndex = 0;
+  placeName: string = '';
+  isSearchAllActive = false;
   // users$: Observable<User[]>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private userDynamicService: UserDynamicService,
               private userService: UserService,
+              private notificationService: NotificationService,
               private placeService: PlaceService,
               private cdr: ChangeDetectorRef) {
   }
@@ -42,11 +46,15 @@ export class UsersComponent implements OnInit, OnDestroy{
     }));
 
     this.subscriptions.push(this.placeService.getAllPlaces().subscribe(places => {
-      if(places.length > 0 && places[0].authorizedUsers) {
+      if (places.length > 0 && places[0].authorizedUsers) {
         this.users = places[0].authorizedUsers!.map(userPlace => userPlace.user);
         this.applyFilter('');
         this.cdr.detectChanges();
       }
+    }))
+
+    this.subscriptions.push(this.placeService.getAllPlaces().subscribe(places => {
+      this.placeName = places[0].placeName
     }))
   }
 
@@ -57,9 +65,12 @@ export class UsersComponent implements OnInit, OnDestroy{
   applyFilter(filterValue: string) {
     let filteredUsers = this.filterUsers(filterValue, this.users);
     if (filteredUsers.length === 0) {
+      this.isSearchAllActive = true;
       filteredUsers = this.filterUsers(filterValue, this.allUsers);
+    } else {
+      this.isSearchAllActive = false;
     }
-    this.displayedUsers = filteredUsers.slice(this.pageIndex * this.pageSize, (this.pageIndex + 1) * this.pageSize);
+    this.displayedUsers = filteredUsers;
   }
 
   filterUsers(filterValue: string, userArray: User[]) {
@@ -67,11 +78,9 @@ export class UsersComponent implements OnInit, OnDestroy{
     return userArray
       .filter(user => user !== undefined)
       .filter(user =>
-      // user.name.toLowerCase().includes(lowerValue) ||
-      // user.surname.toLowerCase().includes(lowerValue) ||
-      user.email.toLowerCase().includes(lowerValue) ||
-      user.role.toLowerCase().includes(lowerValue)
-    );
+        user.email.toLowerCase().includes(lowerValue) ||
+        user.role.toLowerCase().includes(lowerValue)
+      );
   }
 
   handlePageEvent(event: any) {
@@ -84,100 +93,37 @@ export class UsersComponent implements OnInit, OnDestroy{
     console.log('More Info:', user);
   }
 
-  onUpdate(user: User) {
-    console.log('Update:', user);
+  addUser(user: User) {
+    this.subscriptions.push(this.placeService.addAdminToPlace({
+      placeName: this.placeName,
+      userPlaceAssignment: {
+        user: user,
+        assignmentRole: 'USER'
+      }
+    }).subscribe(ret => {
+      this.pageIndex = 0;
+      this.paginator.pageIndex = 0;
+      this.users.push(user);
+      this.cdr.detectChanges();
+      this.searchControl.setValue('');
+      this.notificationService.success('User added', 'User has been added to the place');
+    }))
   }
 
-  addUser(user: User) {
-    console.log('Add user:', user);
+  removeUser(user: User) {
+    this.subscriptions.push(this.placeService.removeAdminFromPlace({
+      placeName: this.placeName,
+      userPlaceAssignment: {
+        user: user,
+        assignmentRole: 'USER'
+      }
+    }).subscribe(ret => {
+      this.pageIndex = 0;
+      this.paginator.pageIndex = 0;
+      this.users = [...this.users.filter(u => u.id !== user.id)];
+      this.cdr.detectChanges();
+      this.searchControl.setValue('');
+      this.notificationService.success('User removed', 'User has been removed from the place');
+    }))
   }
 }
-
-const USERS: User[] = [
-  {
-    id: '1',
-    email: 'john.doe@example.com',
-    name: 'John',
-    surname: 'Doe',
-    pictureUrl: 'http://example.com/john.jpg',
-    creationDate: '2021-01-01',
-    passwordChange: '2021-06-01',
-    phoneNumber: '123-456-7890',
-    source: 'Internet',
-    // @ts-ignore
-    address: {
-      // @ts-ignore
-      street: '1234 Broadway',
-      city: 'New York',
-      country: 'USA'
-    },
-    role: 'Administrator',
-    supportedProducts: [
-      // @ts-ignore
-      { productId: 'prod1', productName: 'Product 1' }
-    ],
-    userPlaceAssignments: [
-      // @ts-ignore
-      { placeId: 'place1', assignedRole: 'Manager' }
-    ]
-  },
-  // Add more users as needed
-];
-
-const ALL_USERS: User[] = [
-  {
-    id: '1',
-    email: 'john.dupaaaa@example.com',
-    name: 'Johdwadwan',
-    surname: 'Doedawdawdla wmdl;a',
-    pictureUrl: 'http://example.com/john.jpg',
-    creationDate: '2021-01-01',
-    passwordChange: '2021-06-01',
-    phoneNumber: '123-456-7890',
-    source: 'Internet',
-    // @ts-ignore
-    address: {
-      // @ts-ignore
-      street: '1234 Broadway',
-      city: 'New York',
-      country: 'USA'
-    },
-    role: 'Administrator',
-    supportedProducts: [
-      // @ts-ignore
-      { productId: 'prod1', productName: 'Product 1' }
-    ],
-    userPlaceAssignments: [
-      // @ts-ignore
-      { placeId: 'place1', assignedRole: 'Manager' }
-    ]
-  },
-  {
-    id: '1',
-    email: 'enail@example.com',
-    name: 'John',
-    surname: 'Doe',
-    pictureUrl: 'http://example.com/john.jpg',
-    creationDate: '2021-01-01',
-    passwordChange: '2021-06-01',
-    phoneNumber: '123-456-7890',
-    source: 'Internet',
-    // @ts-ignore
-    address: {
-      // @ts-ignore
-      street: '1234 Broadway',
-      city: 'New York',
-      country: 'USA'
-    },
-    role: 'Administrator',
-    supportedProducts: [
-      // @ts-ignore
-      { productId: 'prod1', productName: 'Product 1' }
-    ],
-    userPlaceAssignments: [
-      // @ts-ignore
-      { placeId: 'place1', assignedRole: 'Manager' }
-    ]
-  },
-  // Add more users as needed
-];

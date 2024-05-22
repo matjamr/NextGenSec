@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {map, Observable} from "rxjs";
+import {map, Observable, Subscription} from "rxjs";
 import {Device} from "../../../../../core/models/Device";
 import {DeviceService} from "../../../../../core/services/device/device.service";
 import {Store} from "@ngrx/store";
@@ -18,6 +18,7 @@ import {SendMail} from "../../../../../core/models/Mail";
 import {EmailingService} from "../../../../../core/services/emailing/emailing.service";
 import {NotificationService} from "../../../../../core/services/notification/notification.service";
 import {Product} from "../../../../../core/models/Product";
+import {PlaceService} from "../../../../../core/services/place/place.service";
 
 @Component({
   selector: 'app-devices',
@@ -25,13 +26,16 @@ import {Product} from "../../../../../core/models/Product";
   styleUrl: './devices.component.css'
 })
 export class DevicesComponent implements OnInit {
+  subs: Subscription[] = [];
   devices$: Observable<Device[]>;
+  placeName: string = '';
 
   constructor(private devicesService: DeviceService,
               private store: Store<AppState>,
               public dialog: MatDialog,
               private emailService: EmailingService,
-              private notificationService: NotificationService
+              private notificationService: NotificationService,
+              private placeService: PlaceService
   ) {
     this.devices$ = this.store.select('devices');
   }
@@ -59,6 +63,11 @@ export class DevicesComponent implements OnInit {
         productName: device.product.name
       })))
     );
+
+    this.subs.push(this.placeService.getAllPlaces().subscribe(places => {
+      this.placeName = places[0].placeName
+    }))
+
   }
 
   addButtonAction = () => {
