@@ -5,24 +5,22 @@ import com.next.gen.api.Places;
 import com.next.gen.api.User;
 import com.next.gen.api.UserPlaceAssignment;
 import com.next.gen.sec.model.MailModel;
-import com.next.gen.sec.model.PlacesModel;
 import com.next.gen.sec.model.Role;
-import com.next.gen.sec.model.UserModel;
 import com.sec.gen.next.serviceorchestrator.api.CustomAuthentication;
 import com.sec.gen.next.serviceorchestrator.internal.email.mapper.EmailMapper;
 import com.sec.gen.next.serviceorchestrator.internal.email.repository.EmailRepository;
 import com.sec.gen.next.serviceorchestrator.internal.email.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
-import com.sec.gen.next.serviceorchestrator.common.templates.SaveService;
 import com.sec.gen.next.serviceorchestrator.internal.places.repository.PlacesRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 import java.util.function.Consumer;
-
-import static com.sec.gen.next.serviceorchestrator.exception.Error.INVALID_SEND_TO_NAME_EXCEPTION;
 
 @Service
 @RequiredArgsConstructor
@@ -53,9 +51,7 @@ public class SaveEmailService implements Consumer<MailModel> {
 
     private List<User> findSendToEntity(String sendToName) {
         if(Objects.equals(sendToName, "SYSTEM")) {
-            var ret = userRepository.findAllByRole(Role.SYSTEM);
-
-            return ret;
+            return userRepository.findAllByRole(Role.SYSTEM);
         }
 
         return userRepository.findByEmail(sendToName)

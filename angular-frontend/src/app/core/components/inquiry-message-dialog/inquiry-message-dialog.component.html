@@ -1,4 +1,4 @@
-<div class="container">
+<div mat-dialog-content>
   <h3 class="text-center" *ngIf="staticInquiry !== null">{{staticInquiry}}</h3>
   <app-search
     *ngIf="staticInquiry === null"
@@ -7,7 +7,7 @@
     [data]="searchData$! | async"
     [searchPredicate]="searchPredicate"
     [dataFormControl]="formControl"
-  />
+  ></app-search>
   <form [formGroup]="messageForm">
     <mat-form-field appearance="fill" class="w-100">
       <mat-label>Message:</mat-label>
@@ -15,4 +15,7 @@
       <mat-hint>Enter your detailed message here</mat-hint>
     </mat-form-field>
   </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="closeDialog()">Submit</button>
 </div>

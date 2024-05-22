@@ -1,7 +1,7 @@
-import {Component, Inject, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Inject, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
 import {Observable} from "rxjs";
-import {MAT_DIALOG_DATA} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-inquiry-message-dialog',
@@ -25,7 +25,16 @@ export class InquiryMessageDialogComponent<T> implements OnInit{
   @Input()
   formControl: FormControl<T | null> = new FormControl<T | null>(null);
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
+  @Output()
+  dialogClosed: EventEmitter<any> = new EventEmitter();
+
+  closeDialog() {
+    this.dialogClosed.emit(this.messageForm.value);
+    this.dialogRef.close();
+  }
+
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any,  private dialogRef: MatDialogRef<InquiryMessageDialogComponent<T>>) {
     this.staticInquiry = data.staticInquiry;
   }
 
@@ -34,4 +43,6 @@ export class InquiryMessageDialogComponent<T> implements OnInit{
       message: new FormControl('')
     });
   }
+
+  protected readonly close = close;
 }

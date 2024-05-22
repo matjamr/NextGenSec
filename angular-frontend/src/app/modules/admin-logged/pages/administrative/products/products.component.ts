@@ -12,6 +12,9 @@ import {
 } from "../../../../../core/components/inquiry-message-dialog/inquiry-message-dialog.component";
 import {Product} from "../../../../../core/models/Product";
 import {GetProducts} from "../../../../../core/state/products/products.actions";
+import {EmailingService} from "../../../../../core/services/emailing/emailing.service";
+import {NotificationService} from "../../../../../core/services/notification/notification.service";
+import {SendMail} from "../../../../../core/models/Mail";
 
 @Component({
   selector: 'app-products',
@@ -21,7 +24,10 @@ import {GetProducts} from "../../../../../core/state/products/products.actions";
 export class ProductsComponent implements OnInit{
   products$: Observable<Product[]>;
 
-  constructor(public dialog: MatDialog, private store: Store<AppState>) {
+  constructor(public dialog: MatDialog,
+              private store: Store<AppState>,
+              private emailService: EmailingService,
+              private notificationService: NotificationService) {
     this.products$ = store.pipe(select('products'));
   }
 
@@ -60,10 +66,17 @@ export class ProductsComponent implements OnInit{
       data: {staticInquiry: 'Inquiry for new product' }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+
+    dialogRef.componentInstance.dialogClosed.subscribe(result => {
+      const mailToBeSent: SendMail = {
+        to: ['SYSTEM'],
+        subject: 'New product',
+        content: result.message
+      }
+
       if (result) {
-        // Send the form data
-        console.log(result.message);
+          this.emailService.sendEmail(mailToBeSent)
+            .subscribe(() => this.notificationService.success('Mail', 'Mail has been sent'));
       }
     });
   }
@@ -75,10 +88,16 @@ export class ProductsComponent implements OnInit{
       data: {staticInquiry: 'Inquiry for removing product' }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.componentInstance.dialogClosed.subscribe(result => {
+      const mailToBeSent: SendMail = {
+        to: ['SYSTEM'],
+        subject: 'Remove product',
+        content: result.message
+      }
+
       if (result) {
-        // Send the form data
-        console.log(result.message);
+        this.emailService.sendEmail(mailToBeSent)
+          .subscribe(() => this.notificationService.success('Mail', 'Mail has been sent'));
       }
     });
   }
