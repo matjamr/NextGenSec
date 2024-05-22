@@ -23,7 +23,7 @@ public class HistoryBeansConfig {
     @Bean
     public KafkaHistoryConsumer kafkaHistoryConsumer(
             @Qualifier("crudPlaceService") final SimpleQueryService<String, PlacesModel> simpleQueryPlacesService,
-            final SimpleQueryService<String, DeviceModel> deviceQueryService,
+            @Qualifier("deviceCrudService") final SimpleQueryService<String, DeviceModel> deviceQueryService,
             final UserServiceClient userServiceClient,
             final SaveService<HistoryEntranceModel, HistoryEntranceModel> historySaveService,
             final KafkaProducer<KafkaAsyncHistoryNotif> kafkaAsyncHistoryNotifKafkaProducer

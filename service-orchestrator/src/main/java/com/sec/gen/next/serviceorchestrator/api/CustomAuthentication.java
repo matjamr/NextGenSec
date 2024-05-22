@@ -2,6 +2,7 @@ package com.sec.gen.next.serviceorchestrator.api;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.next.gen.sec.model.GoogleAuthorizedUser;
+import com.next.gen.sec.model.PlacesModel;
 import com.next.gen.sec.model.RegistrationSource;
 import com.next.gen.sec.model.Role;
 import jakarta.ws.rs.NotSupportedException;

@@ -4,6 +4,7 @@ import com.next.gen.sec.model.DeviceModel;
 import com.next.gen.sec.model.PlacesModel;
 import com.next.gen.sec.model.ProductModel;
 import com.sec.gen.next.serviceorchestrator.common.templates.CrudService;
+import com.sec.gen.next.serviceorchestrator.common.templates.QueryService;
 import com.sec.gen.next.serviceorchestrator.common.templates.SimpleQueryService;
 import com.sec.gen.next.serviceorchestrator.internal.device.mapper.DeviceMapper;
 import com.sec.gen.next.serviceorchestrator.internal.device.repository.DeviceRepository;
@@ -20,8 +21,7 @@ public class DeviceBeansConfig {
             final DeviceRepository deviceRepository,
             final DeviceMapper deviceMapper,
             final SimpleQueryService<String, ProductModel> productSimpleQueryService,
-            @Qualifier("simpleQueryPlacesService") final SimpleQueryService<String, PlacesModel> placesSimpleQueryService
-            ) {
+            @Qualifier("simpleQueryPlacesService") final SimpleQueryService<String, PlacesModel> placesSimpleQueryService) {
         return new CrudDeviceService(deviceRepository, deviceMapper,
                 productSimpleQueryService, placesSimpleQueryService);
     }
