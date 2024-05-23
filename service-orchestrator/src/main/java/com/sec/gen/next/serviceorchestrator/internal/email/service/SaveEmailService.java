@@ -5,8 +5,10 @@ import com.next.gen.api.Places;
 import com.next.gen.api.User;
 import com.next.gen.api.UserPlaceAssignment;
 import com.next.gen.sec.model.MailModel;
+import com.next.gen.sec.model.OutboundEmailModel;
 import com.next.gen.sec.model.Role;
 import com.sec.gen.next.serviceorchestrator.api.CustomAuthentication;
+import com.sec.gen.next.serviceorchestrator.external.kafka.KafkaProducer;
 import com.sec.gen.next.serviceorchestrator.internal.email.mapper.EmailMapper;
 import com.sec.gen.next.serviceorchestrator.internal.email.repository.EmailRepository;
 import com.sec.gen.next.serviceorchestrator.internal.email.repository.UserRepository;
@@ -16,10 +18,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Consumer;
 
 @Service
@@ -30,6 +29,7 @@ public class SaveEmailService implements Consumer<MailModel> {
     private final EmailRepository emailRepository;
     private final UserRepository userRepository;
     private final PlacesRepository placesRepository;
+    private final KafkaProducer<OutboundEmailModel> outboundEmailModelKafkaProducer;
 
     @Override
     public void accept(MailModel mailModel) {
@@ -44,9 +44,21 @@ public class SaveEmailService implements Consumer<MailModel> {
                 .stream()
                 .map(this::findSendToEntity)
                 .flatMap(Collection::stream)
-                .forEach(user_ -> emailRepository.save(email
+                .forEach(user_ -> {
+                    emailRepository.save(email
                             .setDate(OffsetDateTime.now())
-                            .setToUser(user_)));
+                            .setToUser(user_));
+
+                    outboundEmailModelKafkaProducer.sendMessage(new OutboundEmailModel()
+                            .email(user_.getEmail())
+                            .strategy("EMAIL_RECEIVED")
+                            .subject(mailModel.getSubject())
+                            .params(Map.of(
+                                    "emailFrom", user.getEmail(),
+                                    "content", mailModel.getContent(),
+                                    "subject", mailModel.getSubject()
+                            )));
+                });
     }
 
     private List<User> findSendToEntity(String sendToName) {
@@ -55,9 +67,9 @@ public class SaveEmailService implements Consumer<MailModel> {
         }
 
         return userRepository.findByEmail(sendToName)
-                .map(List::of)
-                .filter(list -> list.size() > 0)
-                .orElse(placesRepository.findByPlaceName(sendToName)
+                        .map(List::of)
+                        .filter(list -> list.size() > 0)
+                        .orElse(placesRepository.findByPlaceName(sendToName)
                         .map(Places::getAuthorizedUsers)
                         .orElse(Collections.emptyList())
                         .stream()

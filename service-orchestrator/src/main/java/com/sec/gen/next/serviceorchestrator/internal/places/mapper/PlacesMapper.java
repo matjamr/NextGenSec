@@ -4,6 +4,7 @@ import com.next.gen.api.Places;
 import com.next.gen.sec.model.PlacesModel;
 import com.sec.gen.next.serviceorchestrator.common.templates.ViewershipBuilder;
 import com.sec.gen.next.serviceorchestrator.internal.device.mapper.DeviceMapper;
+import com.sec.gen.next.serviceorchestrator.internal.product.mapper.ProductMapper;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
@@ -12,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 import java.util.function.Function;
 
-@Mapper(uses = {UserPlaceAssignmentMapper.class, UserMapper.class, DeviceMapper.class})
+@Mapper(uses = {UserPlaceAssignmentMapper.class, UserMapper.class, DeviceMapper.class, ProductMapper.class})
 public abstract class PlacesMapper {
 
     protected Function<List<PlacesModel>, List<PlacesModel>> viewershipBuilder;

@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {Observable} from "rxjs";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Observable, Subscription} from "rxjs";
 import {select, Store} from "@ngrx/store";
 import {AppState} from "../../../../../app.state";
 import {MatDialog} from "@angular/material/dialog";
@@ -15,17 +15,21 @@ import {GetProducts} from "../../../../../core/state/products/products.actions";
 import {EmailingService} from "../../../../../core/services/emailing/emailing.service";
 import {NotificationService} from "../../../../../core/services/notification/notification.service";
 import {SendMail} from "../../../../../core/models/Mail";
+import {PlaceService} from "../../../../../core/services/place/place.service";
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })
-export class ProductsComponent implements OnInit{
+export class ProductsComponent implements OnInit, OnDestroy {
+  subs: Subscription[] = [];
   products$: Observable<Product[]>;
+  placeName: string = '';
 
   constructor(public dialog: MatDialog,
               private store: Store<AppState>,
+              private placeService: PlaceService,
               private emailService: EmailingService,
               private notificationService: NotificationService) {
     this.products$ = store.pipe(select('products'));
@@ -33,6 +37,14 @@ export class ProductsComponent implements OnInit{
 
   ngOnInit(): void {
     this.store.dispatch(GetProducts());
+
+    this.subs.push(this.placeService.getAllPlaces().subscribe(places => {
+      this.placeName = places[0].placeName
+    }))
+  }
+
+  ngOnDestroy() {
+    this.subs.forEach(sub => sub.unsubscribe());
   }
 
   tableTemplate: ConfigurableTableTemplate[] = [
@@ -70,7 +82,7 @@ export class ProductsComponent implements OnInit{
     dialogRef.componentInstance.dialogClosed.subscribe(result => {
       const mailToBeSent: SendMail = {
         to: ['SYSTEM'],
-        subject: 'New product',
+        subject: `New product [${this.placeName}]`,
         content: result.message
       }
 
@@ -91,7 +103,7 @@ export class ProductsComponent implements OnInit{
     dialogRef.componentInstance.dialogClosed.subscribe(result => {
       const mailToBeSent: SendMail = {
         to: ['SYSTEM'],
-        subject: 'Remove product',
+        subject: `Remove product [${this.placeName}]`,
         content: result.message
       }
 

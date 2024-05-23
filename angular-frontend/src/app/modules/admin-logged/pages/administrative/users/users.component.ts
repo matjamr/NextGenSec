@@ -78,8 +78,7 @@ export class UsersComponent implements OnInit, OnDestroy {
     return userArray
       .filter(user => user !== undefined)
       .filter(user =>
-        user.email.toLowerCase().includes(lowerValue) ||
-        user.role.toLowerCase().includes(lowerValue)
+        user.email.toLowerCase().includes(lowerValue)
       );
   }
 

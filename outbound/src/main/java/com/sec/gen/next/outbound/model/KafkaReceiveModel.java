@@ -10,5 +10,6 @@ import java.util.Map;
 public class KafkaReceiveModel {
     private String strategy;
     private String email;
+    private String subject;
     private Map<String, String> params;
 }

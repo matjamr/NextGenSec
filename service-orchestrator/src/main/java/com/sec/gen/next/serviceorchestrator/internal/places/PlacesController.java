@@ -1,5 +1,6 @@
 package com.sec.gen.next.serviceorchestrator.internal.places;
 
+import com.next.gen.sec.model.ModifyProductsPlaceModel;
 import com.next.gen.sec.model.ModifyUserToPlaceModel;
 import com.next.gen.sec.model.PlacesModel;
 import com.sec.gen.next.serviceorchestrator.common.templates.CrudService;
@@ -26,16 +27,24 @@ public class PlacesController {
     private final UpdateService<ModifyUserToPlaceModel, PlacesModel> addUserToPlaceService;
     @Qualifier("removeUserFromPlaceService")
     private final UpdateService<ModifyUserToPlaceModel, PlacesModel> removeUserFromPlaceService;
+    @Qualifier("addProductToPlaceService")
+    private final UpdateService<ModifyProductsPlaceModel, PlacesModel> addProductToPlaceService;
 
 
     public PlacesController(CrudService<PlacesModel, PlacesModel, String> crudPlaceService,
-                            Supplier<PlacesModel> placesForUserSupplier, DeleteService<List<String>, List<String>> placesDeleteService, UpdateService<ModifyUserToPlaceModel, PlacesModel> changeUserToPlaceService, UpdateService<ModifyUserToPlaceModel, PlacesModel> addUserToPlaceService, UpdateService<ModifyUserToPlaceModel, PlacesModel> removeUserFromPlaceService) {
+                            Supplier<PlacesModel> placesForUserSupplier,
+                            DeleteService<List<String>, List<String>> placesDeleteService,
+                            UpdateService<ModifyUserToPlaceModel, PlacesModel> changeUserToPlaceService,
+                            UpdateService<ModifyUserToPlaceModel, PlacesModel> addUserToPlaceService,
+                            UpdateService<ModifyUserToPlaceModel, PlacesModel> removeUserFromPlaceService,
+                            UpdateService<ModifyProductsPlaceModel, PlacesModel> addProductToPlaceService) {
         this.crudPlaceService = crudPlaceService;
         this.placesForUserSupplier = placesForUserSupplier;
         this.placesDeleteService = placesDeleteService;
         this.changeUserToPlaceService = changeUserToPlaceService;
         this.addUserToPlaceService = addUserToPlaceService;
         this.removeUserFromPlaceService = removeUserFromPlaceService;
+        this.addProductToPlaceService = addProductToPlaceService;
     }
 
     @PostMapping
@@ -56,6 +65,11 @@ public class PlacesController {
     @GetMapping("/user")
     public PlacesModel getPlace() {
         return placesForUserSupplier.get();
+    }
+
+    @PostMapping("/product")
+    public PlacesModel addProductToPlace(@RequestBody ModifyProductsPlaceModel modifyUserToPlaceModel) {
+        return addProductToPlaceService.update(modifyUserToPlaceModel);
     }
 
     @DeleteMapping

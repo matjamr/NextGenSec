@@ -39,7 +39,8 @@ public class MailConfiguration {
                 "BASIC", "emailTemplate",
                 "PASSWD_CHANGE", "passwordChange",
                 "ACCOUNT_CREATE", "accountCreate",
-                "NEW_PASSWORD", "newPassword"
+                "NEW_PASSWORD", "newPassword",
+                "EMAIL_RECEIVED", "emailReceived"
         );
     }
 }

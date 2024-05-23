@@ -141,6 +141,8 @@ components:
       properties:
         strategy:
           type: string
+        subject:
+          type: string
         email:
           type: string
         params:
@@ -190,6 +192,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/DeviceModel'
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductModel'
         description:
           type: string
     DeviceModel:
@@ -371,4 +377,14 @@ components:
           type: string
           format: date-time
           pattern: "yyy-MM-dd'T'HH:mm:ss.SSSXXX"
+
+    ModifyProductsPlaceModel:
+      type: object
+      properties:
+        placeName:
+          type: string
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductModel'
 

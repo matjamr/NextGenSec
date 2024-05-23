@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import org.thymeleaf.context.Context;
 
 import java.util.Map;
+import java.util.Optional;
 
 @Component
 @org.springframework.kafka.annotation.KafkaListener(topics = "outbound", groupId = "1")
@@ -32,7 +33,8 @@ public class KafkaListener {
         kafkaReceiveModel.getParams().forEach(context::setVariable);
 
         emailService.sendHtmlMail(kafkaReceiveModel.getEmail(),
-                "Mail from next gen sec",
+                Optional.ofNullable(kafkaReceiveModel.getSubject())
+                        .orElse("Mail from next gen sec"),
                 templateDispatcher.get(kafkaReceiveModel.getStrategy()),
                 context);
     }

@@ -53,11 +53,8 @@ public class RetrieveProductsService implements QueryService<ProductModel, Strin
         return crudPlaceService.findAll()
                 .stream()
                 .findFirst()
-                .map(PlacesModel::getDevices)
-                .orElse(Collections.emptyList())
-                .stream()
-                .map(DeviceModel::getProduct)
-                .toList();
+                .map(PlacesModel::getProducts)
+                .orElse(Collections.emptyList());
 
     }
 }
