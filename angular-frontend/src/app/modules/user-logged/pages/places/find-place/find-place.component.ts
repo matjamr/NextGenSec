@@ -25,7 +25,6 @@ export class FindPlaceComponent implements OnInit, OnDestroy {
 
   filteredItems = [...this.items];
   kmRange$: Observable<number | null>;
-  localKmRange: number = 10;
 
   constructor(private placeService: PlaceService, private positionService: PositionServiceService) {
     this.position$ = this.positionService.getPosition();
@@ -34,44 +33,34 @@ export class FindPlaceComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscriptions.push(
-      this.position$
-        .pipe(
-          filter(pos => pos !== null),
-          switchMap(pos => {
-            this.pos = pos;
-            return this.placeService.getAllPlacesWithCoords({
-              lat: pos!.coords.latitude,
-              lon: pos!.coords.longitude,
-              // kmRange: this.localKmRange
-              kmRange: 15
+      this.kmRange$.subscribe(kmRange => {
+        this.subscriptions.push(this.position$
+          .pipe(
+            filter(pos => pos !== null),
+            switchMap(pos => {
+              this.pos = pos;
+              return this.placeService.getAllPlacesWithCoords({
+                lat: pos!.coords.latitude,
+                lon: pos!.coords.longitude,
+                kmRange: kmRange || 15
+              })
             })
-          })
-        ).subscribe((places) => {
-        this.items = places;
-        this.filteredItems = [...this.items];
-        this.positionService.setMapPins(places);
-      })
-    );
-
-    this.subscriptions.push(
-      this.kmRange$
-        .pipe(
-          filter(km => km !== null && this.pos !== null),
-          switchMap(pos => this.placeService.getAllPlacesWithCoords({
-            lat: this.pos!.coords.latitude,
-            lon: this.pos!.coords.longitude,
-            kmRange: this.localKmRange
+          ).subscribe((places) => {
+            console.log(places);
+            this.items = places;
+            this.filteredItems = [...this.items];
+            this.positionService.setMapPins(places);
           }))
-        ).subscribe((places) => {
-        this.items = places;
-        this.filteredItems = [...this.items];
-        this.positionService.setMapPins(places);
       })
     );
   };
 
   ngOnDestroy() {
     this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
+
+  onInputChange(event: Event) {
+    this.positionService.setKmRange((event.target as HTMLInputElement).valueAsNumber);
   }
 
   formatLabel(value: number): string {

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable} from "rxjs";
+import {BehaviorSubject, debounceTime, Observable} from "rxjs";
 import {MapItem} from "../../components/map/map.component";
 import {Place} from "../../models/Place";
 
@@ -33,7 +33,7 @@ export class PositionServiceService {
   }
 
   getKmRange(): Observable<number | null> {
-    return this.kmRange$;
+    return this.kmRange$.pipe(debounceTime(100));
   }
 
   setKmRange(kmRange: number | null) {

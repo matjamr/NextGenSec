@@ -6,8 +6,13 @@
         <input matInput [(ngModel)]="searchText" (keyup)="filterItems()">
       </mat-form-field>
 
-      <mat-slider #slider [(ngModel)]="localKmRange" min="1" max="300" step="1" showTickMarks discrete [displayWith]="formatLabel">
-        <input matSliderThumb [value]="localKmRange">
+      <mat-slider
+        [max]="100"
+        [min]="1"
+        [step]="1"
+        [discrete]="true"
+        [showTickMarks]="true">
+        <input matSliderThumb #slider (input)="onInputChange($event)">
       </mat-slider>
 
 
