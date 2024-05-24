@@ -1,1 +1,47 @@
-<p>add-method-dialog works!</p>
+<h4 mat-dialog-title>Add product</h4>
+<mat-dialog-content class="mat-typography">
+
+  <mat-stepper #stepper [linear]="true">
+    <mat-step [stepControl]="userForm" errorMessage="Data of product is required.">
+
+      <form [formGroup]="userForm" class="flex-col">
+        <ng-template matStepLabel>Product data</ng-template>
+        <app-search
+          [placeholder]="'Search for a product'"
+          [renderView]="renderProductView"
+          [data]="searchData$! | async"
+          [searchPredicate]="searchProductPredicate"
+          [dataFormControl]="productFormControl"
+        />
+
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="imagesForm">
+      <form [formGroup]="imagesForm" class="flex-col">
+        <ng-template matStepLabel>Upload Images</ng-template>
+
+        <div class="horizontal-scroll">
+          <app-file-upload/>
+        </div>
+
+        <div>
+          <button mat-button matStepperNext (click)="submitForm()">Next</button>
+        </div>
+      </form>
+    </mat-step>
+
+
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      <p *ngIf="productAdded">You are now good to go! Product has been added</p>
+      <div>
+        <button mat-button [mat-dialog-close]="productAdded" cdkFocusInitial>Finish</button>
+      </div>
+    </mat-step>
+
+  </mat-stepper>
+</mat-dialog-content>

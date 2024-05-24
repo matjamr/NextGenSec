@@ -1,6 +1,8 @@
 spring:
   jackson:
     defaultPropertyInclusion: "non_null"
+    deserialization:
+      fail_on_unknown_properties: false
   datasource:
     driverClassName: 'org.postgresql.Driver'
     url: ${POSTGRES_URL}

@@ -24,7 +24,7 @@ public class SensitiveData {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @OneToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
     private List<Image> images;
 
     @ManyToOne

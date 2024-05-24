@@ -49,6 +49,7 @@ import {LeftNavAreaComponent} from './components/left-nav-area/left-nav-area.com
 import {MatToolbar} from "@angular/material/toolbar";
 import {MapComponent} from './components/map/map.component';
 import {InquiryMessageDialogComponent} from './components/inquiry-message-dialog/inquiry-message-dialog.component';
+import { ImageDialogComponent } from './components/image-dialog/image-dialog.component';
 
 
 @NgModule({
@@ -67,7 +68,8 @@ import {InquiryMessageDialogComponent} from './components/inquiry-message-dialog
     SearchComponent,
     LeftNavAreaComponent,
     MapComponent,
-    InquiryMessageDialogComponent
+    InquiryMessageDialogComponent,
+    ImageDialogComponent
   ],
     imports: [
         CommonModule,

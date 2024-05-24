@@ -18,6 +18,9 @@
   <ng-container *ngFor="let tableRow of tableTemplate" matColumnDef="{{tableRow.displayedColumn}}">
     <th mat-header-cell *matHeaderCellDef> {{tableRow.columnTitle}} </th>
     <td mat-cell *matCellDef="let element"> {{element[tableRow.displayedColumn]}} </td>
+    <div *ngIf="nestedObjectRenderingMethod">
+    <td mat-cell *matCellDef="let element"> {{element[tableRow.displayedColumn]}} </td>
+    </div>
   </ng-container>
 
   <ng-container matColumnDef="additionalData">

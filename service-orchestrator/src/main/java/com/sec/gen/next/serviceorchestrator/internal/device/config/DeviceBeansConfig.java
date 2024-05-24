@@ -20,7 +20,7 @@ public class DeviceBeansConfig {
     public CrudService<DeviceModel, DeviceModel, String> deviceCrudService(
             final DeviceRepository deviceRepository,
             final DeviceMapper deviceMapper,
-            final SimpleQueryService<String, ProductModel> productSimpleQueryService,
+            @Qualifier("productService") final SimpleQueryService<String, ProductModel> productSimpleQueryService,
             @Qualifier("simpleQueryPlacesService") final SimpleQueryService<String, PlacesModel> placesSimpleQueryService) {
         return new CrudDeviceService(deviceRepository, deviceMapper,
                 productSimpleQueryService, placesSimpleQueryService);

@@ -4,12 +4,12 @@ import {ProductsService} from "../../services/products/products.service";
 import {catchError, map, mergeMap, of} from "rxjs";
 import {
   AddProduct,
-  AddProductSuccess,
+  AddProductSuccess, AddProductUser,
   DeleteProducts,
   DeleteProductsSuccess,
   GetProducts,
   GetProductsFailure,
-  GetProductsSuccess
+  GetProductsSuccess, GetProductsUser
 } from "./products.actions";
 import {NotificationService} from "../../services/notification/notification.service";
 
@@ -32,6 +32,18 @@ export class ProductsEffects {
     mergeMap(({ payload }) => this.productsService.addProduct(payload)
       .pipe(
         map(product => AddProductSuccess({payload: product})),
+        catchError((error) => {
+          // this.notificationService.error('HTTP Error', error.message);
+          return of(GetProductsFailure({error}))
+        }))
+    )
+  ));
+
+  addProductUser = createEffect(() => this.actions$.pipe(
+    ofType(AddProductUser),
+    mergeMap(({ payload }) => this.productsService.addProductForUser(payload)
+      .pipe(
+        map(product => AddProductSuccess({payload: product.product})),
         catchError((error) => {
           // this.notificationService.error('HTTP Error', error.message);
           return of(GetProductsFailure({error}))

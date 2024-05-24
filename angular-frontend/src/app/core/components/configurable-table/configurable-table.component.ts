@@ -34,6 +34,9 @@ export class ConfigurableTableComponent implements OnInit, OnDestroy {
   @Input()
   tableTemplate: ConfigurableTableTemplate[] = []
 
+  @Input()
+  nestedObjectRenderingMethod?: (data: any) => string;
+
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
   selection = new SelectionModel<any>(true, []);
 

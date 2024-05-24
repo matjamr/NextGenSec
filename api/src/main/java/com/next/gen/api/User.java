@@ -41,7 +41,7 @@ public class User {
     private OffsetDateTime creationDate;
     private String password;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<SensitiveData> sensitiveData;
 
     @OneToOne

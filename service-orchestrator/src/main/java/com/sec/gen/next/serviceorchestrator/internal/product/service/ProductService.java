@@ -30,6 +30,15 @@ public class ProductService implements CrudService<ProductModel, ProductModel, S
     private final ProductRepository productRepository;
     private final ProductMapper productMapper;
 
+
+    @Override
+    public List<ProductModel> findAll() {
+        return productRepository.findAll()
+                .stream()
+                .map(productMapper::map)
+                .toList();
+    }
+
     @Override
     public ProductModel save(ProductModel productModel) {
         return Optional.of(productMapper.map(productModel))

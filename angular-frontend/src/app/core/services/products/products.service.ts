@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {Observable} from "rxjs";
-import {Product} from "../../models/Product";
+import {Product, SensitiveData} from "../../models/Product";
 import {HttpClient} from "@angular/common/http";
 import {getTokenHeader} from "../utils";
+import {buildHeader} from "../user/user.service";
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +20,20 @@ export class ProductsService {
     return this.http.get<Product[]>(this.apiUrl)
   }
 
+  getProductsUser(): Observable<SensitiveData[]> {
+    return this.http.post<SensitiveData[]>('http://localhost:8080/api/product/user/retrieve', null, buildHeader())
+  }
+
   addProduct(product: Product): Observable<Product> {
     return this.http.post<Product>(this.apiUrl, product, getTokenHeader())
+  }
+
+  addProductForUser(sensitiveData: SensitiveData): Observable<SensitiveData> {
+    return this.http.post<SensitiveData>(this.apiUrl + "/user", sensitiveData, getTokenHeader())
+  }
+
+  deleteProductsForUser(payload: SensitiveData): Observable<SensitiveData> {
+    return this.http.delete<SensitiveData>(this.apiUrl + "/user", {...getTokenHeader(), body: payload});
   }
 
   deleteProducts(payload: Product[]): Observable<Product[]> {

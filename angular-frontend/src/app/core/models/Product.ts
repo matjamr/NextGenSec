@@ -7,3 +7,10 @@ export interface Product {
   monthlyPrice: number,
   images?: Image[]
 }
+
+export interface SensitiveData {
+  id?: string,
+  product: Product;
+  images: Image[],
+  displayedProductName?: string
+}

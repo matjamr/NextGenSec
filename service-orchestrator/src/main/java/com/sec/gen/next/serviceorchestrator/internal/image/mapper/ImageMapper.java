@@ -7,7 +7,9 @@ import org.mapstruct.Mapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Mapper
@@ -16,9 +18,17 @@ public abstract class ImageMapper {
     @Value("${server.url}")
     private String serverUrl;
 
-    public List<String> mapModel(List<ImageModel> value) {
+    public List<String> mapp(List<ImageModel> value) {
         return value.stream()
                 .map(ImageModel::getId)
+                .toList();
+    }
+
+    public List<ImageModel> mapModel(List<Image> value) {
+        return Optional.ofNullable(value)
+                .orElse(Collections.emptyList())
+                .stream()
+                .map(this::map)
                 .toList();
     }
 

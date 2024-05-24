@@ -212,6 +212,19 @@ components:
         installmentTime:
           type: string
           format: date-time
+    SensitiveDataModel:
+        type: object
+        properties:
+            id:
+              type: string
+            user:
+              $ref: '#/components/schemas/UserModel'
+            product:
+              $ref: '#/components/schemas/ProductModel'
+            images:
+              type: array
+              items:
+                $ref: '#/components/schemas/ImageModel'
     UserPlaceAssignment:
       type: object
       properties:

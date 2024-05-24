@@ -35,6 +35,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatChip, MatChipListbox} from "@angular/material/chips";
 import {MatSlider, MatSliderThumb} from "@angular/material/slider";
 import {AddMethodDialogComponent} from './pages/data/add-method-dialog/add-method-dialog.component';
+import {MatDialogClose, MatDialogContent, MatDialogTitle} from "@angular/material/dialog";
+import {MatStep, MatStepLabel, MatStepper, MatStepperNext} from "@angular/material/stepper";
 
 const routes: Routes = [
   {
@@ -122,7 +124,14 @@ const routes: Routes = [
     MatChipListbox,
     MatSlider,
     MatSliderThumb,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDialogContent,
+    MatDialogTitle,
+    MatStep,
+    MatStepLabel,
+    MatStepper,
+    MatStepperNext,
+    MatDialogClose
   ]
 })
 export class UserLoggedModule {

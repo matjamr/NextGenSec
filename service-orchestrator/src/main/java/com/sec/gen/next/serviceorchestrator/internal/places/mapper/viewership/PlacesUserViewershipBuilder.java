@@ -12,11 +12,13 @@ public class PlacesUserViewershipBuilder implements ViewershipBuilder<List<Place
 
     @Override
     public List<PlacesModel> apply(List<PlacesModel> obj) {
-        CustomAuthentication user = (CustomAuthentication) SecurityContextHolder.getContext().getAuthentication();
+//        CustomAuthentication user = (CustomAuthentication) SecurityContextHolder.getContext().getAuthentication();
+//
+//        return obj.stream()
+//                .filter(palce -> palce.getAuthorizedUsers().stream().anyMatch(u -> u.getUser().getEmail().equals(user.getEmail())))
+//                .map(place -> place.authorizedUsers(Collections.emptyList()))
+//                .toList();
 
-        return obj.stream()
-                .filter(palce -> palce.getAuthorizedUsers().stream().anyMatch(u -> u.getUser().getEmail().equals(user.getEmail())))
-                .map(place -> place.authorizedUsers(Collections.emptyList()))
-                .toList();
+        return obj;
     }
 }

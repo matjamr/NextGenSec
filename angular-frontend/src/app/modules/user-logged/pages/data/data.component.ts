@@ -1,52 +1,65 @@
-import {Component, OnInit} from '@angular/core';
-import {Observable} from "rxjs";
-import {Product} from "../../../../core/models/Product";
+import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
+import {map, Observable, Subscription} from "rxjs";
+import {Product, SensitiveData} from "../../../../core/models/Product";
 import {MatDialog} from "@angular/material/dialog";
 import {select, Store} from "@ngrx/store";
 import {AppState} from "../../../../app.state";
-import {DeleteProducts, GetProducts} from "../../../../core/state/products/products.actions";
+import {DeleteProducts, GetProducts, GetProductsUser} from "../../../../core/state/products/products.actions";
 import {
   ConfigurableTableTemplate,
   RowActionButton
 } from "../../../../core/components/configurable-table/configurable-table.component";
 import {AddMethodDialogComponent} from "./add-method-dialog/add-method-dialog.component";
+import {ProductsService} from "../../../../core/services/products/products.service";
+import {NotificationService} from "../../../../core/services/notification/notification.service";
+import {ImageDialogComponent} from "../../../../core/components/image-dialog/image-dialog.component";
 
 @Component({
   selector: 'app-data',
   templateUrl: './data.component.html',
   styleUrls: ['./data.component.scss']
 })
-export class DataComponent implements OnInit {
-  products$: Observable<Product[]>;
+export class DataComponent implements OnInit, OnDestroy {
+  subs: Subscription[] = [];
+  products$: Observable<SensitiveData[]>;
 
-  constructor(public dialog: MatDialog, private store: Store<AppState>) {
-    this.products$ = store.pipe(select('products'));
+  constructor(public dialog: MatDialog, private store: Store<AppState>,
+              private productsService: ProductsService,
+              private notificationService: NotificationService,
+              private changeDetector: ChangeDetectorRef) {
+    this.products$ = productsService.getProductsUser().pipe(map(products => products.map(product => {
+      return {
+        ...product,
+        displayedProductName: product.product.name
+      }
+    })));
   }
 
   ngOnInit(): void {
-    this.store.dispatch(GetProducts());
+    this.store.dispatch(GetProductsUser());
+  }
+
+  ngOnDestroy() {
+    this.subs.forEach(sub => sub.unsubscribe());
   }
 
   tableTemplate: ConfigurableTableTemplate[] = [
-    {columnTitle: 'Name', displayedColumn: 'name'},
-    {columnTitle: 'Description', displayedColumn: 'description'},
-    {columnTitle: 'Price', displayedColumn: 'monthlyPrice'},
+    {columnTitle: 'Product Name', displayedColumn: 'displayedProductName'},
   ]
 
   rowActionButtons: RowActionButton<any>[] = [
     {
-      iconName: 'info',
-      action: (elem: any) => console.log("live preview"),
-      tooltip: 'live preview'
-    },
-    {
-      iconName: 'mode_edit',
-      action: (elem: any) => console.log("edit product"),
-      tooltip: 'edit product images'
-    },
-    {
       iconName: 'image',
-      action: (elem: any) => console.log("show images"),
+      action: (elem: any) => {
+        console.log(elem)
+        const dialogRef = this.dialog.open(ImageDialogComponent, {
+          width: '80%',
+          data: { images: elem.images }
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+        });
+      },
       tooltip: 'show uploaded images'
     }
   ]
@@ -59,7 +72,13 @@ export class DataComponent implements OnInit {
     });
   }
 
-  onRemove = (products: Product[]) => {
-    this.store.dispatch(DeleteProducts({payload: products}));
+  onRemove = (products: SensitiveData[]) => {
+    products.forEach(product => {
+      this.subs.push(this.productsService.deleteProductsForUser(product).subscribe(prod => {
+        this.products$ = this.products$.pipe(map(products => products.filter(p => p.product.id !== prod.product.id)));
+        window.location.reload();
+        this.notificationService.info('Products deleted', 'Products deleted successfully');
+      }));
+    });
   }
 }
