@@ -1,6 +1,7 @@
 package com.sec.gen.next.chatservice.service;
 
-import com.sec.gen.next.chatservice.model.KafkaChatServiceModel;
+
+import com.next.gen.sec.model.KafkaChatServiceModel;
 
 public interface MessageExecutor {
     void execute(KafkaChatServiceModel t);

@@ -401,3 +401,33 @@ components:
           items:
             $ref: '#/components/schemas/ProductModel'
 
+    KafkaChatServiceModel:
+      type: object
+      properties:
+        adminsEmails:
+          type: array
+          items:
+            type: string
+        commonRecipients:
+          type: array
+          items:
+            type: string
+        userEmail:
+          type: string
+        name:
+          type: string
+        surname:
+          type: string
+        method:
+          type: string
+        message:
+          type: string
+        topic:
+          $ref: '#/components/schemas/Topic'
+
+    Topic:
+      type: string
+      enum:
+        - "/topic/admin/entrances"
+        - "/topic/broadcast"
+        - "/topic/notification"

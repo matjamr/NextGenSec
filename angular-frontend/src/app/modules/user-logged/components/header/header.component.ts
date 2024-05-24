@@ -1,27 +1,55 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {MatSidenav} from "@angular/material/sidenav";
 import {BreakpointObserver} from "@angular/cdk/layout";
 import {Router} from "@angular/router";
 import {NotificationService} from "../../../../core/services/notification/notification.service";
+import {WebSocketService} from "../../../../core/services/web-socket/web-socket.service";
+import {select, Store} from "@ngrx/store";
+import {AppState} from "../../../../app.state";
+import {VerifyUser} from "../../../../core/state/user/user.actions";
+import {filter, Observable, Subscription} from "rxjs";
+import {User} from "../../../../core/models/User";
 
 @Component({
   selector: 'app-user-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit, OnDestroy {
   title = 'material-responsive-sidenav';
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
   isMobile= true;
   isCollapsed = true;
+  user$: Observable<User>;
+  subscriptions: Subscription[] = [];
 
-  constructor(private observer: BreakpointObserver, private router: Router, private notificationService: NotificationService) {}
+  constructor(private observer: BreakpointObserver,
+              private router: Router,
+              private notificationService: NotificationService,
+              private webSocketService: WebSocketService,
+              private store: Store<AppState>) {
+    this.user$ = store.pipe(select('user'));
+    this.store.dispatch(VerifyUser());
+  }
+
 
   ngOnInit() {
-    this.observer.observe(['(max-width: 800px)']).subscribe((screenSize) => {
-      this.isMobile = screenSize.matches;
-    });
+    this.subscriptions.push(this.user$
+      .pipe(filter(user => user.id !== ''))
+      .subscribe(user => {
+        this.webSocketService.initializeWebSocketConnection(
+          user,
+          [
+            {topic: '/user/topic/notification', onReceive: (ret: any) => console.log(ret)}
+          ]
+        );
+      }));
+  }
+
+  ngOnDestroy(): void {
+    this.webSocketService.onDisconnect();
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
   toggleMenu() {

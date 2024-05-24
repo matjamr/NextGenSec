@@ -17,11 +17,17 @@
         <java.version>17</java.version>
         <spring-cloud.version>2022.0.4</spring-cloud.version>
         <spring-dotenv.version>4.0.0</spring-dotenv.version>
+        <api.version>1.0</api.version>
     </properties>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.next.gen.api</groupId>
+            <artifactId>api</artifactId>
+            <version>${api.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

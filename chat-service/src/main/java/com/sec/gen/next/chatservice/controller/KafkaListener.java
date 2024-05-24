@@ -3,7 +3,7 @@ package com.sec.gen.next.chatservice.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sec.gen.next.chatservice.controller.ChatController;
-import com.sec.gen.next.chatservice.model.KafkaChatServiceModel;
+import com.next.gen.sec.model.KafkaChatServiceModel;
 import com.sec.gen.next.chatservice.service.MessageDispatcher;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;

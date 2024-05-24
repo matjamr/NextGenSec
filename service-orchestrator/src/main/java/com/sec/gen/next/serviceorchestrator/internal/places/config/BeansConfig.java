@@ -5,6 +5,7 @@ import com.next.gen.sec.model.*;
 import com.sec.gen.next.serviceorchestrator.common.templates.*;
 import com.sec.gen.next.serviceorchestrator.external.UserServiceClient;
 import com.sec.gen.next.serviceorchestrator.external.NominatimClient;
+import com.sec.gen.next.serviceorchestrator.external.kafka.KafkaProducer;
 import com.sec.gen.next.serviceorchestrator.internal.device.service.AddUserToPlaceService;
 import com.sec.gen.next.serviceorchestrator.internal.device.service.ChangeUserToPlaceService;
 import com.sec.gen.next.serviceorchestrator.internal.device.service.RemoveUserFromPlaceService;
@@ -61,7 +62,7 @@ public class BeansConfig {
     }
 
     @Bean
-    public Supplier< List<PlacesModel>> placesForUserSupplier(
+    public Supplier<List<PlacesModel>> placesForUserSupplier(
             final @Qualifier("crudPlaceService") ListQueryService<PlacesModel> placesListQueryService
             ) {
         return new PlacesForUserSupplier(placesListQueryService);
@@ -84,9 +85,11 @@ public class BeansConfig {
     public UpdateService<ModifyUserToPlaceModel, PlacesModel> addUserToPlaceService(
             final PlacesRepository placesRepository,
             final PlacesMapper placesMapper,
-            final UserPlaceAssignmentMapper userPlaceAssignmentMapper
+            final UserPlaceAssignmentMapper userPlaceAssignmentMapper,
+            final KafkaProducer<KafkaChatServiceModel> kafkaChatServiceProducer
             ) {
-        return new AddUserToPlaceService(placesRepository, placesMapper, userPlaceAssignmentMapper);
+        return new AddUserToPlaceService(placesRepository, placesMapper,
+                userPlaceAssignmentMapper, kafkaChatServiceProducer);
     }
 
     @Bean

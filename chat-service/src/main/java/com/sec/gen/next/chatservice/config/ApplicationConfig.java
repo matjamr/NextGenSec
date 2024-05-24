@@ -1,10 +1,11 @@
 package com.sec.gen.next.chatservice.config;
 
-import com.sec.gen.next.chatservice.model.KafkaChatServiceModel;
+import com.next.gen.sec.model.KafkaChatServiceModel;
 import com.sec.gen.next.chatservice.model.User;
 import com.sec.gen.next.chatservice.service.MessageDispatcher;
 import com.sec.gen.next.chatservice.service.MessageExecutor;
 import com.sec.gen.next.chatservice.service.executors.BroadcastMessageExecutor;
+import com.sec.gen.next.chatservice.service.executors.NotificationMessageSender;
 import com.sec.gen.next.chatservice.service.executors.SendToAdminEntrance;
 import com.sec.gen.next.chatservice.service.executors.SingleMessageSender;
 import org.springframework.context.annotation.Bean;
@@ -21,11 +22,13 @@ public class ApplicationConfig {
     @Bean
     public Consumer<KafkaChatServiceModel> messageDispatcher(
             final MessageExecutor broadcastMessageExecutor,
-            final MessageExecutor sendToAdminEntranceMessageExecutor
+            final MessageExecutor sendToAdminEntranceMessageExecutor,
+            final MessageExecutor notificationMessageSender
             ) {
         return new MessageDispatcher(List.of(
                 broadcastMessageExecutor,
-                sendToAdminEntranceMessageExecutor
+                sendToAdminEntranceMessageExecutor,
+                notificationMessageSender
         ));
     }
 
@@ -41,6 +44,13 @@ public class ApplicationConfig {
             final BiConsumer<User, KafkaChatServiceModel> simpleMessageSender
     ) {
         return new SendToAdminEntrance(simpleMessageSender);
+    }
+
+    @Bean
+    public MessageExecutor notificationMessageSender(
+            final BiConsumer<User, KafkaChatServiceModel> simpleMessageSender
+    ) {
+        return new NotificationMessageSender(simpleMessageSender);
     }
 
     @Bean

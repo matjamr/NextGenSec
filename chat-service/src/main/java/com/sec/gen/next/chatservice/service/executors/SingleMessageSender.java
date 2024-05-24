@@ -1,6 +1,6 @@
 package com.sec.gen.next.chatservice.service.executors;
 
-import com.sec.gen.next.chatservice.model.KafkaChatServiceModel;
+import com.next.gen.sec.model.KafkaChatServiceModel;
 import com.sec.gen.next.chatservice.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -15,6 +15,6 @@ public class SingleMessageSender implements BiConsumer<User, KafkaChatServiceMod
 
     @Override
     public void accept(User user, KafkaChatServiceModel payload) {
-        simpMessagingTemplate.convertAndSendToUser(user.getId(), payload.getTopic().getTopicName(), payload);
+        simpMessagingTemplate.convertAndSendToUser(user.getId(), payload.getTopic().getValue(), payload);
     }
 }

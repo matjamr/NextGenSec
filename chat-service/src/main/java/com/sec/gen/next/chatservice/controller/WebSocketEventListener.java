@@ -1,6 +1,6 @@
 package com.sec.gen.next.chatservice.controller;
 
-import com.sec.gen.next.chatservice.model.KafkaChatServiceModel;
+import com.next.gen.sec.model.KafkaChatServiceModel;
 import com.sec.gen.next.chatservice.model.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -4,6 +4,7 @@ package com.sec.gen.next.serviceorchestrator.external.kafka;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.next.gen.sec.model.KafkaAsyncHistoryNotif;
+import com.next.gen.sec.model.KafkaChatServiceModel;
 import com.next.gen.sec.model.KafkaNotifModel;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -89,6 +90,14 @@ public class KafkaConfig {
             final ObjectMapper objectMapper
             ) {
         return new KafkaProducer<>(kafkaTemplate, "async-history-notif", objectMapper);
+    }
+
+    @Bean
+    public KafkaProducer<KafkaChatServiceModel> kafkaChatServiceProducer(
+            final KafkaTemplate<String, String> kafkaTemplate,
+            final ObjectMapper objectMapper
+    ) {
+        return new KafkaProducer<>(kafkaTemplate, "chat-service", objectMapper);
     }
 
     @Bean

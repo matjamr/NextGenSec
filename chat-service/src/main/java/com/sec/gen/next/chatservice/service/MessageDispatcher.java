@@ -1,7 +1,7 @@
 package com.sec.gen.next.chatservice.service;
 
-import com.sec.gen.next.chatservice.model.KafkaChatServiceModel;
-import com.sec.gen.next.chatservice.model.Topic;
+import com.next.gen.sec.model.KafkaChatServiceModel;
+import com.next.gen.sec.model.Topic;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cglib.proxy.Dispatcher;
 

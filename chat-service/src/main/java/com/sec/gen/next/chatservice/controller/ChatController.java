@@ -2,7 +2,7 @@ package com.sec.gen.next.chatservice.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sec.gen.next.chatservice.model.ChatMessage;
-import com.sec.gen.next.chatservice.model.KafkaChatServiceModel;
+import com.next.gen.sec.model.KafkaChatServiceModel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
