@@ -18,7 +18,7 @@ export class PlaceService {
   }
 
   getPlacesByUser(): Observable<Place[]> {
-    return this.http.get<Place[]>(this.apiUrl, getTokenHeader())
+    return this.http.get<Place[]>(this.apiUrl + "/user", getTokenHeader())
   }
 
   getAllPlaces(): Observable<Place[]> {

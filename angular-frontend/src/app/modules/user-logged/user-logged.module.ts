@@ -24,7 +24,7 @@ import {
   MatExpansionPanelHeader,
   MatExpansionPanelTitle
 } from "@angular/material/expansion";
-import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
+import {MatCard, MatCardContent, MatCardHeader, MatCardSubtitle, MatCardTitle} from "@angular/material/card";
 import {CanvasJSAngularChartsModule} from "@canvasjs/angular-charts";
 import {MatTabContent} from "@angular/material/tabs";
 import {FindPlaceComponent} from './pages/places/find-place/find-place.component';
@@ -37,6 +37,8 @@ import {MatSlider, MatSliderThumb} from "@angular/material/slider";
 import {AddMethodDialogComponent} from './pages/data/add-method-dialog/add-method-dialog.component';
 import {MatDialogClose, MatDialogContent, MatDialogTitle} from "@angular/material/dialog";
 import {MatStep, MatStepLabel, MatStepper, MatStepperNext} from "@angular/material/stepper";
+import {PlacesViewUserComponent} from './pages/places-view-user/places-view-user.component';
+import {MatPaginator} from "@angular/material/paginator";
 
 const routes: Routes = [
   {
@@ -67,6 +69,10 @@ const routes: Routes = [
     path: 'settings',
     component: UserEditComponent
   },
+  {
+    path: 'places/view',
+    component: PlacesViewUserComponent
+  },
 ]
 
 @NgModule({
@@ -81,6 +87,7 @@ const routes: Routes = [
     DataUploadModalComponent,
     FindPlaceComponent,
     AddMethodDialogComponent,
+    PlacesViewUserComponent,
   ],
   exports: [
     UserChatComponent
@@ -131,7 +138,10 @@ const routes: Routes = [
     MatStepLabel,
     MatStepper,
     MatStepperNext,
-    MatDialogClose
+    MatDialogClose,
+    MatPaginator,
+    MatCardSubtitle,
+    MatChipListbox
   ]
 })
 export class UserLoggedModule {

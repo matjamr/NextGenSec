@@ -10,12 +10,13 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 @Mapper
 public abstract class CustomAuthenticationMapper {
 
-    protected Supplier<PlacesModel> placesForUserSupplier;
+    protected Supplier<List<PlacesModel>> placesForUserSupplier;
 
     public abstract CustomAuthentication map(UserModel user);
 
@@ -25,7 +26,7 @@ public abstract class CustomAuthenticationMapper {
 
 
     @Autowired
-    public void setPlacesForUserSupplier(Supplier<PlacesModel> placesForUserSupplier) {
+    public void setPlacesForUserSupplier(Supplier<List<PlacesModel>> placesForUserSupplier) {
         this.placesForUserSupplier = placesForUserSupplier;
     }
 }

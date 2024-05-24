@@ -7,22 +7,22 @@ import com.sec.gen.next.serviceorchestrator.common.templates.ListQueryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 import static com.sec.gen.next.serviceorchestrator.exception.Error.NO_PLACE_FOR_USER;
 
 @RequiredArgsConstructor
-public class PlacesForUserSupplier implements Supplier<PlacesModel> {
+public class PlacesForUserSupplier implements Supplier< List<PlacesModel>> {
     private final ListQueryService<PlacesModel> placesModelListQueryService;
 
     @Override
-    public PlacesModel get() {
+    public List<PlacesModel> get() {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
 
         return placesModelListQueryService.findAll()
                 .stream()
-                .filter(place -> place.getAuthorizedUsers().stream().anyMatch(userPlace -> userPlace.getUser().equals(email)))
-                .findFirst()
-                .orElseThrow(NO_PLACE_FOR_USER::getError);
+                .filter(place -> place.getAuthorizedUsers().stream().anyMatch(userPlace -> userPlace.getUser().getEmail().equals(email)))
+                .toList();
     }
 }

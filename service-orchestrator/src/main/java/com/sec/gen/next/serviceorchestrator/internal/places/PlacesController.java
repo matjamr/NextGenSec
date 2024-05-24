@@ -19,7 +19,7 @@ public class PlacesController {
     @Qualifier("crudPlaceService")
     private final CrudService<PlacesModel, PlacesModel, String> crudPlaceService;
     @Qualifier("placesForUserSupplier")
-    private final Supplier<PlacesModel> placesForUserSupplier;
+    private final Supplier<List<PlacesModel>> placesForUserSupplier;
     private final DeleteService<List<String>, List<String>> placesDeleteService;
     @Qualifier("changeUserToPlaceService")
     private final UpdateService<ModifyUserToPlaceModel, PlacesModel> changeUserToPlaceService;
@@ -32,7 +32,7 @@ public class PlacesController {
 
 
     public PlacesController(CrudService<PlacesModel, PlacesModel, String> crudPlaceService,
-                            Supplier<PlacesModel> placesForUserSupplier,
+                            Supplier<List<PlacesModel>> placesForUserSupplier,
                             DeleteService<List<String>, List<String>> placesDeleteService,
                             UpdateService<ModifyUserToPlaceModel, PlacesModel> changeUserToPlaceService,
                             UpdateService<ModifyUserToPlaceModel, PlacesModel> addUserToPlaceService,
@@ -63,7 +63,7 @@ public class PlacesController {
     }
 
     @GetMapping("/user")
-    public PlacesModel getPlace() {
+    public List<PlacesModel> getPlace() {
         return placesForUserSupplier.get();
     }
 

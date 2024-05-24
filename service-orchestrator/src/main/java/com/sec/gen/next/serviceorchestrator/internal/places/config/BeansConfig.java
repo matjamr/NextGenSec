@@ -61,7 +61,7 @@ public class BeansConfig {
     }
 
     @Bean
-    public Supplier<PlacesModel> placesForUserSupplier(
+    public Supplier< List<PlacesModel>> placesForUserSupplier(
             final @Qualifier("crudPlaceService") ListQueryService<PlacesModel> placesListQueryService
             ) {
         return new PlacesForUserSupplier(placesListQueryService);

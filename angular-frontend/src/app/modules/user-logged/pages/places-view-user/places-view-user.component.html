@@ -1,0 +1,22 @@
+<app-user-header>
+  <div class="place-browser-container">
+    <mat-card *ngFor="let place of pagedPlaces" class="place-card">
+      <mat-card-header>
+        <mat-card-title>{{ place.placeName }}</mat-card-title>
+        <mat-card-subtitle>{{ place.emailPlace }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ place.description }}</p>
+        <p *ngIf="place.address">
+          {{ place.address.streetName }}, {{ place.address.city }}
+        </p>
+        <mat-chip-listbox *ngIf="place.tags?.length">
+          <mat-chip *ngFor="let tag of place.tags">{{ tag }}</mat-chip>
+        </mat-chip-listbox>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-paginator [length]="places.length" [pageSize]="2" (page)="onPageChange($event)">
+    </mat-paginator>
+  </div>
+</app-user-header>
