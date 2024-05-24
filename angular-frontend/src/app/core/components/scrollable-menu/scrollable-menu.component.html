@@ -1,10 +1,10 @@
-<button mat-icon-button aria-label="Notifications" [matMenuTriggerFor]="menu">
-  <mat-icon>notifications</mat-icon>
-</button>
-<mat-menu #menu="matMenu" class="custom-menu">
-  <div class="menu-content">
-    <button mat-menu-item *ngFor="let item of items; let i = index" (click)="removeItem(i)">
-      {{ item.text }}
-    </button>
-  </div>
-</mat-menu>
+<button mat-icon-button aria-label="Notifications" [matMenuTriggerFor]="menu" [disabled]="menuData.length === 0" [class.shake]="menuData.length > 0">
+    <mat-icon>notifications</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu" class="custom-menu">
+    <div class="menu-content">
+      <button mat-menu-item *ngFor="let item of menuData; let i = index" (click)="removeItem(i)">
+        {{ item.message }}
+      </button>
+    </div>
+  </mat-menu>

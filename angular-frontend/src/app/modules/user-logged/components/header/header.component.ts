@@ -9,6 +9,7 @@ import {AppState} from "../../../../app.state";
 import {VerifyUser} from "../../../../core/state/user/user.actions";
 import {filter, Observable, Subscription} from "rxjs";
 import {User} from "../../../../core/models/User";
+import {AsyncMenuManagementService} from "../../../../core/services/web-socket/async-menu-management.service";
 
 @Component({
   selector: 'app-user-header',
@@ -28,7 +29,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
               private router: Router,
               private notificationService: NotificationService,
               private webSocketService: WebSocketService,
-              private store: Store<AppState>) {
+              private store: Store<AppState>,
+              private asyncMenuManagementService: AsyncMenuManagementService) {
     this.user$ = store.pipe(select('user'));
     this.store.dispatch(VerifyUser());
   }
@@ -41,7 +43,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.webSocketService.initializeWebSocketConnection(
           user,
           [
-            {topic: '/user/topic/notification', onReceive: (ret: any) => console.log(ret)}
+            {topic: '/user/topic/notification', onReceive: (ret: any) => {
+              this.asyncMenuManagementService.add({data: ret, message: ret.message});
+              }},
           ]
         );
       }));

@@ -95,9 +95,10 @@ public class BeansConfig {
     @Bean
     public UpdateService<ModifyUserToPlaceModel, PlacesModel> removeUserFromPlaceService(
             final PlacesRepository placesRepository,
-            final PlacesMapper placesMapper
+            final PlacesMapper placesMapper,
+            final KafkaProducer<KafkaChatServiceModel> kafkaChatServiceProducer
     ) {
-        return new RemoveUserFromPlaceService(placesRepository, placesMapper);
+        return new RemoveUserFromPlaceService(placesRepository, placesMapper, kafkaChatServiceProducer);
     }
 
     @Bean
