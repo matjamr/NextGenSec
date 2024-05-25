@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import {filter, map, Observable, Subscription} from "rxjs";
+import {Component} from '@angular/core';
+import {Subscription} from "rxjs";
 import {AsyncMenuManagementService, MenuData} from "../../services/web-socket/async-menu-management.service";
 
 @Component({
@@ -22,7 +22,7 @@ export class ScrollableMenuComponent {
   }
 
   ngOnDestroy() {
-    this.items$.unsubscribe();  // Clean up the subscription
+    this.items$.unsubscribe();
   }
 
 }

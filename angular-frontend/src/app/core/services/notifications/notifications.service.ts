@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Notification} from "../../models/Notification";
+import {getHeaders} from "../utils";
 
 @Injectable({
   providedIn: 'root'
@@ -15,21 +16,10 @@ export class NotificationsService {
   ) { }
 
   getNotifications(): Observable<Notification[]> {
-    return this.http.get<Notification[]>(this.apiUrl, {
-      headers: {
-        "token": String(localStorage.getItem("token")),
-        "source": String(localStorage.getItem("source")),
-        "user-scope": "true"
-      }
-    });
+    return this.http.get<Notification[]>(this.apiUrl, getHeaders());
   }
 
   deleteNotification(notif: Notification) {
-    return this.http.post<Notification[]>(this.apiUrl + "/delete",notif, {
-      headers: {
-        "token": String(localStorage.getItem("token")),
-        "source": String(localStorage.getItem("source"))
-      }
-    });
+    return this.http.delete<Notification>(this.apiUrl, {...getHeaders(), body: notif});
   }
 }

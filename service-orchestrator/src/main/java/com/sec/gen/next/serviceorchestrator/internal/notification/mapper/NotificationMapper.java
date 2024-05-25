@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper(uses = UserMapper.class)
 public interface NotificationMapper {
     NotificationModel map(Notification notification);
-    List<NotificationModel> map(List<Notification> list);
+    List<NotificationModel> mapList(List<Notification> list);
 
     Notification mapTo(NotificationModel notificationModel);
     List<Notification> mapTo(List<NotificationModel> list);

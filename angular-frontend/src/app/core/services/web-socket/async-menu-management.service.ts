@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
-import {BehaviorSubject, Subject} from "rxjs";
+import {Injectable} from '@angular/core';
+import {BehaviorSubject} from "rxjs";
+import {NotificationsService} from "../notifications/notifications.service";
 
 export interface MenuData {
   message: string;
@@ -14,16 +15,15 @@ export class AsyncMenuManagementService {
   public itemsSubject = new BehaviorSubject<MenuData[]>([]);
   public message$ = this.itemsSubject.asObservable();
 
-  constructor() { }
-
-  loadItems(menuItems: MenuData[]) {
-    this.itemsSubject.next(menuItems);
-  }
+  constructor(private notificationsService: NotificationsService) { }
 
   removeItem(index: number) {
     const currentItems = this.itemsSubject.value;
 
     if (index >= 0 && index < currentItems.length) {
+      this.notificationsService.deleteNotification(currentItems[index].data)
+        .subscribe(data => console.log(data));
+
       currentItems.splice(index, 1);
       this.itemsSubject.next([...currentItems]);
     }

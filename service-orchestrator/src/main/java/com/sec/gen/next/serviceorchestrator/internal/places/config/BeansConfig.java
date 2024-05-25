@@ -86,19 +86,19 @@ public class BeansConfig {
             final PlacesRepository placesRepository,
             final PlacesMapper placesMapper,
             final UserPlaceAssignmentMapper userPlaceAssignmentMapper,
-            final KafkaProducer<KafkaChatServiceModel> kafkaChatServiceProducer
+            final SaveService<NotificationModel, NotificationModel> sendNotificationsService
             ) {
         return new AddUserToPlaceService(placesRepository, placesMapper,
-                userPlaceAssignmentMapper, kafkaChatServiceProducer);
+                userPlaceAssignmentMapper, sendNotificationsService);
     }
 
     @Bean
     public UpdateService<ModifyUserToPlaceModel, PlacesModel> removeUserFromPlaceService(
             final PlacesRepository placesRepository,
             final PlacesMapper placesMapper,
-            final KafkaProducer<KafkaChatServiceModel> kafkaChatServiceProducer
+            final SaveService<NotificationModel, NotificationModel> sendNotificationsService
     ) {
-        return new RemoveUserFromPlaceService(placesRepository, placesMapper, kafkaChatServiceProducer);
+        return new RemoveUserFromPlaceService(placesRepository, placesMapper, sendNotificationsService);
     }
 
     @Bean

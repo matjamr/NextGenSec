@@ -10,6 +10,7 @@ import {VerifyUser} from "../../../../core/state/user/user.actions";
 import {filter, Observable, Subscription} from "rxjs";
 import {User} from "../../../../core/models/User";
 import {AsyncMenuManagementService} from "../../../../core/services/web-socket/async-menu-management.service";
+import {NotificationsService} from "../../../../core/services/notifications/notifications.service";
 
 @Component({
   selector: 'app-user-header',
@@ -30,13 +31,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
               private notificationService: NotificationService,
               private webSocketService: WebSocketService,
               private store: Store<AppState>,
-              private asyncMenuManagementService: AsyncMenuManagementService) {
+              private asyncMenuManagementService: AsyncMenuManagementService,
+              private notificationsService: NotificationsService) {
     this.user$ = store.pipe(select('user'));
     this.store.dispatch(VerifyUser());
   }
 
 
   ngOnInit() {
+    this.subscriptions.push(this.notificationsService.getNotifications().subscribe(notifications => {
+      notifications.forEach(notification => {
+        this.asyncMenuManagementService.add({data: notification, message: notification.content});
+      });
+    }));
+
     this.subscriptions.push(this.user$
       .pipe(filter(user => user.id !== ''))
       .subscribe(user => {

@@ -19,16 +19,6 @@
   animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both infinite;
 }
 
-.menu-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  overflow: hidden;
-  position: relative;
-  padding-right: 0;
-  transition: padding-right 0.3s ease;
-}
-
 .menu-item-content {
   transition: transform 0.3s ease;
 }
@@ -43,12 +33,40 @@
   padding-right: 40px;
 }
 
-.menu-item:hover .menu-item-content {
-  transform: translateX(-40px);
+.remove-button {
+  opacity: 0;
+  transition: opacity 0.3s ease, background-color 0.3s ease;
+  margin-right: -40px;
+  color: white;
+  background-color: red;
+}
+
+.remove-button mat-icon {
+  color: inherit;
 }
 
 .menu-item:hover .remove-button {
   opacity: 1;
   margin-right: 0;
+  background-color: red;
+}
+
+.menu-item {
+  display: flex;
+  padding: 10px;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+  position: relative;
+  transition: padding-right 0.3s ease;
+  border-bottom-width: 2px;
+}
+
+.menu-item:hover {
+  padding-right: 40px;
+}
+
+.menu-item:hover .menu-item-content {
+  transform: translateX(-40px);
 }
 

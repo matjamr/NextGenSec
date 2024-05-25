@@ -45,7 +45,7 @@ public class CrudNotificationService implements CrudService<NotificationModel, N
         return Optional.of(notificationModels)
                 .map(notificationMapper::mapTo)
                 .map(notificationRepository::saveAll)
-                .map(notificationMapper::map)
+                .map(notificationMapper::mapList)
                 .orElseThrow(INVALID_NOTIFICATION_DATA::getError);
     }
 }
