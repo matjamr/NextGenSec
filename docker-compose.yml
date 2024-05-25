@@ -1,5 +1,24 @@
 version: '3.8'
 services:
+#  service-orchestrator:
+#    image: service-orchestrator:latest
+#    build:
+#      context: ./service-orchestrator
+#      dockerfile: Dockerfile
+#    ports:
+#      - 8080:8080
+#    environment:
+#      - POSTGRES_HOST=${POSTGRES_HOST}
+#      - POSTGRES_USER=${POSTGRES_USER}
+#      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+#      - POSTGRES_DB=${POSTGRES_DB}
+#      - POSTGRES_URL=${POSTGRES_URL}
+#      - CLIENT_ID=${CLIENT_ID}
+#      - CLIENT_SECRET=${CLIENT_SECRET}
+#      - KAFKA_URL=${KAFKA_URL}
+#      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+#      - SERVER_URL=${SERVER_URL}
+#    network_mode: host
   db:
     image: postgres:14.1-alpine
     restart: always
@@ -11,6 +30,7 @@ services:
       - '5432:5432'
     volumes:
       - db:/var/lib/postgresql/data
+#    network_mode: host
   zookeeper:
     image: wurstmeister/zookeeper:latest
     ports:
@@ -28,6 +48,7 @@ services:
       KAFKA_CREATE_TOPICS: "test:1:1"
     depends_on:
       - zookeeper
+#    network_mode: host
 volumes:
   db:
     driver: local
