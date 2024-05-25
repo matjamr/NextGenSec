@@ -3,8 +3,8 @@ import {BehaviorSubject} from "rxjs";
 import {NotificationsService} from "../notifications/notifications.service";
 
 export interface MenuData {
+  id: string;
   message: string;
-  data: any;
 }
 
 @Injectable({
@@ -21,7 +21,8 @@ export class AsyncMenuManagementService {
     const currentItems = this.itemsSubject.value;
 
     if (index >= 0 && index < currentItems.length) {
-      this.notificationsService.deleteNotification(currentItems[index].data)
+      // @ts-ignore
+      this.notificationsService.deleteNotification({id: currentItems[index].id})
         .subscribe(data => console.log(data));
 
       currentItems.splice(index, 1);

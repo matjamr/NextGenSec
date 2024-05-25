@@ -414,6 +414,8 @@ components:
             type: string
         userEmail:
           type: string
+        id:
+          type: string
         name:
           type: string
         surname:

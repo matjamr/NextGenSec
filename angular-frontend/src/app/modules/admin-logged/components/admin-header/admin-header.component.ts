@@ -44,7 +44,7 @@ export class AdminHeaderComponent implements OnInit, OnDestroy{
 
     this.subscriptions.push(this.notificationsService.getNotifications().subscribe(notifications => {
       notifications.forEach(notification => {
-        this.asyncMenuManagementService.add({data: notification, message: notification.content});
+        this.asyncMenuManagementService.add({id: notification.id,  message: notification.content});
       });
     }));
 
@@ -55,7 +55,7 @@ export class AdminHeaderComponent implements OnInit, OnDestroy{
           user,
           [
             {topic: '/user/topic/notification', onReceive: (ret: any) => {
-                this.asyncMenuManagementService.add({data: ret, message: ret.message});
+                this.asyncMenuManagementService.add({id: ret.id,message: ret.message});
               }},
           ]
         );

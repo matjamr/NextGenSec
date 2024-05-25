@@ -4,14 +4,14 @@ import com.next.gen.api.Email;
 import com.next.gen.api.Places;
 import com.next.gen.api.User;
 import com.next.gen.api.UserPlaceAssignment;
-import com.next.gen.sec.model.MailModel;
-import com.next.gen.sec.model.OutboundEmailModel;
-import com.next.gen.sec.model.Role;
+import com.next.gen.sec.model.*;
 import com.sec.gen.next.serviceorchestrator.api.CustomAuthentication;
+import com.sec.gen.next.serviceorchestrator.common.templates.SaveService;
 import com.sec.gen.next.serviceorchestrator.external.kafka.KafkaProducer;
 import com.sec.gen.next.serviceorchestrator.internal.email.mapper.EmailMapper;
 import com.sec.gen.next.serviceorchestrator.internal.email.repository.EmailRepository;
 import com.sec.gen.next.serviceorchestrator.internal.email.repository.UserRepository;
+import com.sec.gen.next.serviceorchestrator.internal.places.mapper.UserMapper;
 import com.sec.gen.next.serviceorchestrator.internal.places.repository.PlacesRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,10 +26,12 @@ import java.util.function.Consumer;
 public class SaveEmailService implements Consumer<MailModel> {
 
     private final EmailMapper emailMapper;
+    private final UserMapper userMapper;
     private final EmailRepository emailRepository;
     private final UserRepository userRepository;
     private final PlacesRepository placesRepository;
     private final KafkaProducer<OutboundEmailModel> outboundEmailModelKafkaProducer;
+    private final SaveService<NotificationModel, NotificationModel> sendNotificationsService;
 
     @Override
     public void accept(MailModel mailModel) {
@@ -58,6 +60,12 @@ public class SaveEmailService implements Consumer<MailModel> {
                                     "content", mailModel.getContent(),
                                     "subject", mailModel.getSubject()
                             )));
+
+
+                    sendNotificationsService.save(new NotificationModel()
+                            .content("New email from [" + user.getEmail() + "]")
+                            .date(OffsetDateTime.now())
+                            .user(userMapper.map(user_)));
                 });
     }
 

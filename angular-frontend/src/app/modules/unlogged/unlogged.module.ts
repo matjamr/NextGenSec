@@ -14,9 +14,24 @@ import {UnauthorizedComponent} from './components/unauthorized/unauthorized.comp
 import {FormsModule} from "@angular/forms";
 import {CarouselModule} from '@coreui/angular';
 import {GoogleLoginComponent} from './components/google-login/google-login.component';
-import {MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
+import {
+  MatCard,
+  MatCardActions,
+  MatCardContent,
+  MatCardHeader,
+  MatCardImage,
+  MatCardSubtitle,
+  MatCardTitle
+} from "@angular/material/card";
 import {MatButton} from "@angular/material/button";
 import {NotFoundComponent} from './pages/not-found/not-found.component';
+import {HelpPageComponent} from './pages/help-page/help-page.component';
+import {
+  MatAccordion,
+  MatExpansionPanel,
+  MatExpansionPanelHeader,
+  MatExpansionPanelTitle
+} from "@angular/material/expansion";
 
 const routes: Routes = [
   {
@@ -42,6 +57,10 @@ const routes: Routes = [
   {
     path: 'unauthorized',
     component: UnauthorizedComponent
+  },
+  {
+    path: 'help',
+    component: HelpPageComponent
   }
 ]
 
@@ -57,7 +76,8 @@ const routes: Routes = [
     ChooseLevelComponent,
     UnauthorizedComponent,
     GoogleLoginComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    HelpPageComponent
   ],
   imports: [
     CommonModule,
@@ -71,7 +91,13 @@ const routes: Routes = [
     MatCard,
     MatCardContent,
     MatCardActions,
-    MatButton
+    MatButton,
+    MatAccordion,
+    MatExpansionPanel,
+    MatExpansionPanelHeader,
+    MatExpansionPanelTitle,
+    MatCardImage,
+    MatCardSubtitle
   ],
   exports: [
     RouterModule,

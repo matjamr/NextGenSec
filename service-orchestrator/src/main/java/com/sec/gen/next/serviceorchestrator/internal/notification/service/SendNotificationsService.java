@@ -35,6 +35,7 @@ public class SendNotificationsService implements SaveService<NotificationModel, 
 
     private NotificationModel sendNotifications(NotificationModel notificationModel) {
         kafkaChatServiceProducer.sendMessage(new KafkaChatServiceModel()
+                .id(notificationModel.getId())
                 .commonRecipients(List.of(notificationModel.getUser().getEmail()))
                 .message(notificationModel.getContent())
                 .topic(Topic.NOTIFICATION));

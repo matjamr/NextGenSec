@@ -1,0 +1,26 @@
+<!-- help-page.component.html -->
+<div class="help-page-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Welcome to the Help Page</mat-card-title>
+      <mat-card-subtitle>Find the answers to your questions or get in touch</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image src="assets/help-banner.jpg" alt="Help banner">
+    <mat-card-content>
+      <p>If you have any questions or need assistance, please refer to the frequently asked questions below or contact our support team.</p>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-accordion class="my-2">
+    <mat-expansion-panel *ngFor="let faq of faqs">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ faq.question }}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <p>{{ faq.answer }}</p>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <button mat-raised-button color="primary" (click)="contactSupport()">Contact Support</button>
+</div>
