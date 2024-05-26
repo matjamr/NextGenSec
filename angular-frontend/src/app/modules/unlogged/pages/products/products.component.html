@@ -2,20 +2,10 @@
 
 
 <div class="products-grid-layout">
-  <div *ngFor="let product of products$ | async" class="product-container" (click)="showProductDetails(product.id!)">
-    <div class="product-card">
-      <img class="product-image" [src]='product.images![0].url' [alt]="product.name" />
-      <div class="product-info">
-        <h2 class="product-title">{{ product.name }}</h2>
-        <p class="hover-text">Learn More!</p>
-      </div>
-    </div>
+  <div *ngFor="let product of products$ | async" class="product-container">
+
+    <app-product-card [product]="product"></app-product-card>
   </div>
-</div>
-
-
-<div *ngIf="activeId != -1" class="product-details-container">
-  <app-product-details [onClose]="closeProductDetails" [activeProduct]="activeProduct"></app-product-details>
 </div>
 
 

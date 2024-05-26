@@ -1,0 +1,13 @@
+<mat-card class="product-card" (click)="openDialog()">
+  <mat-card-header>
+    <mat-card-title>{{ product.name }}</mat-card-title>
+    <mat-card-subtitle>${{ product.monthlyPrice }} / month</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image *ngIf="product.images?.length" ngSrc="{{product.images![0].url}}" alt="Product Image">
+  <mat-card-content>
+    <p>{{ product.description | slice:0:100 }}...</p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button>Learn More</button>
+  </mat-card-actions>
+</mat-card>

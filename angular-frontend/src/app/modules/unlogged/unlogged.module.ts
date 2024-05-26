@@ -11,13 +11,14 @@ import {CoreModule} from "../../core/core.module";
 import {ProductDetailsComponent} from './components/product-details/product-details.component';
 import {ChooseLevelComponent} from './pages/choose-level/choose-level.component';
 import {UnauthorizedComponent} from './components/unauthorized/unauthorized.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CarouselModule} from '@coreui/angular';
 import {GoogleLoginComponent} from './components/google-login/google-login.component';
 import {
   MatCard,
   MatCardActions,
   MatCardContent,
+  MatCardFooter,
   MatCardHeader,
   MatCardImage,
   MatCardSubtitle,
@@ -32,6 +33,11 @@ import {
   MatExpansionPanelHeader,
   MatExpansionPanelTitle
 } from "@angular/material/expansion";
+import {PricingComponent} from './pages/pricing/pricing.component';
+import {MatCheckbox} from "@angular/material/checkbox";
+import {MatFormField, MatLabel} from "@angular/material/form-field";
+import {MatOption, MatSelect} from "@angular/material/select";
+import {MatRadioButton, MatRadioGroup} from "@angular/material/radio";
 
 const routes: Routes = [
   {
@@ -61,6 +67,10 @@ const routes: Routes = [
   {
     path: 'help',
     component: HelpPageComponent
+  },
+  {
+    path: 'pricing',
+    component: PricingComponent
   }
 ]
 
@@ -77,7 +87,8 @@ const routes: Routes = [
     UnauthorizedComponent,
     GoogleLoginComponent,
     NotFoundComponent,
-    HelpPageComponent
+    HelpPageComponent,
+    PricingComponent
   ],
   imports: [
     CommonModule,
@@ -97,7 +108,16 @@ const routes: Routes = [
     MatExpansionPanelHeader,
     MatExpansionPanelTitle,
     MatCardImage,
-    MatCardSubtitle
+    MatCardSubtitle,
+    MatCheckbox,
+    MatLabel,
+    MatFormField,
+    MatSelect,
+    MatOption,
+    ReactiveFormsModule,
+    MatCardFooter,
+    MatRadioGroup,
+    MatRadioButton
   ],
   exports: [
     RouterModule,

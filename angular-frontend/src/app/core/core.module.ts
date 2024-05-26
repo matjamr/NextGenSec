@@ -26,7 +26,7 @@ import {MatIcon} from "@angular/material/icon";
 import {MatTooltip} from "@angular/material/tooltip";
 import {NotificationPopupComponent} from './components/notification-popup/notification-popup.component';
 import {DialogConfirmComponent} from './components/dialogs/dialog-confirm/dialog-confirm.component';
-import {MatDialogActions, MatDialogContent, MatDialogTitle} from "@angular/material/dialog";
+import {MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle} from "@angular/material/dialog";
 import {FileUploadComponent} from './components/dialogs/file-upload/file-upload.component';
 import {
   MatList,
@@ -49,9 +49,20 @@ import {LeftNavAreaComponent} from './components/left-nav-area/left-nav-area.com
 import {MatToolbar} from "@angular/material/toolbar";
 import {MapComponent} from './components/map/map.component';
 import {InquiryMessageDialogComponent} from './components/inquiry-message-dialog/inquiry-message-dialog.component';
-import { ImageDialogComponent } from './components/image-dialog/image-dialog.component';
-import { ScrollableMenuComponent } from './components/scrollable-menu/scrollable-menu.component';
+import {ImageDialogComponent} from './components/image-dialog/image-dialog.component';
+import {ScrollableMenuComponent} from './components/scrollable-menu/scrollable-menu.component';
 import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
+import {ProductCardComponent} from './components/product-card/product-card.component';
+import {
+  MatCard,
+  MatCardActions,
+  MatCardContent,
+  MatCardHeader,
+  MatCardImage,
+  MatCardSubtitle,
+  MatCardTitle
+} from "@angular/material/card";
+import {ProductDialogComponent} from './components/product-dialog/product-dialog.component';
 
 
 @NgModule({
@@ -72,7 +83,9 @@ import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
     MapComponent,
     InquiryMessageDialogComponent,
     ImageDialogComponent,
-    ScrollableMenuComponent
+    ScrollableMenuComponent,
+    ProductCardComponent,
+    ProductDialogComponent
   ],
   imports: [
     CommonModule,
@@ -116,7 +129,15 @@ import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
     MatLabel,
     MatMenuTrigger,
     MatMenu,
-    MatMenuItem
+    MatMenuItem,
+    MatCardHeader,
+    MatCard,
+    MatCardImage,
+    MatCardContent,
+    MatCardActions,
+    MatDialogClose,
+    MatCardSubtitle,
+    MatCardTitle
   ],
   exports: [
     LogoTitleComponent,
@@ -130,6 +151,7 @@ import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
     LeftNavAreaComponent,
     MapComponent,
     ScrollableMenuComponent,
+    ProductCardComponent,
   ]
 })
 export class CoreModule { }

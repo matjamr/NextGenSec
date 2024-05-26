@@ -13,8 +13,6 @@ import {GetProducts} from "../../../../core/state/products/products.actions";
 export class ProductsComponent implements OnInit {
 
   products$: Observable<Product[]>;
-  activeId = -1;
-  activeProduct: Product = {id:"1", name: "", description: "", images: [], monthlyPrice: 1}
 
   constructor(
     private store: Store<AppState>,
@@ -27,15 +25,4 @@ export class ProductsComponent implements OnInit {
     this.store.dispatch(GetProducts())
   }
 
-  showProductDetails(id: string) {
-    // this.activeId = id
-    this.products$.subscribe(data => {
-      this.activeProduct = data.filter(d => d.id === "id")[0]
-    })
-  }
-
-  closeProductDetails = () => {
-    this.activeId = -1
-    this.changeDetectorRef.detectChanges()
-  }
 }

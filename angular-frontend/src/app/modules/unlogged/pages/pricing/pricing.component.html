@@ -1,0 +1,33 @@
+<app-unlogged-header></app-unlogged-header>
+<div class="pricing-container">
+  <mat-card class="pricing-card">
+    <mat-card-title>Calculate Your Cost</mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="pricingForm">
+        <mat-form-field appearance="fill">
+          <mat-label>Time Period</mat-label>
+          <mat-select formControlName="timePeriod">
+            <mat-option value="daily">Daily</mat-option>
+            <mat-option value="monthly">Monthly</mat-option>
+            <mat-option value="yearly">Yearly</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-checkbox formControlName="biometricAuth" class="option-check">Biometric Authentication</mat-checkbox>
+        <mat-checkbox formControlName="twoFactorAuth" class="option-check">Two-Factor Authentication</mat-checkbox>
+
+        <mat-radio-group aria-label="Select a device" formControlName="selectedDevice">
+          <mat-radio-button value="smartphone">Smartphone</mat-radio-button>
+          <mat-radio-button value="computer">Computer</mat-radio-button>
+          <mat-radio-button value="tablet">Tablet</mat-radio-button>
+        </mat-radio-group>
+
+        <button mat-raised-button color="primary" (click)="calculateIncome()">Calculate</button>
+      </form>
+    </mat-card-content>
+    <mat-card-footer *ngIf="estimatedIncome">
+      <p>Your estimated cost: ${{ estimatedIncome }}</p>
+    </mat-card-footer>
+  </mat-card>
+</div>
+<app-footer></app-footer>

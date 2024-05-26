@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>{{ data.product.name }}</h1>
+<mat-dialog-content>
+  <p>{{ data.product.description }}</p>
+  <div *ngFor="let img of data.product.images">
+    <img [src]="img.url" alt="Product image" style="width: 100%; margin-top: 10px;">
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>
