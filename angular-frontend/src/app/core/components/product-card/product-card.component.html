@@ -3,7 +3,7 @@
     <mat-card-title>{{ product.name }}</mat-card-title>
     <mat-card-subtitle>${{ product.monthlyPrice }} / month</mat-card-subtitle>
   </mat-card-header>
-  <img mat-card-image *ngIf="product.images?.length" ngSrc="{{product.images![0].url}}" alt="Product Image">
+  <img mat-card-image *ngIf="product.images?.length" style="width: 300px; height: 300px; " src="{{product.images![0].url}}" alt="Product Image">
   <mat-card-content>
     <p>{{ product.description | slice:0:100 }}...</p>
   </mat-card-content>

@@ -52,6 +52,18 @@
 
           <a
             mat-list-item
+            routerLink="/system/administrative/users"
+            class="sidenav__list-item list-sub-item"
+            [routerLinkActive]="['active']"
+          >
+            <div class="align-center">
+              <mat-icon>verified_user</mat-icon>
+              <span *ngIf="!isCollapsed">Users</span>
+            </div>
+          </a>
+
+          <a
+            mat-list-item
             routerLink="/system/administrative/products"
             class="sidenav__list-item list-sub-item"
             [routerLinkActive]="['active']"

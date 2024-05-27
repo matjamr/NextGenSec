@@ -1,4 +1,6 @@
 spring:
+  api-docs:
+    path: /api-docs
   jackson:
     defaultPropertyInclusion: "non_null"
     deserialization:
@@ -38,6 +40,9 @@ security:
       method: GET
       access: permitAll
     - url: /api/image/*
+      method: GET
+      access: permitAll
+    - url: /api-docs
       method: GET
       access: permitAll
     - url: /api/place

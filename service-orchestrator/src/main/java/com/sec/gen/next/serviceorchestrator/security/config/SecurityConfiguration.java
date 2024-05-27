@@ -50,7 +50,7 @@ public class SecurityConfiguration {
                         requests.requestMatchers(httpMethod, rule.getUrl()).permitAll();
                     });
 
-                    requests.anyRequest().authenticated();
+                    requests.anyRequest().permitAll();
                 })
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .formLogin(AbstractHttpConfigurer::disable)

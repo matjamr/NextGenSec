@@ -1,2 +1,13 @@
 <app-nav-wrapper>
+  <div class="container">
+    <h3>Users</h3>
+    <app-configurable-table
+      [elementData]="users$"
+      [tableTemplate]="tableTemplate"
+      [checkboxSupport]="true"
+      [addButtonAction]="addButtonAction"
+      [rowActionButtons]="rowActionButtons"
+      [onRemoveClick]="onRemove"
+    />
+  </div>
 </app-nav-wrapper>

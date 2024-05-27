@@ -5,7 +5,7 @@ import {
   AddAdminToPlace,
   AddPlace,
   DeletePlace,
-  DeletePlaceSuccess,
+  DeletePlaceSuccess, GetAllPlaces,
   GetPlaces,
   GetPlacesFailure,
   GetPlacesSuccess,
@@ -18,6 +18,18 @@ import {UserService} from "../../services/user/user.service";
 
 @Injectable()
 export class PlaceEffects {
+  getAllPlaces = createEffect(() => this.actions$.pipe(
+    ofType(GetAllPlaces),
+    mergeMap(() => this.placesService.getAllPlaces()
+      .pipe(
+        map(places => GetPlacesSuccess({places: places})),
+        catchError((error) => {
+          // this.notificationService.error('HTTP Error', error.message);
+          return of(GetPlacesFailure({error}))
+        }))
+    )
+  ));
+
   getPlacesByUser = createEffect(() => this.actions$.pipe(
     ofType(GetPlaces),
     mergeMap(() => this.placesService.getPlacesByUser()
@@ -34,7 +46,10 @@ export class PlaceEffects {
     ofType(AddPlace),
     mergeMap((action) => this.placesService.addPlace(action.payload)
       .pipe(
-        map(place => PlaceSuccess(place)),
+        map(place => {
+          this.notificationService.success('Place added successfully', 'Success');
+          return PlaceSuccess(place);
+        }),
         catchError((error) => {
           // this.notificationService.error('HTTP Error', error.message);
           return of(PlaceError(error))
@@ -47,6 +62,7 @@ export class PlaceEffects {
     mergeMap((action) => this.placesService.deletePlace(action.payload)
       .pipe(
         map(project => {
+          this.notificationService.success('Place deleted successfully', 'Success');
           // @ts-ignore
           return DeletePlaceSuccess({payload: project})
         }),

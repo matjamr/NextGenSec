@@ -89,12 +89,12 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
-    path: 'administrative/admins',
-    component: AdminsComponent
-  },
-  {
     path: 'administrative/places',
     component: PlacesComponent
+  },
+  {
+    path: 'administrative/users',
+    component: AdminsComponent
   },
   {
     path: 'administrative/places/:placeName',

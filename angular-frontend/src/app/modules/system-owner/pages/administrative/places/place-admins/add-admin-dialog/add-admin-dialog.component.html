@@ -1,6 +1,13 @@
 <mat-dialog-content class="mat-typography">
   <form [formGroup]="userForm" class="flex-col">
     <ng-template matStepLabel>Place Owner Data</ng-template>
+    <app-search
+      [placeholder]="'Search for a place'"
+      [renderView]="renderPlaceView"
+      [data]="places$ | async"
+      [searchPredicate]="searchPlacePredicate"
+      [dataFormControl]="placeFormControl"
+    />
 
     <mat-form-field>
       <mat-label>Email</mat-label>

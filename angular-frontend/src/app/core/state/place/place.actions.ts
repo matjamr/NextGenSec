@@ -18,6 +18,7 @@ const REMOVE_ADMIN_PLACE = '[Places] Remove admin from place'
 const UPDATE_ADMIN_PLACE = '[Places] Update admin from place'
 
 export const GetPlaces = createAction(GET_PLACE_BY_USER)
+export const GetAllPlaces = createAction(GET_PLACE_BY_USER)
 export const GetPlacesSuccess = createAction(GET_PLACE_SUCCESSFULLY, props<{places: Place[]}>());
 export const GetPlacesFailure = createAction(GET_PLACE_FAILURE, props<{error:any}>());
 
