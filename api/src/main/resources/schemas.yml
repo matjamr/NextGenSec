@@ -225,6 +225,8 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/ImageModel'
+            state:
+              type: string
     UserPlaceAssignment:
       type: object
       properties:

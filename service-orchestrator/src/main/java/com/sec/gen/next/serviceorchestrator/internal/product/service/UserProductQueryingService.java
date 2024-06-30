@@ -1,12 +1,12 @@
 package com.sec.gen.next.serviceorchestrator.internal.product.service;
 
-import com.next.gen.api.Product;
-import com.next.gen.api.SensitiveData;
+import com.next.gen.api.State;
 import com.next.gen.api.User;
-import com.next.gen.sec.model.*;
+import com.next.gen.sec.model.ImageModel;
+import com.next.gen.sec.model.Role;
+import com.next.gen.sec.model.SensitiveDataModel;
 import com.sec.gen.next.serviceorchestrator.api.CustomAuthentication;
 import com.sec.gen.next.serviceorchestrator.common.templates.CrudService;
-import com.sec.gen.next.serviceorchestrator.common.templates.QueryService;
 import com.sec.gen.next.serviceorchestrator.exception.Error;
 import com.sec.gen.next.serviceorchestrator.exception.ServiceException;
 import com.sec.gen.next.serviceorchestrator.internal.email.repository.UserRepository;
@@ -22,6 +22,7 @@ import java.util.List;
 
 import static com.sec.gen.next.serviceorchestrator.exception.Error.INVALID_PRODUCT_DATA;
 import static com.sec.gen.next.serviceorchestrator.exception.Error.INVALID_USER_DATA;
+import static java.util.Objects.isNull;
 
 @Service
 @RequiredArgsConstructor
@@ -62,17 +63,20 @@ public class UserProductQueryingService implements CrudService<SensitiveDataMode
             throw new ServiceException(INVALID_PRODUCT_DATA);
         }
 
-        var aa = productMapper.map(sensitiveDataModel);
+        var mappedSensitiveData = productMapper.map(sensitiveDataModel);
         var images = imageRepository.findAllById(sensitiveDataModel.getImages().stream().map(ImageModel::getId).toList());
 
+        if(isNull(mappedSensitiveData.getState())) {
+            mappedSensitiveData.setState(State.NOT_VERIFIED);
+        }
 
-        aa.setUser(userFromDb);
-        aa.setImages(images);
-        userFromDb.getSensitiveData().add(aa);
+        mappedSensitiveData.setUser(userFromDb);
+        mappedSensitiveData.setImages(images);
+        userFromDb.getSensitiveData().add(mappedSensitiveData);
 
         userRepository.save(userFromDb);
 
-        return productMapper.map(aa);
+        return productMapper.map(mappedSensitiveData);
     }
 
     @Override

@@ -5,10 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicUpdate;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -33,4 +32,8 @@ public class SensitiveData {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @ColumnDefault("NOT_VERIFIED")
+    @Enumerated(EnumType.STRING)
+    private State state;
 }
