@@ -1,9 +1,0 @@
-jamr.mat@gmail.com ->   placeId: 1, GOOGLE, ADMIN
-admin@gmail.com         placeId: 2, JWT, ADMIN (haslo1234)
-
-amit@wp.pl ->           placeId: 1, 2, JWT, USER (haslo123)
-user@wp.pl ->          placeId: 1, 2, JWT, USER (haslo123)
-
-modkil265@gmail.com ->  placeId: 1 GOOGLE, USER (haslo123)
-user@gmail.com ->       placeId: 1, 2, JWT, USER (haslo123)
-
