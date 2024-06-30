@@ -1,9 +1,9 @@
 import cv2
-import os
 import numpy as np
-from training.utils import prepare_training_data
+
 from training.db import fetch_sensitive_data, download_images, remove_assets
 from training.models.SensitiveData import SensitiveData
+from training.utils import prepare_training_data
 
 print("fetching info from db.....")
 sensitiveData: list[SensitiveData] = fetch_sensitive_data()

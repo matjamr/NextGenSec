@@ -2,7 +2,6 @@ from flask import g
 
 from model.models import Device, VerificationData
 
-import psycopg2
 from psycopg2.extras import RealDictCursor
 
 

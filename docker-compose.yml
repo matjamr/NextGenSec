@@ -1,12 +1,18 @@
 version: '3.8'
 services:
 #  service-orchestrator:
-#    image: service-orchestrator:latest
+#    image: service-orchestrator
 #    build:
 #      context: ./service-orchestrator
 #      dockerfile: Dockerfile
+#    working_dir: /app
+#    volumes:
+#      - ./:/app
+#      - ./m2:/root/.m2
 #    ports:
-#      - 8080:8080
+#      - "8080:8080"
+#      - "35729:35729"
+#      - "5005:5005"
 #    environment:
 #      - POSTGRES_HOST=${POSTGRES_HOST}
 #      - POSTGRES_USER=${POSTGRES_USER}
@@ -30,7 +36,6 @@ services:
       - '5432:5432'
     volumes:
       - db:/var/lib/postgresql/data
-#    network_mode: host
   zookeeper:
     image: wurstmeister/zookeeper:latest
     ports:
@@ -48,7 +53,6 @@ services:
       KAFKA_CREATE_TOPICS: "test:1:1"
     depends_on:
       - zookeeper
-#    network_mode: host
 volumes:
   db:
     driver: local

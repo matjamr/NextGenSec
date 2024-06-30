@@ -1,14 +1,11 @@
+import cv2
+from flask import request, json, jsonify
 from kafka import KafkaProducer
+from model.models import Device
+from repository.Repository import Repository
+from utils.utils import predict_on_loaded_model_from_request
 
 from .service_class import Service
-from flask import Blueprint, render_template, request, json, jsonify
-from repository.Repository import Repository
-from model.models import Device, VerificationData
-
-import cv2
-
-
-from utils.utils import predict_on_loaded_model_from_request
 
 
 class FaceRecognitionService(Service):

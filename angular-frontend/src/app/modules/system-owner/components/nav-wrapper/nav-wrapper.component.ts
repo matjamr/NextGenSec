@@ -86,6 +86,7 @@ export class NavWrapperComponent implements OnInit, OnDestroy {
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('source');
+
     this.router.navigate(['/login']).then(() => {
       this.notificationService.success('Success', 'You have been logged out');
     });

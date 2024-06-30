@@ -6,6 +6,7 @@ import com.next.gen.sec.model.PlacesModel;
 import com.sec.gen.next.serviceorchestrator.common.templates.CrudService;
 import com.sec.gen.next.serviceorchestrator.common.templates.DeleteService;
 import com.sec.gen.next.serviceorchestrator.common.templates.UpdateService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
@@ -57,11 +58,13 @@ public class PlacesController {
         return crudPlaceService.findAll();
     }
 
+    @Transactional
     @GetMapping("/{placeName}")
     public PlacesModel getPlaceByName(@PathVariable String placeName) {
         return crudPlaceService.findBy(placeName);
     }
 
+    @Transactional
     @GetMapping("/user")
     public List<PlacesModel> getPlace() {
         return placesForUserSupplier.get();
