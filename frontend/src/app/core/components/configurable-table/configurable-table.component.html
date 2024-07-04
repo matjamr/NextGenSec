@@ -39,7 +39,12 @@
   <ng-container matColumnDef="rowActionButtons">
     <th mat-header-cell *matHeaderCellDef></th>
     <td mat-cell *matCellDef="let element">
-      <button *ngFor="let btn of rowActionButtons" mat-icon-button matTooltip="{{btn.tooltip}}" (click)="btn.action(element)">
+      <button *ngFor="let btn of rowActionButtons"
+              style="color: {{btn.iconColor ? btn.iconColor(element) : 'black'}}"
+              mat-icon-button
+              matTooltip="{{btn.tooltip ? btn.tooltip : btn.onHover!(element)}}"
+              (click)="btn.action ? btn.action(element) : null"
+      >
         <mat-icon>{{btn.iconName}}</mat-icon>
       </button>
     </td>

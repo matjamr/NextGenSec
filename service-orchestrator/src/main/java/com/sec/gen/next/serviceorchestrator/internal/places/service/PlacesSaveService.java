@@ -1,6 +1,7 @@
 package com.sec.gen.next.serviceorchestrator.internal.places.service;
 
 import com.next.gen.sec.model.PlacesModel;
+import com.next.gen.sec.model.Role;
 import com.sec.gen.next.serviceorchestrator.common.templates.SaveService;
 import com.sec.gen.next.serviceorchestrator.internal.places.mapper.PlacesMapper;
 import com.sec.gen.next.serviceorchestrator.internal.places.repository.PlacesRepository;
@@ -20,6 +21,10 @@ public class PlacesSaveService implements SaveService<PlacesModel, PlacesModel> 
     public PlacesModel save(PlacesModel placesModel) {
         return Optional.of(placesModel)
                 .map(placesMapper::map)
+                .map(places -> {
+                    places.getOwner().setRole(Role.ADMIN);
+                    return places;
+                })
                 .map(placesRepository::save)
                 .map(placesMapper::map)
                 .orElseThrow(INVALID_PLACE_DATA::getError);

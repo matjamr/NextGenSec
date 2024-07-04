@@ -1,6 +1,6 @@
-import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {map, Observable, Subscription} from "rxjs";
-import {SensitiveData} from "../../../../core/models/Product";
+import {colorFormatter, SensitiveData} from "../../../../core/models/Product";
 import {MatDialog} from "@angular/material/dialog";
 import {Store} from "@ngrx/store";
 import {AppState} from "../../../../app.state";
@@ -25,8 +25,7 @@ export class DataComponent implements OnInit, OnDestroy {
 
   constructor(public dialog: MatDialog, private store: Store<AppState>,
               private productsService: ProductsService,
-              private notificationService: NotificationService,
-              private changeDetector: ChangeDetectorRef) {
+              private notificationService: NotificationService) {
     this.products$ = productsService.getProductsUser().pipe(map(products => products.map(product => {
       return {
         ...product,
@@ -51,16 +50,17 @@ export class DataComponent implements OnInit, OnDestroy {
     {
       iconName: 'image',
       action: (elem: any) => {
-        console.log(elem)
         const dialogRef = this.dialog.open(ImageDialogComponent, {
           width: '80%',
           data: { images: elem.images }
         });
-
-        dialogRef.afterClosed().subscribe(result => {
-        });
       },
       tooltip: 'show uploaded images'
+    },
+    {
+      iconName: 'verified_user',
+      onHover: (data: any) => data.state,
+      iconColor: (data: any): string => colorFormatter(data),
     }
   ]
 

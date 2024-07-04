@@ -15,8 +15,10 @@ export interface ConfigurableTableActionButtons<T> {
 
 export interface RowActionButton<T> {
   iconName: string,
-  tooltip: string,
-  action: (data: T) => any
+  tooltip?: string,
+  action?: (data: T) => any,
+  onHover?: (data: T) => any,
+  iconColor?: (data: T) => string
 }
 
 @Component({
