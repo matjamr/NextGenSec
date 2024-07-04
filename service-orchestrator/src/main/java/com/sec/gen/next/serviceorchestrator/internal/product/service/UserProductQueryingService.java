@@ -81,7 +81,6 @@ public class UserProductQueryingService implements CrudService<SensitiveDataMode
 
     @Override
     public SensitiveDataModel delete(SensitiveDataModel sensitiveDataModel) {
-        sensitiveDataModel.getProduct().getId();
 
         CustomAuthentication user = (CustomAuthentication) SecurityContextHolder.getContext().getAuthentication();
         User userFromDb = userRepository.findByEmail(user.getEmail())
@@ -93,6 +92,8 @@ public class UserProductQueryingService implements CrudService<SensitiveDataMode
             throw new ServiceException(INVALID_PRODUCT_DATA);
         }
 
+
+        var a = userFromDb.getSensitiveData();
         userFromDb.getSensitiveData().removeIf(sensitiveData -> sensitiveData.getProduct().getId().equals(sensitiveDataModel.getProduct().getId()));
         userRepository.save(userFromDb);
         return sensitiveDataModel;

@@ -1,14 +1,11 @@
 package com.sec.gen.next.serviceorchestrator.internal.product;
 
-import com.next.gen.api.SensitiveData;
 import com.next.gen.sec.model.ProductModel;
 import com.next.gen.sec.model.SensitiveDataModel;
 import com.sec.gen.next.serviceorchestrator.common.templates.CrudService;
 import com.sec.gen.next.serviceorchestrator.common.templates.DeleteService;
-import com.sec.gen.next.serviceorchestrator.common.templates.QueryService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -47,7 +44,6 @@ public class ProductController {
         return userProductQueryingService.save(sensitiveData);
     }
 
-    @Transactional
     @DeleteMapping("/user")
     public SensitiveDataModel deleteProductsForUser(@RequestBody SensitiveDataModel sensitiveData) {
         return userProductQueryingService.delete(sensitiveData);

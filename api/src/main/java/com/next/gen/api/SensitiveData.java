@@ -5,8 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.List;
 
@@ -23,17 +24,18 @@ public class SensitiveData {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    @OneToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Image> images;
 
     @ManyToOne
+    @JoinColumn(name = "product_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Product product;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ColumnDefault("NOT_VERIFIED")
     @Enumerated(EnumType.STRING)
     private State state;
 }
