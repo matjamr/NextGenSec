@@ -9,7 +9,7 @@ class CleanupService(Service):
     def do_service(self, context: Context):
         base_directory = "training-data"
         directories = [d for d in os.listdir(base_directory) if
-                       os.path.isdir(os.path.join(base_directory, d)) and d.startswith('s')]
+                       os.path.isdir(os.path.join(base_directory, d)) and not d.startswith('.')]
 
         print("List of existing directories:")
         for directory in directories:

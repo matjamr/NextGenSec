@@ -17,12 +17,12 @@ def prepare_training_data(data_folder_path):
     faces = []
     labels = []
 
-    for dir_name in dirs:
+    for i, dir_name in enumerate(dirs):
 
-        if not dir_name.startswith("s"):
+        if dir_name.startswith("."):
             continue
 
-        label = int(dir_name.replace("s", ""))
+        label = i
 
         subject_dir_path = data_folder_path + "/" + dir_name
 

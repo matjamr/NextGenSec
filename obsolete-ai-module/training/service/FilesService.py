@@ -3,7 +3,7 @@ from itertools import groupby
 
 import requests
 
-from model.context import Context
+from training.models.Context import Context
 from training.models.SensitiveData import SensitiveData
 from training.repository.Repository import Repository
 from training.service.Service import Service
@@ -16,20 +16,30 @@ class FilesService(Service):
 
     def do_service(self, context: Context):
         sensitive_data: list[SensitiveData] = self._repository.fetch_sensitive_data()
-        self.__download_images(sensitive_data)
+
+        user_folders: dict[str: list[str]] = self.__download_images(sensitive_data)
+        context.user_folders = user_folders
 
     def __download_images(self, sensitive_data: list[SensitiveData]):
         sorted_data = sorted(sensitive_data, key=lambda x: x.email)
         grouped_data = {email: list(group) for email, group in groupby(sorted_data, key=lambda x: x.email)}
 
+        user_folders: dict[str: tuple[str, list[str]]] = {}
+
         for i, (user_email, data_list) in enumerate(grouped_data.items(), 1):
-            user_folder = f"training-data/s{i}"
+            user_folder = f"training-data/{user_email}"
 
             if not os.path.exists(user_folder):
                 os.makedirs(user_folder)
 
+            user_images_ids = []
             for data in data_list:
                 self.__download_image(data, i, user_email, user_folder)
+                user_images_ids.append(data.image_id)
+
+            user_folders[user_folder] = (user_email, user_images_ids)
+
+        return user_folders
 
     def __download_image(self, data: SensitiveData, i, user_email, user_folder):
         image_url = f"http://localhost:8080/api/image/{data.image_id}"

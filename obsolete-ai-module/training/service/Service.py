@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from model.context import Context
+from training.models.Context import Context
 
 
 class Service(ABC):
