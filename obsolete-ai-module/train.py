@@ -1,28 +1,32 @@
-import cv2
-import numpy as np
+from training.models.Context import Context
+from training.repository.Repository import Repository
+from training.service.CleanupService import CleanupService
+from training.service.FilesService import FilesService
+from training.service.TrainingService import TrainingService
 
-from training.db import fetch_sensitive_data, download_images, remove_assets
-from training.models.SensitiveData import SensitiveData
-from training.utils import prepare_training_data
+repository = Repository()
 
-print("fetching info from db.....")
-sensitiveData: list[SensitiveData] = fetch_sensitive_data()
+services_list = [
+    FilesService(repository),
+    TrainingService(repository),
+    CleanupService()
+]
 
-print("downloading imgs")
-download_images(sensitiveData)
+context = Context()
 
-print("Preparing data...")
-faces, labels = prepare_training_data("training-data")
-
-print("Data prepared")
-print("Deleting assets....")
-remove_assets()
-
-print("Total faces: ", len(faces))
-print("Total labels: ", len(labels))
+# Execute all services
+[service.do_service(context) for service in services_list]
 
 
-face_recognizer = cv2.face.LBPHFaceRecognizer_create()
-face_recognizer.train(faces, np.array(labels))
-face_recognizer.save("saved-models/face_recognition_model.yml")
+# print("Data prepared")
+# print("Deleting assets....")
+# repository.remove_assets()
+#
+# print("Total faces: ", len(faces))
+# print("Total labels: ", len(labels))
+#
+#
+# face_recognizer = cv2.face.LBPHFaceRecognizer_create()
+# face_recognizer.train(faces, np.array(labels))
+# face_recognizer.save("saved-models/face_recognition_model.yml")
 

@@ -3,3 +3,4 @@ include
 lib
 pyvenv.cfg
 saved-models/face_recognition_model.yml
+venv
