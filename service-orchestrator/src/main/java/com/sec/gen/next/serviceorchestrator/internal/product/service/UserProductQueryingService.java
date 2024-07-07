@@ -6,6 +6,7 @@ import com.next.gen.sec.model.ImageModel;
 import com.next.gen.sec.model.Role;
 import com.next.gen.sec.model.SensitiveDataModel;
 import com.sec.gen.next.serviceorchestrator.api.CustomAuthentication;
+import com.sec.gen.next.serviceorchestrator.common.templates.ConditionalListQueryService;
 import com.sec.gen.next.serviceorchestrator.common.templates.CrudService;
 import com.sec.gen.next.serviceorchestrator.exception.Error;
 import com.sec.gen.next.serviceorchestrator.exception.ServiceException;
@@ -26,7 +27,8 @@ import static java.util.Objects.isNull;
 
 @Service
 @RequiredArgsConstructor
-public class UserProductQueryingService implements CrudService<SensitiveDataModel, SensitiveDataModel, String> {
+public class UserProductQueryingService implements CrudService<SensitiveDataModel, SensitiveDataModel, String>,
+        ConditionalListQueryService<SensitiveDataModel, String> {
 
     private final UserRepository userRepository;
     private final ProductMapper productMapper;
@@ -46,6 +48,26 @@ public class UserProductQueryingService implements CrudService<SensitiveDataMode
                 .map(User::getSensitiveData)
                 .flatMap(Collection::stream)
                 .filter(sensitiveData -> sensitiveData.getUser().getEmail().equals(user.getEmail()))
+                .map(productMapper::map)
+                .toList();
+    }
+
+    @Override
+    public List<SensitiveDataModel> findAll(String params) {
+        if(isNull(params)) {
+            return findAll();
+        }
+
+        CustomAuthentication user = (CustomAuthentication) SecurityContextHolder.getContext().getAuthentication();
+
+        if(!user.getRole().equals(Role.ROBOTIC)) {
+            throw new ServiceException(Error.UNAUTHORIZED);
+        }
+
+        return userRepository.findByEmail(params)
+                .stream()
+                .map(User::getSensitiveData)
+                .flatMap(Collection::stream)
                 .map(productMapper::map)
                 .toList();
     }

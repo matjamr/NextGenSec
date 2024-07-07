@@ -4,8 +4,8 @@ import com.next.gen.sec.model.UserModel;
 import com.sec.gen.next.serviceorchestrator.api.CustomAuthentication;
 import com.sec.gen.next.serviceorchestrator.exception.Error;
 import com.sec.gen.next.serviceorchestrator.exception.ServiceException;
-import com.sec.gen.next.serviceorchestrator.security.config.SecurityPropertiesConfig;
 import com.sec.gen.next.serviceorchestrator.external.UserServiceClient;
+import com.sec.gen.next.serviceorchestrator.security.config.SecurityPropertiesConfig;
 import com.sec.gen.next.serviceorchestrator.security.config.WrappedHttpServletResponse;
 import com.sec.gen.next.serviceorchestrator.security.mapper.CustomAuthenticationMapper;
 import jakarta.servlet.FilterChain;
@@ -102,7 +102,7 @@ public class CustomAuthenticationFilter extends OncePerRequestFilter {
 
     private boolean isPermitAllEndpoint(String requestURI, String method) {
         return securityPropertiesConfig.getPaths().stream()
-                .anyMatch(pair -> requestURI.startsWith(pair.getUrl()) &&
+                .anyMatch(pair -> requestURI.matches(pair.getUrl()) &&
                         pair.getMethod().equals(method) &&
                         pair.getAccess().equals("permitAll"));
     }

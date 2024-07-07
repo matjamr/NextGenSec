@@ -72,8 +72,8 @@ components:
 
     Role:
       type: string
-      enum: [ "user", "admin", "system" ]
-      x-enum-varnames: [ USER, ADMIN, SYSTEM ]
+      enum: [ "user", "admin", "system", "robotic" ]
+      x-enum-varnames: [ USER, ADMIN, SYSTEM, ROBOTIC ]
     RegistrationSource:
       type: string
       enum: [ "JWT", "GOOGLE", "FACEBOOK"]
