@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-from model.context import Context
+from training.models.Context import Context
 from training.service.Service import Service
 from training.utils.cv2_utils import prepare_training_data
 
@@ -12,7 +12,10 @@ class TrainingService(Service):
         self.__repository = repository
 
     def do_service(self, context: Context):
-        faces, labels = prepare_training_data("training-data")
+        faces, labels = prepare_training_data("training-data", context.emails_to_be_processed)
+
+        if len(faces) == 0 or len(labels) == 0:
+            return
 
         print("Total faces: ", len(faces))
         print("Total labels: ", len(labels))

@@ -11,7 +11,7 @@ def draw_text(img, text, x, y):
     cv2.putText(img, text, (x, y), cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
 
 
-def prepare_training_data(data_folder_path):
+def prepare_training_data(data_folder_path, dirs_to_be_processed):
     dirs = os.listdir(data_folder_path)
 
     faces = []
@@ -19,7 +19,7 @@ def prepare_training_data(data_folder_path):
 
     for i, dir_name in enumerate(dirs):
 
-        if dir_name.startswith("."):
+        if dir_name.startswith(".") or dir_name not in dirs_to_be_processed:
             continue
 
         label = i
