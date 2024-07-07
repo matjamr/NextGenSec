@@ -37,10 +37,7 @@ security:
     - url: /api/news
       method: GET
       access: permitAll
-    - url: /api/image
-      method: GET
-      access: permitAll
-    - url: /api/image/*
+    - url: /api/image.*
       method: GET
       access: permitAll
     - url: /api-docs
