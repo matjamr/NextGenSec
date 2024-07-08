@@ -21,7 +21,7 @@ export class ProductsService {
   }
 
   getProductsUser(): Observable<SensitiveData[]> {
-    return this.http.post<SensitiveData[]>('http://localhost:8080/api/product/user/retrieve', null, buildHeader())
+    return this.http.get<SensitiveData[]>(this.apiUrl + '/user', buildHeader())
   }
 
   addProduct(product: Product): Observable<Product> {

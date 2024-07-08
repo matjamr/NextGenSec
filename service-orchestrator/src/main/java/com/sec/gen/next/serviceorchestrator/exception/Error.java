@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -42,7 +41,8 @@ public enum Error implements Serializable {
     ONE_OF_PLACES_DO_NOT_EXIST("One of given places do not exist", 22),
     INVALID_HISTORY_ENTRANCE("Invalid history entrance data", 23),
     INTERNAL_SERVER_ERROR("Internal Server Error: %s", 24),
-    INVALID_SEND_TO_NAME_EXCEPTION("Provided email is nor user email nor placeName", 24);
+    INVALID_SEND_TO_NAME_EXCEPTION("Provided email is nor user email nor placeName", 24),
+    INVALID_SENSITIVE_DATA_ID("Invalid sensitive data id", 24),;
 
     private String message;
     private Integer code;

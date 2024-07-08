@@ -20,6 +20,7 @@ public class ProductController {
     private final CrudService<ProductModel, ProductModel, String> productService;
     private final DeleteService<List<ProductModel>, List<ProductModel>> productDeleteService;
     private final CrudService<SensitiveDataModel, SensitiveDataModel, String> userProductQueryingService;
+    private final DeleteService<SensitiveDataModel, SensitiveDataModel> userProductDeleteService;
     private final ConditionalListQueryService<SensitiveDataModel, String> conditionalListQueryService;
     private final ModifyService<SensitiveDataModel> modifySensitiveDataService;
 
@@ -39,7 +40,7 @@ public class ProductController {
 
     @Transactional
     @GetMapping("/user")
-    public List<SensitiveDataModel> getProductsForUser(@RequestParam("email") String userEmail) {
+    public List<SensitiveDataModel> getProductsForUser(@RequestParam(name = "email", required = false) String userEmail) {
         return conditionalListQueryService.findAll(userEmail);
     }
 
@@ -58,7 +59,7 @@ public class ProductController {
 
     @DeleteMapping("/user")
     public SensitiveDataModel deleteProductsForUser(@RequestBody SensitiveDataModel sensitiveData) {
-        return userProductQueryingService.delete(sensitiveData);
+        return userProductDeleteService.delete(sensitiveData);
     }
 
     @Transactional

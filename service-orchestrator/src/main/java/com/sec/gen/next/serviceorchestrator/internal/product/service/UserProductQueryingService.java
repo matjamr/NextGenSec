@@ -100,24 +100,4 @@ public class UserProductQueryingService implements CrudService<SensitiveDataMode
 
         return productMapper.map(mappedSensitiveData);
     }
-
-    @Override
-    public SensitiveDataModel delete(SensitiveDataModel sensitiveDataModel) {
-
-        CustomAuthentication user = (CustomAuthentication) SecurityContextHolder.getContext().getAuthentication();
-        User userFromDb = userRepository.findByEmail(user.getEmail())
-                .orElseThrow(INVALID_USER_DATA::getError);
-
-        if(userFromDb.getSensitiveData()
-                .stream()
-                .noneMatch(sensitiveData -> sensitiveData.getProduct().getId().equals(sensitiveDataModel.getProduct().getId()))) {
-            throw new ServiceException(INVALID_PRODUCT_DATA);
-        }
-
-
-        var a = userFromDb.getSensitiveData();
-        userFromDb.getSensitiveData().removeIf(sensitiveData -> sensitiveData.getProduct().getId().equals(sensitiveDataModel.getProduct().getId()));
-        userRepository.save(userFromDb);
-        return sensitiveDataModel;
-    }
 }
