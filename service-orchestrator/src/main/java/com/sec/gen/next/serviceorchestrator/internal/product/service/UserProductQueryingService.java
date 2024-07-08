@@ -6,6 +6,8 @@ import com.next.gen.sec.model.ImageModel;
 import com.next.gen.sec.model.Role;
 import com.next.gen.sec.model.SensitiveDataModel;
 import com.sec.gen.next.serviceorchestrator.api.CustomAuthentication;
+import com.sec.gen.next.serviceorchestrator.common.pagination.Pagination;
+import com.sec.gen.next.serviceorchestrator.common.pagination.PaginationContext;
 import com.sec.gen.next.serviceorchestrator.common.templates.ConditionalListQueryService;
 import com.sec.gen.next.serviceorchestrator.common.templates.CrudService;
 import com.sec.gen.next.serviceorchestrator.exception.Error;
@@ -13,7 +15,6 @@ import com.sec.gen.next.serviceorchestrator.exception.ServiceException;
 import com.sec.gen.next.serviceorchestrator.internal.email.repository.UserRepository;
 import com.sec.gen.next.serviceorchestrator.internal.image.repository.ImageRepository;
 import com.sec.gen.next.serviceorchestrator.internal.product.mapper.ProductMapper;
-import com.sec.gen.next.serviceorchestrator.internal.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -32,7 +33,6 @@ public class UserProductQueryingService implements CrudService<SensitiveDataMode
 
     private final UserRepository userRepository;
     private final ProductMapper productMapper;
-    private final ProductRepository productRepository;
     private final ImageRepository imageRepository;
 
     @Override
@@ -42,6 +42,8 @@ public class UserProductQueryingService implements CrudService<SensitiveDataMode
         if(!user.getRole().equals(Role.USER)) {
             throw new ServiceException(Error.UNAUTHORIZED);
         }
+
+        Pagination pagination = PaginationContext.getPagination();
 
         return userRepository.findAll()
                 .stream()
