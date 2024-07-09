@@ -15,11 +15,12 @@ import com.sec.gen.next.serviceorchestrator.exception.ServiceException;
 import com.sec.gen.next.serviceorchestrator.internal.email.repository.UserRepository;
 import com.sec.gen.next.serviceorchestrator.internal.image.repository.ImageRepository;
 import com.sec.gen.next.serviceorchestrator.internal.product.mapper.ProductMapper;
+import com.sec.gen.next.serviceorchestrator.internal.product.repository.SensitiveDataRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.List;
 
 import static com.sec.gen.next.serviceorchestrator.exception.Error.INVALID_PRODUCT_DATA;
@@ -34,6 +35,7 @@ public class UserProductQueryingService implements CrudService<SensitiveDataMode
     private final UserRepository userRepository;
     private final ProductMapper productMapper;
     private final ImageRepository imageRepository;
+    private final SensitiveDataRepository sensitiveDataRepository;
 
     @Override
     public List<SensitiveDataModel> findAll() {
@@ -43,13 +45,13 @@ public class UserProductQueryingService implements CrudService<SensitiveDataMode
             throw new ServiceException(Error.UNAUTHORIZED);
         }
 
+        User userFromDb = userRepository.findByEmail(user.getEmail())
+                .orElseThrow(INVALID_USER_DATA::getError);
+
         Pagination pagination = PaginationContext.getPagination();
 
-        return userRepository.findAll()
-                .stream()
-                .map(User::getSensitiveData)
-                .flatMap(Collection::stream)
-                .filter(sensitiveData -> sensitiveData.getUser().getEmail().equals(user.getEmail()))
+        return sensitiveDataRepository.findAllByUser(userFromDb,
+                        PageRequest.of(Integer.parseInt(pagination.page()), Integer.parseInt(pagination.size())))
                 .map(productMapper::map)
                 .toList();
     }
@@ -66,10 +68,10 @@ public class UserProductQueryingService implements CrudService<SensitiveDataMode
             throw new ServiceException(Error.UNAUTHORIZED);
         }
 
-        return userRepository.findByEmail(params)
-                .stream()
-                .map(User::getSensitiveData)
-                .flatMap(Collection::stream)
+        Pagination pagination = PaginationContext.getPagination();
+
+        return sensitiveDataRepository.findAllByUser(userRepository.findByEmail(params).get(),
+                        PageRequest.of(Integer.parseInt(pagination.page()), Integer.parseInt(pagination.size())))
                 .map(productMapper::map)
                 .toList();
     }
