@@ -57,6 +57,7 @@ public class ProductController {
         modifySensitiveDataService.update(sensitiveData);
     }
 
+    @Transactional
     @DeleteMapping("/user")
     public SensitiveDataModel deleteProductsForUser(@RequestBody SensitiveDataModel sensitiveData) {
         return userProductDeleteService.delete(sensitiveData);

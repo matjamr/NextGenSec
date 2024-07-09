@@ -33,7 +33,7 @@ export class ProductsService {
   }
 
   deleteProductsForUser(payload: SensitiveData): Observable<SensitiveData> {
-    return this.http.delete<SensitiveData>(this.apiUrl + "/user", {...getTokenHeader(), body: payload});
+    return this.http.delete<SensitiveData>(this.apiUrl + "/user", {...getTokenHeader(), body: {...payload, images: []}});
   }
 
   deleteProducts(payload: Product[]): Observable<Product[]> {

@@ -6,8 +6,6 @@ import com.next.gen.sec.model.ImageModel;
 import com.next.gen.sec.model.Role;
 import com.next.gen.sec.model.SensitiveDataModel;
 import com.sec.gen.next.serviceorchestrator.api.CustomAuthentication;
-import com.sec.gen.next.serviceorchestrator.common.pagination.Pagination;
-import com.sec.gen.next.serviceorchestrator.common.pagination.PaginationContext;
 import com.sec.gen.next.serviceorchestrator.common.templates.ConditionalListQueryService;
 import com.sec.gen.next.serviceorchestrator.common.templates.CrudService;
 import com.sec.gen.next.serviceorchestrator.exception.Error;
@@ -17,7 +15,6 @@ import com.sec.gen.next.serviceorchestrator.internal.image.repository.ImageRepos
 import com.sec.gen.next.serviceorchestrator.internal.product.mapper.ProductMapper;
 import com.sec.gen.next.serviceorchestrator.internal.product.repository.SensitiveDataRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -48,10 +45,8 @@ public class UserProductQueryingService implements CrudService<SensitiveDataMode
         User userFromDb = userRepository.findByEmail(user.getEmail())
                 .orElseThrow(INVALID_USER_DATA::getError);
 
-        Pagination pagination = PaginationContext.getPagination();
-
-        return sensitiveDataRepository.findAllByUser(userFromDb,
-                        PageRequest.of(Integer.parseInt(pagination.page()), Integer.parseInt(pagination.size())))
+        return sensitiveDataRepository.findAllByUser(userFromDb)
+                .stream()
                 .map(productMapper::map)
                 .toList();
     }
@@ -68,10 +63,8 @@ public class UserProductQueryingService implements CrudService<SensitiveDataMode
             throw new ServiceException(Error.UNAUTHORIZED);
         }
 
-        Pagination pagination = PaginationContext.getPagination();
-
-        return sensitiveDataRepository.findAllByUser(userRepository.findByEmail(params).get(),
-                        PageRequest.of(Integer.parseInt(pagination.page()), Integer.parseInt(pagination.size())))
+        return sensitiveDataRepository.findAllByUser(userRepository.findByEmail(params).get())
+                .stream()
                 .map(productMapper::map)
                 .toList();
     }
