@@ -1,5 +1,6 @@
-import {Component} from '@angular/core';
-import {NotificationService} from "./core/services/notification/notification.service";
+import {Component, HostListener} from '@angular/core';
+import {WindowService} from "./core/services/window-service/window.service";
+import {throttle} from "lodash";
 
 @Component({
   selector: 'app-root',
@@ -9,22 +10,14 @@ import {NotificationService} from "./core/services/notification/notification.ser
 export class AppComponent {
   title = 'angular-frontend';
 
-  constructor(protected _notificationSvc: NotificationService) {
+  @HostListener('window:resize', ['$event.target.innerWidth'])
+  throttledResize: (width: number) => void;
+
+  constructor(private windowService: WindowService) {
+    this.throttledResize = throttle(this.onResize, 700).bind(this);
   }
 
-  sendInfo() {
-    this._notificationSvc.info('Hello World', 'This is an information', 5000);
-  }
-
-  sendSuccess() {
-    this._notificationSvc.success('Hello World','This is a success !');
-  }
-
-  sendWarning() {
-    this._notificationSvc.warning('Hello World', "This is a warning !");
-  }
-
-  sendError() {
-    this._notificationSvc.error('Hello World', 'This is an error :(');
+  onResize(width: number) {
+    this.windowService.windowSize.next(width);
   }
 }

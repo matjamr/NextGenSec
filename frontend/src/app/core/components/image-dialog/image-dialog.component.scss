@@ -1,0 +1,56 @@
+.dialog-title {
+  display: flex;
+  justify-content: space-between;
+}
+
+.buttons-area {
+  display: flex;
+  margin-top: 2vh;
+  gap: 3%;
+}
+
+.dialog-title h2 {
+  padding-top: 2vh;
+  flex: 1;
+}
+
+.dialog-title div {
+  flex: 1;
+}
+
+.dialog-title button {
+  background: white;
+}
+
+.add-button {
+  background: white;
+  color: #4caf50;
+  border-color: #4caf50;
+  border-width: 1px;
+}
+
+.remove-button {
+  background: white;
+  color: red;
+  border-color: red;
+  border-width: 1px;
+
+  span {
+    animation: fadeIn 1s;
+  }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2vh;
+  gap: 10%;
+}
+

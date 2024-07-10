@@ -1,0 +1,20 @@
+.image-item {
+
+  position: relative;
+
+  button {
+    position: absolute;
+    right: -15%;
+    top: -3vh;
+    z-index: 5;
+    background-color: rgba(238, 133, 124, 0.52);
+
+    animation: fadeIn 0.5s;
+  }
+
+  .deleted-image {
+    background-color: #2ecc71;
+    color: white;
+    animation: fadeIn 0.5s;
+  }
+}

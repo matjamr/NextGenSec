@@ -63,6 +63,8 @@ import {
   MatCardTitle
 } from "@angular/material/card";
 import {ProductDialogComponent} from './components/product-dialog/product-dialog.component';
+import {ImageCarouselComponent} from './components/image-carousel/image-carousel.component';
+import {ImageDetailsComponent} from './components/image-dialog/components/image-details/image-details.component';
 
 
 @NgModule({
@@ -85,7 +87,9 @@ import {ProductDialogComponent} from './components/product-dialog/product-dialog
     ImageDialogComponent,
     ScrollableMenuComponent,
     ProductCardComponent,
-    ProductDialogComponent
+    ProductDialogComponent,
+    ImageCarouselComponent,
+    ImageDetailsComponent
   ],
   imports: [
     CommonModule,

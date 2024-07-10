@@ -1,12 +1,62 @@
-<h2 mat-dialog-title>Browse Images</h2>
-<mat-dialog-content>
-  <div class="image-container" *ngIf="images.length; else noImages">
-    <img *ngFor="let image of images" src="{{image.url}}" alt="Image" class="image-item"/>
+<div mat-dialog-title class="dialog-title">
+  <h2>Manage Sensitive Data</h2>
+  <div class="buttons-area">
+    <button mat-raised-button class="add-button">Add</button>
+
+    <button
+      mat-raised-button
+      class="remove-button"
+      (click)="submitDataDeletion()"
+      *ngIf="isImageDeletionMode"
+    >
+      <mat-icon>delete</mat-icon>
+    </button>
+
+    <button
+      mat-raised-button
+      class="remove-button"
+      (click)="imageDeleteButtonClick()"
+      *ngIf="!isImageDeletionMode"
+    >
+      <span>Remove</span>
+    </button>
+
+    <button
+      mat-raised-button
+      class="remove-button"
+      (click)="imageDeleteButtonClick()"
+      *ngIf="isImageDeletionMode"
+    >
+      Cancel
+    </button>
+
   </div>
-  <ng-template #noImages>
-    <p>No images to display</p>
-  </ng-template>
+  <button mat-icon-button aria-label="close dialog" mat-dialog-close>
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<mat-dialog-content>
+  <div class="image-container">
+    <app-image-details
+      *ngFor="let image of pageableItems$ | async"
+      [image]="image"
+      [isImageDeletionMode]="isImageDeletionMode"
+    />
+  </div>
+
+  <div class="pagination">
+    <div>
+      1 of 10
+    </div>
+    <div>
+      <button mat-icon-button (click)="previousPage()">
+        <mat-icon>keyboard_arrow_left</mat-icon>
+      </button>
+      <button mat-icon-button (click)="nextPage()">
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </button>
+    </div>
+  </div>
 </mat-dialog-content>
-<mat-dialog-actions>
-  <button mat-button mat-dialog-close>Close</button>
-</mat-dialog-actions>
+
+
