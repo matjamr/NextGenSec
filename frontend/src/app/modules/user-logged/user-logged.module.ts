@@ -39,6 +39,9 @@ import {MatDialogClose, MatDialogContent, MatDialogTitle} from "@angular/materia
 import {MatStep, MatStepLabel, MatStepper, MatStepperNext} from "@angular/material/stepper";
 import {PlacesViewUserComponent} from './pages/places-view-user/places-view-user.component';
 import {MatPaginator} from "@angular/material/paginator";
+import {
+  PlaceShortcutImageComponent
+} from './pages/places/find-place/place-shortcut-image/place-shortcut-image.component';
 
 const routes: Routes = [
   {
@@ -87,7 +90,8 @@ const routes: Routes = [
     DataUploadModalComponent,
     FindPlaceComponent,
     AddMethodDialogComponent,
-    PlacesViewUserComponent
+    PlacesViewUserComponent,
+    PlaceShortcutImageComponent
   ],
   exports: [
     UserChatComponent

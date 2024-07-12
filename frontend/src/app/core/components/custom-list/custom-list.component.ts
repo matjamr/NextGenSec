@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {coerceNumberProperty} from "@angular/cdk/coercion";
+import {Generator} from "./Generator";
 
 @Component({
   selector: 'app-custom-list',
@@ -26,7 +27,6 @@ export class CustomListComponent<T> {
     this.click.emit(imageListItem);
   }
 
-  generateImage = (image: any): any => {
-    return "<img src='" + image.src + "' alt='image' class=\"image-list__item\">";
-  };
+  @Input()
+  generateImage!: (data: T) => Generator<T>;
 }

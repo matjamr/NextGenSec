@@ -5,6 +5,8 @@ import {PlaceService} from "../../../../../core/services/place/place.service";
 import {PositionServiceService} from "../../../../../core/services/position-service/position-service.service";
 import {FilterDialogComponent} from "../../../../../core/components/filter-dialog/filter-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
+import {PlaceShortcutImageComponent} from "./place-shortcut-image/place-shortcut-image.component";
+import {Generator} from "../../../../../core/components/custom-list/Generator";
 
 @Component({
   selector: 'app-find-place',
@@ -82,6 +84,10 @@ export class FindPlaceComponent implements OnInit, OnDestroy {
       item.placeName.toLowerCase().includes(this.searchText.toLowerCase()) ||
       (item.tags || []).some(tag => tag.toLowerCase().includes(this.searchText.toLowerCase()))
     );
+  }
+
+  generateImage(sensitiveData: any): Generator<Place> {
+    return new PlaceShortcutImageComponent();
   }
 
   IMAGES = [

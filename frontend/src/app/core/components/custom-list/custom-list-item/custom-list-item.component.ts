@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Generator} from "../Generator";
 
 @Component({
   selector: 'app-custom-list-item',
@@ -13,7 +14,7 @@ export class CustomListItemComponent<T> {
   click = new EventEmitter<void>();
 
   @Input()
-  generate: (image: T) => string = (image: T) => "";
+  generate!: (image: T) => Generator<T>;
 
   onImageListItemClick() {
     this.click.emit();
