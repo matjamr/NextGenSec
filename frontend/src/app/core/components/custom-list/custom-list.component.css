@@ -1,0 +1,8 @@
+.image-list {
+  flex-wrap: wrap;
+  overflow-y: scroll;
+}
+
+.image-list__item {
+  display: block;
+}

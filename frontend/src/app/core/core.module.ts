@@ -65,6 +65,11 @@ import {
 import {ProductDialogComponent} from './components/product-dialog/product-dialog.component';
 import {ImageCarouselComponent} from './components/image-carousel/image-carousel.component';
 import {ImageDetailsComponent} from './components/image-dialog/components/image-details/image-details.component';
+import {FilterDialogComponent} from './components/filter-dialog/filter-dialog.component';
+import {MatSlider, MatSliderThumb} from "@angular/material/slider";
+import {CustomListComponent} from './components/custom-list/custom-list.component';
+import {CustomListItemComponent} from './components/custom-list/custom-list-item/custom-list-item.component';
+import {FlexModule} from "@angular/flex-layout";
 
 
 @NgModule({
@@ -89,7 +94,10 @@ import {ImageDetailsComponent} from './components/image-dialog/components/image-
     ProductCardComponent,
     ProductDialogComponent,
     ImageCarouselComponent,
-    ImageDetailsComponent
+    ImageDetailsComponent,
+    FilterDialogComponent,
+    CustomListComponent,
+    CustomListItemComponent
   ],
   imports: [
     CommonModule,
@@ -141,7 +149,10 @@ import {ImageDetailsComponent} from './components/image-dialog/components/image-
     MatCardActions,
     MatDialogClose,
     MatCardSubtitle,
-    MatCardTitle
+    MatCardTitle,
+    MatSlider,
+    MatSliderThumb,
+    FlexModule
   ],
   exports: [
     LogoTitleComponent,
@@ -156,6 +167,7 @@ import {ImageDetailsComponent} from './components/image-dialog/components/image-
     MapComponent,
     ScrollableMenuComponent,
     ProductCardComponent,
+    CustomListComponent,
   ]
 })
 export class CoreModule { }

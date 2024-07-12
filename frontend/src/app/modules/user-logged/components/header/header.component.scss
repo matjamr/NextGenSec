@@ -8,6 +8,7 @@ h2 {padding: 1rem;}
   position:fixed;
   top:0;
   z-index: 2;
+  height: 10vh;
 }
 
 .mat-sidenav-container {
@@ -15,7 +16,7 @@ h2 {padding: 1rem;}
 }
 
 .mat-sidenav {
-  padding-top: 3.5rem;
+  padding-top: 10vh;
 }
 
 .entry {
@@ -25,7 +26,6 @@ h2 {padding: 1rem;}
   padding-left: 5%;
 }
 
-
 .mat-sidenav-content {
-  padding-top: 4%;
+  height: 90vh;
 }

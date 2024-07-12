@@ -15,7 +15,7 @@ export class PositionServiceService {
   mapPins$ = this.mapPinsSubject.asObservable();
 
 
-  kmRangeSubject: BehaviorSubject<number | null> = new BehaviorSubject<number | null>(null);
+  kmRangeSubject: BehaviorSubject<number> = new BehaviorSubject<number>(50);
   kmRange$ = this.kmRangeSubject.asObservable();
 
   constructor() {
@@ -38,7 +38,6 @@ export class PositionServiceService {
 
   setKmRange(kmRange: number | null) {
     if(kmRange !== null) {
-      console.log(kmRange);
       this.kmRangeSubject.next(kmRange);
     }
   }

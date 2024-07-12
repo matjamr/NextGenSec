@@ -1,0 +1,5 @@
+<div *ngIf="image !== undefined" fxFlexFill class="image-list-item" (click)="onImageListItemClick()">
+  <div [innerHTML]="generate(image)"
+       fxFlexFill
+       class="image-list-item__image"></div>
+</div>

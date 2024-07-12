@@ -3,6 +3,8 @@ import {Place} from "../../../../../core/models/Place";
 import {filter, Observable, Subscription, switchMap} from "rxjs";
 import {PlaceService} from "../../../../../core/services/place/place.service";
 import {PositionServiceService} from "../../../../../core/services/position-service/position-service.service";
+import {FilterDialogComponent} from "../../../../../core/components/filter-dialog/filter-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-find-place',
@@ -26,7 +28,9 @@ export class FindPlaceComponent implements OnInit, OnDestroy {
   filteredItems = [...this.items];
   kmRange$: Observable<number | null>;
 
-  constructor(private placeService: PlaceService, private positionService: PositionServiceService) {
+  constructor(private placeService: PlaceService,
+              private positionService: PositionServiceService,
+              public dialog: MatDialog) {
     this.position$ = this.positionService.getPosition();
     this.kmRange$ = this.positionService.getKmRange();
   }
@@ -55,32 +59,22 @@ export class FindPlaceComponent implements OnInit, OnDestroy {
     );
   };
 
+  openFilterDialog(): void {
+    const dialogRef = this.dialog.open(FilterDialogComponent, {
+      width: '250px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Filter criteria:', result);
+    });
+  }
+
   ngOnDestroy() {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  onInputChange(event: Event) {
-    this.positionService.setKmRange((event.target as HTMLInputElement).valueAsNumber);
-  }
-
-  formatLabel(value: number): string {
-    if (value >= 100) {
-      return Math.round(value / 100) + 'km';
-    }
-
-    return `${value}`;
-  }
-
-  toggleRatio() {
-    if (this.ratio === 60) {
-      this.isToggle = true;
-      this.ratio = 30;
-      this.icon = 'arrow_right';
-    } else {
-      this.isToggle = false;
-      this.ratio = 60;
-      this.icon = 'arrow_left';
-    }
+  getKmRange() {
+    return this.positionService.kmRangeSubject.value;
   }
 
   filterItems() {
@@ -90,19 +84,42 @@ export class FindPlaceComponent implements OnInit, OnDestroy {
     );
   }
 
-  showLocation(item: any) {
-    alert('Location: ' + item.location);
-  }
-
-  addToFavorites(item: any) {
-    alert('Added to Favorites: ' + item.title);
-  }
-
-  reportItem(item: any) {
-    alert('Reported: ' + item.title);
-  }
-
-  getAddress(item: Place) {
-    return `${item.address?.city}, ${item.address?.streetName}, ${item.address?.homeNumber}`;
-  }
+  IMAGES = [
+    {
+      src: 'https://picsum.photos/200',
+      caption: 'It\'s a thing',
+    },
+    {
+      src: 'https://picsum.photos/200',
+      caption: 'This is a really long string to see how the text will overflow',
+    },
+    {
+      src: 'https://picsum.photos/200',
+      caption: 'It\'s a thing',
+    },
+    {
+      src: 'https://picsum.photos/200',
+      caption: 'It\'s a thing',
+    },
+    {
+      src: 'https://picsum.photos/200',
+      caption: 'It\'s a thing',
+    },
+    {
+      src: 'https://picsum.photos/200',
+      caption: 'It\'s a thing',
+    },
+    {
+      src: 'https://picsum.photos/200',
+      caption: 'It\'s a thing',
+    },
+    {
+      src: 'https://picsum.photos/200',
+      caption: 'It\'s a thing',
+    },
+    {
+      src: 'https://picsum.photos/200',
+      caption: 'It\'s a thing',
+    },
+  ];
 }

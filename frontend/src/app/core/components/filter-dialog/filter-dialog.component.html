@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>Filter Options</h1>
+<mat-dialog-content>
+  <mat-label>Search Range:</mat-label>
+  <mat-slider
+    [max]="400"
+    [min]="1"
+    [step]="5"
+    [discrete]="true"
+    [showTickMarks]="true">
+    <input matSliderThumb #slider (input)="onInputChange($event)" [value]="getKmRange()">
+  </mat-slider>
+
+</mat-dialog-content>
+<div mat-dialog-actions class="flex-row d-flex justify-content-center gap-lg-5">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button (click)="onApply()">Apply</button>
+</div>

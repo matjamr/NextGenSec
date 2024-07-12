@@ -1,7 +1,16 @@
-import {AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  ViewEncapsulation
+} from '@angular/core';
 import * as L from 'leaflet';
-import {PositionServiceService} from "../../services/position-service/position-service.service";
-import {Subscription} from "rxjs";
+import {PositionServiceService} from '../../services/position-service/position-service.service';
+import {Subscription} from 'rxjs';
 
 const iconRetinaUrl = 'assets/marker-icon-2x.png';
 const iconUrl = 'assets/marker-icon.png';
@@ -21,7 +30,8 @@ L.Marker.prototype.options.icon = iconDefault;
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
-  styleUrls: ['./map.component.css']
+  styleUrls: ['./map.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('map') mapContainer!: ElementRef;
@@ -29,55 +39,71 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   subscriptions: Subscription[] = [];
   position$ = this.positionService.getPosition();
   mapPins$ = this.positionService.getMapPins();
+  map!: L.Map;
 
-  constructor(
-    private positionService: PositionServiceService
-  ) {
-  }
+  constructor(private positionService: PositionServiceService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   ngOnDestroy() {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
   ngAfterViewInit(): void {
-    let map = L.map(this.mapContainer.nativeElement);
+    this.map = L.map(this.mapContainer.nativeElement, { attributionControl: false });
 
-    this.position$.subscribe((position) => {
-      if (position !== null) {
-        const {latitude, longitude} = position.coords;
+    this.position$.subscribe(
+      position => {
+        if (position !== null) {
+          const { latitude, longitude } = position.coords;
 
-        map.setView([latitude, longitude], 13);
+          this.map.setView([latitude, longitude], 13);
 
-        this.items.forEach(item => {
-          if (item.address?.latitude && item.address?.longitude) {
-            L.marker([item.address.latitude, item.address.longitude]).addTo(map);
-          }
-        });
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+          }).addTo(this.map);
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          attribution: '© OpenStreetMap contributors'
-        }).addTo(map);
+          this.addMarkers(this.items);
+        }
+      },
+      () => {
+        this.map.setView([51.505, -0.09], 13);
       }
-    }, () => {
-      map.setView([51.505, -0.09], 13);
+    );
+
+    this.subscriptions.push(
+      this.mapPins$.subscribe(mapPins => {
+        this.clearMarkers();
+        this.addMarkers(mapPins);
+        this.focusOnPoints(mapPins);
+      })
+    );
+  }
+
+  clearMarkers() {
+    this.map.eachLayer(layer => {
+      if (layer instanceof L.Marker) {
+        this.map.removeLayer(layer);
+      }
     });
+  }
 
-    this.mapPins$.subscribe(mapPins => {
-      map.eachLayer((layer) => {
-        if (layer instanceof L.Marker) {
-          map.removeLayer(layer);
-        }
-      });
+  addMarkers(mapItems: MapItem[]) {
+    mapItems.forEach(item => {
+      if (item.address?.latitude && item.address?.longitude) {
+        const marker = L.marker([item.address.latitude, item.address.longitude]).addTo(this.map);
+        marker.bindPopup(`<b>${item.placeName}</b><br>${item.address.id}`).openPopup();
+      }
+    });
+  }
 
-      mapPins.forEach(item => {
-        if (item.address.latitude && item.address.longitude) {
-          L.marker([item.address.latitude, item.address.longitude]).addTo(map);
-        }
-      });
-    })
+  focusOnPoints(mapItems: MapItem[]) {
+    const markers = mapItems.map(item => L.marker([item.address.latitude, item.address.longitude]));
+    const group = L.featureGroup(markers);
+    this.map.fitBounds(group.getBounds(), {
+      animate: true,
+      duration: 1 // Duration of the animation in seconds
+    });
   }
 }
 

@@ -1,0 +1,10 @@
+<div class="image-list" fxLayout="row" >
+  <ng-container *ngFor="let image of images" >
+    <app-custom-list-item [image]="image"
+                          [style.margin]="layoutGap + 'px'"
+                          (click)="onImageListItemClick(image)"
+                          [generate]="generateImage">
+
+    </app-custom-list-item>
+  </ng-container>
+</div>

@@ -87,7 +87,7 @@ const routes: Routes = [
     DataUploadModalComponent,
     FindPlaceComponent,
     AddMethodDialogComponent,
-    PlacesViewUserComponent,
+    PlacesViewUserComponent
   ],
   exports: [
     UserChatComponent

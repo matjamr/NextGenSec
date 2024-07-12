@@ -29,3 +29,25 @@ img {
   border-radius: 50%;
   object-fit: cover;
 }
+
+
+.search-dialog {
+  width: 40%;
+  height: 60vh;
+  left: 10%;
+  top: 15vh;
+  position: absolute;
+  background-color: white;
+  border-color: #3A7734;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 20px;
+  z-index: 1000;
+  padding: 10px;
+  overflow-y: scroll;
+}
+
+.search-area {
+  display: flex;
+  justify-content: space-between;
+}
