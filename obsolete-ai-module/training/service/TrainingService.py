@@ -12,7 +12,8 @@ class TrainingService(Service):
         self.__repository = repository
 
     def do_service(self, context: Context):
-        faces, labels = prepare_training_data("training-data", context.emails_to_be_processed)
+        items = [x[0] for x in context.to_be_processed]
+        faces, labels = prepare_training_data("training-data", items)
 
         if len(faces) == 0 or len(labels) == 0:
             return

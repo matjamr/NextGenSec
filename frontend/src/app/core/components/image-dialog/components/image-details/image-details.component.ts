@@ -29,5 +29,6 @@ export class ImageDetailsComponent {
     }
 
     this.isSelected = !this.isSelected;
+    this.image.toBeDeleted = true;
   }
 }

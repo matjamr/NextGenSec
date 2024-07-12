@@ -22,9 +22,11 @@ class FilesService(Service):
 
     def __download_images(self, sensitive_data: list[SensitiveData]):
         sorted_data = sorted(sensitive_data, key=lambda x: x.email)
-        grouped_data = {email: list(group) for email, group in groupby(sorted_data, key=lambda x: x.email)}
+        print(sorted_data)
 
-        user_folders: dict[str: tuple[str, list[str]]] = {}
+        grouped_data = {email: list(group) for email, group in groupby(sorted_data, key=lambda x: x.email)}
+        # print(grouped_data)
+        user_folders: dict[str: tuple[str, list[SensitiveData]]] = {}
 
         for i, (user_email, data_list) in enumerate(grouped_data.items(), 1):
             user_folder = f"training-data/{user_email}"
@@ -32,12 +34,12 @@ class FilesService(Service):
             if not os.path.exists(user_folder):
                 os.makedirs(user_folder)
 
-            user_images_ids = []
+            user_data = []
             for data in data_list:
                 self.__download_image(data, i, user_email, user_folder)
-                user_images_ids.append(data.image_id)
+                user_data.append(data)
 
-            user_folders[user_folder] = (user_email, user_images_ids)
+            user_folders[user_folder] = (user_email, user_data)
 
         return user_folders
 

@@ -52,7 +52,10 @@ export class DataComponent implements OnInit, OnDestroy {
       action: (elem: any) => {
         const dialogRef = this.dialog.open(ImageDialogComponent, {
           width: '80%',
-          data: { images: elem.images }
+          data: {
+            images: elem.images,
+            sensId: elem.id
+          },
         });
       },
       tooltip: 'show uploaded images'

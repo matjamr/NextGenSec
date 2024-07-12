@@ -9,20 +9,22 @@ class ReportingService(Service):
         self.reject_emails(context)
 
     def log_emails(self, context: Context):
-        print(f"Emails to be processed: {context.emails_to_be_processed}")
-        print(f"Emails to be rejected: {context.emails_to_be_rejected}")
+        print(f"Emails to be processed: {context.to_be_processed}")
+        print(f"Emails to be rejected: {context.to_be_rejected}")
 
     def process_emails(self, context: Context):
-        self.update_email_state(context, context.emails_to_be_processed, 'PROCESSED')
+        self.update_email_state(context, context.to_be_processed, 'PROCESSED')
 
     def reject_emails(self, context: Context):
-        self.update_email_state(context, context.emails_to_be_rejected, 'REJECTED')
+        self.update_email_state(context, context.to_be_rejected, 'REJECTED')
 
-    def update_email_state(self, context: Context, emails, state: str):
-        for email in emails:
+    def update_email_state(self, context: Context, to_be_done: list[tuple[str, str]], state: str):
+        print(to_be_done)
+        for email, data_id in to_be_done:
             payload = {
-                'user': {'email': email},
+                'id': data_id,
                 'state': state
             }
 
             context.orchestration_service_api_client.put(endpoint='api/product/user', json=payload)
+

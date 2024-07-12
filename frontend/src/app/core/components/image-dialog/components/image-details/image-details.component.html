@@ -1,10 +1,10 @@
 <div class="image-item">
   <button *ngIf="isImageDeletionMode" mat-icon-button
           (click)="imageDeleteClick()"
-          [class]="isSelected ?  'deleted-image' : ''"
-          [matTooltip]="isSelected ?  'Cancel deletion' : 'Delete'"
+          [class]="image.toBeDeleted ?  'deleted-image' : ''"
+          [matTooltip]="image.toBeDeleted ?  'Cancel deletion' : 'Delete'"
   >
     <mat-icon>close</mat-icon>
   </button>
-  <img src="{{image.url}}" alt="Image"/>
+  <img src="{{image.url}}" alt="Image" width="250px"/>
 </div>

@@ -7,7 +7,9 @@ import {Image} from "../../../models/Image";
 })
 export class ImageDialogService {
 
-  originalImages: Image[] = [];
+  originalImages: BehaviorSubject<Image[]> = new BehaviorSubject<Image[]>([]);
+  originalImages$: Observable<Image[]> = this.originalImages.asObservable();
+
   paginatedImages: BehaviorSubject<Image[]> = new BehaviorSubject<Image[]>([]);
   paginatedImages$: Observable<Image[]> = this.paginatedImages.asObservable();
 

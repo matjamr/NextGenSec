@@ -28,5 +28,6 @@ class Repository:
 
     def fetch_sensitive_data(self) -> list[SensitiveData]:
         response = self.execute(sensitive_data_query)
+        print(response)
         return [SensitiveData(**record) for record in response]
 

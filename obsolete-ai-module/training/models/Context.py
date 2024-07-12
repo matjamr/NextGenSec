@@ -1,14 +1,15 @@
+from training.models.SensitiveData import SensitiveData
 from training.service.ApiClient import APIClient
 
 
 class Context:
     def __init__(self):
-        self.user_folders: dict[str: tuple[str, list[str]]] = {}
+        self.user_folders: dict[str: tuple[str, list[SensitiveData]]] = {}
         self.robotic_account: RoboticAccount
         self.user_service_api_client: APIClient
         self.orchestration_service_api_client: APIClient
-        self.emails_to_be_rejected: list[str] = []
-        self.emails_to_be_processed: list[str] = []
+        self.to_be_rejected: list[tuple[str, str]] = []
+        self.to_be_processed: list[tuple[str, str]] = []
 
 
 class RoboticAccount:

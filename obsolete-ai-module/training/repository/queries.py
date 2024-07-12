@@ -1,5 +1,5 @@
 sensitive_data_query: str = """
-SELECT u.id as id,
+SELECT sd.id as id,
        u.email as email,
        usd.sensitive_data_id as sensitive_data_id, 
        sd.product_id as product_id, 

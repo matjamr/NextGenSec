@@ -1,7 +1,11 @@
 <div mat-dialog-title class="dialog-title">
   <h2>Manage Sensitive Data</h2>
   <div class="buttons-area">
-    <button mat-raised-button class="add-button">Add</button>
+
+    <input type="file" #fileInput (change)="onFileSelected($event)" style="display: none;" />
+    <button mat-raised-button class="add-button" (click)="triggerFileInput()">
+      Add
+    </button>
 
     <button
       mat-raised-button
@@ -46,7 +50,7 @@
 
   <div class="pagination">
     <div>
-      1 of 10
+      {{getCurrentPage()}} of {{getMaxPage()}}
     </div>
     <div>
       <button mat-icon-button (click)="previousPage()">

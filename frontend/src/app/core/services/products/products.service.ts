@@ -4,6 +4,7 @@ import {Product, SensitiveData} from "../../models/Product";
 import {HttpClient} from "@angular/common/http";
 import {getTokenHeader} from "../utils";
 import {buildHeader} from "../user/user.service";
+import {Image} from "../../models/Image";
 
 @Injectable({
   providedIn: 'root'
@@ -38,5 +39,9 @@ export class ProductsService {
 
   deleteProducts(payload: Product[]): Observable<Product[]> {
     return this.http.delete<Product[]>(this.apiUrl, {...getTokenHeader(), body: payload});
+  }
+
+  updateSensitiveData(sensitiveData: {id: string, images: Image[]}): Observable<SensitiveData> {
+    return this.http.put<SensitiveData>(this.apiUrl + "/user", {id: sensitiveData.id, images: sensitiveData.images}, getTokenHeader());
   }
 }
