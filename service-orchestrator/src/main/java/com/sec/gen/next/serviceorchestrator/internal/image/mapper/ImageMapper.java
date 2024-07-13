@@ -10,7 +10,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Mapper
 public abstract class ImageMapper {
@@ -41,6 +40,8 @@ public abstract class ImageMapper {
     }
 
     public ImageModel map(Image image) {
+        if(image == null) return null;
+
         return new ImageModel()
                 .id(image.getId())
                 .url(serverUrl + "/api/image/" + image.getId());

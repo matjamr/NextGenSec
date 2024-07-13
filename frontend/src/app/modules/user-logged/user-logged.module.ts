@@ -42,6 +42,7 @@ import {MatPaginator} from "@angular/material/paginator";
 import {
   PlaceShortcutImageComponent
 } from './pages/places/find-place/place-shortcut-image/place-shortcut-image.component';
+import {FlexModule} from "@angular/flex-layout";
 
 const routes: Routes = [
   {
@@ -145,7 +146,8 @@ const routes: Routes = [
     MatDialogClose,
     MatPaginator,
     MatCardSubtitle,
-    MatChipListbox
+    MatChipListbox,
+    FlexModule
   ]
 })
 export class UserLoggedModule {

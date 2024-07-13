@@ -3,6 +3,7 @@ import {UserPlaceAssigment} from "./UserPlaceAssigment";
 import {Product} from "./Product";
 import {defaultUser, User} from "./User";
 import {Device} from "./Device";
+import {Image} from "./Image";
 
 export interface Place {
   id?: string,
@@ -10,6 +11,7 @@ export interface Place {
   description?: string,
   tags?: string[] | [],
   emailPlace?: string,
+  image?: Image,
   address?: Address
   authorizedUsers?: UserPlaceAssigment[] | null | undefined,
   products?: Product[] | null | [],

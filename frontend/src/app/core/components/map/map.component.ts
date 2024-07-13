@@ -40,6 +40,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   position$ = this.positionService.getPosition();
   mapPins$ = this.positionService.getMapPins();
   map!: L.Map;
+  markers: { [key: string]: L.Marker } = {};
 
   constructor(private positionService: PositionServiceService) {}
 
@@ -86,6 +87,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         this.map.removeLayer(layer);
       }
     });
+    this.markers = {};
   }
 
   addMarkers(mapItems: MapItem[]) {
@@ -93,6 +95,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       if (item.address?.latitude && item.address?.longitude) {
         const marker = L.marker([item.address.latitude, item.address.longitude]).addTo(this.map);
         marker.bindPopup(`<b>${item.placeName}</b><br>${item.address.id}`).openPopup();
+        this.markers[item.id] = marker; // Store marker by placeId
       }
     });
   }
@@ -102,8 +105,16 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     const group = L.featureGroup(markers);
     this.map.fitBounds(group.getBounds(), {
       animate: true,
-      duration: 1 // Duration of the animation in seconds
+      duration: 1
     });
+  }
+
+  focusOnPlace(placeId: string) {
+    const marker = this.markers[placeId];
+    if (marker) {
+      this.map.setView(marker.getLatLng(), 14, { animate: true });
+      marker.openPopup();
+    }
   }
 }
 

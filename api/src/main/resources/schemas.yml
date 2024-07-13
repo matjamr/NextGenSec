@@ -180,6 +180,8 @@ components:
           $ref: '#/components/schemas/UserModel'
         emailPlace:
           type: string
+        image:
+          $ref: '#/components/schemas/ImageModel'
         placeName:
           type: string
         address:

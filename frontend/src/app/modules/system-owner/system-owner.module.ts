@@ -69,7 +69,6 @@ import {
 import {MatOption} from "@angular/material/autocomplete";
 import {MatSelect} from "@angular/material/select";
 import {AddDeviceDialogComponent} from "./pages/administrative/devices/add-device-dialog/add-device-dialog.component";
-import {UserLoggedModule} from "../user-logged/user-logged.module";
 import {PlaceDetailsComponent} from './pages/administrative/places/place-details/place-details.component';
 import {MatChip, MatChipsModule} from "@angular/material/chips";
 import {FlexModule} from "@angular/flex-layout";
@@ -233,7 +232,6 @@ const routes: Routes = [
     MatStepper,
     MatList,
     MatCardImage,
-    UserLoggedModule,
     MatChip,
     MatCardActions,
     MatSuffix,

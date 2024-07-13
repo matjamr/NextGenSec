@@ -35,9 +35,15 @@ public class Places {
     @OneToOne(cascade = CascadeType.ALL)
     private Address address;
 
+    @OneToOne(cascade = CascadeType.REMOVE)
+    private Image image;
+
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<UserPlaceAssignment> authorizedUsers;
 
     @OneToMany
     private List<Product> products;
+
+    @OneToMany(cascade = CascadeType.REMOVE)
+    private List<Device> devices;
 }

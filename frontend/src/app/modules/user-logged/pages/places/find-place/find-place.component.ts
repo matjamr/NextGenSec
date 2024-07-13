@@ -1,12 +1,11 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Place} from "../../../../../core/models/Place";
 import {filter, Observable, Subscription, switchMap} from "rxjs";
 import {PlaceService} from "../../../../../core/services/place/place.service";
 import {PositionServiceService} from "../../../../../core/services/position-service/position-service.service";
 import {FilterDialogComponent} from "../../../../../core/components/filter-dialog/filter-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
-import {PlaceShortcutImageComponent} from "./place-shortcut-image/place-shortcut-image.component";
-import {Generator} from "../../../../../core/components/custom-list/Generator";
+import {MapComponent} from "../../../../../core/components/map/map.component";
 
 @Component({
   selector: 'app-find-place',
@@ -15,6 +14,7 @@ import {Generator} from "../../../../../core/components/custom-list/Generator";
 })
 export class FindPlaceComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
+  @ViewChild(MapComponent) mapComponent!: MapComponent;
   // @ts-ignore
   map: Map;
   ratio = 60;
@@ -52,7 +52,6 @@ export class FindPlaceComponent implements OnInit, OnDestroy {
               })
             })
           ).subscribe((places) => {
-            console.log(places);
             this.items = places;
             this.filteredItems = [...this.items];
             this.positionService.setMapPins(places);
@@ -86,46 +85,7 @@ export class FindPlaceComponent implements OnInit, OnDestroy {
     );
   }
 
-  generateImage(sensitiveData: any): Generator<Place> {
-    return new PlaceShortcutImageComponent();
+  onPlaceClick(placeId: string) {
+    this.mapComponent.focusOnPlace(placeId);
   }
-
-  IMAGES = [
-    {
-      src: 'https://picsum.photos/200',
-      caption: 'It\'s a thing',
-    },
-    {
-      src: 'https://picsum.photos/200',
-      caption: 'This is a really long string to see how the text will overflow',
-    },
-    {
-      src: 'https://picsum.photos/200',
-      caption: 'It\'s a thing',
-    },
-    {
-      src: 'https://picsum.photos/200',
-      caption: 'It\'s a thing',
-    },
-    {
-      src: 'https://picsum.photos/200',
-      caption: 'It\'s a thing',
-    },
-    {
-      src: 'https://picsum.photos/200',
-      caption: 'It\'s a thing',
-    },
-    {
-      src: 'https://picsum.photos/200',
-      caption: 'It\'s a thing',
-    },
-    {
-      src: 'https://picsum.photos/200',
-      caption: 'It\'s a thing',
-    },
-    {
-      src: 'https://picsum.photos/200',
-      caption: 'It\'s a thing',
-    },
-  ];
 }

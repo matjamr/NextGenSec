@@ -61,6 +61,19 @@
           <mat-label>Description</mat-label>
           <input matInput formControlName="description" required>
         </mat-form-field>
+        <mat-form-field>
+<!--          <mat-label>Select Image</mat-label>-->
+          <input type="file"
+                 hidden
+                 #fileInput (change)="onFileSelected($event)"
+          />
+          <button mat-raised-button class="add-button"
+                  (click)="triggerFileInput()">
+            Add icon
+          </button>
+          <input type="text" hidden matInput
+                 formControlName="image" />
+        </mat-form-field>
         <mat-form-field formGroupName="address">
           <mat-label>City</mat-label>
           <input matInput placeholder="City" formControlName="city" required>

@@ -10,44 +10,19 @@
       </mat-form-field>
     </div>
 
-    <app-custom-list
-      [images]="items"
-      [generateImage]="generateImage"
-      [layoutGap]="3"
-    />
-
-<!--    <div class="container d-flex flex-row align-items-start gap-2 w-100" style="margin-top: 5vh">-->
-
-<!--      <div class="custom-list">-->
-<!--        <div *ngFor="let item of filteredItems" class="custom-list-item">-->
-<!--          <div class="item-content">-->
-<!--            <img src="{{ 'https://via.placeholder.com/150' }}" alt="{{ item.placeName }}"-->
-<!--                 style="width: 60px; height: 60px; margin-right: 15px;">-->
-<!--            <div>-->
-<!--              <div class="mat-line">{{ item.placeName }}</div>-->
-<!--              <div class="mat-line small">{{ getAddress(item) }}</div>-->
-<!--              <mat-chip-listbox>-->
-<!--                <mat-chip *ngFor="let tag of item.tags">{{ tag }}</mat-chip>-->
-<!--              </mat-chip-listbox>-->
-<!--              <mat-chip-listbox *ngIf="!isToggle">-->
-<!--                <mat-chip *ngFor="let method of item.products">{{ method.name }}</mat-chip>-->
-<!--              </mat-chip-listbox>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--          <div class="item-actions" *ngIf="!isToggle">-->
-<!--            <button mat-icon-button (click)="showLocation(item)">-->
-<!--              <mat-icon>place</mat-icon>-->
-<!--            </button>-->
-<!--            <button mat-icon-button (click)="addToFavorites(item)">-->
-<!--              <mat-icon>favorite</mat-icon>-->
-<!--            </button>-->
-<!--            <button mat-icon-button (click)="reportItem(item)">-->
-<!--              <mat-icon>report</mat-icon>-->
-<!--            </button>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
+    <div class="image-list" fxLayout="row" fxLayoutWrap>
+      <div *ngFor="let place of filteredItems" class="image-list-item" (click)="onPlaceClick(place.id!)">
+        <div class="place-container">
+          <div class="place-content">
+            <div fxLayout="row">
+              <h2 style="flex: 1">{{ place.placeName }}</h2>
+              <img src="assets/marker-icon-2x.png" alt="" style="width: 30px"/>
+            </div>
+            <img [src]="place.image?.url || ''" alt="{{ place.placeName }}" class="main-image">
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   <app-map></app-map>
 </app-user-header>
