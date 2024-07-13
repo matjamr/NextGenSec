@@ -16,7 +16,7 @@
       </mat-form-field>
     </div>
 
-    <div class="image-list" fxLayout="row" fxLayoutWrap  *ngIf="arrowTriggered">
+    <div class="image-list" fxLayout="row" fxLayoutWrap  *ngIf="!arrowTriggered">
       <div *ngFor="let place of filteredItems" class="image-list-item" (click)="onPlaceClick(place.id!)">
         <div class="place-container">
           <div class="place-content">
