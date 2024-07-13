@@ -22,6 +22,7 @@ export class FindPlaceComponent implements OnInit, OnDestroy {
   searchText = '';
   isToggle = false;
   pos: GeolocationPosition | null = null;
+  arrowTriggered = false;
 
   items: Place[] = [];
 
@@ -87,5 +88,9 @@ export class FindPlaceComponent implements OnInit, OnDestroy {
 
   onPlaceClick(placeId: string) {
     this.mapComponent.focusOnPlace(placeId);
+  }
+
+  triggerArrow() {
+    this.arrowTriggered = !this.arrowTriggered;
   }
 }

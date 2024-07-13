@@ -4,7 +4,7 @@ h1 {
 
 h2 {padding: 1rem;}
 
-.mat-toolbar{
+.mat-toolbar {
   position:fixed;
   top:0;
   z-index: 2;
@@ -28,4 +28,5 @@ h2 {padding: 1rem;}
 
 .mat-sidenav-content {
   height: 90vh;
+  padding-top: 10vh;
 }

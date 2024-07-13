@@ -32,8 +32,9 @@ img {
 
 
 .search-dialog {
-  width: 40%;
-  height: 60vh;
+  width: 45%;
+  padding: 10px 40px 10px 20px;
+  max-height: 60vh;
   left: 10%;
   top: 15vh;
   position: absolute;
@@ -43,7 +44,6 @@ img {
   border-style: solid;
   border-radius: 20px;
   z-index: 1000;
-  padding: 10px;
   overflow-y: scroll;
 }
 
@@ -84,4 +84,9 @@ img {
 .place-content img {
   width: 100%;
   border-radius: 5px;
+}
+
+.arrow-layout {
+  position: absolute;
+  right: 0;
 }

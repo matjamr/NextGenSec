@@ -1,5 +1,11 @@
 <app-user-header>
   <div class="search-dialog">
+    <div class="arrow-layout">
+      <button mat-icon-button color="primary" (click)="triggerArrow()">
+        <mat-icon *ngIf="arrowTriggered">keyboard_arrow_down</mat-icon>
+        <mat-icon *ngIf="!arrowTriggered">keyboard_arrow_up</mat-icon>
+      </button>
+    </div>
     <div class="search-area">
       <button mat-icon-button color="primary" (click)="openFilterDialog()">
         <mat-icon>filter_list</mat-icon>
@@ -10,7 +16,7 @@
       </mat-form-field>
     </div>
 
-    <div class="image-list" fxLayout="row" fxLayoutWrap>
+    <div class="image-list" fxLayout="row" fxLayoutWrap  *ngIf="arrowTriggered">
       <div *ngFor="let place of filteredItems" class="image-list-item" (click)="onPlaceClick(place.id!)">
         <div class="place-container">
           <div class="place-content">
