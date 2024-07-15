@@ -1,24 +1,25 @@
 package com.sec.next.gen.userservice.config;
 
 
-import com.next.gen.sec.model.GoogleAuthorizedUser;
 import com.next.gen.sec.model.RegistrationSource;
+import com.next.gen.sec.model.Token;
 import com.next.gen.sec.model.UserModel;
 import com.sec.next.gen.userservice.controller.RegistrationSourceDispatcher;
 import com.sec.next.gen.userservice.repository.UserRepository;
+import com.sec.next.gen.userservice.service.external.providers.FacebookApiClient;
 import com.sec.next.gen.userservice.service.external.providers.GoogleApiClient;
+import com.sec.next.gen.userservice.service.external.redis.RedisService;
 import com.sec.next.gen.userservice.service.internal.authorization.client.*;
 import com.sec.next.gen.userservice.service.internal.authorization.providers.AuthorizationService;
 import com.sec.next.gen.userservice.service.internal.authorization.token.*;
-import com.sec.next.gen.userservice.service.external.providers.FacebookApiClient;
+import com.sec.next.gen.userservice.service.internal.authorization.token.generator.AccessTokenCreator;
+import com.sec.next.gen.userservice.service.internal.authorization.token.generator.RefreshTokenCreator;
+import com.sec.next.gen.userservice.service.internal.authorization.token.generator.TokenCreator;
 import com.sec.next.gen.userservice.service.internal.user.UserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.reactive.config.CorsRegistry;
-import org.springframework.web.reactive.config.WebFluxConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.security.Key;
 import java.util.Map;
@@ -48,12 +49,13 @@ public class BeanConfig {
     }
 
     @Bean
-    public Function<TokenContext, String> tokenGenerator(
+    public Function<TokenContext, Token> tokenGenerator(
             final Function<RegistrationSource, ExternalClient> externalClientProvider,
-            final Function<GoogleAuthorizedUser, String> tokenBuilder
+            final TokenCreator accessTokenGenerator,
+            final TokenCreator refreshTokenGenerator
 
     ) {
-        return new TokenGenerator(externalClientProvider, tokenBuilder);
+        return new TokenGenerator(externalClientProvider, accessTokenGenerator, refreshTokenGenerator);
     }
 
     @Bean
@@ -100,23 +102,31 @@ public class BeanConfig {
 
     @Bean
     public Function<String, UserModel> fromTokenUserProvider(
-            final Function<String, String> tokenDecoder,
+            final TokenDecoder tokenDecoder,
             final UserService userService
     ) {
         return new FromTokenUserProvider(tokenDecoder, userService);
     }
 
     @Bean
-    public Function<String, String> tokenDecoder(
+    public TokenDecoder tokenDecoder(
             final Supplier<Key> keySupplier
     ) {
         return new TokenDecoder(keySupplier);
     }
 
     @Bean
-    public Function<GoogleAuthorizedUser, String> tokenBuilder(
+    public TokenCreator accessTokenGenerator(
             final Supplier<Key> keyProvider
             ) {
-        return new TokenBuilder(keyProvider);
+        return new AccessTokenCreator(keyProvider);
+    }
+
+    @Bean
+    public TokenCreator refreshTokenGenerator(
+            final Supplier<Key> keyProvider,
+            final RedisService redisService
+    ) {
+        return new RefreshTokenCreator(keyProvider, redisService);
     }
 }

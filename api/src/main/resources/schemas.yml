@@ -317,9 +317,9 @@ components:
     Token:
       type: object
       properties:
-        token:
+        access_token:
           type: string
-        refreshToken:
+        refresh_token:
           type: string
 
     ModifyUserToPlaceModel:

@@ -13,7 +13,7 @@ public class FromTokenUserProvider implements Function<String, UserModel> {
 
     @Override
     public UserModel apply(String token) {
-        String username = usernameExtractor.apply(token);
+        String username = usernameExtractor.apply(token.replaceFirst("Bearer ", ""));
 
         return userService.findUserByEmail(username);
     }

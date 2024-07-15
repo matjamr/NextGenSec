@@ -1,7 +1,7 @@
 package com.sec.next.gen.userservice.service.internal.authorization.token;
 
-import com.next.gen.api.User;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Header;
 import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
 
@@ -50,5 +50,14 @@ public class TokenDecoder implements Function<String, String> {
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
+    }
+
+    public Header<?> extractAllHeaders(String token) {
+        return Jwts
+                .parserBuilder()
+                .setSigningKey(keySupplier.get())
+                .build()
+                .parseClaimsJws(token)
+                .getHeader();
     }
 }
