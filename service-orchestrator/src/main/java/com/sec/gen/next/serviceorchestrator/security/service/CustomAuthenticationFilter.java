@@ -22,6 +22,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.next.gen.api.custom.ThrowableUtils.throwIf;
 import static com.sec.gen.next.serviceorchestrator.exception.Error.INTERNAL_SERVER_ERROR;
@@ -44,7 +46,7 @@ public class CustomAuthenticationFilter extends OncePerRequestFilter {
         WrappedHttpServletResponse wrappedResponse = new WrappedHttpServletResponse(response);
 
         try {
-            if(processAndValidateRequest(request, response, filterChain, wrappedResponse)) return;
+            if (processAndValidateRequest(request, response, filterChain, wrappedResponse)) return;
         } catch (ServiceException e) {
             returnError(wrappedResponse, e.getError());
             return;
@@ -67,7 +69,7 @@ public class CustomAuthenticationFilter extends OncePerRequestFilter {
     }
 
     private boolean processAndValidateRequest(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain, WrappedHttpServletResponse wrappedResponse) throws IOException, ServletException {
-        String token = request.getHeader("token");
+        String token = request.getHeader("Authorization");
         Authentication authenticatedObject;
         String requestURI = request.getRequestURI();
         String method = request.getMethod();
@@ -81,7 +83,12 @@ public class CustomAuthenticationFilter extends OncePerRequestFilter {
 
         throwIf(INVALID_HEADER.getError(), () -> isNull(token));
 
-        UserModel authorizedUser = userServiceClient.getAccessToken(token);
+        Map<String, String> headers = new HashMap<>();
+        request.getHeaderNames().asIterator().forEachRemaining(headerName -> {
+            headers.put(headerName, request.getHeader(headerName));
+        });
+
+        UserModel authorizedUser = userServiceClient.getAccessToken(token, headers);
 
         CustomAuthentication customAuthentication = authenticationMapper.map(authorizedUser);
         authenticatedObject = customAuthenticationManager.authenticate(customAuthentication);
