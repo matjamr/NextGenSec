@@ -8,7 +8,7 @@ import {Method} from "../../models/Method";
 })
 export class MethodService {
 
-  private apiUrl: string =  "http://localhost:8080/api/method"
+  private apiUrl: string =  "http://localhost:8000/api/method"
 
   constructor(
     private http: HttpClient

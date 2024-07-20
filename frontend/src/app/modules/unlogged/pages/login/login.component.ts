@@ -48,8 +48,8 @@ export class LoginComponent implements OnDestroy, OnInit {
   }
 
   register() {
-    this.userService.register(this.username, this.password, "JWT")
-      .subscribe(data => console.log(data))
+   this.subscriptions.push(this.userService.register(this.username, this.password, "JWT")
+      .subscribe(data => console.log(data)));
 
     alert("Please log in!")
     this.isLogin = !this.isLogin;

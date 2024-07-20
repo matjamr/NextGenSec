@@ -11,7 +11,7 @@ import {Image} from "../../models/Image";
 })
 export class ProductsService {
 
-  private apiUrl: string =  "http://localhost:8080/api/product"
+  private apiUrl: string =  "http://localhost:8000/api/product"
 
   constructor(
     private http: HttpClient

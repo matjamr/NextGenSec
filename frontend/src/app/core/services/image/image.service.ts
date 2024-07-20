@@ -13,8 +13,8 @@ export class ImageService {
     private http: HttpClient
   ) { }
 
-  private apiUrl: string =  "http://localhost:8080/api/image"
-  private apiSensitiveUrl: string =  "http://localhost:8080/api/user/sensitive"
+  private apiUrl: string =  "http://localhost:8000/api/image"
+  private apiSensitiveUrl: string =  "http://localhost:8000/api/user/sensitive"
 
   public uploadImage(images: File[], selectedProduct: Product | null) {
     const formData = new FormData();

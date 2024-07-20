@@ -9,7 +9,7 @@ import {getHeaders} from "../utils";
 })
 export class NotificationsService {
 
-  private apiUrl: string =  "http://localhost:8080/api/notification"
+  private apiUrl: string =  "http://localhost:8000/api/notification"
 
   constructor(
     private http: HttpClient

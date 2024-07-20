@@ -9,7 +9,7 @@ import {RetrievedMail, SendMail} from "../../models/Mail";
 })
 export class EmailingService {
 
-  private apiUrl: string =  "http://localhost:8080/api/email"
+  private apiUrl: string =  "http://localhost:8000/api/email"
 
   constructor(
     private http: HttpClient

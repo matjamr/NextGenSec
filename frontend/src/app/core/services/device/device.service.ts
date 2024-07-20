@@ -9,7 +9,7 @@ import {Device} from "../../models/Device";
 })
 export class DeviceService {
 
-  private apiUrl: string =  "http://localhost:8080/api/device"
+  private apiUrl: string =  "http://localhost:8000/api/device"
 
   constructor(
     private http: HttpClient
