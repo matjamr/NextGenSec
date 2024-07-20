@@ -6,6 +6,8 @@ import com.next.gen.sec.model.Token;
 import com.next.gen.sec.model.UserModel;
 import com.sec.next.gen.userservice.service.internal.authorization.token.TokenContext;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.function.Function;
@@ -24,17 +26,31 @@ public class AuthorizationController {
     }
 
     @PostMapping("/token")
-    public Token createToken(@RequestBody(required = false) GoogleAuthorizedUser authorizedUser,
+    public ResponseEntity<Token> createToken(@RequestBody(required = false) GoogleAuthorizedUser authorizedUser,
                              @RequestHeader("source") RegistrationSource source,
                              @RequestHeader(value = "token", required = false) String token) {
-        return tokenGenerator.apply(new TokenContext()
+
+        var responseToken = tokenGenerator.apply(new TokenContext()
                 .setAuthorizedUser(authorizedUser)
                 .setSource(source)
                 .setToken(token));
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("access_token", responseToken.getAccessToken());
+        headers.add("refresh_token", responseToken.getRefreshToken());
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(responseToken);
     }
 
     @PostMapping("/refresh")
-    public Token refreshToken(@RequestHeader(value = "Authorization") String token) {
-        return refreshTokenBasedGenerator.apply(new TokenContext().setToken(token));
+    public ResponseEntity<Token> refreshToken(@RequestHeader(value = "Authorization") String token) {
+        var newToken = refreshTokenBasedGenerator.apply(new TokenContext().setToken(token));
+
+        return ResponseEntity.ok()
+                .header("access_token", newToken.getAccessToken())
+                .header("refresh_token", token)
+                .body(newToken);
     }
 }

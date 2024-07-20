@@ -3,22 +3,25 @@ spring:
     name: gateway
   cloud:
     gateway:
+      enabled: true
+      default-filters:
+        - SetCookie
+        - CustomTokenVerification
       routes:
         - id: auth-server
           predicates:
-            - Path=/api/security/verify
-          uri: localhost:8081
-        - id: main-service
+            - Path=/api/user/**
+          uri: ${external.auth-service.url}
+
+        - id: orchestrator-service
           predicates:
-            - Path=/api/places
-            - Path=/api/product
-            - Path=/api/device
-            - Path=/api/history
-            - Path=/api/method
-            - Path=/api/news
-            - Path=/api/notification
-            - Path=/api/user
-          uri: localhost:8080
+            - Path=/api/product/**,/api/device/**,/api/email/**,/api/history/**,/api/image/**,/api/news/**,/api/notification/**,/api/places/**
+
+          uri: ${external.service-orchestration.url}
+
+      discovery:
+        locator:
+          enabled: false
 
 server:
   port: 8000

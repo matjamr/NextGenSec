@@ -79,17 +79,17 @@ export class UserService {
   }
 
   oauth2Register(source: string, token: string): Observable<User> {
-    return this.http.post<User>(this.userApiUrl, null, {headers: {source: source, token: token}});
+    return this.http.post<User>(this.userApiUrl, null, {headers: {source: source, Authorization: 'Bearer ' + token}});
   }
 
   oauth2Login(source: string, token: string): Observable<Token> {
     return this.http.post<any>(
       this.securityApiUrl + "/token",
       {},
-      {headers: {source: source, token: token}},
+      {headers: {source: source, Authorization: 'Bearer ' + token}},
     ).pipe(
       tap(token => {
-        localStorage.setItem("token", token.token);
+        localStorage.setItem("token", token.accessToken);
         localStorage.setItem("source", source);
       })
     );
@@ -97,6 +97,10 @@ export class UserService {
 
   findAll() {
     return this.http.get<User[]>(this.userApiUrl, buildHeader())
+  }
+
+  refreshToken(): Observable<Token> {
+    return this.http.post<Token>(this.securityApiUrl + "/refresh", {}, buildHeader())
   }
 }
 

@@ -321,6 +321,8 @@ components:
           type: string
         refresh_token:
           type: string
+        internal_token:
+          type: string
 
     ModifyUserToPlaceModel:
       type: object

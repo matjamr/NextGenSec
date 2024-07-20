@@ -2,7 +2,7 @@
 const getHeaders = () => {
   return {
     headers: {
-      token: String(localStorage.getItem("token")),
+      Authorization: "Bearer " + String(localStorage.getItem("token")),
       source: String(localStorage.getItem("source"))
     }
   }
@@ -11,7 +11,7 @@ const getHeaders = () => {
 const getTokenHeader = () => {
   return {
     headers: {
-      token: String(localStorage.getItem("token"))
+      Authorization: "Bearer " + String(localStorage.getItem("token"))
     }
   }
 }
