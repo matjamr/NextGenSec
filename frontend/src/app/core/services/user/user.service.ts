@@ -10,8 +10,8 @@ import {Token} from "../../models/Token";
 })
 export class UserService {
 
-  private userApiUrl: string = "http://localhost:8081/api/user/servicing"
-  private securityApiUrl: string = "http://localhost:8081/api/user/security"
+  private userApiUrl: string = "http://localhost:8000/api/user/servicing"
+  private securityApiUrl: string = "http://localhost:8000/api/user/security"
 
   constructor(
     private http: HttpClient,
@@ -32,12 +32,7 @@ export class UserService {
     return this.http.post<any>(
       this.securityApiUrl + "/token",
       {email: email, password: password},
-      {headers: {source: "JWT"}},
-    ).pipe(
-      tap(token => {
-        localStorage.setItem("token", token.token);
-        localStorage.setItem("source", "JWT");
-      })
+      {headers: {source: "JWT"}, withCredentials: true}
     );
   }
 
@@ -109,6 +104,7 @@ export const buildHeader = () => {
     headers: {
       "token": String(localStorage.getItem("token")),
       "source": String(localStorage.getItem("source"))
-    }
+    },
+    withCredentials: true
   }
 }
