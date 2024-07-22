@@ -171,6 +171,13 @@ components:
           type: string
         url:
           type: string
+    ImageUploadAssoc:
+      type: object
+      properties:
+        name:
+          type: string
+        isSensitive:
+          type: boolean
     PlacesModel:
       type: object
       properties:

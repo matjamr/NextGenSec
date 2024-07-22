@@ -10,9 +10,9 @@ import com.sec.gen.next.serviceorchestrator.internal.image.repository.ImageRepos
 import com.sec.gen.next.serviceorchestrator.internal.image.service.ImageQueryService;
 import com.sec.gen.next.serviceorchestrator.internal.image.service.SaveImageService;
 import com.sec.gen.next.serviceorchestrator.internal.image.service.SimpleImageQueryService;
+import com.sec.gen.next.serviceorchestrator.internal.image.util.SaveServiceHelper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ import java.util.List;
 public class ImageBeansConfig {
 
     @Bean
-    public SaveService<List<ImageModel>, List<MultipartFile>> saveImageService(
+    public SaveService<List<ImageModel>, SaveServiceHelper> saveImageService(
             final ImageMapper imageMapper,
             final ImageRepository imageRepository
             ) {
