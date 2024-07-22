@@ -67,3 +67,7 @@ logging:
   level:
     org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
     org.springframework.security: DEBUG
+
+aes:
+  salt: ${AES_SALT}
+  password: ${AES_SECRET}

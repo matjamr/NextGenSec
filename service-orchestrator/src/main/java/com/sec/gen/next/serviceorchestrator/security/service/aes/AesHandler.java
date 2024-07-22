@@ -2,6 +2,7 @@ package com.sec.gen.next.serviceorchestrator.security.service.aes;
 
 import lombok.Getter;
 import lombok.SneakyThrows;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -23,10 +24,16 @@ public final class AesHandler implements CommandLineRunner {
     private static IvParameterSpec ivParameterSpec;
     private static SecretKey secret;
 
+    @Value("${aes.password}")
+    private String password;
+
+    @Value("${aes.salt}")
+    private String salt;
+
     @Override
     public void run(String... args) throws Exception {
         ivParameterSpec = getFixedIv();
-        secret = getKeyFromPassword("fixed-password", "fixed-salt");
+        secret = getKeyFromPassword(password, salt);
     }
 
     @SneakyThrows
@@ -55,8 +62,7 @@ public final class AesHandler implements CommandLineRunner {
 
         Cipher cipher = Cipher.getInstance(algorithm);
         cipher.init(Cipher.DECRYPT_MODE, key, iv);
-        byte[] plainText = cipher.doFinal(Base64.getDecoder().decode(cipherText));
-        return plainText;
+        return cipher.doFinal(Base64.getDecoder().decode(cipherText));
     }
 
     public static SecretKey getKeyFromPassword(String password, String salt)
@@ -64,8 +70,7 @@ public final class AesHandler implements CommandLineRunner {
 
         SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
         KeySpec spec = new PBEKeySpec(password.toCharArray(), salt.getBytes(), 65536, 256);
-        SecretKey secret = new SecretKeySpec(factory.generateSecret(spec).getEncoded(), "AES");
-        return secret;
+        return new SecretKeySpec(factory.generateSecret(spec).getEncoded(), "AES");
     }
 
     public static IvParameterSpec getFixedIv() {
