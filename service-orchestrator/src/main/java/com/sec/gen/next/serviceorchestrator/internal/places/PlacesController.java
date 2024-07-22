@@ -81,6 +81,7 @@ public class PlacesController {
     }
 
     @PutMapping
+    @Transactional
     public PlacesModel updatePlace(@RequestBody PlacesModel placesModel) {
         return crudPlaceService.update(placesModel);
     }

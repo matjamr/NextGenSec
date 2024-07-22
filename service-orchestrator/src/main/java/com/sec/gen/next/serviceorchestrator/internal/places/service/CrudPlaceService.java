@@ -137,6 +137,12 @@ public class CrudPlaceService implements CrudService<PlacesModel, PlacesModel, S
         Optional.ofNullable(placesModel.getAddress())
                 .ifPresent(places::setAddress);
 
+        Optional.ofNullable(placesModel.getWebhooks())
+                .ifPresent(webhooks -> {
+                    places.getWebhooks().clear();
+                    places.getWebhooks().addAll(webhooks);
+                });
+
         return places;
     }
 }

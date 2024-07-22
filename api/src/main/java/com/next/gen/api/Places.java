@@ -46,4 +46,7 @@ public class Places {
 
     @OneToMany(cascade = CascadeType.REMOVE)
     private List<Device> devices;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Webhook> webhooks;
 }

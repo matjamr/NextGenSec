@@ -11,12 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 import java.util.function.Function;
 
-@Mapper(uses = {UserPlaceAssignmentMapper.class, UserMapper.class, DeviceMapper.class, ProductMapper.class, ImageMapper.class})
+@Mapper(uses = {UserPlaceAssignmentMapper.class, UserMapper.class, DeviceMapper.class, ProductMapper.class, ImageMapper.class, WebhookMapper.class})
 public abstract class PlacesMapper {
 
     protected Function<List<PlacesModel>, List<PlacesModel>> viewershipBuilder;
 
     public abstract PlacesModel map(Places placeEntity);
+
     public abstract Places map(PlacesModel placesModel);
 
     public List<PlacesModel> map(List<Places> placesModels) {

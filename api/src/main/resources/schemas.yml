@@ -193,6 +193,10 @@ components:
           type: string
         address:
           $ref: '#/components/schemas/AddressModel'
+        webhooks:
+          type: array
+          items:
+            $ref: '#/components/schemas/WebhookModel'
         authorizedUsers:
           type: array
           items:
@@ -446,3 +450,22 @@ components:
         - "/topic/admin/entrances"
         - "/topic/broadcast"
         - "/topic/notification"
+
+    WebhookModel:
+      type: object
+      properties:
+        id:
+          type: string
+        url:
+          type: string
+        action:
+          $ref : '#/components/schemas/WebhookAction'
+        headers:
+          type: string
+          additionalProperties:
+            type: string
+
+    WebhookAction:
+      type: string
+      enum: [ "user-entered" ]
+      x-enum-varnames: [ USER_ENTERED ]
