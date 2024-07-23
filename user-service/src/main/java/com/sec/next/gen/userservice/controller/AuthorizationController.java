@@ -5,8 +5,6 @@ import com.next.gen.sec.model.RegistrationSource;
 import com.next.gen.sec.model.Token;
 import com.next.gen.sec.model.UserModel;
 import com.sec.next.gen.userservice.service.internal.authorization.token.TokenContext;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -30,8 +28,7 @@ public class AuthorizationController {
     @PostMapping("/token")
     public ResponseEntity<Token> createToken(@RequestBody(required = false) GoogleAuthorizedUser authorizedUser,
                              @RequestHeader("source") RegistrationSource source,
-                             @RequestHeader(value = "token", required = false) String token,
-                                             HttpServletResponse response) {
+                             @RequestHeader(value = "token", required = false) String token) {
 
         var responseToken = tokenGenerator.apply(new TokenContext()
                 .setAuthorizedUser(authorizedUser)
@@ -41,7 +38,7 @@ public class AuthorizationController {
         HttpHeaders headers = new HttpHeaders();
         headers.add("access_token", responseToken.getAccessToken());
         headers.add("refresh_token", responseToken.getRefreshToken());
-        response.addCookie(new Cookie());
+
         return ResponseEntity.ok()
                 .headers(headers)
                 .body(responseToken);
