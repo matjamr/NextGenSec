@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.1</version>
+        <version>3.1.4</version>
         <relativePath/>
     </parent>
     <groupId>com.sec.gen.next</groupId>
@@ -20,6 +20,7 @@
         <org.mapstruct.version>1.4.1.Final</org.mapstruct.version>
         <spring-cloud.version>2022.0.3</spring-cloud.version>
         <api.version>1.0</api.version>
+        <packaging>jar</packaging>
     </properties>
 
     <dependencies>
@@ -166,6 +167,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.0</version>
                 <configuration>
+                    <parameters>true</parameters>
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.projectlombok</groupId>
@@ -193,9 +195,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <mainClass>com.sec.gen.next.backend.BackendApplication</mainClass>
-                </configuration>
             </plugin>
         </plugins>
     </build>

@@ -17,5 +17,5 @@ public interface UserServiceClient {
     UserModel getAccessToken(@RequestHeader("Authorization") String token, @HeaderMap Map<String, String> headers);
 
     @GetMapping("/user/servicing/{email}")
-    UserModel getUserByEmail(@PathVariable String email);
+    UserModel getUserByEmail(@PathVariable("email") String email);
 }
