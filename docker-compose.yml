@@ -1,30 +1,21 @@
 version: '3.8'
 services:
-#  service-orchestrator:
-#    image: service-orchestrator
-#    build:
-#      context: ./service-orchestrator
-#      dockerfile: Dockerfile
-#    working_dir: /app
-#    volumes:
-#      - ./:/app
-#      - ./m2:/root/.m2
-#    ports:
-#      - "8080:8080"
-#      - "35729:35729"
-#      - "5005:5005"
-#    environment:
-#      - POSTGRES_HOST=${POSTGRES_HOST}
-#      - POSTGRES_USER=${POSTGRES_USER}
-#      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-#      - POSTGRES_DB=${POSTGRES_DB}
-#      - POSTGRES_URL=${POSTGRES_URL}
-#      - CLIENT_ID=${CLIENT_ID}
-#      - CLIENT_SECRET=${CLIENT_SECRET}
-#      - KAFKA_URL=${KAFKA_URL}
-#      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
-#      - SERVER_URL=${SERVER_URL}
-#    network_mode: host
+  service-orchestrator:
+    image: service-orchestrator
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      args:
+        API_SOURCE_DIR: api
+        APP_SOURCE_DIR: service-orchestrator
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+      - zookeeper
+      - kafka
+    env_file:
+      - envs/service-orchestration.env
   db:
     image: postgres:14.1-alpine
     restart: always
