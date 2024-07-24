@@ -4,16 +4,16 @@ from datetime import datetime
 
 @dataclass
 class Device:
-    id: int
+    id: str
     device_name: str
     installment_time: datetime
-    place_id: int
-    product_id: int
+    place_id: str
+    product_id: str
 
 
 @dataclass
 class VerificationData:
-    place_id: int
+    place_id: str
     assignment_role: str
-    user_id: int
+    user_id: str
     email: str

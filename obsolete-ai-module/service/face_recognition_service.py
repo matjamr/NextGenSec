@@ -1,7 +1,7 @@
 import cv2
 from flask import request, json, jsonify
 from kafka import KafkaProducer
-from model.models import Device
+from model.models import Device, VerificationData
 from repository.Repository import Repository
 from utils.utils import predict_on_loaded_model_from_request
 
@@ -53,10 +53,10 @@ class FaceRecognitionService(Service):
             print(e)
             return jsonify({"error": "invalid img sent"})
 
-        print(email)
         device: Device = self.repository.get_device_by_id(request.form["device_id"])
+        print(email)
         try:
-            ret: list[VerificationStage] = self.repository.get_place_verification_data_by_place_id(device.place_id, email)
+            ret: list[VerificationData] = self.repository.get_place_verification_data_by_place_id(device.place_id, email)
         except:
             print({"error": "invalid user"})
             return jsonify({"error": "invalid user"})

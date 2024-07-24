@@ -8,22 +8,22 @@ from service.service_class import Service
 
 app = Flask(__name__)
 
-
-
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:postgres@localhost:5432/postgres"
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:postgres@localhost:5432/db"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # db.init_app(app)
 
 userRepository: Repository = Repository(None)
 face_recognition_service: Service = FaceRecognitionService(userRepository)
 
+
 @app.before_request
 def before_request():
-    g.conn = psycopg2.connect(database="postgres",
-                             host="localhost",
-                             user="postgres",
-                             password="postgres",
-                             port="5432")
+    g.conn = psycopg2.connect(database="db",
+                              host="localhost",
+                              user="postgres",
+                              password="postgres",
+                              port="5432")
+
 
 @app.after_request
 def after_request(response):
@@ -32,6 +32,7 @@ def after_request(response):
         g.conn.close()
     return response
 
+
 @app.route('/verify', methods=['POST'])
 def process_data_route():
     try:
@@ -39,9 +40,10 @@ def process_data_route():
     except Exception as e:
         return jsonify({"error": str(e)})
 
+
 @app.route('/test', methods=['GET'])
 def find_all():
-    print(userRepository.get_all())
     return jsonify(userRepository.get_all())
 
-app.run()
+
+app.run(port=5000, debug=True)

@@ -1,3 +1,4 @@
+import json
 import os
 from training.models.Context import Context, RoboticAccount
 from training.service.ApiClient import APIClient
@@ -16,6 +17,7 @@ class StartupService(Service):
 
         context.robotic_account = RoboticAccount(os.getenv("ROBOTIC_EMAIL"),
                                                  os.getenv("ROBOTIC_PASSWORD"),
-                                                 response['token'])
+                                                 response['access_token'])
 
-        context.orchestration_service_api_client = APIClient(os.getenv("ORCHESTRATION_SERVICE_URL"), {"token": response['token']})
+        context.orchestration_service_api_client = APIClient(os.getenv("ORCHESTRATION_SERVICE_URL"), {"Authorization": 'Bearer ' + response['access_token']})
+

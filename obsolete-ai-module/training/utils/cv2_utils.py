@@ -11,18 +11,25 @@ def draw_text(img, text, x, y):
     cv2.putText(img, text, (x, y), cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
 
 
-def prepare_training_data(data_folder_path, dirs_to_be_processed):
+def prepare_training_data(data_folder_path, to_be_processed):
     dirs = os.listdir(data_folder_path)
-
+    emails = [x[0] for x in to_be_processed]
+    email_id_map = {}
     faces = []
     labels = []
+    i = 0
 
-    for i, dir_name in enumerate(dirs):
+    print(dirs)
+    print(to_be_processed)
 
-        if dir_name.startswith(".") or dir_name not in dirs_to_be_processed:
+    for dir_name in dirs:
+
+        if dir_name.startswith(".") or dir_name not in emails:
             continue
 
         label = i
+        email_id_map[i] = emails[i]
+        i += 1
 
         subject_dir_path = data_folder_path + "/" + dir_name
 
@@ -47,7 +54,7 @@ def prepare_training_data(data_folder_path, dirs_to_be_processed):
     cv2.waitKey(1)
     cv2.destroyAllWindows()
 
-    return faces, labels
+    return faces, labels, email_id_map
 
 
 def detect_face(img):

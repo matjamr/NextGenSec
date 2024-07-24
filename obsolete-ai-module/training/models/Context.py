@@ -4,6 +4,7 @@ from training.service.ApiClient import APIClient
 
 class Context:
     def __init__(self):
+        self.email_id_map = {}
         self.user_folders: dict[str: tuple[str, list[SensitiveData]]] = {}
         self.robotic_account: RoboticAccount
         self.user_service_api_client: APIClient

@@ -1,3 +1,6 @@
+import json
+import os
+
 import cv2
 import numpy as np
 
@@ -12,8 +15,7 @@ class TrainingService(Service):
         self.__repository = repository
 
     def do_service(self, context: Context):
-        items = [x[0] for x in context.to_be_processed]
-        faces, labels = prepare_training_data("training-data", items)
+        faces, labels, email_id_map = prepare_training_data("training-data", context.to_be_processed)
 
         if len(faces) == 0 or len(labels) == 0:
             return
@@ -24,3 +26,9 @@ class TrainingService(Service):
         face_recognizer = cv2.face.LBPHFaceRecognizer_create()
         face_recognizer.train(faces, np.array(labels))
         face_recognizer.save("saved-models/face_recognition_model.yml")
+        self.save_email_id_map(email_id_map, "saved-models/email-id-map.json")
+
+    def save_email_id_map(self, email_id_map, file_path):
+        os.makedirs(os.path.dirname(file_path), exist_ok=True)
+        with open(file_path, 'w') as f:
+            json.dump(email_id_map, f)

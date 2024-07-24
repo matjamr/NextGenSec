@@ -22,8 +22,6 @@ public class PaginationInterceptor implements HandlerInterceptor {
                 request.getParameter("order")
         ));
 
-        log.info("Pagination context set: {}", PaginationContext.getPagination());
-
         return true;
     }
 

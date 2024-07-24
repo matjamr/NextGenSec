@@ -11,7 +11,6 @@ class ValidationService(Service):
 
     def detect_and_extract_face(self, image_path):
         try:
-            # Detect and extract face using DeepFace
             face = DeepFace.detectFace(img_path=image_path, detector_backend='opencv')
             return face
         except Exception as e:
@@ -20,9 +19,7 @@ class ValidationService(Service):
 
     def extract_features(self, image_path):
         try:
-            # Extract features using DeepFace embeddings
             embeddings = DeepFace.represent(img_path=image_path, model_name='VGG-Face', enforce_detection=True)
-            # DeepFace.represent returns a list of dictionaries, we need the embedding part
             if embeddings:
                 return embeddings[0]["embedding"]
             return None
@@ -31,7 +28,6 @@ class ValidationService(Service):
             return None
 
     def compare_faces(self, features1, features2):
-        # Compare faces using cosine similarity
         try:
             result = DeepFace.verify(img1_path=features1, img2_path=features2, model_name='VGG-Face',
                                      distance_metric='cosine')
@@ -82,11 +78,12 @@ class ValidationService(Service):
                             should_be_processed = False
                             break
 
+            if len(faces) == 0 or len(faces[0]) == 0:
+                continue
+
             if should_be_processed:
-                print(email)
                 context.to_be_processed.append((email, faces[0][0].id))
             else:
-                print(email)
                 context.to_be_rejected.append((email, faces[0][0].id))
 
         # Remove duplicates

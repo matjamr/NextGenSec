@@ -14,9 +14,9 @@ class Repository:
             cursor.execute("SELECT * FROM places")
             return cursor.fetchall()
 
-    def get_device_by_id(self, id: int) -> Device:
+    def get_device_by_id(self, id: str) -> Device:
         with g.conn.cursor(cursor_factory=RealDictCursor) as cursor:
-            cursor.execute("SELECT * FROM device d WHERE d.id=" + str(id))
+            cursor.execute("SELECT * FROM device d WHERE d.id= \'" + id + "\'")
             ret = cursor.fetchone()
 
         return Device(**ret)
@@ -36,8 +36,8 @@ class Repository:
                         INNER JOIN user_place_assignment upa on pau.authorized_users_id = upa.id
                         INNER JOIN users u on upa.user_id = u.id
                     WHERE 
-                        p.id = """ + str(place_id) + """ AND u.email = \'""" + email + "\';"
-                           )
+                        p.id = \'""" + str(place_id) + """\' AND u.email = \'""" + email + "\';"
+                               )
 
                 ret = cursor.fetchall()
             return [VerificationData(**x) for x in ret]

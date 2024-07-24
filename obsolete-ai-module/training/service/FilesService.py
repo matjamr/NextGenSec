@@ -25,7 +25,6 @@ class FilesService(Service):
         print(sorted_data)
 
         grouped_data = {email: list(group) for email, group in groupby(sorted_data, key=lambda x: x.email)}
-        # print(grouped_data)
         user_folders: dict[str: tuple[str, list[SensitiveData]]] = {}
 
         for i, (user_email, data_list) in enumerate(grouped_data.items(), 1):
