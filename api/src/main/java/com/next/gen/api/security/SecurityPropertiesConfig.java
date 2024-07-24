@@ -1,4 +1,4 @@
-package com.sec.gen.next.serviceorchestrator.security.config;
+package com.next.gen.api.security;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

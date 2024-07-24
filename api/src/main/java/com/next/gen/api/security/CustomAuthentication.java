@@ -1,16 +1,10 @@
-package com.sec.gen.next.serviceorchestrator.api;
+package com.next.gen.api.security;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.next.gen.sec.model.GoogleAuthorizedUser;
-import com.next.gen.sec.model.PlacesModel;
 import com.next.gen.sec.model.RegistrationSource;
 import com.next.gen.sec.model.Role;
-import jakarta.ws.rs.NotSupportedException;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.security.authentication.jaas.JaasGrantedAuthority;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -38,12 +32,12 @@ public class CustomAuthentication implements Authentication {
 
     @Override
     public Object getCredentials() {
-        throw new NotSupportedException("Not supported");
+        throw new RuntimeException("Not supported");
     }
 
     @Override
     public Object getDetails() {
-        throw new NotSupportedException("Not supported");
+        throw new RuntimeException("Not supported");
     }
 
     @Override

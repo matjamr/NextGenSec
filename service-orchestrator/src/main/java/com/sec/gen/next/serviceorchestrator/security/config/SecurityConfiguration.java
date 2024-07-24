@@ -1,6 +1,7 @@
 package com.sec.gen.next.serviceorchestrator.security.config;
 
-import com.sec.gen.next.serviceorchestrator.security.service.CustomAuthenticationFilter;
+import com.next.gen.api.security.CustomAuthenticationFilter;
+import com.next.gen.api.security.SecurityPropertiesConfig;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +15,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.intercept.AuthorizationFilter;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-import org.springframework.web.filter.CommonsRequestLoggingFilter;
 
 
 @Configuration
@@ -45,27 +45,5 @@ public class SecurityConfiguration {
                 .addFilterAfter(customAuthenticationFilter, BasicAuthenticationFilter.class);
 
         return http.build();
-    }
-
-//    @Bean
-//    CorsConfigurationSource corsConfigurationSource() {
-//        CorsConfiguration configuration = new CorsConfiguration();
-//        configuration.setAllowedOrigins(Arrays.asList("*"));
-//        configuration.setAllowedMethods(Arrays.asList("*"));
-//        configuration.setAllowedHeaders(Arrays.asList("*"));
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", configuration);
-//        return source;
-//    }
-
-    @Bean
-    public CommonsRequestLoggingFilter logFilter() {
-        CommonsRequestLoggingFilter filter = new CommonsRequestLoggingFilter();
-        filter.setIncludeQueryString(true);
-        filter.setIncludePayload(true);
-        filter.setMaxPayloadLength(10000);
-        filter.setIncludeHeaders(true);
-        filter.setAfterMessagePrefix("REQUEST DATA: ");
-        return filter;
     }
 }

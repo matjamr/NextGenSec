@@ -1,11 +1,9 @@
 package com.sec.gen.next.serviceorchestrator.internal.places.mapper;
 
-import com.next.gen.sec.model.PlacesModel;
+import com.next.gen.api.security.CustomAuthentication;
 import com.next.gen.sec.model.Role;
-import com.sec.gen.next.serviceorchestrator.api.CustomAuthentication;
 import com.sec.gen.next.serviceorchestrator.common.templates.ViewershipBuilder;
 import lombok.RequiredArgsConstructor;
-import org.mapstruct.Mapper;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.Map;

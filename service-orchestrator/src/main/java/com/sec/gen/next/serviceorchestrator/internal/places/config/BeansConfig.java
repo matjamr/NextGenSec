@@ -1,11 +1,9 @@
 package com.sec.gen.next.serviceorchestrator.internal.places.config;
 
-import com.next.gen.api.Places;
+import com.next.gen.api.security.UserServiceClient;
 import com.next.gen.sec.model.*;
 import com.sec.gen.next.serviceorchestrator.common.templates.*;
-import com.sec.gen.next.serviceorchestrator.external.UserServiceClient;
 import com.sec.gen.next.serviceorchestrator.external.NominatimClient;
-import com.sec.gen.next.serviceorchestrator.external.kafka.KafkaProducer;
 import com.sec.gen.next.serviceorchestrator.internal.device.service.AddUserToPlaceService;
 import com.sec.gen.next.serviceorchestrator.internal.device.service.ChangeUserToPlaceService;
 import com.sec.gen.next.serviceorchestrator.internal.device.service.RemoveUserFromPlaceService;

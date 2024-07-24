@@ -1,9 +1,7 @@
 package com.sec.gen.next.serviceorchestrator.internal.email.service;
 
-import com.next.gen.api.Email;
-import com.next.gen.sec.model.MailModel;
+import com.next.gen.api.security.CustomAuthentication;
 import com.next.gen.sec.model.MailRetrieveResponse;
-import com.sec.gen.next.serviceorchestrator.api.CustomAuthentication;
 import com.sec.gen.next.serviceorchestrator.internal.email.mapper.EmailMapper;
 import com.sec.gen.next.serviceorchestrator.internal.email.repository.EmailRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,9 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 @Component
 @RequiredArgsConstructor

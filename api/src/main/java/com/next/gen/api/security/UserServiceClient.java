@@ -1,4 +1,4 @@
-package com.sec.gen.next.serviceorchestrator.external;
+package com.next.gen.api.security;
 
 import com.next.gen.sec.model.UserModel;
 import feign.HeaderMap;

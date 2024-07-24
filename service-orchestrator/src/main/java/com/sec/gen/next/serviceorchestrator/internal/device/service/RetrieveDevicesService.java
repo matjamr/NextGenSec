@@ -1,17 +1,16 @@
 package com.sec.gen.next.serviceorchestrator.internal.device.service;
+
+import com.next.gen.api.security.CustomAuthentication;
+import com.next.gen.sec.model.DeviceModel;
 import com.next.gen.sec.model.PlacesModel;
 import com.next.gen.sec.model.Role;
-import com.sec.gen.next.serviceorchestrator.api.CustomAuthentication;
 import com.sec.gen.next.serviceorchestrator.common.templates.QueryService;
-
-
-import com.next.gen.sec.model.DeviceModel;
 import com.sec.gen.next.serviceorchestrator.exception.ServiceException;
+import com.sec.gen.next.serviceorchestrator.internal.device.mapper.DeviceMapper;
+import com.sec.gen.next.serviceorchestrator.internal.device.repository.DeviceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-import com.sec.gen.next.serviceorchestrator.internal.device.mapper.DeviceMapper;
-import com.sec.gen.next.serviceorchestrator.internal.device.repository.DeviceRepository;
 
 import java.util.List;
 

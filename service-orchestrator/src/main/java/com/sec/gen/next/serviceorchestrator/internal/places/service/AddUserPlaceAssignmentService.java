@@ -1,11 +1,11 @@
 package com.sec.gen.next.serviceorchestrator.internal.places.service;
 
-import com.next.gen.sec.model.UserModel;
+import com.next.gen.api.security.UserServiceClient;
 import com.next.gen.sec.model.PlacesModel;
+import com.next.gen.sec.model.UserModel;
 import com.sec.gen.next.serviceorchestrator.common.templates.SaveService;
 import com.sec.gen.next.serviceorchestrator.common.templates.SimpleQueryService;
 import com.sec.gen.next.serviceorchestrator.common.templates.UpdateService;
-import com.sec.gen.next.serviceorchestrator.external.UserServiceClient;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;

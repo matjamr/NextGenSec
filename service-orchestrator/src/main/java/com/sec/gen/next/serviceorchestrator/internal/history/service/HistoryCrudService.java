@@ -1,12 +1,12 @@
 package com.sec.gen.next.serviceorchestrator.internal.history.service;
 
 import com.next.gen.api.custom.BetterOptional;
+import com.next.gen.api.security.UserServiceClient;
 import com.next.gen.sec.model.HistoryEntranceModel;
 import com.next.gen.sec.model.PlacesModel;
 import com.next.gen.sec.model.ProductModel;
 import com.sec.gen.next.serviceorchestrator.common.templates.CrudService;
 import com.sec.gen.next.serviceorchestrator.common.templates.SimpleQueryService;
-import com.sec.gen.next.serviceorchestrator.external.UserServiceClient;
 import com.sec.gen.next.serviceorchestrator.internal.history.mapper.HistoryMapper;
 import com.sec.gen.next.serviceorchestrator.internal.history.repository.HistoryRepository;
 import lombok.RequiredArgsConstructor;

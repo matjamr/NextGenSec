@@ -1,4 +1,4 @@
-package com.sec.gen.next.serviceorchestrator.security.service;
+package com.next.gen.api.security;
 
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;

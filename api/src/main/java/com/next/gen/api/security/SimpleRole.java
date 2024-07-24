@@ -1,8 +1,6 @@
-package com.sec.gen.next.serviceorchestrator.api;
+package com.next.gen.api.security;
 
 import com.next.gen.sec.model.Role;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 

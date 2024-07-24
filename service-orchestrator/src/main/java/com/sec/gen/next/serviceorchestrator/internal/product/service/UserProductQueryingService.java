@@ -2,10 +2,10 @@ package com.sec.gen.next.serviceorchestrator.internal.product.service;
 
 import com.next.gen.api.State;
 import com.next.gen.api.User;
+import com.next.gen.api.security.CustomAuthentication;
 import com.next.gen.sec.model.ImageModel;
 import com.next.gen.sec.model.Role;
 import com.next.gen.sec.model.SensitiveDataModel;
-import com.sec.gen.next.serviceorchestrator.api.CustomAuthentication;
 import com.sec.gen.next.serviceorchestrator.common.templates.ConditionalListQueryService;
 import com.sec.gen.next.serviceorchestrator.common.templates.CrudService;
 import com.sec.gen.next.serviceorchestrator.exception.Error;
