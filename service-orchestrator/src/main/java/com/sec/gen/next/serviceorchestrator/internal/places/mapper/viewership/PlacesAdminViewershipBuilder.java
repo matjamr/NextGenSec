@@ -14,7 +14,10 @@ public class PlacesAdminViewershipBuilder implements ViewershipBuilder<List<Plac
         CustomAuthentication user = (CustomAuthentication) SecurityContextHolder.getContext().getAuthentication();
 
         return obj.stream()
-                .filter(palce -> palce.getAuthorizedUsers().stream().anyMatch(u -> u.getUser().getEmail().equals(user.getEmail())))
+                .filter(place -> place.getAuthorizedUsers().stream()
+                        .anyMatch(u -> u.getUser().getEmail().equals(user.getEmail())) ||
+                        place.getOwner().getEmail().equals(user.getEmail())
+                )
                 .toList();
     }
 }

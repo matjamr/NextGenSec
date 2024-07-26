@@ -39,8 +39,8 @@ public class CustomTokenVerificationGatewayFilterFactory extends AbstractGateway
             Pair.of(Pattern.compile("/api/news"), GET),
             Pair.of(Pattern.compile("/api/image.*"), GET),
             Pair.of(Pattern.compile("/api-docs"), GET),
-            Pair.of(Pattern.compile("/api/user.*"), POST),
-            Pair.of(Pattern.compile("/api/user.*"), GET)
+            Pair.of(Pattern.compile("/api/user/security.*"), POST),
+            Pair.of(Pattern.compile("/api/user/security.*"), GET)
     );
 
     public CustomTokenVerificationGatewayFilterFactory(

@@ -1,18 +1,20 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnDestroy} from '@angular/core';
 import {UserService} from "../../services/user/user.service";
 import {User} from "../../models/User";
-import {Observable} from "rxjs";
+import {Observable, Subscription, tap} from "rxjs";
 import {select, Store} from "@ngrx/store";
 import {AppState} from "../../../app.state";
 import {VerifyUser} from "../../state/user/user.actions";
 import {SocialAuthService} from "@abacritt/angularx-social-login";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-profile-logo',
   templateUrl: './profile-logo.component.html',
   styleUrls: ['./profile-logo.component.scss']
 })
-export class ProfileLogoComponent {
+export class ProfileLogoComponent implements OnDestroy {
+  subscriptions: Subscription[] = [];
   isDropdownOpen = false;
   currentUser$: Observable<User>;
   @Input() path: string = "";
@@ -21,7 +23,8 @@ export class ProfileLogoComponent {
   constructor(
     private userService: UserService,
     private store: Store<AppState>,
-    private authService: SocialAuthService
+    private authService: SocialAuthService,
+    private router: Router
   ) {
     this.currentUser$ = store.pipe(select('user'))
     this.store.dispatch(VerifyUser())
@@ -34,10 +37,12 @@ export class ProfileLogoComponent {
   protected readonly close = close;
 
   logout() {
-    localStorage.removeItem("token");
-    localStorage.removeItem("source");
-    this.authService.signOut()
-    this.userService.logout();
+    this.subscriptions.push(
+      this.userService.logout()
+        .pipe(tap(() => this.authService.signOut()))
+        .subscribe(() =>
+          this.router.navigate(["/login"]))
+    );
   }
 
   settings() {
@@ -56,5 +61,9 @@ export class ProfileLogoComponent {
         console.log(user)
       }
     )
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(subs => subs.unsubscribe())
   }
 }

@@ -11,6 +11,7 @@ import {AppState} from "../../../../app.state";
 import {AsyncMenuManagementService} from "../../../../core/services/web-socket/async-menu-management.service";
 import {NotificationsService} from "../../../../core/services/notifications/notifications.service";
 import {VerifyUser} from "../../../../core/state/user/user.actions";
+import {UserService} from "../../../../core/services/user/user.service";
 
 @Component({
   selector: 'app-nav-wrapper',
@@ -32,6 +33,7 @@ export class NavWrapperComponent implements OnInit, OnDestroy {
               private notificationService: NotificationService,
               private webSocketService: WebSocketService,
               private store: Store<AppState>,
+              private userService: UserService,
               private asyncMenuManagementService: AsyncMenuManagementService,
               private notificationsService: NotificationsService) {
     this.user$ = store.pipe(select('user'));
@@ -84,11 +86,9 @@ export class NavWrapperComponent implements OnInit, OnDestroy {
   }
 
   logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('source');
-
-    this.router.navigate(['/login']).then(() => {
+    this.subscriptions.push(this.userService.logout().subscribe(() => {
       this.notificationService.success('Success', 'You have been logged out');
-    });
+      this.router.navigate(["/login"]);
+    }));
   }
 }

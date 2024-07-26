@@ -53,4 +53,12 @@ public class AuthorizationController {
                 .header("refresh_token", token)
                 .body(newToken);
     }
+
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout() {
+        return ResponseEntity.ok()
+                .header("access_token", "REMOVED")
+                .header("refresh_token", "REMOVED")
+                .build();
+    }
 }

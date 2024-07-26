@@ -39,7 +39,7 @@ public class UserController {
     }
 
     @GetMapping
-    public List<UserModel> getUsers(@RequestHeader(value = "token") String token) {
-        return retrieveUsersClient.apply(token);
+    public List<UserModel> getUsers(@RequestHeader(value = "Authorization") String token) {
+        return retrieveUsersClient.apply(token.replaceFirst("Bearer ", ""));
     }
 }

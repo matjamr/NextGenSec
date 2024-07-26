@@ -10,7 +10,6 @@ import {getTokenHeader} from "../utils";
 export class PlaceService {
 
   private apiUrl: string = "http://localhost:8000/api/places"
-  private apiAdminUrl: string = "http://localhost:8000/api/places/admin"
 
   constructor(
     private http: HttpClient

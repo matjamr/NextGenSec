@@ -13,6 +13,7 @@ import com.sec.gen.next.serviceorchestrator.internal.places.repository.PlacesRep
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ObjectUtils;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -60,6 +61,9 @@ public class CrudPlaceService implements CrudService<PlacesModel, PlacesModel, S
         Double lon = placesRequestContext.getLongitude();
         Double range = placesRequestContext.getKmRange();
 
+        if(ObjectUtils.anyNull(lat, lon, range)) {
+            return placesMapper.map(placesRepository.findAll());
+        }
 
         return placesMapper.map(placesRepository.findAll())
                 .stream()

@@ -75,6 +75,12 @@
 			<groupId>com.next.gen.api</groupId>
 			<artifactId>api</artifactId>
 			<version>${api.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-security</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>me.paulschwarz</groupId>

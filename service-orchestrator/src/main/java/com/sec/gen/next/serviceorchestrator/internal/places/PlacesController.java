@@ -48,11 +48,13 @@ public class PlacesController {
         this.addProductToPlaceService = addProductToPlaceService;
     }
 
+    @Transactional
     @PostMapping
     public PlacesModel addPlace(@RequestBody PlacesModel placesModel) {
         return crudPlaceService.save(placesModel);
     }
 
+    @Transactional
     @GetMapping
     public List<PlacesModel> getPlaces() {
         return crudPlaceService.findAll();
@@ -64,17 +66,20 @@ public class PlacesController {
         return crudPlaceService.findBy(placeName);
     }
 
+
     @Transactional
     @GetMapping("/user")
     public List<PlacesModel> getPlace() {
         return placesForUserSupplier.get();
     }
 
+    @Transactional
     @PostMapping("/product")
     public PlacesModel addProductToPlace(@RequestBody ModifyProductsPlaceModel modifyUserToPlaceModel) {
         return addProductToPlaceService.update(modifyUserToPlaceModel);
     }
 
+    @Transactional
     @DeleteMapping
     public List<String> deletePlace(@RequestBody List<String> placesIds) {
         return placesDeleteService.delete(placesIds);
@@ -86,16 +91,19 @@ public class PlacesController {
         return crudPlaceService.update(placesModel);
     }
 
+    @Transactional
     @PutMapping("/admin")
     public PlacesModel changeUserToPlace(@RequestBody ModifyUserToPlaceModel modifyUserToPlaceModel) {
         return changeUserToPlaceService.update(modifyUserToPlaceModel);
     }
 
+    @Transactional
     @PostMapping("/admin")
     public PlacesModel addUserToPlace(@RequestBody ModifyUserToPlaceModel modifyUserToPlaceModel) {
         return addUserToPlaceService.update(modifyUserToPlaceModel);
     }
 
+    @Transactional
     @DeleteMapping("/admin")
     public PlacesModel removeUserFromPlace(@RequestBody ModifyUserToPlaceModel modifyUserToPlaceModel) {
         return removeUserFromPlaceService.update(modifyUserToPlaceModel);

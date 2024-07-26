@@ -8,11 +8,6 @@ export function roleGuardFactory(role: string): CanActivateFn {
   return (route, state) => {
     const router: Router = inject(Router);
 
-    if(localStorage.getItem('token') === null) {
-      router.navigate(['/unauthorized']);
-      return false;
-    }
-
     return inject(UserService).verifyUser().pipe(map((user: User) => {
       if(user.role !== role) {
         router.navigate(['/unauthorized']);

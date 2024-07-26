@@ -110,9 +110,9 @@ public class BeansConfig {
         String kmRange = httpServletRequest.getParameter("kmRange");
 
         return new PlacesRequestContext()
-                .setLongitude(longitude != null ? Double.valueOf(longitude) : Double.valueOf(-1111))
-                .setLatitude(latitude != null ? Double.valueOf(latitude) : Double.valueOf(-1111))
-                .setKmRange(kmRange != null ? Double.valueOf(kmRange) : Double.valueOf(-1111));
+                .setLongitude(longitude != null ? Double.valueOf(longitude) : null)
+                .setLatitude(latitude != null ? Double.valueOf(latitude) : null)
+                .setKmRange(kmRange != null ? Double.valueOf(kmRange) : null);
     }
 
     @Bean

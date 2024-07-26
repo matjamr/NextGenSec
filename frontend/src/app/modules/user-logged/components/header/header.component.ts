@@ -11,6 +11,7 @@ import {filter, Observable, Subscription} from "rxjs";
 import {User} from "../../../../core/models/User";
 import {AsyncMenuManagementService} from "../../../../core/services/web-socket/async-menu-management.service";
 import {NotificationsService} from "../../../../core/services/notifications/notifications.service";
+import {UserService} from "../../../../core/services/user/user.service";
 
 @Component({
   selector: 'app-user-header',
@@ -31,6 +32,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
               private notificationService: NotificationService,
               private webSocketService: WebSocketService,
               private store: Store<AppState>,
+              private userService: UserService,
               private asyncMenuManagementService: AsyncMenuManagementService,
               private notificationsService: NotificationsService) {
     this.user$ = store.pipe(select('user'));
@@ -79,10 +81,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('source');
-    this.router.navigate(['/login']).then(() => {
-      this.notificationService.success('Success', 'You have been logged out');
-    });
+    this.subscriptions.push(
+      this.userService.logout()
+        .subscribe(() =>
+          this.router.navigate(["/login"]))
+    );
   }
 }

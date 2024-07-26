@@ -4,6 +4,7 @@ import {Observable, Subscription, tap} from "rxjs";
 import {User} from "../../models/User";
 import {Router} from "@angular/router";
 import {Token} from "../../models/Token";
+import {SocialAuthService} from "@abacritt/angularx-social-login";
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,8 @@ export class UserService {
 
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private authService: SocialAuthService
   ) {
   }
 
@@ -61,16 +63,17 @@ export class UserService {
   }
 
   update(user: any) {
-    return this.http.post<User>(this.userApiUrl + "/update", user, buildHeader())
+    return this.http.post<User>(this.userApiUrl + "/update", user, {withCredentials: true})
   }
 
 
   addUser(user: any) {
-    return this.http.post<User>(this.userApiUrl, user, buildHeader())
+    return this.http.post<User>(this.userApiUrl, user, {withCredentials: true})
   }
 
-  logout() {
-    this.router.navigate(["/login"])
+  logout(): Observable<any> {
+    return this.http.post(this.securityApiUrl + "/logout", {}, {withCredentials: true})
+        .pipe(tap(() => this.authService.signOut()));
   }
 
   oauth2Register(source: string, token: string): Observable<User> {
@@ -81,28 +84,22 @@ export class UserService {
     return this.http.post<any>(
       this.securityApiUrl + "/token",
       {},
-      {headers: {source: source, Authorization: 'Bearer ' + token}},
-    ).pipe(
-      tap(token => {
-        localStorage.setItem("token", token.accessToken);
-        localStorage.setItem("source", source);
-      })
+      {headers: {source: source, token: token}, withCredentials: true}
     );
   }
 
   findAll() {
-    return this.http.get<User[]>(this.userApiUrl, buildHeader())
+    return this.http.get<User[]>(this.userApiUrl, {withCredentials: true})
   }
 
   refreshToken(): Observable<Token> {
-    return this.http.post<Token>(this.securityApiUrl + "/refresh", {}, buildHeader())
+    return this.http.post<Token>(this.securityApiUrl + "/refresh", {}, {withCredentials: true})
   }
 }
 
 export const buildHeader = () => {
   return {
     headers: {
-      "token": String(localStorage.getItem("token")),
       "source": String(localStorage.getItem("source"))
     },
     withCredentials: true

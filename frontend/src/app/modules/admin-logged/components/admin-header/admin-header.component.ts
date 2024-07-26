@@ -11,6 +11,7 @@ import {select, Store} from "@ngrx/store";
 import {VerifyUser} from "../../../../core/state/user/user.actions";
 import {AppState} from "../../../../app.state";
 import {WebSocketService} from "../../../../core/services/web-socket/web-socket.service";
+import {UserService} from "../../../../core/services/user/user.service";
 
 @Component({
   selector: 'app-admin-header',
@@ -31,6 +32,7 @@ export class AdminHeaderComponent implements OnInit, OnDestroy{
               private notificationService: NotificationService,
               private notificationsService: NotificationsService,
               private store: Store<AppState>,
+              private userService: UserService,
               private asyncMenuManagementService: AsyncMenuManagementService,
               private webSocketService: WebSocketService) {
     this.user$ = store.pipe(select('user'));
@@ -77,11 +79,10 @@ export class AdminHeaderComponent implements OnInit, OnDestroy{
   }
 
   logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('source');
-    this.router.navigate(['/login']).then(() => {
+    this.subscriptions.push(this.userService.logout().subscribe(() => {
       this.notificationService.success('Success', 'You have been logged out');
-    });
+      this.router.navigate(["/login"]);
+    }));
   }
 
   ngOnDestroy(): void {

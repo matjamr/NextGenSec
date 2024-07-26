@@ -7,7 +7,7 @@ import {Router} from "@angular/router";
 @Injectable({
   providedIn: 'root'
 })
-export class GoogleAuthService implements OnInit, OnDestroy{
+export class GoogleAuthService implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = []
 
@@ -15,13 +15,12 @@ export class GoogleAuthService implements OnInit, OnDestroy{
   }
 
   auth(user: SocialUser, isLogin: boolean) {
-    console.log(user);
     if(isLogin) {
-      this.userService.oauth2Login("GOOGLE", user.idToken).subscribe(res => {
+      this.subscriptions.push(this.userService.oauth2Login("GOOGLE", user.idToken).subscribe(res => {
         this.router.navigate(["/finishLogin"])
-      });
+      }));
     } else {
-      this.userService.oauth2Register("GOOGLE", user.idToken).subscribe(res => console.log(res));
+      this.subscriptions.push(this.userService.oauth2Register("GOOGLE", user.idToken).subscribe(res => console.log(res)));
     }
   }
 
