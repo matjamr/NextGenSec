@@ -1,45 +1,15 @@
-<app-user-header>
+<app-header>
   <app-passwd-change></app-passwd-change>
-  <div class="flex-row gap-lg-5 p-lg-5">
-    <mat-card class="flex-fill full-height p-3">
-      <mat-card-header class="mb-3">
-        <mat-card-title class="light-theme-text">Recent Activities</mat-card-title>
-      </mat-card-header>
 
-      <mat-card-content>
-        <mat-card>
-          <mat-card-content class="light-theme-bg text-white justify-content-center">
-            <span>/ikona/ 14.09.2024 My fitness place ul.Krakowska krakow</span>
-            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="more options menu">
-              <mat-icon>more_horz</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu">
-              <button mat-menu-item>
-                <mat-icon>error</mat-icon>
-                <span>report</span>
-              </button>
-              <button mat-menu-item>
-                <mat-icon>history</mat-icon>
-                <span>show more</span>
-              </button>
-            </mat-menu>
-
-          </mat-card-content>
-        </mat-card>
-      </mat-card-content>
-    </mat-card>
-
-    <mat-card class="flex-fill p-3">
-      <mat-card-header class="mb-3">
-        <mat-card-title class="light-theme-text">Notifications</mat-card-title>
-      </mat-card-header>
-
-      <mat-card>
-        <mat-card-content class="light-theme-bg text-white">
-          <p>Your account has been added...</p>
-        </mat-card-content>
-      </mat-card>
-
-    </mat-card>
-  </div>
-</app-user-header>
+  <mat-grid-list cols="2" rowHeight="2:1">
+    <mat-grid-tile colspan="2">
+      <app-latest-entrances></app-latest-entrances>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <app-entrances-graph></app-entrances-graph>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <app-notification-tile></app-notification-tile>
+    </mat-grid-tile>
+  </mat-grid-list>
+</app-header>

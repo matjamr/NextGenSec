@@ -2,7 +2,6 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterModule, Routes} from "@angular/router";
 import {WelcomeScreenComponent} from './pages/welcome-screen/welcome-screen.component';
-import {HeaderComponent} from './components/header/header.component';
 import {CoreModule} from "../../core/core.module";
 import {DataComponent} from './pages/data/data.component';
 import {HistoryComponent} from './pages/history/history.component';
@@ -43,6 +42,31 @@ import {
   PlaceShortcutImageComponent
 } from './pages/places/find-place/place-shortcut-image/place-shortcut-image.component';
 import {FlexModule} from "@angular/flex-layout";
+import {LatestEntrancesComponent} from './pages/welcome-screen/components/latest-entrances/latest-entrances.component';
+import {EntrancesGraphComponent} from './pages/welcome-screen/components/entrances-graph/entrances-graph.component';
+import {MatGridList, MatGridTile} from "@angular/material/grid-list";
+import {
+  MatCell,
+  MatCellDef,
+  MatColumnDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
+  MatHeaderRow,
+  MatHeaderRowDef,
+  MatRow,
+  MatRowDef,
+  MatTable
+} from "@angular/material/table";
+import {
+  NotificationTileComponent
+} from './pages/welcome-screen/components/notification-tile/notification-tile.component';
+import {
+  NguCarousel,
+  NguCarouselDefDirective,
+  NguCarouselNextDirective,
+  NguCarouselPrevDirective,
+  NguItemComponent
+} from "@ngu/carousel";
 
 const routes: Routes = [
   {
@@ -82,7 +106,6 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     WelcomeScreenComponent,
-    HeaderComponent,
     DataComponent,
     HistoryComponent,
     PlacesComponent,
@@ -92,7 +115,10 @@ const routes: Routes = [
     FindPlaceComponent,
     AddMethodDialogComponent,
     PlacesViewUserComponent,
-    PlaceShortcutImageComponent
+    PlaceShortcutImageComponent,
+    LatestEntrancesComponent,
+    EntrancesGraphComponent,
+    NotificationTileComponent
   ],
   exports: [
     UserChatComponent
@@ -147,7 +173,24 @@ const routes: Routes = [
     MatPaginator,
     MatCardSubtitle,
     MatChipListbox,
-    FlexModule
+    FlexModule,
+    MatGridList,
+    MatGridTile,
+    MatTable,
+    MatHeaderCell,
+    MatCell,
+    MatColumnDef,
+    MatHeaderRow,
+    MatRow,
+    MatHeaderRowDef,
+    MatRowDef,
+    MatHeaderCellDef,
+    MatCellDef,
+    NguCarousel,
+    NguItemComponent,
+    NguCarouselDefDirective,
+    NguCarouselNextDirective,
+    NguCarouselPrevDirective
   ]
 })
 export class UserLoggedModule {

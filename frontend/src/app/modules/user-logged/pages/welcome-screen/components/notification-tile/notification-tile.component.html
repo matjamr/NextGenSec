@@ -1,0 +1,16 @@
+<mat-card class="carousel-container">
+  <mat-card-title class="carousel-title">Notifications</mat-card-title>
+  <mat-card-content>
+    <ngu-carousel #myCarousel [inputs]="carouselConfig" [dataSource]="notifications">
+      <div *nguCarouselDef="let item;" class="item">
+        <div class="tile">{{ item.message }}</div>
+      </div>
+      <button NguCarouselPrev class="carousel-button prev" mat-icon-button>
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+      <button NguCarouselNext class="carousel-button next" mat-icon-button>
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+    </ngu-carousel>
+  </mat-card-content>
+</mat-card>

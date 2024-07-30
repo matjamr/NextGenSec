@@ -11,7 +11,6 @@ import {AdminSettingsComponent} from './pages/settings/admin-settings/admin-sett
 import {CredentialsComponent} from './pages/settings/credentials/credentials.component';
 import {LogsComponent} from './pages/settings/logs/logs.component';
 import {SystemAlertComponent} from './pages/settings/system-alert/system-alert.component';
-import {NavWrapperComponent} from './components/nav-wrapper/nav-wrapper.component';
 import {RouterModule, Routes} from "@angular/router";
 import {CoreModule} from "../../core/core.module";
 import {
@@ -162,7 +161,6 @@ const routes: Routes = [
     CredentialsComponent,
     LogsComponent,
     SystemAlertComponent,
-    NavWrapperComponent,
     DevicesComponent,
     AddProductDialogComponent,
     ProductImagesDialogComponent,

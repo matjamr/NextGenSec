@@ -29,6 +29,7 @@
     "@ng-bootstrap/ng-bootstrap": "^15.1.2",
     "@ngrx/effects": "17.1.0",
     "@ngrx/store": "17.1.0",
+    "@ngu/carousel": "^18.0.0-rc.1",
     "@popperjs/core": "^2.11.6",
     "@types/fuzzy-search": "^2.1.5",
     "@types/leaflet": "^1.9.12",

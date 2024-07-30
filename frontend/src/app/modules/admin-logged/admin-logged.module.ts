@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {HeaderComponent} from './components/header/header.component';
 import {HomeComponent} from './pages/home/home.component';
 import {UsersComponent} from './pages/administrative/users/users.component';
 import {MonitorComponent} from './pages/administrative/monitor/monitor.component';
@@ -10,7 +9,6 @@ import {CoreModule} from "../../core/core.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {EmailComponent} from './pages/social/email/email.component';
 import {ChatComponent} from './pages/social/chat/chat.component';
-import {AdminHeaderComponent} from './components/admin-header/admin-header.component';
 import {
   MatAccordion,
   MatExpansionPanel,
@@ -73,14 +71,12 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    HeaderComponent,
     HomeComponent,
     UsersComponent,
     MonitorComponent,
     PlaceInfoComponent,
     EmailComponent,
     ChatComponent,
-    AdminHeaderComponent,
     ProductsComponent,
     DevicesComponent,
     AdminSettingComponent

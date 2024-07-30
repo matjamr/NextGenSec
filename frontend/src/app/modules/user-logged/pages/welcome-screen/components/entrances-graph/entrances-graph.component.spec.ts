@@ -1,18 +1,18 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {AdminHeaderComponent} from './admin-header.component';
+import {EntrancesGraphComponent} from './entrances-graph.component';
 
-describe('AdminHeaderComponent', () => {
-  let component: AdminHeaderComponent;
-  let fixture: ComponentFixture<AdminHeaderComponent>;
+describe('EntrancesGraphComponent', () => {
+  let component: EntrancesGraphComponent;
+  let fixture: ComponentFixture<EntrancesGraphComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AdminHeaderComponent]
+      declarations: [EntrancesGraphComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AdminHeaderComponent);
+    fixture = TestBed.createComponent(EntrancesGraphComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
