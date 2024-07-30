@@ -3,7 +3,7 @@ import {ActiveNavBar} from "../../../../core/models/ActiveNavBar";
 import {NavigationEnd, Router} from "@angular/router";
 
 @Component({
-  selector: 'app-header',
+  selector: 'app-no-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })

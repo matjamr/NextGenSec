@@ -1,8 +1,4 @@
-import os
 import psycopg2
-import requests
-import shutil
-from itertools import groupby
 from psycopg2.extras import RealDictCursor
 from training.models.SensitiveData import SensitiveData
 from training.repository.queries import sensitive_data_query

@@ -18,7 +18,6 @@ export class HomeComponent implements OnInit {
     this.notificationService.getNotifications().subscribe(
       (notifications: Notification[]) => {
         this.notifications = notifications;
-        console.log(notifications)
       }
     );
   }

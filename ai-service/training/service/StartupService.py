@@ -1,4 +1,3 @@
-import json
 import os
 from training.models.Context import Context, RoboticAccount
 from training.service.ApiClient import APIClient

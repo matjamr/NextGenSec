@@ -1,8 +1,6 @@
 import os
-from itertools import groupby
-
 import requests
-
+from itertools import groupby
 from training.models.Context import Context
 from training.models.SensitiveData import SensitiveData
 from training.repository.Repository import Repository

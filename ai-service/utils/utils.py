@@ -1,6 +1,5 @@
-import json
-
 import cv2
+import json
 import numpy
 
 

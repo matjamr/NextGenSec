@@ -4,7 +4,6 @@ import {BrowserModule} from '@angular/platform-browser';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {UnloggedModule} from "./modules/unlogged/unlogged.module";
-import {HeaderComponent} from './core/components/header/header.component';
 import {FormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {CoreModule} from "./core/core.module";
@@ -27,8 +26,7 @@ import {DeviceEffects} from "./core/state/device/device.effects";
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HeaderComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +44,7 @@ import {DeviceEffects} from "./core/state/device/device.effects";
     }),
     EffectsModule.forRoot([ProductsEffects, UserEffects, PlaceEffects, DeviceEffects]),
     NgbModule,
-    SharedModule
+    SharedModule,
   ],
   providers: [{
     provide: 'SocialAuthServiceConfig',
@@ -66,9 +64,6 @@ import {DeviceEffects} from "./core/state/device/device.effects";
     } as SocialAuthServiceConfig,
   },
     {provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true},
-  ],
-  exports: [
-    HeaderComponent
   ],
   bootstrap: [AppComponent]
 })

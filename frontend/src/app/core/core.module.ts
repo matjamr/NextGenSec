@@ -70,6 +70,16 @@ import {MatSlider, MatSliderThumb} from "@angular/material/slider";
 import {CustomListComponent} from './components/custom-list/custom-list.component';
 import {CustomListItemComponent} from './components/custom-list/custom-list-item/custom-list-item.component';
 import {FlexModule} from "@angular/flex-layout";
+import {
+  MatAccordion,
+  MatExpansionPanel,
+  MatExpansionPanelHeader,
+  MatExpansionPanelTitle
+} from "@angular/material/expansion";
+import {RouterLink, RouterLinkActive} from "@angular/router";
+import {HeaderItemComponent} from './components/header/header-item/header-item.component';
+import {HeaderComponent} from "./components/header/header.component";
+import {MatSidenav, MatSidenavContainer, MatSidenavContent} from "@angular/material/sidenav";
 
 
 @NgModule({
@@ -97,7 +107,9 @@ import {FlexModule} from "@angular/flex-layout";
     ImageDetailsComponent,
     FilterDialogComponent,
     CustomListComponent,
-    CustomListItemComponent
+    CustomListItemComponent,
+    HeaderItemComponent,
+    HeaderComponent
   ],
   imports: [
     CommonModule,
@@ -152,7 +164,30 @@ import {FlexModule} from "@angular/flex-layout";
     MatCardTitle,
     MatSlider,
     MatSliderThumb,
-    FlexModule
+    FlexModule,
+    MatExpansionPanelTitle,
+    RouterLink,
+    MatAccordion,
+    MatExpansionPanel,
+    MatExpansionPanelHeader,
+    RouterLinkActive,
+    SharedModule,
+    MatButton,
+    MatIcon,
+    MatIconButton,
+    MatMenu,
+    MatMenuItem,
+    MatToolbar,
+    MatMenuTrigger,
+    MatAccordion,
+    MatExpansionPanel,
+    MatExpansionPanelHeader,
+    MatExpansionPanelTitle,
+    MatListItem,
+    MatNavList,
+    MatSidenav,
+    MatSidenavContainer,
+    MatSidenavContent
   ],
   exports: [
     LogoTitleComponent,
@@ -168,6 +203,7 @@ import {FlexModule} from "@angular/flex-layout";
     ScrollableMenuComponent,
     ProductCardComponent,
     CustomListComponent,
+    HeaderComponent
   ]
 })
 export class CoreModule { }

@@ -1,9 +1,7 @@
-import json
-import os
-
 import cv2
+import json
 import numpy as np
-
+import os
 from training.models.Context import Context
 from training.service.Service import Service
 from training.utils.cv2_utils import prepare_training_data

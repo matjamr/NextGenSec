@@ -1,0 +1,32 @@
+<ng-container *ngIf="headerItem !== undefined">
+  <a mat-list-item routerLink="{{headerItem.link}}" *ngIf="headerItem.children === undefined">
+    <mat-panel-title class="entry">
+      <mat-icon>{{headerItem.icon}}</mat-icon>
+      <span *ngIf="!isCollapsed">{{headerItem.text}}</span>
+    </mat-panel-title>
+  </a>
+
+  <mat-accordion mat-list-item *ngIf="headerItem.children !== undefined && headerItem.children!.length > 0">
+    <mat-expansion-panel style="box-shadow: none">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>{{headerItem.icon}}</mat-icon>
+          <span *ngIf="!isCollapsed">{{headerItem.text}}</span>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <a
+        *ngFor="let item of headerItem.children || []"
+        mat-list-item
+        routerLink="{{item.link}}"
+        class="sidenav__list-item list-sub-item"
+        [routerLinkActive]="['active']"
+      >
+        <div class="align-center">
+          <mat-icon>{{item.icon}}</mat-icon>
+          <span *ngIf="!isCollapsed">{{item.text}}</span>
+        </div>
+      </a>
+    </mat-expansion-panel>
+  </mat-accordion>
+</ng-container>
