@@ -10,7 +10,6 @@ import com.sec.gen.next.chatservice.service.executors.SendToAdminEntrance;
 import com.sec.gen.next.chatservice.service.executors.SingleMessageSender;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -55,8 +54,8 @@ public class ApplicationConfig {
 
     @Bean
     public BiConsumer<User, KafkaChatServiceModel> simpleMessageSender(
-            final SimpMessagingTemplate simpMessagingTemplate
+//            final SimpMessagingTemplate simpMessagingTemplate
     ) {
-        return new SingleMessageSender(simpMessagingTemplate);
+        return new SingleMessageSender(null);
     }
 }

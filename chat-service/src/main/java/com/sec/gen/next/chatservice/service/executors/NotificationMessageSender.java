@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.function.BiConsumer;
 
-import static com.sec.gen.next.chatservice.controller.WebSocketEventListener.connectedUsers;
 
 @RequiredArgsConstructor
 public class NotificationMessageSender implements MessageExecutor {
@@ -22,8 +21,8 @@ public class NotificationMessageSender implements MessageExecutor {
 
     @Override
     public void execute(KafkaChatServiceModel kafkaChatServiceModel) {
-        connectedUsers.keySet().stream()
-                .filter(pair -> kafkaChatServiceModel.getCommonRecipients().contains(pair.getSecond()))
-                .forEach(pair -> simpleMessageSender.accept(connectedUsers.get(pair), kafkaChatServiceModel));
+//        connectedUsers.keySet().stream()
+//                .filter(pair -> kafkaChatServiceModel.getCommonRecipients().contains(pair.getSecond()))
+//                .forEach(pair -> simpleMessageSender.accept(connectedUsers.get(pair), kafkaChatServiceModel));
     }
 }

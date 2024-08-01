@@ -13,26 +13,27 @@ declare var Stomp: any;
   providedIn: 'root'
 })
 export class WebSocketService {
-  private stompClient: any;
-  private serverUrl = 'http://localhost:2137/chat';
+  private serverUrl = 'ws://localhost:2137/app';
+  private webSocket: WebSocket | undefined;
 
   constructor() {
+    this.webSocket = new WebSocket(this.serverUrl);
   }
 
   initializeWebSocketConnection(user: User, topicWithOnReceiveSetupList: WebSocketConnectionSetup[]): void {
-    const ws = new SockJS(this.serverUrl);
-    this.stompClient = Stomp.over(ws);
-    this.stompClient.debug = () => {}
-    const that = this;
-    this.stompClient.connect({"user": user.email}, function (frame: any) {
+    this.webSocket!.onmessage = (event) => {
+      console.log(JSON.parse(event.data));
+    };
 
-      topicWithOnReceiveSetupList.forEach((topicWithOnReceiveSetup: WebSocketConnectionSetup) => {
-        that.stompClient.subscribe(topicWithOnReceiveSetup.topic, (message: any) => {
-          if (message.body) {
-            topicWithOnReceiveSetup.onReceive(JSON.parse(message.body));
-          }
-        });
-      });
+    // this.stompClient.connect({"user": user.email}, function (frame: any) {
+    //
+    //   topicWithOnReceiveSetupList.forEach((topicWithOnReceiveSetup: WebSocketConnectionSetup) => {
+    //     that.stompClient.subscribe(topicWithOnReceiveSetup.topic, (message: any) => {
+    //       if (message.body) {
+    //         topicWithOnReceiveSetup.onReceive(JSON.parse(message.body));
+    //       }
+    //     });
+    //   });
 
       // that.stompClient.subscribe(`/user/topic/admin/entrances`, (message: any) => {
       //   if (message.body) {
@@ -45,20 +46,20 @@ export class WebSocketService {
       //     onReceive(JSON.parse(message.body));
       //   }
       // });
-    });
+    // });
   }
 
   sendMessage(message: any): void {
-    this.stompClient.send('/app/message', {}, message);
+    // this.stompClient.send('/app/message', {}, message);
   }
 
   onDisconnect(): void {
-    if (this.stompClient !== null) {
-      this.stompClient.unsubscribe();
-      this.stompClient.disconnect(() => {
-        console.log('Disconnected');
-      });
-    }
+    // if (this.stompClient !== null) {
+    //   this.stompClient.unsubscribe();
+    //   this.stompClient.disconnect(() => {
+    //     console.log('Disconnected');
+    //   });
+    // }
   }
 }
 
