@@ -384,6 +384,8 @@ components:
           type: string
         content:
           type: string
+        from:
+          $ref: '#/components/schemas/UserModel'
         to:
           type: array
           items:

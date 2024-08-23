@@ -17,11 +17,6 @@ import java.util.function.Function;
 public class FeignConfig {
 
     @Bean
-    public ErrorDecoder errorDecoder() {
-        return new SimpleErrorDecoder();
-    }
-
-    @Bean
     public Client feignClient() {
         return new ApacheHttpClient(HttpClientBuilder.create()
                 .setRedirectStrategy(new LaxRedirectStrategy())

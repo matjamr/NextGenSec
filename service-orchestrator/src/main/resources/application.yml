@@ -70,3 +70,8 @@ aes:
 internal:
   logging:
     enabled: true
+
+feign:
+  circuitbreaker:
+    alphanumeric-ids:
+      enabled: true

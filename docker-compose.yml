@@ -1,21 +1,21 @@
 version: '3.8'
 services:
-  service-orchestrator:
-    image: service-orchestrator
-    build:
-      context: ./
-      dockerfile: Dockerfile
-      args:
-        API_SOURCE_DIR: api
-        APP_SOURCE_DIR: service-orchestrator
-    ports:
-      - "8080:8080"
-    depends_on:
-      - db
-      - zookeeper
-      - kafka
-    env_file:
-      - envs/service-orchestration.env
+#  service-orchestrator:
+#    image: service-orchestrator
+#    build:
+#      context: ./
+#      dockerfile: Dockerfile
+#      args:
+#        API_SOURCE_DIR: api
+#        APP_SOURCE_DIR: service-orchestrator
+#    ports:
+#      - "8080:8080"
+#    depends_on:
+#      - db
+#      - zookeeper
+#      - kafka
+#    env_file:
+#      - envs/service-orchestration.env
   db:
     image: postgres:14.1-alpine
     restart: always
@@ -41,7 +41,6 @@ services:
       KAFKA_LISTENERS: INSIDE://0.0.0.0:9093,OUTSIDE://0.0.0.0:9092
       KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_CREATE_TOPICS: "test:1:1"
     depends_on:
       - zookeeper
   cache:
