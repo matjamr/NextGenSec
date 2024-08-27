@@ -13,8 +13,8 @@ import org.thymeleaf.context.Context;
 import java.util.Map;
 import java.util.Optional;
 
-@Component
-@org.springframework.kafka.annotation.KafkaListener(topics = "outbound", groupId = "1")
+//@Component
+//@org.springframework.kafka.annotation.KafkaListener(topics = "outbound", groupId = "1")
 @RequiredArgsConstructor
 @Slf4j
 public class KafkaListener {
@@ -24,8 +24,8 @@ public class KafkaListener {
     private final Map<String, String> templateDispatcher;
 
     @SneakyThrows
-    @KafkaHandler
-    public void objectHandler(String message) throws JsonProcessingException {
+//    @KafkaHandler
+    public void objectHandler(String message) {
         KafkaReceiveModel kafkaReceiveModel = objectMapper.readValue(message, KafkaReceiveModel.class);
         log.info("Received message: {}", message);
 

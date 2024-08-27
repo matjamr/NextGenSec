@@ -467,6 +467,16 @@ components:
           additionalProperties:
             type: string
 
+    OutboundKafkaWebhookModel:
+      type: object
+      properties:
+        details:
+          $ref: '#/components/schemas/WebhookModel'
+        additionalContent:
+          type: string
+          additionalProperties:
+            type: object
+
     WebhookAction:
       type: string
       enum: [ "user-entered" ]
