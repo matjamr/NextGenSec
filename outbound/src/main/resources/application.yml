@@ -1,0 +1,29 @@
+spring:
+  mail:
+    username: MAIL_USERNAME
+
+    host: smtp.gmail.com
+    port: 587
+    password: MAIL_PASSWORD
+  properties:
+    mail:
+      smtp:
+        auth: true
+        starttls:
+          required: true
+        transport:
+          protocol: smtp
+        ssl:
+          enable: true
+
+  kafka:
+    bootstrapServers: localhost:9092
+    groupId: 1
+    consumer:
+      webhook:
+        topic: webhook
+        auto-offset-reset: earliest
+        enable-auto-commit: false
+
+server:
+  port: 6666

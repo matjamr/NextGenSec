@@ -1,23 +1,26 @@
 package com.sec.gen.next.outbound.service;
 
-import com.sec.gen.next.outbound.model.ConsumerSample;
+import com.next.gen.sec.model.OutboundKafkaWebhookModel;
 import jakarta.annotation.PostConstruct;
-import jakarta.annotation.PreDestroy;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.springframework.boot.CommandLineRunner;
+import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.reactive.ReactiveKafkaConsumerTemplate;
-import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 @Slf4j
 @RequiredArgsConstructor
 public class ReactiveConsumerService<T> {
 
     private final ReactiveKafkaConsumerTemplate<String, T> reactiveKafkaConsumer;
+    private final Function<T, Mono<ResponseEntity<Void>>> onReceiveActionProcessor;
 
-    private Flux<T> consume() {
+    private Flux<Void> consume() {
         return reactiveKafkaConsumer
                 .receiveAutoAck()
                 .doOnNext(consumerRecord -> log.info("received key={}, value={} from topic={}, offset={}",
@@ -27,7 +30,7 @@ public class ReactiveConsumerService<T> {
                         consumerRecord.offset())
                 )
                 .map(ConsumerRecord::value)
-                .doOnNext(message -> log.info("successfully consumed {}", message))
+                .flatMap(ret -> onReceiveActionProcessor.apply(ret).then())
                 .doOnError(throwable -> log.error("something bad happened while consuming : {}", throwable.getMessage()));
     }
 
