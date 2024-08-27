@@ -11,14 +11,13 @@ import org.springframework.kafka.core.reactive.ReactiveKafkaConsumerTemplate;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 
-@Service
 @Slf4j
 @RequiredArgsConstructor
-public class ReactiveConsumerService {
+public class ReactiveConsumerService<T> {
 
-    private final ReactiveKafkaConsumerTemplate<String, ConsumerSample> reactiveKafkaConsumer;
+    private final ReactiveKafkaConsumerTemplate<String, T> reactiveKafkaConsumer;
 
-    private Flux<ConsumerSample> consume() {
+    private Flux<T> consume() {
         return reactiveKafkaConsumer
                 .receiveAutoAck()
                 .doOnNext(consumerRecord -> log.info("received key={}, value={} from topic={}, offset={}",
@@ -28,7 +27,7 @@ public class ReactiveConsumerService {
                         consumerRecord.offset())
                 )
                 .map(ConsumerRecord::value)
-                .doOnNext(message -> log.info("successfully consumed {}={}", ConsumerSample.class.getSimpleName(), message))
+                .doOnNext(message -> log.info("successfully consumed {}", message))
                 .doOnError(throwable -> log.error("something bad happened while consuming : {}", throwable.getMessage()));
     }
 
@@ -37,8 +36,4 @@ public class ReactiveConsumerService {
         consume().subscribe();
     }
 
-//    @Override
-//    public void run(String... args) throws Exception {
-//        consume().subscribe();
-//    }
 }

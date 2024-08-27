@@ -1,6 +1,8 @@
 package com.sec.gen.next.outbound.config;
 
+import com.next.gen.sec.model.OutboundKafkaWebhookModel;
 import com.sec.gen.next.outbound.model.ConsumerSample;
+import com.sec.gen.next.outbound.service.ReactiveConsumerService;
 import io.micrometer.observation.ObservationRegistry;
 import org.apache.kafka.clients.admin.AdminClientConfig;
 import org.apache.kafka.clients.admin.NewTopic;
@@ -38,26 +40,7 @@ public class ReactiveKafkaConsumerConfig {
         return new NewTopic("webhook", 1, (short) 1);
     }
 
-//    @Bean
-//    public <K,V> KafkaReceiver<K,V> kafkaReceiver(ObservationRegistry registry, KafkaProperties kafkaProperties) {
-//        var properties = kafkaProperties.buildConsumerProperties();
-//        properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
-//
-//        var receiverOptions = ReceiverOptions.<K, V>create(properties)
-//                .withObservation(registry, new KafkaReceiverObservation.DefaultKafkaReceiverObservationConvention())
-//                .subscription(Collections.singletonList("webhook"));
-//
-//        return KafkaReceiver.create(receiverOptions);
-//    }
-
-    @Bean
-    public JsonMessageConverter jsonMessageConverter() {
-        return new ByteArrayJsonMessageConverter();
-    }
-
-    @Bean
-    public ReceiverOptions<String, ConsumerSample> kafkaReceiver() {
-
+    private <T> ReceiverOptions<String, T> kafkaReceiver(Class<T> clazz, String topic) {
         Map<String, Object> config = new HashMap<>();
         config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         config.put(ConsumerConfig.GROUP_ID_CONFIG, "1");
@@ -65,15 +48,25 @@ public class ReactiveKafkaConsumerConfig {
         config.put(JsonDeserializer.TRUSTED_PACKAGES,"*");
         config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
-        config.put(JsonDeserializer.VALUE_DEFAULT_TYPE, "com.sec.gen.next.outbound.model.ConsumerSample");
+        config.put(JsonDeserializer.VALUE_DEFAULT_TYPE, clazz.getName());
 
-        ReceiverOptions<String, ConsumerSample> basicReceiverOptions = ReceiverOptions.create(config);
-        return basicReceiverOptions.subscription(Collections.singletonList("webhook"));
+        ReceiverOptions<String, T> basicReceiverOptions = ReceiverOptions.create(config);
+        return basicReceiverOptions.subscription(Collections.singletonList(topic));
+    }
 
+    private <T> ReactiveKafkaConsumerTemplate<String, T> reactiveKafkaConsumer(Class<T> clazz, String topic) {
+        return new ReactiveKafkaConsumerTemplate<>(kafkaReceiver(clazz, topic));
     }
 
     @Bean
-    public ReactiveKafkaConsumerTemplate<String, ConsumerSample> reactiveKafkaConsumer(ReceiverOptions<String, ConsumerSample> kafkaReceiver) {
-        return new ReactiveKafkaConsumerTemplate<>(kafkaReceiver);
+    public ReactiveKafkaConsumerTemplate<String, OutboundKafkaWebhookModel> webhookConsumerTemplate() {
+        return reactiveKafkaConsumer(OutboundKafkaWebhookModel.class, "webhook");
+    }
+
+    @Bean
+    ReactiveConsumerService<OutboundKafkaWebhookModel> reactiveConsumerService(
+            ReactiveKafkaConsumerTemplate<String, OutboundKafkaWebhookModel> webhookConsumerTemplate
+    ) {
+        return new ReactiveConsumerService<>(webhookConsumerTemplate);
     }
 }
