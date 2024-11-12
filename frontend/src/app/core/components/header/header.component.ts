@@ -21,6 +21,155 @@ export type Header = {
 
 const userHeaders: Header[] = [
   {
+    role: 'system',
+    items: [
+      {
+        text: 'Welcome',
+        icon: 'home',
+        link: '/system/welcome'
+      },
+      {
+        text: 'Administrative',
+        icon: 'settings',
+        children: [
+          {
+            text: 'Places',
+            icon: 'place',
+            link: '/system/administrative/places'
+          },
+          {
+            text: 'Users',
+            icon: 'group',
+            link: '/system/administrative/users'
+          },
+          {
+            text: 'Place Details',
+            icon: 'info',
+            link: '/system/administrative/places/:placeName'
+          },
+          {
+            text: 'Place Admins',
+            icon: 'admin_panel_settings',
+            link: '/system/administrative/places/:placeName/admins'
+          },
+          {
+            text: 'Place Devices',
+            icon: 'devices',
+            link: '/system/administrative/places/:placeName/devices'
+          },
+          {
+            text: 'Products',
+            icon: 'production_quantity_limits',
+            link: '/system/administrative/products'
+          },
+          {
+            text: 'Devices',
+            icon: 'devices_other',
+            link: '/system/administrative/devices'
+          },
+        ]
+      },
+      {
+        text: 'Settings',
+        icon: 'settings_applications',
+        children: [
+          {
+            text: 'Admin Settings',
+            icon: 'manage_accounts',
+            link: '/system/settings/admin'
+          },
+          {
+            text: 'Credentials',
+            icon: 'vpn_key',
+            link: '/system/settings/credentials'
+          },
+          {
+            text: 'Logs',
+            icon: 'list_alt',
+            link: '/system/settings/logs'
+          },
+          {
+            text: 'Restrictions',
+            icon: 'block',
+            link: '/system/settings/restrictions'
+          },
+          {
+            text: 'Alerts',
+            icon: 'notifications',
+            link: '/system/settings/alerts'
+          }
+        ]
+      },
+      {
+        text: 'Social',
+        icon: 'forum',
+        children: [
+          {
+            text: 'Chat',
+            icon: 'chat',
+            link: '/system/social/chat'
+          },
+          {
+            text: 'Email',
+            icon: 'email',
+            link: '/system/social/email'
+          }
+        ]
+      }
+    ]
+  },
+  {
+    role: 'user',
+    items: [
+      {
+        text: 'Home',
+        icon: 'home',
+        link: '/user/home'
+      },
+      {
+        text: 'Data',
+        icon: 'bar_chart',
+        link: '/user/data'
+      },
+      {
+        text: 'History',
+        icon: 'history',
+        link: '/user/history'
+      },
+      {
+        text: 'Places',
+        icon: 'place',
+        children: [
+          {
+            text: 'All Places',
+            icon: 'location_city',
+            link: '/user/places'
+          },
+          {
+            text: 'Find Place',
+            icon: 'search',
+            link: '/user/places/find'
+          },
+          {
+            text: 'View Place',
+            icon: 'visibility',
+            link: '/user/places/view'
+          }
+        ]
+      },
+      {
+        text: 'Chat',
+        icon: 'chat',
+        link: '/user/chat'
+      },
+      {
+        text: 'Settings',
+        icon: 'settings',
+        link: '/user/settings'
+      }
+    ]
+  },
+  {
     role: 'admin',
     items: [
       {
@@ -87,7 +236,7 @@ const userHeaders: Header[] = [
         ]
       }
     ]
-  }
+  },
 ]
 
 @Component({
