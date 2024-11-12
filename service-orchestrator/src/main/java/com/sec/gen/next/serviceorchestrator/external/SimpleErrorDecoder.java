@@ -5,18 +5,24 @@ import com.sec.gen.next.serviceorchestrator.exception.Error;
 import com.sec.gen.next.serviceorchestrator.exception.ServiceException;
 import feign.Response;
 import feign.codec.ErrorDecoder;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 
+@Component
+@RequiredArgsConstructor
 public class SimpleErrorDecoder implements ErrorDecoder {
 
+    private final ObjectMapper objectMapper;
     private final ErrorDecoder errorDecoder = new Default();
 
     @Override
     public Exception decode(String methodKey, Response response) {
-        Map error = null;
+        Map error;
+
         try (InputStream bodyIs = response.body().asInputStream()) {
             ObjectMapper mapper = new ObjectMapper();
             error = mapper.readValue(bodyIs, Map.class);

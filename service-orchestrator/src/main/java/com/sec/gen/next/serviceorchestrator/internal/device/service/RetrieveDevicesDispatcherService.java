@@ -19,7 +19,7 @@ import static com.sec.gen.next.serviceorchestrator.exception.Error.UNAUTHORIZED;
 
 @Component
 @RequiredArgsConstructor
-public class RetrieveDevicesService implements QueryService<DeviceModel, String> {
+public class RetrieveDevicesDispatcherService implements QueryService<DeviceModel, String> {
 
     private final QueryService<PlacesModel, String> placesQueryService;
     private final DeviceRepository deviceRepository;

@@ -384,6 +384,8 @@ components:
           type: string
         content:
           type: string
+        from:
+          $ref: '#/components/schemas/UserModel'
         to:
           type: array
           items:
@@ -464,6 +466,16 @@ components:
           type: string
           additionalProperties:
             type: string
+
+    OutboundKafkaWebhookModel:
+      type: object
+      properties:
+        details:
+          $ref: '#/components/schemas/WebhookModel'
+        additionalContent:
+          type: string
+          additionalProperties:
+            type: object
 
     WebhookAction:
       type: string
